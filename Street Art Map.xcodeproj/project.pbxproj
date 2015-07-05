@@ -1,0 +1,433 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		FAEB528D1B48D14700D9361E /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = FAEB528C1B48D14700D9361E /* main.m */; };
+		FAEB52901B48D14700D9361E /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = FAEB528F1B48D14700D9361E /* AppDelegate.m */; };
+		FAEB52931B48D14700D9361E /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FAEB52921B48D14700D9361E /* ViewController.m */; };
+		FAEB52961B48D14700D9361E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FAEB52941B48D14700D9361E /* Main.storyboard */; };
+		FAEB52981B48D14700D9361E /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FAEB52971B48D14700D9361E /* Images.xcassets */; };
+		FAEB529B1B48D14700D9361E /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = FAEB52991B48D14700D9361E /* LaunchScreen.xib */; };
+		FAEB52A71B48D14900D9361E /* Street_Art_MapTests.m in Sources */ = {isa = PBXBuildFile; fileRef = FAEB52A61B48D14900D9361E /* Street_Art_MapTests.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		FAEB52A11B48D14900D9361E /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = FAEB527F1B48D14700D9361E /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = FAEB52861B48D14700D9361E;
+			remoteInfo = "Street Art Map";
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		FAEB52871B48D14700D9361E /* Street Art Map.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Street Art Map.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		FAEB528B1B48D14700D9361E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		FAEB528C1B48D14700D9361E /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		FAEB528E1B48D14700D9361E /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		FAEB528F1B48D14700D9361E /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		FAEB52911B48D14700D9361E /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
+		FAEB52921B48D14700D9361E /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
+		FAEB52951B48D14700D9361E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		FAEB52971B48D14700D9361E /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		FAEB529A1B48D14700D9361E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
+		FAEB52A01B48D14900D9361E /* Street Art MapTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Street Art MapTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		FAEB52A51B48D14900D9361E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		FAEB52A61B48D14900D9361E /* Street_Art_MapTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Street_Art_MapTests.m; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		FAEB52841B48D14700D9361E /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		FAEB529D1B48D14900D9361E /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		FAEB527E1B48D14700D9361E = {
+			isa = PBXGroup;
+			children = (
+				FAEB52891B48D14700D9361E /* Street Art Map */,
+				FAEB52A31B48D14900D9361E /* Street Art MapTests */,
+				FAEB52881B48D14700D9361E /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		FAEB52881B48D14700D9361E /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				FAEB52871B48D14700D9361E /* Street Art Map.app */,
+				FAEB52A01B48D14900D9361E /* Street Art MapTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		FAEB52891B48D14700D9361E /* Street Art Map */ = {
+			isa = PBXGroup;
+			children = (
+				FAEB528E1B48D14700D9361E /* AppDelegate.h */,
+				FAEB528F1B48D14700D9361E /* AppDelegate.m */,
+				FAEB52911B48D14700D9361E /* ViewController.h */,
+				FAEB52921B48D14700D9361E /* ViewController.m */,
+				FAEB52941B48D14700D9361E /* Main.storyboard */,
+				FAEB52971B48D14700D9361E /* Images.xcassets */,
+				FAEB52991B48D14700D9361E /* LaunchScreen.xib */,
+				FAEB528A1B48D14700D9361E /* Supporting Files */,
+			);
+			path = "Street Art Map";
+			sourceTree = "<group>";
+		};
+		FAEB528A1B48D14700D9361E /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				FAEB528B1B48D14700D9361E /* Info.plist */,
+				FAEB528C1B48D14700D9361E /* main.m */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		FAEB52A31B48D14900D9361E /* Street Art MapTests */ = {
+			isa = PBXGroup;
+			children = (
+				FAEB52A61B48D14900D9361E /* Street_Art_MapTests.m */,
+				FAEB52A41B48D14900D9361E /* Supporting Files */,
+			);
+			path = "Street Art MapTests";
+			sourceTree = "<group>";
+		};
+		FAEB52A41B48D14900D9361E /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				FAEB52A51B48D14900D9361E /* Info.plist */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		FAEB52861B48D14700D9361E /* Street Art Map */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = FAEB52AA1B48D14900D9361E /* Build configuration list for PBXNativeTarget "Street Art Map" */;
+			buildPhases = (
+				FAEB52831B48D14700D9361E /* Sources */,
+				FAEB52841B48D14700D9361E /* Frameworks */,
+				FAEB52851B48D14700D9361E /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "Street Art Map";
+			productName = "Street Art Map";
+			productReference = FAEB52871B48D14700D9361E /* Street Art Map.app */;
+			productType = "com.apple.product-type.application";
+		};
+		FAEB529F1B48D14900D9361E /* Street Art MapTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = FAEB52AD1B48D14900D9361E /* Build configuration list for PBXNativeTarget "Street Art MapTests" */;
+			buildPhases = (
+				FAEB529C1B48D14900D9361E /* Sources */,
+				FAEB529D1B48D14900D9361E /* Frameworks */,
+				FAEB529E1B48D14900D9361E /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				FAEB52A21B48D14900D9361E /* PBXTargetDependency */,
+			);
+			name = "Street Art MapTests";
+			productName = "Street Art MapTests";
+			productReference = FAEB52A01B48D14900D9361E /* Street Art MapTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		FAEB527F1B48D14700D9361E /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0630;
+				ORGANIZATIONNAME = "Alex Smith";
+				TargetAttributes = {
+					FAEB52861B48D14700D9361E = {
+						CreatedOnToolsVersion = 6.3.1;
+					};
+					FAEB529F1B48D14900D9361E = {
+						CreatedOnToolsVersion = 6.3.1;
+						TestTargetID = FAEB52861B48D14700D9361E;
+					};
+				};
+			};
+			buildConfigurationList = FAEB52821B48D14700D9361E /* Build configuration list for PBXProject "Street Art Map" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = FAEB527E1B48D14700D9361E;
+			productRefGroup = FAEB52881B48D14700D9361E /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				FAEB52861B48D14700D9361E /* Street Art Map */,
+				FAEB529F1B48D14900D9361E /* Street Art MapTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		FAEB52851B48D14700D9361E /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				FAEB52961B48D14700D9361E /* Main.storyboard in Resources */,
+				FAEB529B1B48D14700D9361E /* LaunchScreen.xib in Resources */,
+				FAEB52981B48D14700D9361E /* Images.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		FAEB529E1B48D14900D9361E /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		FAEB52831B48D14700D9361E /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				FAEB52931B48D14700D9361E /* ViewController.m in Sources */,
+				FAEB52901B48D14700D9361E /* AppDelegate.m in Sources */,
+				FAEB528D1B48D14700D9361E /* main.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		FAEB529C1B48D14900D9361E /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				FAEB52A71B48D14900D9361E /* Street_Art_MapTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		FAEB52A21B48D14900D9361E /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = FAEB52861B48D14700D9361E /* Street Art Map */;
+			targetProxy = FAEB52A11B48D14900D9361E /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		FAEB52941B48D14700D9361E /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				FAEB52951B48D14700D9361E /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		FAEB52991B48D14700D9361E /* LaunchScreen.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				FAEB529A1B48D14700D9361E /* Base */,
+			);
+			name = LaunchScreen.xib;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		FAEB52A81B48D14900D9361E /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.3;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		FAEB52A91B48D14900D9361E /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.3;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		FAEB52AB1B48D14900D9361E /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				INFOPLIST_FILE = "Street Art Map/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		FAEB52AC1B48D14900D9361E /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				INFOPLIST_FILE = "Street Art Map/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+		FAEB52AE1B48D14900D9361E /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+				);
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = "Street Art MapTests/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Street Art Map.app/Street Art Map";
+			};
+			name = Debug;
+		};
+		FAEB52AF1B48D14900D9361E /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = "Street Art MapTests/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Street Art Map.app/Street Art Map";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		FAEB52821B48D14700D9361E /* Build configuration list for PBXProject "Street Art Map" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				FAEB52A81B48D14900D9361E /* Debug */,
+				FAEB52A91B48D14900D9361E /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		FAEB52AA1B48D14900D9361E /* Build configuration list for PBXNativeTarget "Street Art Map" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				FAEB52AB1B48D14900D9361E /* Debug */,
+				FAEB52AC1B48D14900D9361E /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		FAEB52AD1B48D14900D9361E /* Build configuration list for PBXNativeTarget "Street Art MapTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				FAEB52AE1B48D14900D9361E /* Debug */,
+				FAEB52AF1B48D14900D9361E /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = FAEB527F1B48D14700D9361E /* Project object */;
+}
