@@ -14,6 +14,7 @@
 		FAEB52981B48D14700D9361E /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FAEB52971B48D14700D9361E /* Images.xcassets */; };
 		FAEB529B1B48D14700D9361E /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = FAEB52991B48D14700D9361E /* LaunchScreen.xib */; };
 		FAEB52A71B48D14900D9361E /* Street_Art_MapTests.m in Sources */ = {isa = PBXBuildFile; fileRef = FAEB52A61B48D14900D9361E /* Street_Art_MapTests.m */; };
+		FAEB52B41B48D1C500D9361E /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = FAEB52B21B48D1C500D9361E /* Model.xcdatamodeld */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -40,6 +41,7 @@
 		FAEB52A01B48D14900D9361E /* Street Art MapTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Street Art MapTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		FAEB52A51B48D14900D9361E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		FAEB52A61B48D14900D9361E /* Street_Art_MapTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Street_Art_MapTests.m; sourceTree = "<group>"; };
+		FAEB52B31B48D1C500D9361E /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model.xcdatamodel; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -81,11 +83,9 @@
 		FAEB52891B48D14700D9361E /* Street Art Map */ = {
 			isa = PBXGroup;
 			children = (
-				FAEB528E1B48D14700D9361E /* AppDelegate.h */,
-				FAEB528F1B48D14700D9361E /* AppDelegate.m */,
-				FAEB52911B48D14700D9361E /* ViewController.h */,
-				FAEB52921B48D14700D9361E /* ViewController.m */,
-				FAEB52941B48D14700D9361E /* Main.storyboard */,
+				FAEB52B11B48D17F00D9361E /* Controller */,
+				FAEB52B01B48D17500D9361E /* View */,
+				FAEB52B51B48D1CE00D9361E /* Model */,
 				FAEB52971B48D14700D9361E /* Images.xcassets */,
 				FAEB52991B48D14700D9361E /* LaunchScreen.xib */,
 				FAEB528A1B48D14700D9361E /* Supporting Files */,
@@ -117,6 +117,33 @@
 				FAEB52A51B48D14900D9361E /* Info.plist */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		FAEB52B01B48D17500D9361E /* View */ = {
+			isa = PBXGroup;
+			children = (
+				FAEB52941B48D14700D9361E /* Main.storyboard */,
+			);
+			name = View;
+			sourceTree = "<group>";
+		};
+		FAEB52B11B48D17F00D9361E /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				FAEB528E1B48D14700D9361E /* AppDelegate.h */,
+				FAEB528F1B48D14700D9361E /* AppDelegate.m */,
+				FAEB52911B48D14700D9361E /* ViewController.h */,
+				FAEB52921B48D14700D9361E /* ViewController.m */,
+			);
+			name = Controller;
+			sourceTree = "<group>";
+		};
+		FAEB52B51B48D1CE00D9361E /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				FAEB52B21B48D1C500D9361E /* Model.xcdatamodeld */,
+			);
+			name = Model;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -222,6 +249,7 @@
 				FAEB52931B48D14700D9361E /* ViewController.m in Sources */,
 				FAEB52901B48D14700D9361E /* AppDelegate.m in Sources */,
 				FAEB528D1B48D14700D9361E /* main.m in Sources */,
+				FAEB52B41B48D1C500D9361E /* Model.xcdatamodeld in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -428,6 +456,19 @@
 			defaultConfigurationIsVisible = 0;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		FAEB52B21B48D1C500D9361E /* Model.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				FAEB52B31B48D1C500D9361E /* Model.xcdatamodel */,
+			);
+			currentVersion = FAEB52B31B48D1C500D9361E /* Model.xcdatamodel */;
+			path = Model.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = FAEB527F1B48D14700D9361E /* Project object */;
 }
