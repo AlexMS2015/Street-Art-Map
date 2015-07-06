@@ -7,16 +7,76 @@
 //
 
 #import "AppDelegate.h"
+#import "DatabaseAvailability.h"
 
 @interface AppDelegate ()
+
+@property (strong, nonatomic) NSManagedObjectContext *databaseContext;
 
 @end
 
 @implementation AppDelegate
 
+#pragma mark - Properties
+
+-(void)setDatabaseContext:(NSManagedObjectContext *)databaseContext
+{
+    _databaseContext = databaseContext;
+    
+    NSDictionary *userInfo = @{DATABASE_CONTEXT : self.databaseContext};
+    [[NSNotificationCenter defaultCenter] postNotificationName:DATABASE_AVAILABLE_NOTIFICATION
+                                                        object:self
+                                                      userInfo:userInfo];
+}
+
+#pragma mark - Application Life Cycle
+
+-(void)startUsingDocument:(UIManagedDocument *)document
+{
+    if (document.documentState == UIDocumentStateNormal) {
+        self.databaseContext = document.managedObjectContext;
+    }
+}
+
+-(void)getManagedDocument
+{
+    // get a managed object context for the core data database
+    NSFileManager *fileManager = [NSFileManager defaultManager];
+    NSURL *documentsDirectory = [[fileManager URLsForDirectory:NSDocumentDirectory
+                                                     inDomains:NSUserDomainMask] firstObject];
+    
+    NSString *documentName = @"MyDatabase";
+    NSURL *url = [documentsDirectory URLByAppendingPathComponent:documentName];
+    
+    UIManagedDocument *document = [[UIManagedDocument alloc] initWithFileURL:url]; // this just creates the UIManagedDocument instance but not the underlying file (nor does it open it)
+    
+    BOOL fileExists = [[NSFileManager defaultManager] fileExistsAtPath:[url path]];
+    
+    if (fileExists) {
+        [document openWithCompletionHandler:^(BOOL success) {
+            if (success) {
+                [self startUsingDocument:document];
+            } else {
+                NSLog(@"Document failed to open");
+            }
+        }];
+    } else {
+        [document saveToURL:url
+           forSaveOperation:UIDocumentSaveForCreating
+          completionHandler:^(BOOL success) {
+              if (success) {
+                  [self startUsingDocument:document];
+              } else {
+                  NSLog(@"Document failed to open");
+              }
+          }];
+    }
+}
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    // Override point for customization after application launch.
+
+    [self getManagedDocument];
+    
     return YES;
 }
 
