@@ -16,6 +16,9 @@
 		FAEB52A71B48D14900D9361E /* Street_Art_MapTests.m in Sources */ = {isa = PBXBuildFile; fileRef = FAEB52A61B48D14900D9361E /* Street_Art_MapTests.m */; };
 		FAEB52B41B48D1C500D9361E /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = FAEB52B21B48D1C500D9361E /* Model.xcdatamodeld */; };
 		FAEB52B81B4A8FD700D9361E /* ImageTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = FAEB52B71B4A8FD700D9361E /* ImageTransformer.m */; };
+		FAEB52D71B4BF9CF00D9361E /* Artist.m in Sources */ = {isa = PBXBuildFile; fileRef = FAEB52D61B4BF9CF00D9361E /* Artist.m */; };
+		FAEB52DA1B4BF9CF00D9361E /* Location.m in Sources */ = {isa = PBXBuildFile; fileRef = FAEB52D91B4BF9CF00D9361E /* Location.m */; };
+		FAEB52DD1B4BF9CF00D9361E /* Artwork.m in Sources */ = {isa = PBXBuildFile; fileRef = FAEB52DC1B4BF9CF00D9361E /* Artwork.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -46,6 +49,12 @@
 		FAEB52B61B4A8FD700D9361E /* ImageTransformer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageTransformer.h; sourceTree = "<group>"; };
 		FAEB52B71B4A8FD700D9361E /* ImageTransformer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImageTransformer.m; sourceTree = "<group>"; };
 		FAEB52B91B4AAB1A00D9361E /* DatabaseAvailability.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DatabaseAvailability.h; sourceTree = "<group>"; };
+		FAEB52D51B4BF9CF00D9361E /* Artist.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Artist.h; sourceTree = "<group>"; };
+		FAEB52D61B4BF9CF00D9361E /* Artist.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Artist.m; sourceTree = "<group>"; };
+		FAEB52D81B4BF9CF00D9361E /* Location.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Location.h; sourceTree = "<group>"; };
+		FAEB52D91B4BF9CF00D9361E /* Location.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Location.m; sourceTree = "<group>"; };
+		FAEB52DB1B4BF9CF00D9361E /* Artwork.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Artwork.h; sourceTree = "<group>"; };
+		FAEB52DC1B4BF9CF00D9361E /* Artwork.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Artwork.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -146,6 +155,12 @@
 		FAEB52B51B48D1CE00D9361E /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				FAEB52DB1B4BF9CF00D9361E /* Artwork.h */,
+				FAEB52DC1B4BF9CF00D9361E /* Artwork.m */,
+				FAEB52D81B4BF9CF00D9361E /* Location.h */,
+				FAEB52D91B4BF9CF00D9361E /* Location.m */,
+				FAEB52D51B4BF9CF00D9361E /* Artist.h */,
+				FAEB52D61B4BF9CF00D9361E /* Artist.m */,
 				FAEB52B21B48D1C500D9361E /* Model.xcdatamodeld */,
 				FAEB52B61B4A8FD700D9361E /* ImageTransformer.h */,
 				FAEB52B71B4A8FD700D9361E /* ImageTransformer.m */,
@@ -255,8 +270,11 @@
 			files = (
 				FAEB52931B48D14700D9361E /* ViewController.m in Sources */,
 				FAEB52901B48D14700D9361E /* AppDelegate.m in Sources */,
+				FAEB52D71B4BF9CF00D9361E /* Artist.m in Sources */,
 				FAEB528D1B48D14700D9361E /* main.m in Sources */,
 				FAEB52B41B48D1C500D9361E /* Model.xcdatamodeld in Sources */,
+				FAEB52DA1B4BF9CF00D9361E /* Location.m in Sources */,
+				FAEB52DD1B4BF9CF00D9361E /* Artwork.m in Sources */,
 				FAEB52B81B4A8FD700D9361E /* ImageTransformer.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
