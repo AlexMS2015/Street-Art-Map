@@ -31,16 +31,30 @@
         <!--Recent-->
         <scene sceneID="NjS-Ko-NoK">
             <objects>
-                <tableViewController id="JSh-F8-HVY" sceneMemberID="viewController">
+                <tableViewController id="JSh-F8-HVY" customClass="RecentsCDTVC" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="Kde-g9-xL1">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="C3z-an-qpt">
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="ArtworkCell" textLabel="Fq3-F2-bWh" detailTextLabel="1CK-W1-lJF" style="IBUITableViewCellStyleSubtitle" id="C3z-an-qpt">
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="C3z-an-qpt" id="JYt-ab-Ynk">
                                     <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Fq3-F2-bWh">
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Subtitle" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="1CK-W1-lJF">
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="11"/>
+                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
                                 </tableViewCellContentView>
                             </tableViewCell>
                         </prototypes>
@@ -61,10 +75,10 @@
             </objects>
             <point key="canvasLocation" x="1858" y="-389"/>
         </scene>
-        <!--Add Photo-->
+        <!--Add Art-->
         <scene sceneID="INf-Ot-SeB">
             <objects>
-                <viewController id="U4G-UC-dUa" sceneMemberID="viewController">
+                <viewController id="U4G-UC-dUa" customClass="AddArtworkVC" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="amZ-mK-duq"/>
                         <viewControllerLayoutGuide type="bottom" id="jZh-KK-s2m"/>
@@ -83,13 +97,13 @@
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="p2o-wm-Duj">
                                 <rect key="frame" x="16" y="664" width="33" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Artist" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SnX-8U-QLa">
                                 <rect key="frame" x="16" y="709" width="41" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <textField opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Artist" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="DJf-C7-ICj">
@@ -108,7 +122,7 @@
                                     <barButtonItem systemItem="camera" id="dQX-FA-iRQ"/>
                                     <barButtonItem title="Artist" id="kq6-8T-vyU">
                                         <connections>
-                                            <segue destination="UK2-9Z-QMn" kind="presentation" id="zO4-Db-F8j"/>
+                                            <segue destination="UK2-9Z-QMn" kind="presentation" identifier="Select Artist" id="zO4-Db-F8j"/>
                                         </connections>
                                     </barButtonItem>
                                 </items>
@@ -135,29 +149,57 @@
                         </constraints>
                     </view>
                     <toolbarItems/>
-                    <navigationItem key="navigationItem" title="Add Photo" id="w0d-tB-UnZ">
-                        <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="J1z-Vq-kPo"/>
-                        <barButtonItem key="rightBarButtonItem" systemItem="done" id="hNK-K6-EXO"/>
+                    <navigationItem key="navigationItem" title="Add Art" id="w0d-tB-UnZ">
+                        <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="J1z-Vq-kPo">
+                            <connections>
+                                <action selector="cancel:" destination="U4G-UC-dUa" id="8cO-N2-irP"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" systemItem="done" id="hNK-K6-EXO">
+                            <connections>
+                                <segue destination="iaj-Rm-lM8" kind="unwind" identifier="Add Photo Unwind" unwindAction="done:" id="fhh-u5-fIZ"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
+                    <connections>
+                        <outlet property="artworkArtistTextField" destination="DJf-C7-ICj" id="eGH-WX-Ktb"/>
+                        <outlet property="artworkImageView" destination="1cp-Um-AAR" id="xX3-8a-V1A"/>
+                        <outlet property="artworkTitleTextField" destination="Dnx-rx-s7c" id="hPs-hM-2a4"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Dup-gT-6yb" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="iaj-Rm-lM8" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="3393" y="-389"/>
         </scene>
         <!--Select Artist-->
         <scene sceneID="FhI-OC-lxr">
             <objects>
-                <tableViewController id="eDo-LD-hrY" sceneMemberID="viewController">
+                <tableViewController id="eDo-LD-hrY" customClass="ArtistsCDTVC" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="ouS-z2-Xpz">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="u57-g8-Y7p">
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="ArtistCell" textLabel="cQ0-2l-1z1" detailTextLabel="JSJ-Jx-vYG" style="IBUITableViewCellStyleSubtitle" id="u57-g8-Y7p">
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="u57-g8-Y7p" id="mFK-hb-9j3">
                                     <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="cQ0-2l-1z1">
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Subtitle" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="JSJ-Jx-vYG">
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="11"/>
+                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
                                 </tableViewCellContentView>
                             </tableViewCell>
                         </prototypes>
@@ -167,7 +209,16 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="Select Artist" id="Bxq-t7-XBL">
-                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="gae-Ki-Bai"/>
+                        <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="Aat-DB-dZo">
+                            <connections>
+                                <action selector="cancel:" destination="eDo-LD-hrY" id="knf-GX-LZW"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="gae-Ki-Bai">
+                            <connections>
+                                <action selector="addArtist:" destination="eDo-LD-hrY" id="l1p-QQ-2P6"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="nFw-ta-QAQ" userLabel="First Responder" sceneMemberID="firstResponder"/>

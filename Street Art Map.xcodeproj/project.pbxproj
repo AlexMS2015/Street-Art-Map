@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		FAC2C7651B50B83200DE31A5 /* CoreDataTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FAC2C7641B50B83200DE31A5 /* CoreDataTableViewController.m */; };
+		FAC2C7681B50DE5900DE31A5 /* RecentsCDTVC.m in Sources */ = {isa = PBXBuildFile; fileRef = FAC2C7671B50DE5900DE31A5 /* RecentsCDTVC.m */; };
+		FAC2C76B1B50E87700DE31A5 /* AddArtworkVC.m in Sources */ = {isa = PBXBuildFile; fileRef = FAC2C76A1B50E87700DE31A5 /* AddArtworkVC.m */; };
+		FAC2C76E1B51E44800DE31A5 /* ArtistsCDTVC.m in Sources */ = {isa = PBXBuildFile; fileRef = FAC2C76D1B51E44800DE31A5 /* ArtistsCDTVC.m */; };
 		FAEB528D1B48D14700D9361E /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = FAEB528C1B48D14700D9361E /* main.m */; };
 		FAEB52901B48D14700D9361E /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = FAEB528F1B48D14700D9361E /* AppDelegate.m */; };
 		FAEB52931B48D14700D9361E /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FAEB52921B48D14700D9361E /* ViewController.m */; };
@@ -32,6 +36,14 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		FAC2C7631B50B83200DE31A5 /* CoreDataTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CoreDataTableViewController.h; sourceTree = "<group>"; };
+		FAC2C7641B50B83200DE31A5 /* CoreDataTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CoreDataTableViewController.m; sourceTree = "<group>"; };
+		FAC2C7661B50DE5900DE31A5 /* RecentsCDTVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RecentsCDTVC.h; sourceTree = "<group>"; };
+		FAC2C7671B50DE5900DE31A5 /* RecentsCDTVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RecentsCDTVC.m; sourceTree = "<group>"; };
+		FAC2C7691B50E87700DE31A5 /* AddArtworkVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddArtworkVC.h; sourceTree = "<group>"; };
+		FAC2C76A1B50E87700DE31A5 /* AddArtworkVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddArtworkVC.m; sourceTree = "<group>"; };
+		FAC2C76C1B51E44800DE31A5 /* ArtistsCDTVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ArtistsCDTVC.h; sourceTree = "<group>"; };
+		FAC2C76D1B51E44800DE31A5 /* ArtistsCDTVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ArtistsCDTVC.m; sourceTree = "<group>"; };
 		FAEB52871B48D14700D9361E /* Street Art Map.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Street Art Map.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		FAEB528B1B48D14700D9361E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		FAEB528C1B48D14700D9361E /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -143,11 +155,19 @@
 		FAEB52B11B48D17F00D9361E /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				FAEB52B91B4AAB1A00D9361E /* DatabaseAvailability.h */,
 				FAEB528E1B48D14700D9361E /* AppDelegate.h */,
 				FAEB528F1B48D14700D9361E /* AppDelegate.m */,
 				FAEB52911B48D14700D9361E /* ViewController.h */,
 				FAEB52921B48D14700D9361E /* ViewController.m */,
-				FAEB52B91B4AAB1A00D9361E /* DatabaseAvailability.h */,
+				FAC2C7631B50B83200DE31A5 /* CoreDataTableViewController.h */,
+				FAC2C7641B50B83200DE31A5 /* CoreDataTableViewController.m */,
+				FAC2C7661B50DE5900DE31A5 /* RecentsCDTVC.h */,
+				FAC2C7671B50DE5900DE31A5 /* RecentsCDTVC.m */,
+				FAC2C76C1B51E44800DE31A5 /* ArtistsCDTVC.h */,
+				FAC2C76D1B51E44800DE31A5 /* ArtistsCDTVC.m */,
+				FAC2C7691B50E87700DE31A5 /* AddArtworkVC.h */,
+				FAC2C76A1B50E87700DE31A5 /* AddArtworkVC.m */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -270,10 +290,14 @@
 			files = (
 				FAEB52931B48D14700D9361E /* ViewController.m in Sources */,
 				FAEB52901B48D14700D9361E /* AppDelegate.m in Sources */,
+				FAC2C7651B50B83200DE31A5 /* CoreDataTableViewController.m in Sources */,
+				FAC2C76E1B51E44800DE31A5 /* ArtistsCDTVC.m in Sources */,
 				FAEB52D71B4BF9CF00D9361E /* Artist.m in Sources */,
 				FAEB528D1B48D14700D9361E /* main.m in Sources */,
 				FAEB52B41B48D1C500D9361E /* Model.xcdatamodeld in Sources */,
 				FAEB52DA1B4BF9CF00D9361E /* Location.m in Sources */,
+				FAC2C76B1B50E87700DE31A5 /* AddArtworkVC.m in Sources */,
+				FAC2C7681B50DE5900DE31A5 /* RecentsCDTVC.m in Sources */,
 				FAEB52DD1B4BF9CF00D9361E /* Artwork.m in Sources */,
 				FAEB52B81B4A8FD700D9361E /* ImageTransformer.m in Sources */,
 			);
@@ -472,6 +496,7 @@
 				FAEB52AC1B48D14900D9361E /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		FAEB52AD1B48D14900D9361E /* Build configuration list for PBXNativeTarget "Street Art MapTests" */ = {
 			isa = XCConfigurationList;
@@ -480,6 +505,7 @@
 				FAEB52AF1B48D14900D9361E /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 
