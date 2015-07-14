@@ -10,7 +10,7 @@
 #import "Artist.h"
 
 @interface ArtistsCDTVC ()
-
+@property (strong, nonatomic) ArtistsCDTVC *someArtist;
 @end
 
 @implementation ArtistsCDTVC
@@ -42,6 +42,18 @@
     return cell;
 }
 
+#pragma mark - Segues
+
+-(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    if ([segue.identifier isEqualToString:@"Select Artist Unwind"]) {
+        if ([sender isMemberOfClass:[UITableViewCell class]]) {
+            UITableViewCell *cellSelected = (UITableViewCell *)sender;
+            NSIndexPath *pathOfSelectedCell = [self.tableView indexPathForCell:cellSelected];
+            self.selectedArtist = [self.fetchedResultsController objectAtIndexPath:pathOfSelectedCell];
+        }
+    }
+}
 
 #pragma mark - Actions
 
@@ -60,13 +72,20 @@
     
     [newArtistAlert addAction:cancelAction];
     
+#warning THIS MIGHT CREATE A STRONG REFERECNE CYCLE
+    
     UIAlertAction *addArtistAction = [UIAlertAction actionWithTitle:@"Add"
                                                               style:UIAlertActionStyleDefault
                                                             handler:^(UIAlertAction *action) {
-    NSString *newArtistName = ((UITextField *)[newArtistAlert.textFields firstObject]).text;
-                                                                Artist *newArtist = [NSEntityDescription insertNewObjectForEntityForName:@"Artist" inManagedObjectContext:self.context];
-                                                                newArtist.name = newArtistName;
-                                                            }];
+            NSString *newArtistName = ((UITextField *)[newArtistAlert.textFields firstObject]).text;
+            Artist *newArtist = [NSEntityDescription insertNewObjectForEntityForName:@"Artist"
+                                                              inManagedObjectContext:self.context];
+            newArtist.name = newArtistName;
+            self.selectedArtist = newArtist;
+            self.someArtist = self;
+            [self performSegueWithIdentifier:@"Select Artist Unwind" sender:newArtistAlert];
+        }];
+    
     [newArtistAlert addAction:addArtistAction];
     
     [newArtistAlert addTextFieldWithConfigurationHandler:NULL];

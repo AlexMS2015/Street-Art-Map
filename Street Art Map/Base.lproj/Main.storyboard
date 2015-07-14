@@ -87,9 +87,9 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="1cp-Um-AAR">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="1cp-Um-AAR">
                                 <rect key="frame" x="16" y="72" width="568" height="568"/>
-                                <color key="backgroundColor" red="0.93328373019999999" green="0.93328373019999999" blue="0.93328373019999999" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" secondItem="1cp-Um-AAR" secondAttribute="width" id="hXj-9Q-6if"/>
                                 </constraints>
@@ -110,16 +110,26 @@
                                 <rect key="frame" x="65" y="705" width="519" height="30"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
+                                <connections>
+                                    <outlet property="delegate" destination="w0d-tB-UnZ" id="N8d-3g-iO2"/>
+                                </connections>
                             </textField>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Title" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Dnx-rx-s7c">
                                 <rect key="frame" x="65" y="660" width="519" height="30"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
+                                <connections>
+                                    <outlet property="delegate" destination="U4G-UC-dUa" id="Bjb-12-OqT"/>
+                                </connections>
                             </textField>
                             <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="NXe-jk-YvR">
                                 <rect key="frame" x="-11" y="480" width="600" height="44"/>
                                 <items>
-                                    <barButtonItem systemItem="camera" id="dQX-FA-iRQ"/>
+                                    <barButtonItem systemItem="camera" id="dQX-FA-iRQ">
+                                        <connections>
+                                            <action selector="addPhotoToArtwork:" destination="U4G-UC-dUa" id="F41-lm-Kho"/>
+                                        </connections>
+                                    </barButtonItem>
                                     <barButtonItem title="Artist" id="kq6-8T-vyU">
                                         <connections>
                                             <segue destination="UK2-9Z-QMn" kind="presentation" identifier="Select Artist" id="zO4-Db-F8j"/>
@@ -201,6 +211,9 @@
                                         </label>
                                     </subviews>
                                 </tableViewCellContentView>
+                                <connections>
+                                    <segue destination="Nyu-kv-8qo" kind="unwind" identifier="Select Artist Unwind" unwindAction="done:" id="j5o-ob-Kq4"/>
+                                </connections>
                             </tableViewCell>
                         </prototypes>
                         <connections>
@@ -222,6 +235,7 @@
                     </navigationItem>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="nFw-ta-QAQ" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="Nyu-kv-8qo" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="4899" y="-389"/>
         </scene>

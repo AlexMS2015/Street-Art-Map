@@ -7,7 +7,11 @@
 //
 
 #import "CoreDataTableViewController.h"
+@class Artist;
 
 @interface ArtistsCDTVC : CoreDataTableViewController
+
+// out
+@property (strong, nonatomic) Artist *selectedArtist;
 
 @end
