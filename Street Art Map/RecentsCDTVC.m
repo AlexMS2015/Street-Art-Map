@@ -9,7 +9,8 @@
 #import "RecentsCDTVC.h"
 #import "Artwork.h"
 #import "Artist.h"
-#import "AddArtworkVC.h"
+#import "AddAndViewArtworkVC.h"
+#import <AssetsLibrary/AssetsLibrary.h>
 
 @interface RecentsCDTVC ()
 
@@ -50,11 +51,24 @@
         if ([segue.destinationViewController isMemberOfClass:[UINavigationController class]]) {
             UINavigationController *navController = (UINavigationController *)segue
             .destinationViewController;
-            if ([[navController.viewControllers firstObject] isMemberOfClass:[AddArtworkVC class]]) {
-                AddArtworkVC *addArtworkVC = (AddArtworkVC *)[navController.viewControllers firstObject];
+            if ([[navController.viewControllers firstObject] isMemberOfClass:[AddAndViewArtworkVC class]]) {
+                AddAndViewArtworkVC *addArtworkVC = (AddAndViewArtworkVC *)[navController.viewControllers firstObject];
                 addArtworkVC.context = self.context;
             }
 
+        }
+    } else if ([segue.identifier isEqualToString:@"View Photo"]) {
+        if ([segue.destinationViewController isMemberOfClass:[UINavigationController class]]) {
+            UINavigationController *navController = (UINavigationController *)segue.destinationViewController;
+            if ([[navController.viewControllers firstObject] isMemberOfClass:[AddAndViewArtworkVC class]]) {
+                AddAndViewArtworkVC *viewArtworkVC = (AddAndViewArtworkVC *)[navController.viewControllers firstObject];
+                viewArtworkVC.context = self.context;
+                if ([sender isMemberOfClass:[UITableViewCell class]]) {
+                    UITableViewCell *selectedArtwork = (UITableViewCell *)sender;
+                    NSIndexPath *pathOfSelectedArtwork = [self.tableView indexPathForCell:selectedArtwork];
+                    viewArtworkVC.artworkToView = [self.fetchedResultsController objectAtIndexPath:pathOfSelectedArtwork];
+                }
+            }
         }
     }
 }
@@ -69,10 +83,28 @@
     
     Artwork *artwork = [self.fetchedResultsController objectAtIndexPath:indexPath];
     
-    cell.textLabel.text = artwork.title;
+    UILabel *titleLabel = (UILabel *)[cell viewWithTag:100];
+    UILabel *artistLabel = (UILabel *)[cell viewWithTag:101];
+    UILabel *dateLabel = (UILabel *)[cell viewWithTag:102];
+    UIImageView *artworkImageView = (UIImageView *)[cell viewWithTag:103];
+    
+    titleLabel.text = artwork.title;
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    
+    artistLabel.text = artwork.artist.name;
+    
     dateFormatter.dateStyle = NSDateFormatterMediumStyle;
-    cell.detailTextLabel.text = [dateFormatter stringFromDate:artwork.uploadDate];
+    dateLabel.text = [dateFormatter stringFromDate:artwork.uploadDate];
+    
+    ALAssetsLibrary *library = [[ALAssetsLibrary alloc] init];
+    NSURL *imageURL = [NSURL URLWithString:artwork.thumbnailURL];
+    
+    [library assetForURL:imageURL resultBlock:^(ALAsset *asset) {
+        UIImage *artworkImage = [UIImage imageWithCGImage:[[asset defaultRepresentation] fullResolutionImage]];
+        artworkImageView.image = artworkImage;
+    } failureBlock:^(NSError *error) {
+        NSLog(@"Failed to load image");
+    }];
     
     return cell;
 }

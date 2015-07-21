@@ -9,10 +9,11 @@
 #import <UIKit/UIKit.h>
 @class Artwork;
 
-@interface AddArtworkVC : UIViewController
+@interface AddAndViewArtworkVC : UIViewController
 
 // input
 @property (strong, nonatomic) NSManagedObjectContext *context;
+@property (strong, nonatomic) Artwork *artworkToView;
 
 // output
 @property (strong, nonatomic) Artwork *addedArtwork;
