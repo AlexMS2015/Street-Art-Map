@@ -144,11 +144,11 @@
 -(void)selectImageWithSourceType:(UIImagePickerControllerSourceType)sourceType
 {
     if ([UIImagePickerController isSourceTypeAvailable:sourceType]) {
-        UIImagePickerController *fromExistingImage = [[UIImagePickerController alloc] init];
-        fromExistingImage.sourceType = sourceType;
-        fromExistingImage.delegate = self;
+        UIImagePickerController *imagePicker = [[UIImagePickerController alloc] init];
+        imagePicker.sourceType = sourceType;
+        imagePicker.delegate = self;
         
-        [self presentViewController:fromExistingImage animated:YES completion:NULL];
+        [self presentViewController:imagePicker animated:YES completion:NULL];
     } else {
         [self showSingleButtonAlertWithMessage:@"Sorry, that option is not available on your device" andTitle:nil];
     }
@@ -209,15 +209,12 @@
 -(void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
 {
     if (info[UIImagePickerControllerReferenceURL]) {
-        NSLog(@"selected an existing image");
         self.URLForArtworkImage = info[UIImagePickerControllerReferenceURL];
     } else {
-        NSLog(@"took a new photo");
-        
         UIImage *artworkImage = info[UIImagePickerControllerOriginalImage];
         
         [self.library writeImageToSavedPhotosAlbum:artworkImage.CGImage
-                                  orientation:ALAssetOrientationLeft
+                                  orientation:ALAssetOrientationUp
                               completionBlock:^(NSURL *assetURL, NSError *error) {
                                   self.URLForArtworkImage = assetURL;
                               }];

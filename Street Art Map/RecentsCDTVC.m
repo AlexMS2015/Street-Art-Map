@@ -40,6 +40,7 @@
 
 #pragma mark - Segues
 
+// called on rewind from adding a photo or editing an existing photo
 -(IBAction)done:(UIStoryboardSegue *)segue
 {
     
