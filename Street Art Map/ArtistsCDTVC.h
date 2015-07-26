@@ -16,7 +16,7 @@ typedef enum {
 
 @interface ArtistsCDTVC : CoreDataTableViewController
 
-@property (nonatomic) ArtistScreenMode screenMode; // viewing mode is default
+@property (nonatomic) ArtistScreenMode screenMode; // the default is 'ViewingMode'
 
 // out
 @property (strong, nonatomic) Artist *selectedArtist;

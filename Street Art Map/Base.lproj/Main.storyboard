@@ -26,7 +26,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ByS-OA-uMk" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1157" y="-389"/>
+            <point key="canvasLocation" x="161" y="1407"/>
         </scene>
         <!--Recent-->
         <scene sceneID="NjS-Ko-NoK">
@@ -100,7 +100,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ASR-fH-Pcj" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1858" y="-389"/>
+            <point key="canvasLocation" x="897" y="955"/>
         </scene>
         <!--Add Art-->
         <scene sceneID="INf-Ot-SeB">
@@ -209,9 +209,9 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Dup-gT-6yb" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="iaj-Rm-lM8" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="3393" y="-389"/>
+            <point key="canvasLocation" x="897" y="1799"/>
         </scene>
-        <!--Select Artist-->
+        <!--Artists-->
         <scene sceneID="FhI-OC-lxr">
             <objects>
                 <tableViewController id="eDo-LD-hrY" customClass="ArtistsCDTVC" sceneMemberID="viewController">
@@ -220,7 +220,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="ArtistCell" textLabel="cQ0-2l-1z1" detailTextLabel="JSJ-Jx-vYG" style="IBUITableViewCellStyleSubtitle" id="u57-g8-Y7p">
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="ArtistSelectCell" textLabel="cQ0-2l-1z1" detailTextLabel="JSJ-Jx-vYG" style="IBUITableViewCellStyleSubtitle" id="u57-g8-Y7p">
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="u57-g8-Y7p" id="mFK-hb-9j3">
                                     <autoresizingMask key="autoresizingMask"/>
@@ -243,6 +243,29 @@
                                     <segue destination="Nyu-kv-8qo" kind="unwind" identifier="Select Artist Unwind" unwindAction="done:" id="j5o-ob-Kq4"/>
                                 </connections>
                             </tableViewCell>
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="ArtistViewCell" textLabel="JAB-Xn-dsY" detailTextLabel="QWF-Rv-A46" style="IBUITableViewCellStyleSubtitle" id="9qZ-CP-qnw">
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="9qZ-CP-qnw" id="B2J-7b-5fY">
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="JAB-Xn-dsY">
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Subtitle" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="QWF-Rv-A46">
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="11"/>
+                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                </tableViewCellContentView>
+                                <connections>
+                                    <segue destination="5G1-qx-dWf" kind="show" identifier="Show Artwork For Artist" id="hM0-e5-lOF"/>
+                                </connections>
+                            </tableViewCell>
                         </prototypes>
                         <connections>
                             <outlet property="dataSource" destination="eDo-LD-hrY" id="ro8-qu-svU"/>
@@ -250,7 +273,7 @@
                         </connections>
                     </tableView>
                     <tabBarItem key="tabBarItem" title="Artists" id="eXr-o8-oP9"/>
-                    <navigationItem key="navigationItem" title="Select Artist" id="Bxq-t7-XBL">
+                    <navigationItem key="navigationItem" title="Artists" id="Bxq-t7-XBL">
                         <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="Aat-DB-dZo">
                             <connections>
                                 <action selector="cancel:" destination="eDo-LD-hrY" id="knf-GX-LZW"/>
@@ -266,7 +289,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="nFw-ta-QAQ" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="Nyu-kv-8qo" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="4041" y="1283"/>
+            <point key="canvasLocation" x="1617" y="2563"/>
         </scene>
         <!--Map-->
         <scene sceneID="OVU-LX-8tc">
@@ -285,7 +308,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="jTC-vk-bgf" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1858" y="321"/>
+            <point key="canvasLocation" x="1617" y="3783"/>
         </scene>
         <!--Street Art Map-->
         <scene sceneID="acG-Kh-3nm">
@@ -308,7 +331,7 @@
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="krG-Yq-mhd" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-29" y="625"/>
+            <point key="canvasLocation" x="-673" y="2099"/>
         </scene>
         <!--Map-->
         <scene sceneID="gfD-F5-0ew">
@@ -327,7 +350,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="pqC-vY-C4Y" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1157" y="321"/>
+            <point key="canvasLocation" x="605" y="4007"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="izd-jM-toS">
@@ -345,7 +368,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="u4J-Tp-gNl" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2581" y="-389"/>
+            <point key="canvasLocation" x="1617" y="955"/>
         </scene>
         <!--Item-->
         <scene sceneID="4hU-Ov-3Lh">
@@ -364,11 +387,78 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="F75-Ob-bim" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3361" y="1275"/>
+            <point key="canvasLocation" x="897" y="2583"/>
+        </scene>
+        <!--Artist Name-->
+        <scene sceneID="IUJ-nt-Xuu">
+            <objects>
+                <tableViewController id="5G1-qx-dWf" customClass="PhotosForArtistCDTVC" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="173" sectionHeaderHeight="22" sectionFooterHeight="22" id="RPC-ve-ibc">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <prototypes>
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="ArtworkCell" rowHeight="173" id="r26-qG-orb">
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="r26-qG-orb" id="3k1-xQ-Mpk">
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <imageView userInteractionEnabled="NO" tag="103" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="ioX-zO-SRZ">
+                                            <rect key="frame" x="8" y="8" width="117" height="156"/>
+                                            <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" secondItem="ioX-zO-SRZ" secondAttribute="height" multiplier="3/4" id="pWP-an-OeU"/>
+                                            </constraints>
+                                        </imageView>
+                                        <label opaque="NO" userInteractionEnabled="NO" tag="100" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HSy-7h-wEP">
+                                            <rect key="frame" x="133" y="8" width="33" height="21"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" userInteractionEnabled="NO" tag="101" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Artist" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dc6-Cn-sXb">
+                                            <rect key="frame" x="133" y="75" width="41" height="21"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" userInteractionEnabled="NO" tag="102" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Upload Date" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6rn-Uf-aOJ">
+                                            <rect key="frame" x="133" y="143" width="97" height="21"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstItem="ioX-zO-SRZ" firstAttribute="top" secondItem="HSy-7h-wEP" secondAttribute="top" id="0uN-bk-erF"/>
+                                        <constraint firstItem="ioX-zO-SRZ" firstAttribute="leading" secondItem="3k1-xQ-Mpk" secondAttribute="leadingMargin" id="6RR-Je-lnn"/>
+                                        <constraint firstItem="6rn-Uf-aOJ" firstAttribute="bottom" secondItem="ioX-zO-SRZ" secondAttribute="bottom" id="9VT-pD-eRi"/>
+                                        <constraint firstItem="ioX-zO-SRZ" firstAttribute="top" secondItem="3k1-xQ-Mpk" secondAttribute="topMargin" id="JYQ-hq-EOX"/>
+                                        <constraint firstItem="HSy-7h-wEP" firstAttribute="leading" secondItem="6rn-Uf-aOJ" secondAttribute="leading" id="NXA-Ae-nwC"/>
+                                        <constraint firstItem="ioX-zO-SRZ" firstAttribute="bottom" secondItem="3k1-xQ-Mpk" secondAttribute="bottomMargin" id="WEV-38-ajN"/>
+                                        <constraint firstAttribute="centerY" secondItem="dc6-Cn-sXb" secondAttribute="centerY" id="aI6-CN-Lts"/>
+                                        <constraint firstItem="HSy-7h-wEP" firstAttribute="leading" secondItem="ioX-zO-SRZ" secondAttribute="trailing" constant="8" id="gSu-ZO-GsX"/>
+                                        <constraint firstItem="HSy-7h-wEP" firstAttribute="leading" secondItem="dc6-Cn-sXb" secondAttribute="leading" id="qFW-pm-FnO"/>
+                                    </constraints>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="5G1-qx-dWf" id="foa-Xa-IB7"/>
+                            <outlet property="delegate" destination="5G1-qx-dWf" id="4QH-S7-bb1"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" title="Artist Name" id="Iec-56-JNd">
+                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="R0Y-eT-oDx"/>
+                    </navigationItem>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="bqj-yu-IGV" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2477" y="1847"/>
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
         <segue reference="el0-uU-6fE"/>
-        <segue reference="3dA-IQ-B8v"/>
+        <segue reference="IiH-x5-zZk"/>
     </inferredMetricsTieBreakers>
 </document>

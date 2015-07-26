@@ -8,23 +8,32 @@
 
 #import "ArtistsCDTVC.h"
 #import "Artist.h"
+#import "PhotosForArtistCDTVC.h"
 
 @interface ArtistsCDTVC ()
-@property (strong, nonatomic) ArtistsCDTVC *someArtist;
+
+@property (strong, nonatomic) NSString *cellIdentifier;
+
 @end
 
 @implementation ArtistsCDTVC
 
 #pragma mark - Properties
 
-/*-(ArtistScreenMode)screenMode
+-(void)setScreenMode:(ArtistScreenMode)screenMode
 {
-    if (!_screenMode) {
-        _screenMode = ViewingMode;
+    _screenMode = screenMode;
+    if (self.screenMode == ViewingMode) {
+        self.cellIdentifier = @"ArtistViewCell";
+        self.navigationItem.leftBarButtonItem = nil;
+        self.title = @"Artists";
+    } else if (self.screenMode == SelectionMode) {
+        self.cellIdentifier = @"ArtistSelectCell";
+        self.title = @"Select Artist";
     }
-    
-    return _screenMode;
-}*/
+}
+
+#pragma mark - View Life Cycle
 
 -(void)viewDidLoad
 {
@@ -44,11 +53,9 @@
 
 #pragma mark - UITableViewDataSource
 
-#define CELL_IDENTIFIER @"ArtistCell"
-
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    UITableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:CELL_IDENTIFIER];
+    UITableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:self.cellIdentifier];
     
     Artist *artist = [self.fetchedResultsController objectAtIndexPath:indexPath];
     
@@ -68,6 +75,17 @@
             NSIndexPath *pathOfSelectedCell = [self.tableView indexPathForCell:cellSelected];
             self.selectedArtist = [self.fetchedResultsController objectAtIndexPath:pathOfSelectedCell];
         }
+    } else if ([segue.identifier isEqualToString:@"Show Artwork For Artist"]) {
+        if ([sender isMemberOfClass:[UITableViewCell class]]) {
+            UITableViewCell *cellSelected = (UITableViewCell *)sender;
+            NSIndexPath *pathOfSelectedCell = [self.tableView indexPathForCell:cellSelected];
+            self.selectedArtist = [self.fetchedResultsController objectAtIndexPath:pathOfSelectedCell];
+            if ([segue.destinationViewController isMemberOfClass:[PhotosForArtistCDTVC class]]) {
+                PhotosForArtistCDTVC *photosForSelectedArtist = (PhotosForArtistCDTVC *)segue.destinationViewController;
+                photosForSelectedArtist.artistToShowPhotosFor = self.selectedArtist;
+                photosForSelectedArtist.context = self.context;
+            }
+        }
     }
 }
 
@@ -75,7 +93,10 @@
 {
     if ([identifier isEqualToString:@"Select Artist Unwind"]) {
         if (self.screenMode == SelectionMode) {
-            NSLog(@"performing unwind");
+            return YES;
+        }
+    } else if ([identifier isEqualToString:@"Show Artwork For Artist"]) {
+        if (self.screenMode == ViewingMode) {
             return YES;
         }
     }
@@ -110,7 +131,6 @@
                                                               inManagedObjectContext:self.context];
             newArtist.name = newArtistName;
             self.selectedArtist = newArtist;
-            self.someArtist = self;
             [self performSegueWithIdentifier:@"Select Artist Unwind" sender:newArtistAlert];
         }];
     

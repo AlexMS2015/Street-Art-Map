@@ -24,7 +24,7 @@
 @property (strong, nonatomic) NSManagedObjectContext *context;
 @property (strong, nonatomic) NSFetchedResultsController *fetchedResultsController;
 
-// abstract method
+// abstract method. this is called when the context is set. you may need to set the context manually.
 -(void)setupFetchedResultsController;
 
 // Causes the fetchedResultsController to refetch the data.

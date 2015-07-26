@@ -15,11 +15,21 @@
 
 @implementation PhotosForArtistCDTVC
 
+#pragma mark - Properties
+
+-(void)setArtistToShowPhotosFor:(Artist *)artistToShowPhotosFor
+{
+    _artistToShowPhotosFor = artistToShowPhotosFor;
+    self.title = _artistToShowPhotosFor.name;
+}
+
+#pragma mark - Implemented Abstract Methods
+
 -(void)setupFetchedResultsController
 {
     NSFetchRequest *artworkForArtistRequest = [NSFetchRequest fetchRequestWithEntityName:@"Artwork"];
     
-    NSPredicate *specificArtistPredicate = [NSPredicate predicateWithFormat:@"artist.name = @%", self.artistToShowPhotosFor.name];
+    NSPredicate *specificArtistPredicate = [NSPredicate predicateWithFormat:@"artist.name = %@", self.artistToShowPhotosFor.name];
     artworkForArtistRequest.predicate = specificArtistPredicate;
     
     NSSortDescriptor *nameSort = [NSSortDescriptor sortDescriptorWithKey:@"artist.name"
