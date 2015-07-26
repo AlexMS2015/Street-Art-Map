@@ -10,6 +10,8 @@
 		FA0EB10A1B64984A0034FD18 /* Location.m in Sources */ = {isa = PBXBuildFile; fileRef = FA0EB1091B64984A0034FD18 /* Location.m */; };
 		FA0EB10D1B64984B0034FD18 /* Artist.m in Sources */ = {isa = PBXBuildFile; fileRef = FA0EB10C1B64984B0034FD18 /* Artist.m */; };
 		FA0EB1101B64984C0034FD18 /* Artwork.m in Sources */ = {isa = PBXBuildFile; fileRef = FA0EB10F1B64984C0034FD18 /* Artwork.m */; };
+		FA0EB1131B649F110034FD18 /* ListOfPhotosCDTVC.m in Sources */ = {isa = PBXBuildFile; fileRef = FA0EB1121B649F110034FD18 /* ListOfPhotosCDTVC.m */; };
+		FA0EB1161B64A2F60034FD18 /* PhotosForArtistCDTVC.m in Sources */ = {isa = PBXBuildFile; fileRef = FA0EB1151B64A2F60034FD18 /* PhotosForArtistCDTVC.m */; };
 		FAC2C7651B50B83200DE31A5 /* CoreDataTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FAC2C7641B50B83200DE31A5 /* CoreDataTableViewController.m */; };
 		FAC2C7681B50DE5900DE31A5 /* RecentsCDTVC.m in Sources */ = {isa = PBXBuildFile; fileRef = FAC2C7671B50DE5900DE31A5 /* RecentsCDTVC.m */; };
 		FAC2C76B1B50E87700DE31A5 /* AddAndViewArtworkVC.m in Sources */ = {isa = PBXBuildFile; fileRef = FAC2C76A1B50E87700DE31A5 /* AddAndViewArtworkVC.m */; };
@@ -40,6 +42,10 @@
 		FA0EB10C1B64984B0034FD18 /* Artist.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Artist.m; sourceTree = "<group>"; };
 		FA0EB10E1B64984C0034FD18 /* Artwork.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Artwork.h; sourceTree = "<group>"; };
 		FA0EB10F1B64984C0034FD18 /* Artwork.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Artwork.m; sourceTree = "<group>"; };
+		FA0EB1111B649F110034FD18 /* ListOfPhotosCDTVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ListOfPhotosCDTVC.h; sourceTree = "<group>"; };
+		FA0EB1121B649F110034FD18 /* ListOfPhotosCDTVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ListOfPhotosCDTVC.m; sourceTree = "<group>"; };
+		FA0EB1141B64A2F60034FD18 /* PhotosForArtistCDTVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PhotosForArtistCDTVC.h; sourceTree = "<group>"; };
+		FA0EB1151B64A2F60034FD18 /* PhotosForArtistCDTVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PhotosForArtistCDTVC.m; sourceTree = "<group>"; };
 		FAC2C7631B50B83200DE31A5 /* CoreDataTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CoreDataTableViewController.h; sourceTree = "<group>"; };
 		FAC2C7641B50B83200DE31A5 /* CoreDataTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CoreDataTableViewController.m; sourceTree = "<group>"; };
 		FAC2C7661B50DE5900DE31A5 /* RecentsCDTVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RecentsCDTVC.h; sourceTree = "<group>"; };
@@ -154,12 +160,16 @@
 				FAEB528F1B48D14700D9361E /* AppDelegate.m */,
 				FAC2C7631B50B83200DE31A5 /* CoreDataTableViewController.h */,
 				FAC2C7641B50B83200DE31A5 /* CoreDataTableViewController.m */,
+				FA0EB1111B649F110034FD18 /* ListOfPhotosCDTVC.h */,
+				FA0EB1121B649F110034FD18 /* ListOfPhotosCDTVC.m */,
 				FAC2C7661B50DE5900DE31A5 /* RecentsCDTVC.h */,
 				FAC2C7671B50DE5900DE31A5 /* RecentsCDTVC.m */,
 				FAC2C7691B50E87700DE31A5 /* AddAndViewArtworkVC.h */,
 				FAC2C76A1B50E87700DE31A5 /* AddAndViewArtworkVC.m */,
 				FAC2C76C1B51E44800DE31A5 /* ArtistsCDTVC.h */,
 				FAC2C76D1B51E44800DE31A5 /* ArtistsCDTVC.m */,
+				FA0EB1141B64A2F60034FD18 /* PhotosForArtistCDTVC.h */,
+				FA0EB1151B64A2F60034FD18 /* PhotosForArtistCDTVC.m */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -279,11 +289,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FA0EB1161B64A2F60034FD18 /* PhotosForArtistCDTVC.m in Sources */,
 				FAEB52901B48D14700D9361E /* AppDelegate.m in Sources */,
 				FAC2C7651B50B83200DE31A5 /* CoreDataTableViewController.m in Sources */,
 				FA0EB1101B64984C0034FD18 /* Artwork.m in Sources */,
 				FAC2C76E1B51E44800DE31A5 /* ArtistsCDTVC.m in Sources */,
 				FA0EB10D1B64984B0034FD18 /* Artist.m in Sources */,
+				FA0EB1131B649F110034FD18 /* ListOfPhotosCDTVC.m in Sources */,
 				FAEB528D1B48D14700D9361E /* main.m in Sources */,
 				FA0EB10A1B64984A0034FD18 /* Location.m in Sources */,
 				FAEB52B41B48D1C500D9361E /* Model.xcdatamodeld in Sources */,

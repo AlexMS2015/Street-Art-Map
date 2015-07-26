@@ -6,8 +6,8 @@
 //  Copyright (c) 2015 Alex Smith. All rights reserved.
 //
 
-#import "CoreDataTableViewController.h"
+#import "ListOfPhotosCDTVC.h"
 
-@interface RecentsCDTVC : CoreDataTableViewController
+@interface RecentsCDTVC : ListOfPhotosCDTVC
 
 @end

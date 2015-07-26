@@ -27,8 +27,6 @@
 // abstract method
 -(void)setupFetchedResultsController;
 
-// The controller (this class fetches nothing if this is not set).
-
 // Causes the fetchedResultsController to refetch the data.
 // You almost certainly never need to call this.
 // The NSFetchedResultsController class observes the context

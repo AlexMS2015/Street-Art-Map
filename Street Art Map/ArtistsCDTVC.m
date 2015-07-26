@@ -15,6 +15,22 @@
 
 @implementation ArtistsCDTVC
 
+#pragma mark - Properties
+
+/*-(ArtistScreenMode)screenMode
+{
+    if (!_screenMode) {
+        _screenMode = ViewingMode;
+    }
+    
+    return _screenMode;
+}*/
+
+-(void)viewDidLoad
+{
+    self.screenMode = ViewingMode;
+}
+
 #pragma mark - Abstract Methods
 
 -(void)setupFetchedResultsController
@@ -53,6 +69,18 @@
             self.selectedArtist = [self.fetchedResultsController objectAtIndexPath:pathOfSelectedCell];
         }
     }
+}
+
+-(BOOL)shouldPerformSegueWithIdentifier:(NSString *)identifier sender:(id)sender
+{
+    if ([identifier isEqualToString:@"Select Artist Unwind"]) {
+        if (self.screenMode == SelectionMode) {
+            NSLog(@"performing unwind");
+            return YES;
+        }
+    }
+    
+    return NO;
 }
 
 #pragma mark - Actions

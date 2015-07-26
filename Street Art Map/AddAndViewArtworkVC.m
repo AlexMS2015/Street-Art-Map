@@ -11,7 +11,7 @@
 #import "Artwork.h"
 #import "ArtistsCDTVC.h"
 #import <AssetsLibrary/AssetsLibrary.h>
-#import <Photos/Photos.h>
+@import Photos;
 
 @interface AddAndViewArtworkVC () <UINavigationControllerDelegate, UIImagePickerControllerDelegate, UITextFieldDelegate>
 
@@ -91,6 +91,7 @@
             if ([[navController.viewControllers firstObject] isMemberOfClass:[ArtistsCDTVC class]]) {
                 ArtistsCDTVC *artistSelection = (ArtistsCDTVC *)[navController.viewControllers firstObject];
                 artistSelection.context = self.context;
+                artistSelection.screenMode = SelectionMode;
             }
         }
     }
@@ -214,17 +215,12 @@
 -(void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
 {
     if (info[UIImagePickerControllerReferenceURL]) {
-        self.localIdentifierForArtworkImage = info[UIImagePickerControllerReferenceURL];
+        // THIS IS TERRIBLE CODE!?
+        PHFetchResult *result = [PHAsset fetchAssetsWithALAssetURLs:@[info[UIImagePickerControllerReferenceURL]] options:nil];
+        PHAsset *assetForArtworkImage = [result firstObject];
+        self.localIdentifierForArtworkImage = assetForArtworkImage.localIdentifier;
     } else {
         UIImage *artworkImage = info[UIImagePickerControllerOriginalImage];
-        
-        /*[self.library writeImageToSavedPhotosAlbum:artworkImage.CGImage
-                                  orientation:ALAssetOrientationUp
-                              completionBlock:^(NSURL *assetURL, NSError *error) {
-                                  self.URLForArtworkImage = assetURL;
-                              }];*/
-        
-        // using photos framework instead
         
         __block NSString *localIdentifier;
         

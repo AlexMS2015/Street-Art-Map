@@ -1,39 +1,30 @@
 //
-//  RecentsCDTVC.m
+//  ListOfPhotosCDTVC.m
 //  Street Art Map
 //
-//  Created by Alex Smith on 11/07/2015.
+//  Created by Alex Smith on 26/07/2015.
 //  Copyright (c) 2015 Alex Smith. All rights reserved.
 //
 
-#import "RecentsCDTVC.h"
+#import "ListOfPhotosCDTVC.h"
+#import "Artwork.h"
+#import "Artist.h"
+#import "AddAndViewArtworkVC.h"
+#import <Photos/Photos.h>
 
-@interface RecentsCDTVC ()
+@interface ListOfPhotosCDTVC ()
 
 @end
 
-@implementation RecentsCDTVC
+@implementation ListOfPhotosCDTVC
 
 #pragma mark - Implemented Abstract Methods
 
 -(void)setupFetchedResultsController
 {
-    NSFetchRequest *recentsRequest = [NSFetchRequest fetchRequestWithEntityName:@"Artwork"];
-    
-    NSSortDescriptor *dateSort = [NSSortDescriptor sortDescriptorWithKey:@"uploadDate" ascending:NO];
-    NSSortDescriptor *titleSort = [NSSortDescriptor sortDescriptorWithKey:@"title"
-                                                            ascending:YES
-                                                             selector:@selector(localizedCompare:)];
-    
-    recentsRequest.sortDescriptors = @[dateSort, titleSort];
-    
-    self.fetchedResultsController =
-        [[NSFetchedResultsController alloc] initWithFetchRequest:recentsRequest
-                                            managedObjectContext:self.context
-                                              sectionNameKeyPath:nil
-                                                       cacheName:nil];
+
 }
-/*
+
 #pragma mark - Segues
 
 // called on rewind from adding a photo or editing an existing photo
@@ -52,7 +43,7 @@
                 AddAndViewArtworkVC *addArtworkVC = (AddAndViewArtworkVC *)[navController.viewControllers firstObject];
                 addArtworkVC.context = self.context;
             }
-
+            
         }
     } else if ([segue.identifier isEqualToString:@"View Photo"]) {
         if ([segue.destinationViewController isMemberOfClass:[UINavigationController class]]) {
@@ -101,17 +92,17 @@
                                                   contentMode:PHImageContentModeAspectFit
                                                       options:nil
                                                 resultHandler:^(UIImage *result, NSDictionary *info) {
-                    if (info[PHImageErrorKey]) {
-                        // error handling
-                    } else {
-                        artworkImageView.image = result;
-                    }
-        }];
+                                                    if (info[PHImageErrorKey]) {
+                                                        // error handling
+                                                    } else {
+                                                        artworkImageView.image = result;
+                                                    }
+                                                }];
     } else {
         artworkImageView.image = nil;
     }
-
+    
     return cell;
-}*/
+}
 
 @end
