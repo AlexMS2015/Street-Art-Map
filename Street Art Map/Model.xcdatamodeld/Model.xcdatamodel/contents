@@ -5,10 +5,8 @@
         <relationship name="artworks" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Artwork" inverseName="artist" inverseEntity="Artwork" syncable="YES"/>
     </entity>
     <entity name="Artwork" representedClassName="Artwork" syncable="YES">
-        <attribute name="image" optional="YES" attributeType="Transformable" valueTransformerName="ImageTransformer" syncable="YES"/>
-        <attribute name="imageURL" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="imageLocation" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="lastEditDate" optional="YES" attributeType="Date" syncable="YES"/>
-        <attribute name="thumbnailURL" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="uploadDate" optional="YES" attributeType="Date" syncable="YES"/>
         <relationship name="artist" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Artist" inverseName="artworks" inverseEntity="Artist" syncable="YES"/>
@@ -23,7 +21,7 @@
     </entity>
     <elements>
         <element name="Artist" positionX="252" positionY="-108" width="128" height="73"/>
-        <element name="Artwork" positionX="423" positionY="45" width="128" height="165"/>
+        <element name="Artwork" positionX="423" positionY="45" width="128" height="135"/>
         <element name="Location" positionX="610" positionY="18" width="128" height="118"/>
     </elements>
 </model>

@@ -11,12 +11,12 @@
 #import "Artwork.h"
 #import "ArtistsCDTVC.h"
 #import <AssetsLibrary/AssetsLibrary.h>
+#import <Photos/Photos.h>
 
 @interface AddAndViewArtworkVC () <UINavigationControllerDelegate, UIImagePickerControllerDelegate, UITextFieldDelegate>
 
 @property (strong, nonatomic) Artist *artistForArtwork;
-@property (strong, nonatomic) NSURL *URLForArtworkImage;
-@property (strong, nonatomic) NSURL *URLForArtworkThumbnail;
+@property (strong, nonatomic) NSString *localIdentifierForArtworkImage;
 @property (strong, nonatomic) ALAssetsLibrary *library;
 
 // outlets
@@ -37,8 +37,10 @@
         self.title = @"View/Edit Art";
         self.artworkTitleTextField.text = self.artworkToView.title;
         self.artistForArtwork = self.artworkToView.artist;
-        self.URLForArtworkImage = [NSURL URLWithString:self.artworkToView.imageURL];
-        self.URLForArtworkThumbnail = [NSURL URLWithString:self.artworkToView.thumbnailURL];
+        
+        if (self.artworkToView.imageLocation)
+            self.localIdentifierForArtworkImage = self.artworkToView.imageLocation;
+        
         self.navigationItem.leftBarButtonItem = nil;
     } else {
         self.title = @"Add Art";
@@ -71,10 +73,16 @@
             artworkToUpdate = self.artworkToView;
         }
         
+        if (![artworkToUpdate.title isEqualToString:self.artworkTitleTextField.text] ||
+            ! (artworkToUpdate.artist == self.artistForArtwork) ||
+            ! (artworkToUpdate.imageLocation == self.localIdentifierForArtworkImage)) {
+            // TEST THIS - should only update if the user has actually made any changes
+            artworkToUpdate.uploadDate = [NSDate date];
+        }
+        
         artworkToUpdate.title = self.artworkTitleTextField.text;
         artworkToUpdate.artist = self.artistForArtwork;
-        artworkToUpdate.uploadDate = [NSDate date];
-        artworkToUpdate.imageURL = [self.URLForArtworkImage absoluteString];
+        artworkToUpdate.imageLocation = self.localIdentifierForArtworkImage;
         
     } else if ([segue.identifier isEqualToString:@"Select Artist"]) {
         if ([segue.destinationViewController isMemberOfClass:[UINavigationController class]]) {
@@ -121,15 +129,29 @@
     return _library;
 }
 
--(void)setURLForArtworkImage:(NSURL *)URLForArtworkImage
+-(void)setLocalIdentifierForArtworkImage:(NSString *)localIdentifierForArtworkImage
 {
-    _URLForArtworkImage = URLForArtworkImage;
+    _localIdentifierForArtworkImage = localIdentifierForArtworkImage;
     
-    [self.library assetForURL:URLForArtworkImage resultBlock:^(ALAsset *asset) {
-        UIImage *artworkImage = [UIImage imageWithCGImage:[[asset defaultRepresentation] fullResolutionImage]];
-        self.artworkImageView.image = artworkImage;
-    } failureBlock:^(NSError *error) {
-        NSLog(@"Failed to load image");
+    // SET UP A TEST FOR A DELETED IMAGE
+    // SEPARATE THIS IMAGE CODE OUT INTO A SEPARATE CLASS?
+    
+    //PHFetchResult *result = [PHAsset fetchAssetsWithALAssetURLs:@[URLForArtworkImage] options:nil];
+    PHFetchResult *result = [PHAsset fetchAssetsWithLocalIdentifiers:@[self.localIdentifierForArtworkImage] options:nil];
+    PHAsset *assetForArtworkImage = [result firstObject];
+    
+    // PHImageRequestOptions *options - consider implementing this if performance is bad? run against instruments to determine this
+    
+    [[PHImageManager defaultManager] requestImageForAsset:assetForArtworkImage
+                                               targetSize:self.artworkImageView.bounds.size
+                                              contentMode:PHImageContentModeAspectFit
+                                                  options:nil
+                                            resultHandler:^(UIImage *result, NSDictionary *info) {
+                if (info[PHImageErrorKey]) {
+                    // error handling
+                } else {
+                    self.artworkImageView.image = result;
+                }
     }];
 }
 
@@ -189,41 +211,32 @@
 
 #pragma mark - UIImagePickerControllerDelegate
 
--(UIImage *)image:(UIImage *)image scaledToSize:(CGSize)size
-{
-    UIGraphicsBeginImageContextWithOptions(size, YES, 0);
-    CGRect rect = CGRectMake(0, 0, size.width, size.height);
-    [image drawInRect:rect];
-    UIImage *scaledImage = UIGraphicsGetImageFromCurrentImageContext();
-    UIGraphicsEndImageContext();
-    return scaledImage;
-}
-
--(NSURL *)uniqueURL
-{
-    NSArray *documentDirectories = [[NSFileManager defaultManager] URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask];    NSURL *documentDirectory = [documentDirectories firstObject];
-    NSString *unique = [NSString stringWithFormat:@"%.0f", floor([NSDate timeIntervalSinceReferenceDate])];
-    return [documentDirectory URLByAppendingPathComponent:unique];
-}
-
 -(void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
 {
     if (info[UIImagePickerControllerReferenceURL]) {
-        self.URLForArtworkImage = info[UIImagePickerControllerReferenceURL];
+        self.localIdentifierForArtworkImage = info[UIImagePickerControllerReferenceURL];
     } else {
         UIImage *artworkImage = info[UIImagePickerControllerOriginalImage];
         
-        [self.library writeImageToSavedPhotosAlbum:artworkImage.CGImage
+        /*[self.library writeImageToSavedPhotosAlbum:artworkImage.CGImage
                                   orientation:ALAssetOrientationUp
                               completionBlock:^(NSURL *assetURL, NSError *error) {
                                   self.URLForArtworkImage = assetURL;
-                              }];
+                              }];*/
         
-        UIImage *thumbnailImage = [self image:artworkImage scaledToSize:CGSizeMake(117, 156)];
-        self.URLForArtworkThumbnail = [self uniqueURL];
-        NSData *imageJPEGData = UIImageJPEGRepresentation(thumbnailImage, 0.5);
-        [imageJPEGData writeToURL:self.URLForArtworkThumbnail atomically:YES];
+        // using photos framework instead
         
+        __block NSString *localIdentifier;
+        
+        [[PHPhotoLibrary sharedPhotoLibrary] performChanges:^{
+            
+            PHAssetChangeRequest *addArtworkRequest = [PHAssetChangeRequest creationRequestForAssetFromImage:artworkImage];
+            PHObjectPlaceholder *addedArtworkPlaceholder = addArtworkRequest.placeholderForCreatedAsset;
+             localIdentifier = addedArtworkPlaceholder.localIdentifier;
+            
+        } completionHandler:^(BOOL success, NSError *error) {
+            self.localIdentifierForArtworkImage = localIdentifier;
+        }];
     }
     
     [self dismissViewControllerAnimated:YES completion:NULL];

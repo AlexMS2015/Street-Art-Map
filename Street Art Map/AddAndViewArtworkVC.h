@@ -16,6 +16,6 @@
 @property (strong, nonatomic) Artwork *artworkToView;
 
 // output
-@property (strong, nonatomic) Artwork *addedArtwork;
+@property (strong, nonatomic) Artwork *addedArtwork; // is this even neccessary?
 
 @end

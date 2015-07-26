@@ -10,7 +10,9 @@
 #import "Artwork.h"
 #import "Artist.h"
 #import "AddAndViewArtworkVC.h"
-#import <AssetsLibrary/AssetsLibrary.h>
+#import <Photos/Photos.h>
+
+// THIS CLASS SHOULD ACTUALLY BE AN ABSTRACT 'LIST OF PHOTOS CLASS' WITH CONCRETE SUBCLASSES (recents, photos for artist etc...)
 
 @interface RecentsCDTVC ()
 
@@ -97,7 +99,7 @@
     dateFormatter.dateStyle = NSDateFormatterMediumStyle;
     dateLabel.text = [dateFormatter stringFromDate:artwork.uploadDate];
     
-    ALAssetsLibrary *library = [[ALAssetsLibrary alloc] init];
+    /*ALAssetsLibrary *library = [[ALAssetsLibrary alloc] init];
     NSURL *imageURL = [NSURL URLWithString:artwork.thumbnailURL];
     
     [library assetForURL:imageURL resultBlock:^(ALAsset *asset) {
@@ -105,8 +107,26 @@
         artworkImageView.image = artworkImage;
     } failureBlock:^(NSError *error) {
         NSLog(@"Failed to load image");
-    }];
+    }];*/
     
+    if (artwork.imageLocation) {
+        PHFetchResult *result = [PHAsset fetchAssetsWithLocalIdentifiers:@[artwork.imageLocation] options:nil];
+        PHAsset *assetForArtworkImage = [result firstObject];
+        [[PHImageManager defaultManager] requestImageForAsset:assetForArtworkImage
+                                                   targetSize:artworkImageView.bounds.size
+                                                  contentMode:PHImageContentModeAspectFit
+                                                      options:nil
+                                                resultHandler:^(UIImage *result, NSDictionary *info) {
+                    if (info[PHImageErrorKey]) {
+                        // error handling
+                    } else {
+                        artworkImageView.image = result;
+                    }
+        }];
+    } else {
+        artworkImageView.image = nil;
+    }
+
     return cell;
 }
 
