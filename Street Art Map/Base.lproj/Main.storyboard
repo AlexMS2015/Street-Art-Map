@@ -37,7 +37,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="ArtworkCell" rowHeight="173" id="C3z-an-qpt">
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="ArtworkCell" rowHeight="173" id="C3z-an-qpt" customClass="ArtworkTableViewCell">
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="C3z-an-qpt" id="JYt-ab-Ynk">
                                     <autoresizingMask key="autoresizingMask"/>
@@ -81,6 +81,10 @@
                                     </constraints>
                                 </tableViewCellContentView>
                                 <connections>
+                                    <outlet property="artistLabel" destination="a8m-qy-V4M" id="QVV-wx-VZk"/>
+                                    <outlet property="artworkImageView" destination="n9G-KN-Sg2" id="0Rh-oK-Q8e"/>
+                                    <outlet property="titleLabel" destination="Lcy-bZ-e4h" id="9qf-gf-J4A"/>
+                                    <outlet property="uploadDateLabel" destination="7aM-Qn-GDB" id="0A1-D6-fYn"/>
                                     <segue destination="wD5-RQ-0zd" kind="presentation" identifier="View Photo" id="3dA-IQ-B8v"/>
                                 </connections>
                             </tableViewCell>
@@ -397,7 +401,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="ArtworkCell" rowHeight="173" id="r26-qG-orb">
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="ArtworkCell" rowHeight="173" id="r26-qG-orb" customClass="ArtworkTableViewCell">
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="r26-qG-orb" id="3k1-xQ-Mpk">
                                     <autoresizingMask key="autoresizingMask"/>

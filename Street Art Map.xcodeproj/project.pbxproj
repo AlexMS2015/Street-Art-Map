@@ -13,6 +13,8 @@
 		FA0EB1131B649F110034FD18 /* ListOfPhotosCDTVC.m in Sources */ = {isa = PBXBuildFile; fileRef = FA0EB1121B649F110034FD18 /* ListOfPhotosCDTVC.m */; };
 		FA0EB1161B64A2F60034FD18 /* PhotosForArtistCDTVC.m in Sources */ = {isa = PBXBuildFile; fileRef = FA0EB1151B64A2F60034FD18 /* PhotosForArtistCDTVC.m */; };
 		FA5339C41B650B0F006C0F52 /* PhotoLibraryInterface.m in Sources */ = {isa = PBXBuildFile; fileRef = FA5339C31B650B0F006C0F52 /* PhotoLibraryInterface.m */; };
+		FA5339D01B6655D1006C0F52 /* ArtworkTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = FA5339CE1B6655D1006C0F52 /* ArtworkTableViewCell.m */; };
+		FA5339D11B6655D1006C0F52 /* ArtworkTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = FA5339CF1B6655D1006C0F52 /* ArtworkTableViewCell.xib */; };
 		FAC2C7651B50B83200DE31A5 /* CoreDataTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FAC2C7641B50B83200DE31A5 /* CoreDataTableViewController.m */; };
 		FAC2C7681B50DE5900DE31A5 /* RecentsCDTVC.m in Sources */ = {isa = PBXBuildFile; fileRef = FAC2C7671B50DE5900DE31A5 /* RecentsCDTVC.m */; };
 		FAC2C76B1B50E87700DE31A5 /* AddAndViewArtworkVC.m in Sources */ = {isa = PBXBuildFile; fileRef = FAC2C76A1B50E87700DE31A5 /* AddAndViewArtworkVC.m */; };
@@ -49,6 +51,9 @@
 		FA0EB1151B64A2F60034FD18 /* PhotosForArtistCDTVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PhotosForArtistCDTVC.m; sourceTree = "<group>"; };
 		FA5339C21B650B0F006C0F52 /* PhotoLibraryInterface.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PhotoLibraryInterface.h; sourceTree = "<group>"; };
 		FA5339C31B650B0F006C0F52 /* PhotoLibraryInterface.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PhotoLibraryInterface.m; sourceTree = "<group>"; };
+		FA5339CD1B6655D1006C0F52 /* ArtworkTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ArtworkTableViewCell.h; sourceTree = "<group>"; };
+		FA5339CE1B6655D1006C0F52 /* ArtworkTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ArtworkTableViewCell.m; sourceTree = "<group>"; };
+		FA5339CF1B6655D1006C0F52 /* ArtworkTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ArtworkTableViewCell.xib; sourceTree = "<group>"; };
 		FAC2C7631B50B83200DE31A5 /* CoreDataTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CoreDataTableViewController.h; sourceTree = "<group>"; };
 		FAC2C7641B50B83200DE31A5 /* CoreDataTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CoreDataTableViewController.m; sourceTree = "<group>"; };
 		FAC2C7661B50DE5900DE31A5 /* RecentsCDTVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RecentsCDTVC.h; sourceTree = "<group>"; };
@@ -171,6 +176,9 @@
 				FAC2C76A1B50E87700DE31A5 /* AddAndViewArtworkVC.m */,
 				FA5339C21B650B0F006C0F52 /* PhotoLibraryInterface.h */,
 				FA5339C31B650B0F006C0F52 /* PhotoLibraryInterface.m */,
+				FA5339CD1B6655D1006C0F52 /* ArtworkTableViewCell.h */,
+				FA5339CE1B6655D1006C0F52 /* ArtworkTableViewCell.m */,
+				FA5339CF1B6655D1006C0F52 /* ArtworkTableViewCell.xib */,
 				FAC2C76C1B51E44800DE31A5 /* ArtistsCDTVC.h */,
 				FAC2C76D1B51E44800DE31A5 /* ArtistsCDTVC.m */,
 				FA0EB1141B64A2F60034FD18 /* PhotosForArtistCDTVC.h */,
@@ -276,6 +284,7 @@
 			files = (
 				FAEB52961B48D14700D9361E /* Main.storyboard in Resources */,
 				FAEB529B1B48D14700D9361E /* LaunchScreen.xib in Resources */,
+				FA5339D11B6655D1006C0F52 /* ArtworkTableViewCell.xib in Resources */,
 				FAEB52981B48D14700D9361E /* Images.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -300,6 +309,7 @@
 				FA0EB1101B64984C0034FD18 /* Artwork.m in Sources */,
 				FAC2C76E1B51E44800DE31A5 /* ArtistsCDTVC.m in Sources */,
 				FA0EB10D1B64984B0034FD18 /* Artist.m in Sources */,
+				FA5339D01B6655D1006C0F52 /* ArtworkTableViewCell.m in Sources */,
 				FA0EB1131B649F110034FD18 /* ListOfPhotosCDTVC.m in Sources */,
 				FAEB528D1B48D14700D9361E /* main.m in Sources */,
 				FA5339C41B650B0F006C0F52 /* PhotoLibraryInterface.m in Sources */,

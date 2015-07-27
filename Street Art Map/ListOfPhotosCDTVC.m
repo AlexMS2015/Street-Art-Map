@@ -11,55 +11,36 @@
 #import "Artist.h"
 #import "AddAndViewArtworkVC.h"
 #import "PhotoLibraryInterface.h"
+#import "ArtworkTableViewCell.h"
 #import <Photos/Photos.h>
 
-@interface ListOfPhotosCDTVC () <PhotoLibraryInterfaceDelegate>
+/*@interface ListOfPhotosCDTVC () <PhotoLibraryInterfaceDelegate>
 
 @property (strong, nonatomic) PhotoLibraryInterface *photoLibInterface;
 @property (strong, nonatomic) NSMutableDictionary *photosForTable;
 
-@end
+@end*/
 
 @implementation ListOfPhotosCDTVC
 
-#pragma mark - Properties
+#pragma mark - View Life Cycle
 
--(NSDictionary *)photosForTable
+#define CELL_IDENTIFIER @"ArtworkCell"
+
+-(void)viewDidLoad
 {
-    if (!_photosForTable) {
-        _photosForTable = [NSMutableDictionary dictionary];
-    }
-    
-    return _photosForTable;
-}
-
--(PhotoLibraryInterface *)photoLibInterface
-{
-    if (!_photoLibInterface) {
-        _photoLibInterface = [[PhotoLibraryInterface alloc] init];
-        _photoLibInterface.delegate = self;
-    }
-    
-    return _photoLibInterface;
-}
-
-#pragma mark - PhotoLibraryInterfaceDelegate
-
--(void)image:(UIImage *)image forProvidedLocalIdentifier:(NSString *)identifier
-{
-    NSLog(@"loading an image for a location");
-    self.photosForTable[identifier] = image;
-    [self.tableView reloadData];
+    UINib *nib = [UINib nibWithNibName:@"ArtworkTableViewCell" bundle:nil];
+    [self.tableView registerNib:nib forCellReuseIdentifier:CELL_IDENTIFIER];
 }
 
 #pragma mark - Implemented Abstract Methods
 
--(void)setupFetchedResultsController {}
+-(void)setupFetchedResultsController { }
 
 #pragma mark - Segues
 
 // called on rewind from adding a photo or editing an existing photo
--(IBAction)done:(UIStoryboardSegue *)segue {}
+-(IBAction)done:(UIStoryboardSegue *)segue { }
 
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
@@ -71,7 +52,7 @@
                 addAndViewArtworkVC.context = self.context;
                 
                 if ([segue.identifier isEqualToString:@"View Photo"]) {
-                    if ([sender isMemberOfClass:[UITableViewCell class]]) {
+                    if ([sender isKindOfClass:[UITableViewCell class]]) {
                         UITableViewCell *selectedArtwork = (UITableViewCell *)sender;
                         NSIndexPath *pathOfSelectedArtwork = [self.tableView indexPathForCell:selectedArtwork];
                         addAndViewArtworkVC.artworkToView = [self.fetchedResultsController objectAtIndexPath:pathOfSelectedArtwork];
@@ -82,24 +63,36 @@
     }
 }
 
+#pragma mark - UITableViewDelegate
+
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    [self performSegueWithIdentifier:@"View Photo"
+                              sender:[self.tableView cellForRowAtIndexPath:indexPath]];
+}
+
 #pragma mark - UITableViewDataSource
 
-#define CELL_IDENTIFIER @"ArtworkCell"
+//#define CELL_IDENTIFIER @"ArtworkCell"
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    UITableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:CELL_IDENTIFIER];
-    
+    ArtworkTableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:CELL_IDENTIFIER];
     Artwork *artwork = [self.fetchedResultsController objectAtIndexPath:indexPath];
-
-    UILabel *titleLabel = (UILabel *)[cell viewWithTag:100];
+    cell.artwork = artwork;
+    
+    return cell;
+}
+    
+    //UITableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:CELL_IDENTIFIER];
+    /*UILabel *titleLabel = (UILabel *)[cell viewWithTag:100];
     titleLabel.text = artwork.title;
-    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
     
     UILabel *artistLabel = (UILabel *)[cell viewWithTag:101];
     artistLabel.text = artwork.artist.name;
     
     UILabel *dateLabel = (UILabel *)[cell viewWithTag:102];
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
     dateFormatter.dateStyle = NSDateFormatterMediumStyle;
     dateLabel.text = [dateFormatter stringFromDate:artwork.uploadDate];
     
@@ -108,10 +101,12 @@
     if (location) {
 
         if (self.photosForTable[location]) {
+            NSLog(@"image for %@ already loaded", titleLabel.text);
             artworkImageView.image = self.photosForTable[location];
         } else {
+            NSLog(@"fetching image for %@", titleLabel.text);
             [self.photoLibInterface getImageForLocalIdentifier:location withSize:artworkImageView.bounds.size];
-        }
+        }*/
         
         /*
         PHFetchResult *result = [PHAsset fetchAssetsWithLocalIdentifiers:@[artwork.imageLocation] options:nil];
@@ -127,9 +122,37 @@
                                                         artworkImageView.image = result;
                                                     }
                                                 }];*/
-    }
-    
-    return cell;
-}
+    //}
+
+#pragma mark - Properties
+
+/*-(NSDictionary *)photosForTable
+ {
+ if (!_photosForTable) {
+ _photosForTable = [NSMutableDictionary dictionary];
+ }
+ 
+ return _photosForTable;
+ }
+ 
+ -(PhotoLibraryInterface *)photoLibInterface
+ {
+ if (!_photoLibInterface) {
+ _photoLibInterface = [[PhotoLibraryInterface alloc] init];
+ _photoLibInterface.delegate = self;
+ }
+ 
+ return _photoLibInterface;
+ }
+ 
+ #pragma mark - PhotoLibraryInterfaceDelegate
+ 
+ -(void)image:(UIImage *)image forProvidedLocalIdentifier:(NSString *)identifier
+ {
+ self.photosForTable[identifier] = image;
+ NSLog(@"dictionary: %@", self.photosForTable);
+ NSLog(@"-------------");
+ [self.tableView reloadData];
+ }*/
 
 @end
