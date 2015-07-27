@@ -242,14 +242,13 @@
 -(void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
 {
     if (info[UIImagePickerControllerReferenceURL]) {
-        /*PHFetchResult *result = [PHAsset fetchAssetsWithALAssetURLs:@[info[UIImagePickerControllerReferenceURL]] options:nil];
-        PHAsset *assetForArtworkImage = [result firstObject];
-        self.localIdentifierForArtworkImage = assetForArtworkImage.localIdentifier;*/
-        
         self.localIdentifierForArtworkImage = [self.photoLibInterface localIdentifierForALAssetURL:info[UIImagePickerControllerReferenceURL]];
+        
+        /*PHFetchResult *result = [PHAsset fetchAssetsWithALAssetURLs:@[info[UIImagePickerControllerReferenceURL]] options:nil];
+         PHAsset *assetForArtworkImage = [result firstObject];
+         self.localIdentifierForArtworkImage = assetForArtworkImage.localIdentifier;*/
     } else {
         UIImage *artworkImage = info[UIImagePickerControllerOriginalImage];
-        
         [self.photoLibInterface getLocalIdentifierForImage:artworkImage];
         
         /*__block NSString *localIdentifier;

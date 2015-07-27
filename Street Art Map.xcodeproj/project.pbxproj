@@ -156,6 +156,9 @@
 			children = (
 				FAEB52991B48D14700D9361E /* LaunchScreen.xib */,
 				FAEB52941B48D14700D9361E /* Main.storyboard */,
+				FA5339CD1B6655D1006C0F52 /* ArtworkTableViewCell.h */,
+				FA5339CE1B6655D1006C0F52 /* ArtworkTableViewCell.m */,
+				FA5339CF1B6655D1006C0F52 /* ArtworkTableViewCell.xib */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -174,11 +177,6 @@
 				FAC2C7671B50DE5900DE31A5 /* RecentsCDTVC.m */,
 				FAC2C7691B50E87700DE31A5 /* AddAndViewArtworkVC.h */,
 				FAC2C76A1B50E87700DE31A5 /* AddAndViewArtworkVC.m */,
-				FA5339C21B650B0F006C0F52 /* PhotoLibraryInterface.h */,
-				FA5339C31B650B0F006C0F52 /* PhotoLibraryInterface.m */,
-				FA5339CD1B6655D1006C0F52 /* ArtworkTableViewCell.h */,
-				FA5339CE1B6655D1006C0F52 /* ArtworkTableViewCell.m */,
-				FA5339CF1B6655D1006C0F52 /* ArtworkTableViewCell.xib */,
 				FAC2C76C1B51E44800DE31A5 /* ArtistsCDTVC.h */,
 				FAC2C76D1B51E44800DE31A5 /* ArtistsCDTVC.m */,
 				FA0EB1141B64A2F60034FD18 /* PhotosForArtistCDTVC.h */,
@@ -190,6 +188,8 @@
 		FAEB52B51B48D1CE00D9361E /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				FA5339C21B650B0F006C0F52 /* PhotoLibraryInterface.h */,
+				FA5339C31B650B0F006C0F52 /* PhotoLibraryInterface.m */,
 				FA0EB10E1B64984C0034FD18 /* Artwork.h */,
 				FA0EB10F1B64984C0034FD18 /* Artwork.m */,
 				FA0EB10B1B64984B0034FD18 /* Artist.h */,
