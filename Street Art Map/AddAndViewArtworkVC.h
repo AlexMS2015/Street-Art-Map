@@ -11,11 +11,9 @@
 
 @interface AddAndViewArtworkVC : UIViewController
 
-// input
 @property (strong, nonatomic) NSManagedObjectContext *context;
-@property (strong, nonatomic) Artwork *artworkToView;
 
-// output
-@property (strong, nonatomic) Artwork *addedArtwork; // is this even neccessary?
+// set this property if you want to view some artwork rather than add new artwork (the default)
+@property (strong, nonatomic) Artwork *artworkToView;
 
 @end

@@ -10,14 +10,13 @@
 #import "Artist.h"
 #import "Artwork.h"
 #import "ArtistsCDTVC.h"
-#import <AssetsLibrary/AssetsLibrary.h>
-@import Photos;
+#import "PhotoLibraryInterface.h"
 
-@interface AddAndViewArtworkVC () <UINavigationControllerDelegate, UIImagePickerControllerDelegate, UITextFieldDelegate>
+@interface AddAndViewArtworkVC () <UINavigationControllerDelegate, UIImagePickerControllerDelegate, UITextFieldDelegate, PhotoLibraryInterfaceDelegate>
 
 @property (strong, nonatomic) Artist *artistForArtwork;
 @property (strong, nonatomic) NSString *localIdentifierForArtworkImage;
-@property (strong, nonatomic) ALAssetsLibrary *library;
+@property (strong, nonatomic) PhotoLibraryInterface *photoLibInterface;
 
 // outlets
 @property (weak, nonatomic) IBOutlet UIImageView *artworkImageView;
@@ -34,13 +33,13 @@
 -(void)viewDidLoad
 {
     if (self.artworkToView) {
-        self.title = @"View/Edit Art";
         self.artworkTitleTextField.text = self.artworkToView.title;
         self.artistForArtwork = self.artworkToView.artist;
         
         if (self.artworkToView.imageLocation)
             self.localIdentifierForArtworkImage = self.artworkToView.imageLocation;
         
+        self.title = @"View/Edit Art";
         self.navigationItem.leftBarButtonItem = nil;
     } else {
         self.title = @"Add Art";
@@ -51,15 +50,37 @@
 
 -(void)showSingleButtonAlertWithMessage:(NSString *)message andTitle:(NSString *)title
 {
-    UIAlertController *notAvailableAlert = [UIAlertController alertControllerWithTitle:title message:message preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:title message:message preferredStyle:UIAlertControllerStyleAlert];
     
     UIAlertAction *okButton = [UIAlertAction actionWithTitle:@"Ok" style:UIAlertActionStyleDefault handler:NULL];
-    [notAvailableAlert addAction:okButton];
+    [alert addAction:okButton];
     
-    [self presentViewController:notAvailableAlert animated:YES completion:NULL];
+    [self presentViewController:alert animated:YES completion:NULL];
 }
 
 #pragma mark - Segues
+
+-(BOOL)updateArtworkFromView:(Artwork *)artworkToUpdate // will return YES if changes are made
+{
+    BOOL changesMade = NO;
+    
+    if (![artworkToUpdate.title isEqualToString:self.artworkTitleTextField.text]) {
+        artworkToUpdate.title = self.artworkTitleTextField.text;
+        changesMade = YES;
+    }
+    
+    if (artworkToUpdate.artist != self.artistForArtwork) {
+        artworkToUpdate.artist = self.artistForArtwork;
+        changesMade = YES;
+    }
+    
+    if (![artworkToUpdate.imageLocation isEqualToString:self.localIdentifierForArtworkImage]) {
+        artworkToUpdate.imageLocation = self.localIdentifierForArtworkImage;
+        changesMade = YES;
+    }
+    
+    return changesMade;
+}
 
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
@@ -73,17 +94,10 @@
             artworkToUpdate = self.artworkToView;
         }
         
-        if (![artworkToUpdate.title isEqualToString:self.artworkTitleTextField.text] ||
-            ! (artworkToUpdate.artist == self.artistForArtwork) ||
-            ! (artworkToUpdate.imageLocation == self.localIdentifierForArtworkImage)) {
-            // TEST THIS - should only update if the user has actually made any changes
+        if ([self updateArtworkFromView:artworkToUpdate]) {
             artworkToUpdate.uploadDate = [NSDate date];
         }
-        
-        artworkToUpdate.title = self.artworkTitleTextField.text;
-        artworkToUpdate.artist = self.artistForArtwork;
-        artworkToUpdate.imageLocation = self.localIdentifierForArtworkImage;
-        
+    
     } else if ([segue.identifier isEqualToString:@"Select Artist"]) {
         if ([segue.destinationViewController isMemberOfClass:[UINavigationController class]]) {
             UINavigationController *navController = (UINavigationController *)segue
@@ -121,13 +135,20 @@
 
 #pragma mark - Properties
 
--(ALAssetsLibrary *)library
+-(PhotoLibraryInterface *)photoLibInterface
 {
-    if (!_library) {
-        _library = [[ALAssetsLibrary alloc] init];
+    if (!_photoLibInterface) {
+        _photoLibInterface = [[PhotoLibraryInterface alloc] init];
+        _photoLibInterface.delegate = self;
     }
     
-    return _library;
+    return _photoLibInterface;
+}
+
+-(void)setArtistForArtwork:(Artist *)artistForArtwork
+{
+    _artistForArtwork = artistForArtwork;
+    self.artworkArtistTextField.text = _artistForArtwork.name;
 }
 
 -(void)setLocalIdentifierForArtworkImage:(NSString *)localIdentifierForArtworkImage
@@ -135,9 +156,11 @@
     _localIdentifierForArtworkImage = localIdentifierForArtworkImage;
     
     // SET UP A TEST FOR A DELETED IMAGE
-    // SEPARATE THIS IMAGE CODE OUT INTO A SEPARATE CLASS?
     
-    //PHFetchResult *result = [PHAsset fetchAssetsWithALAssetURLs:@[URLForArtworkImage] options:nil];
+    [self.photoLibInterface getImageForLocalIdentifier:_localIdentifierForArtworkImage
+                                              withSize:self.artworkImageView.bounds.size];
+    
+    /*
     PHFetchResult *result = [PHAsset fetchAssetsWithLocalIdentifiers:@[self.localIdentifierForArtworkImage] options:nil];
     PHAsset *assetForArtworkImage = [result firstObject];
     
@@ -153,13 +176,7 @@
                 } else {
                     self.artworkImageView.image = result;
                 }
-    }];
-}
-
--(void)setArtistForArtwork:(Artist *)artistForArtwork
-{
-    _artistForArtwork = artistForArtwork;
-    self.artworkArtistTextField.text = _artistForArtwork.name;
+    }];*/
 }
 
 #pragma mark - Actions
@@ -173,23 +190,33 @@
         
         [self presentViewController:imagePicker animated:YES completion:NULL];
     } else {
-        [self showSingleButtonAlertWithMessage:@"Sorry, that option is not available on your device" andTitle:nil];
+        [self showSingleButtonAlertWithMessage:@"Sorry, that option is not available on your device"
+                                      andTitle:nil];
     }
 }
 
 - (IBAction)addPhotoToArtwork:(UIBarButtonItem *)sender
 {
-    UIAlertController *addPhotoAlert = [UIAlertController alertControllerWithTitle:nil message:nil preferredStyle:UIAlertControllerStyleActionSheet];
+    UIAlertController *addPhotoAlert =
+            [UIAlertController alertControllerWithTitle:nil
+                                                message:nil
+                                         preferredStyle:UIAlertControllerStyleActionSheet];
     
-    UIAlertAction *cancelButton = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:NULL];
+    UIAlertAction *cancelButton = [UIAlertAction actionWithTitle:@"Cancel"
+                                                           style:UIAlertActionStyleCancel
+                                                         handler:NULL];
     [addPhotoAlert addAction:cancelButton];
     
-    UIAlertAction *fromCameraButton = [UIAlertAction actionWithTitle:@"Take photo" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+    UIAlertAction *fromCameraButton = [UIAlertAction actionWithTitle:@"Take photo"
+                                                               style:UIAlertActionStyleDefault handler:
+                                       ^(UIAlertAction *action) {
         [self selectImageWithSourceType:UIImagePickerControllerSourceTypeCamera];
     }];
     [addPhotoAlert addAction:fromCameraButton];
     
-    UIAlertAction *fromExistingButton = [UIAlertAction actionWithTitle:@"Choose photo" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+    UIAlertAction *fromExistingButton = [UIAlertAction actionWithTitle:@"Choose photo"
+                                                                 style:UIAlertActionStyleDefault handler:
+                                         ^(UIAlertAction *action) {
         [self selectImageWithSourceType:UIImagePickerControllerSourceTypePhotoLibrary];
     }];
     [addPhotoAlert addAction:fromExistingButton];
@@ -215,14 +242,17 @@
 -(void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
 {
     if (info[UIImagePickerControllerReferenceURL]) {
-        // THIS IS TERRIBLE CODE!?
-        PHFetchResult *result = [PHAsset fetchAssetsWithALAssetURLs:@[info[UIImagePickerControllerReferenceURL]] options:nil];
+        /*PHFetchResult *result = [PHAsset fetchAssetsWithALAssetURLs:@[info[UIImagePickerControllerReferenceURL]] options:nil];
         PHAsset *assetForArtworkImage = [result firstObject];
-        self.localIdentifierForArtworkImage = assetForArtworkImage.localIdentifier;
+        self.localIdentifierForArtworkImage = assetForArtworkImage.localIdentifier;*/
+        
+        self.localIdentifierForArtworkImage = [self.photoLibInterface localIdentifierForALAssetURL:info[UIImagePickerControllerReferenceURL]];
     } else {
         UIImage *artworkImage = info[UIImagePickerControllerOriginalImage];
         
-        __block NSString *localIdentifier;
+        [self.photoLibInterface getLocalIdentifierForImage:artworkImage];
+        
+        /*__block NSString *localIdentifier;
         
         [[PHPhotoLibrary sharedPhotoLibrary] performChanges:^{
             
@@ -232,7 +262,8 @@
             
         } completionHandler:^(BOOL success, NSError *error) {
             self.localIdentifierForArtworkImage = localIdentifier;
-        }];
+        }];*/
+        
     }
     
     [self dismissViewControllerAnimated:YES completion:NULL];
@@ -241,6 +272,21 @@
 -(void)imagePickerControllerDidCancel:(UIImagePickerController *)picker
 {
     [self dismissViewControllerAnimated:YES completion:NULL];
+}
+
+#pragma mark - PhotoLibraryInterfaceDelegate
+
+-(void)image:(UIImage *)image forProvidedLocalIdentifier:(NSString *)identifier
+{
+    self.artworkImageView.image = image;\
+    // WHY IS THIS CALLED TWICE?
+    NSLog(@"setting image woohoo");
+}
+
+-(void)localIdentifier:(NSString *)identifier forProvidedImage:(UIImage *)image
+{
+    self.localIdentifierForArtworkImage = identifier;
+    NSLog(@"identifer set as = %@", identifier);
 }
 
 @end

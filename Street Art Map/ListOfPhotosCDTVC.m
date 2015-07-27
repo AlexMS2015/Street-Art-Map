@@ -10,51 +10,72 @@
 #import "Artwork.h"
 #import "Artist.h"
 #import "AddAndViewArtworkVC.h"
+#import "PhotoLibraryInterface.h"
 #import <Photos/Photos.h>
 
-@interface ListOfPhotosCDTVC ()
+@interface ListOfPhotosCDTVC () <PhotoLibraryInterfaceDelegate>
+
+@property (strong, nonatomic) PhotoLibraryInterface *photoLibInterface;
+@property (strong, nonatomic) NSMutableDictionary *photosForTable;
 
 @end
 
 @implementation ListOfPhotosCDTVC
 
+#pragma mark - Properties
+
+-(NSDictionary *)photosForTable
+{
+    if (!_photosForTable) {
+        _photosForTable = [NSMutableDictionary dictionary];
+    }
+    
+    return _photosForTable;
+}
+
+-(PhotoLibraryInterface *)photoLibInterface
+{
+    if (!_photoLibInterface) {
+        _photoLibInterface = [[PhotoLibraryInterface alloc] init];
+        _photoLibInterface.delegate = self;
+    }
+    
+    return _photoLibInterface;
+}
+
+#pragma mark - PhotoLibraryInterfaceDelegate
+
+-(void)image:(UIImage *)image forProvidedLocalIdentifier:(NSString *)identifier
+{
+    NSLog(@"loading an image for a location");
+    self.photosForTable[identifier] = image;
+    [self.tableView reloadData];
+}
+
 #pragma mark - Implemented Abstract Methods
 
--(void)setupFetchedResultsController
-{
-
-}
+-(void)setupFetchedResultsController {}
 
 #pragma mark - Segues
 
 // called on rewind from adding a photo or editing an existing photo
--(IBAction)done:(UIStoryboardSegue *)segue
-{
-    
-}
+-(IBAction)done:(UIStoryboardSegue *)segue {}
 
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
-    if ([segue.identifier isEqualToString:@"Add Photo"]) {
-        if ([segue.destinationViewController isMemberOfClass:[UINavigationController class]]) {
-            UINavigationController *navController = (UINavigationController *)segue
-            .destinationViewController;
-            if ([[navController.viewControllers firstObject] isMemberOfClass:[AddAndViewArtworkVC class]]) {
-                AddAndViewArtworkVC *addArtworkVC = (AddAndViewArtworkVC *)[navController.viewControllers firstObject];
-                addArtworkVC.context = self.context;
-            }
-            
-        }
-    } else if ([segue.identifier isEqualToString:@"View Photo"]) {
+    if ([segue.identifier isEqualToString:@"Add Photo"] || [segue.identifier isEqualToString:@"View Photo"]) {
         if ([segue.destinationViewController isMemberOfClass:[UINavigationController class]]) {
             UINavigationController *navController = (UINavigationController *)segue.destinationViewController;
             if ([[navController.viewControllers firstObject] isMemberOfClass:[AddAndViewArtworkVC class]]) {
-                AddAndViewArtworkVC *viewArtworkVC = (AddAndViewArtworkVC *)[navController.viewControllers firstObject];
-                viewArtworkVC.context = self.context;
-                if ([sender isMemberOfClass:[UITableViewCell class]]) {
-                    UITableViewCell *selectedArtwork = (UITableViewCell *)sender;
-                    NSIndexPath *pathOfSelectedArtwork = [self.tableView indexPathForCell:selectedArtwork];
-                    viewArtworkVC.artworkToView = [self.fetchedResultsController objectAtIndexPath:pathOfSelectedArtwork];
+                AddAndViewArtworkVC *addAndViewArtworkVC = (AddAndViewArtworkVC *)[navController.viewControllers firstObject];
+                addAndViewArtworkVC.context = self.context;
+                
+                if ([segue.identifier isEqualToString:@"View Photo"]) {
+                    if ([sender isMemberOfClass:[UITableViewCell class]]) {
+                        UITableViewCell *selectedArtwork = (UITableViewCell *)sender;
+                        NSIndexPath *pathOfSelectedArtwork = [self.tableView indexPathForCell:selectedArtwork];
+                        addAndViewArtworkVC.artworkToView = [self.fetchedResultsController objectAtIndexPath:pathOfSelectedArtwork];
+                    }
                 }
             }
         }
@@ -70,21 +91,29 @@
     UITableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:CELL_IDENTIFIER];
     
     Artwork *artwork = [self.fetchedResultsController objectAtIndexPath:indexPath];
-    
+
     UILabel *titleLabel = (UILabel *)[cell viewWithTag:100];
-    UILabel *artistLabel = (UILabel *)[cell viewWithTag:101];
-    UILabel *dateLabel = (UILabel *)[cell viewWithTag:102];
-    UIImageView *artworkImageView = (UIImageView *)[cell viewWithTag:103];
-    
     titleLabel.text = artwork.title;
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
     
+    UILabel *artistLabel = (UILabel *)[cell viewWithTag:101];
     artistLabel.text = artwork.artist.name;
     
+    UILabel *dateLabel = (UILabel *)[cell viewWithTag:102];
     dateFormatter.dateStyle = NSDateFormatterMediumStyle;
     dateLabel.text = [dateFormatter stringFromDate:artwork.uploadDate];
     
-    if (artwork.imageLocation) {
+    UIImageView *artworkImageView = (UIImageView *)[cell viewWithTag:103];
+    NSString *location = artwork.imageLocation;
+    if (location) {
+
+        if (self.photosForTable[location]) {
+            artworkImageView.image = self.photosForTable[location];
+        } else {
+            [self.photoLibInterface getImageForLocalIdentifier:location withSize:artworkImageView.bounds.size];
+        }
+        
+        /*
         PHFetchResult *result = [PHAsset fetchAssetsWithLocalIdentifiers:@[artwork.imageLocation] options:nil];
         PHAsset *assetForArtworkImage = [result firstObject];
         [[PHImageManager defaultManager] requestImageForAsset:assetForArtworkImage
@@ -97,9 +126,7 @@
                                                     } else {
                                                         artworkImageView.image = result;
                                                     }
-                                                }];
-    } else {
-        artworkImageView.image = nil;
+                                                }];*/
     }
     
     return cell;
