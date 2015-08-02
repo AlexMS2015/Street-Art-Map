@@ -14,3 +14,5 @@
 @property (strong, nonatomic) Artwork *artwork;
 
 @end
+
+// READ UP BNR ON HOW FILE OWNER WORKS - REFRESH!!!!!

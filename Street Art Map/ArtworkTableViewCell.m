@@ -57,7 +57,8 @@
     
     NSString *location = artwork.imageLocation;
     if (location) {
-        [self.photoLibInterface getImageForLocalIdentifier:location withSize:self.artworkImageView.bounds.size];
+        [self.photoLibInterface getImageForLocalIdentifier:location
+                                                  withSize:self.artworkImageView.bounds.size];
     }
 }
 
