@@ -7,14 +7,17 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		FA0EB10A1B64984A0034FD18 /* Location.m in Sources */ = {isa = PBXBuildFile; fileRef = FA0EB1091B64984A0034FD18 /* Location.m */; };
-		FA0EB10D1B64984B0034FD18 /* Artist.m in Sources */ = {isa = PBXBuildFile; fileRef = FA0EB10C1B64984B0034FD18 /* Artist.m */; };
-		FA0EB1101B64984C0034FD18 /* Artwork.m in Sources */ = {isa = PBXBuildFile; fileRef = FA0EB10F1B64984C0034FD18 /* Artwork.m */; };
 		FA0EB1131B649F110034FD18 /* ListOfPhotosCDTVC.m in Sources */ = {isa = PBXBuildFile; fileRef = FA0EB1121B649F110034FD18 /* ListOfPhotosCDTVC.m */; };
 		FA0EB1161B64A2F60034FD18 /* PhotosForArtistCDTVC.m in Sources */ = {isa = PBXBuildFile; fileRef = FA0EB1151B64A2F60034FD18 /* PhotosForArtistCDTVC.m */; };
 		FA5339C41B650B0F006C0F52 /* PhotoLibraryInterface.m in Sources */ = {isa = PBXBuildFile; fileRef = FA5339C31B650B0F006C0F52 /* PhotoLibraryInterface.m */; };
 		FA5339D01B6655D1006C0F52 /* ArtworkTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = FA5339CE1B6655D1006C0F52 /* ArtworkTableViewCell.m */; };
 		FA5339D11B6655D1006C0F52 /* ArtworkTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = FA5339CF1B6655D1006C0F52 /* ArtworkTableViewCell.xib */; };
+		FA5339D41B6DAA2F006C0F52 /* ArtworkMapVC.m in Sources */ = {isa = PBXBuildFile; fileRef = FA5339D31B6DAA2F006C0F52 /* ArtworkMapVC.m */; };
+		FA5339D71B6EE138006C0F52 /* Location.m in Sources */ = {isa = PBXBuildFile; fileRef = FA5339D61B6EE138006C0F52 /* Location.m */; };
+		FA5339DA1B6EE139006C0F52 /* Artist.m in Sources */ = {isa = PBXBuildFile; fileRef = FA5339D91B6EE139006C0F52 /* Artist.m */; };
+		FA5339DD1B6EE139006C0F52 /* Artwork.m in Sources */ = {isa = PBXBuildFile; fileRef = FA5339DC1B6EE139006C0F52 /* Artwork.m */; };
+		FA5339E31B6EE32E006C0F52 /* Artwork+Annotation.m in Sources */ = {isa = PBXBuildFile; fileRef = FA5339E21B6EE32E006C0F52 /* Artwork+Annotation.m */; };
+		FA5339E81B6EE9F7006C0F52 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FA5339E71B6EE9F7006C0F52 /* MapKit.framework */; };
 		FAC2C7651B50B83200DE31A5 /* CoreDataTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FAC2C7641B50B83200DE31A5 /* CoreDataTableViewController.m */; };
 		FAC2C7681B50DE5900DE31A5 /* RecentsCDTVC.m in Sources */ = {isa = PBXBuildFile; fileRef = FAC2C7671B50DE5900DE31A5 /* RecentsCDTVC.m */; };
 		FAC2C76B1B50E87700DE31A5 /* AddAndViewArtworkVC.m in Sources */ = {isa = PBXBuildFile; fileRef = FAC2C76A1B50E87700DE31A5 /* AddAndViewArtworkVC.m */; };
@@ -39,12 +42,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		FA0EB1081B64984A0034FD18 /* Location.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Location.h; sourceTree = "<group>"; };
-		FA0EB1091B64984A0034FD18 /* Location.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Location.m; sourceTree = "<group>"; };
-		FA0EB10B1B64984B0034FD18 /* Artist.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Artist.h; sourceTree = "<group>"; };
-		FA0EB10C1B64984B0034FD18 /* Artist.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Artist.m; sourceTree = "<group>"; };
-		FA0EB10E1B64984C0034FD18 /* Artwork.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Artwork.h; sourceTree = "<group>"; };
-		FA0EB10F1B64984C0034FD18 /* Artwork.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Artwork.m; sourceTree = "<group>"; };
 		FA0EB1111B649F110034FD18 /* ListOfPhotosCDTVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ListOfPhotosCDTVC.h; sourceTree = "<group>"; };
 		FA0EB1121B649F110034FD18 /* ListOfPhotosCDTVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ListOfPhotosCDTVC.m; sourceTree = "<group>"; };
 		FA0EB1141B64A2F60034FD18 /* PhotosForArtistCDTVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PhotosForArtistCDTVC.h; sourceTree = "<group>"; };
@@ -54,6 +51,17 @@
 		FA5339CD1B6655D1006C0F52 /* ArtworkTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ArtworkTableViewCell.h; sourceTree = "<group>"; };
 		FA5339CE1B6655D1006C0F52 /* ArtworkTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ArtworkTableViewCell.m; sourceTree = "<group>"; };
 		FA5339CF1B6655D1006C0F52 /* ArtworkTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ArtworkTableViewCell.xib; sourceTree = "<group>"; };
+		FA5339D21B6DAA2F006C0F52 /* ArtworkMapVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ArtworkMapVC.h; sourceTree = "<group>"; };
+		FA5339D31B6DAA2F006C0F52 /* ArtworkMapVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ArtworkMapVC.m; sourceTree = "<group>"; };
+		FA5339D51B6EE138006C0F52 /* Location.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Location.h; sourceTree = "<group>"; };
+		FA5339D61B6EE138006C0F52 /* Location.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Location.m; sourceTree = "<group>"; };
+		FA5339D81B6EE139006C0F52 /* Artist.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Artist.h; sourceTree = "<group>"; };
+		FA5339D91B6EE139006C0F52 /* Artist.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Artist.m; sourceTree = "<group>"; };
+		FA5339DB1B6EE139006C0F52 /* Artwork.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Artwork.h; sourceTree = "<group>"; };
+		FA5339DC1B6EE139006C0F52 /* Artwork.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Artwork.m; sourceTree = "<group>"; };
+		FA5339E11B6EE32E006C0F52 /* Artwork+Annotation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Artwork+Annotation.h"; sourceTree = "<group>"; };
+		FA5339E21B6EE32E006C0F52 /* Artwork+Annotation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Artwork+Annotation.m"; sourceTree = "<group>"; };
+		FA5339E71B6EE9F7006C0F52 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		FAC2C7631B50B83200DE31A5 /* CoreDataTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CoreDataTableViewController.h; sourceTree = "<group>"; };
 		FAC2C7641B50B83200DE31A5 /* CoreDataTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CoreDataTableViewController.m; sourceTree = "<group>"; };
 		FAC2C7661B50DE5900DE31A5 /* RecentsCDTVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RecentsCDTVC.h; sourceTree = "<group>"; };
@@ -82,6 +90,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FA5339E81B6EE9F7006C0F52 /* MapKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -98,6 +107,7 @@
 		FAEB527E1B48D14700D9361E = {
 			isa = PBXGroup;
 			children = (
+				FA5339E71B6EE9F7006C0F52 /* MapKit.framework */,
 				FAEB52891B48D14700D9361E /* Street Art Map */,
 				FAEB52A31B48D14900D9361E /* Street Art MapTests */,
 				FAEB52881B48D14700D9361E /* Products */,
@@ -181,6 +191,8 @@
 				FAC2C76D1B51E44800DE31A5 /* ArtistsCDTVC.m */,
 				FA0EB1141B64A2F60034FD18 /* PhotosForArtistCDTVC.h */,
 				FA0EB1151B64A2F60034FD18 /* PhotosForArtistCDTVC.m */,
+				FA5339D21B6DAA2F006C0F52 /* ArtworkMapVC.h */,
+				FA5339D31B6DAA2F006C0F52 /* ArtworkMapVC.m */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -188,14 +200,16 @@
 		FAEB52B51B48D1CE00D9361E /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				FA5339E11B6EE32E006C0F52 /* Artwork+Annotation.h */,
+				FA5339E21B6EE32E006C0F52 /* Artwork+Annotation.m */,
+				FA5339DB1B6EE139006C0F52 /* Artwork.h */,
+				FA5339DC1B6EE139006C0F52 /* Artwork.m */,
+				FA5339D81B6EE139006C0F52 /* Artist.h */,
+				FA5339D91B6EE139006C0F52 /* Artist.m */,
+				FA5339D51B6EE138006C0F52 /* Location.h */,
+				FA5339D61B6EE138006C0F52 /* Location.m */,
 				FA5339C21B650B0F006C0F52 /* PhotoLibraryInterface.h */,
 				FA5339C31B650B0F006C0F52 /* PhotoLibraryInterface.m */,
-				FA0EB10E1B64984C0034FD18 /* Artwork.h */,
-				FA0EB10F1B64984C0034FD18 /* Artwork.m */,
-				FA0EB10B1B64984B0034FD18 /* Artist.h */,
-				FA0EB10C1B64984B0034FD18 /* Artist.m */,
-				FA0EB1081B64984A0034FD18 /* Location.h */,
-				FA0EB1091B64984A0034FD18 /* Location.m */,
 				FAEB52B21B48D1C500D9361E /* Model.xcdatamodeld */,
 			);
 			name = Model;
@@ -251,6 +265,11 @@
 					FAEB52861B48D14700D9361E = {
 						CreatedOnToolsVersion = 6.3.1;
 						DevelopmentTeam = 37CCTH6C4V;
+						SystemCapabilities = {
+							com.apple.Maps.iOS = {
+								enabled = 1;
+							};
+						};
 					};
 					FAEB529F1B48D14900D9361E = {
 						CreatedOnToolsVersion = 6.3.1;
@@ -304,19 +323,21 @@
 			buildActionMask = 2147483647;
 			files = (
 				FA0EB1161B64A2F60034FD18 /* PhotosForArtistCDTVC.m in Sources */,
+				FA5339D71B6EE138006C0F52 /* Location.m in Sources */,
+				FA5339DD1B6EE139006C0F52 /* Artwork.m in Sources */,
 				FAEB52901B48D14700D9361E /* AppDelegate.m in Sources */,
 				FAC2C7651B50B83200DE31A5 /* CoreDataTableViewController.m in Sources */,
-				FA0EB1101B64984C0034FD18 /* Artwork.m in Sources */,
+				FA5339DA1B6EE139006C0F52 /* Artist.m in Sources */,
 				FAC2C76E1B51E44800DE31A5 /* ArtistsCDTVC.m in Sources */,
-				FA0EB10D1B64984B0034FD18 /* Artist.m in Sources */,
 				FA5339D01B6655D1006C0F52 /* ArtworkTableViewCell.m in Sources */,
 				FA0EB1131B649F110034FD18 /* ListOfPhotosCDTVC.m in Sources */,
 				FAEB528D1B48D14700D9361E /* main.m in Sources */,
 				FA5339C41B650B0F006C0F52 /* PhotoLibraryInterface.m in Sources */,
-				FA0EB10A1B64984A0034FD18 /* Location.m in Sources */,
+				FA5339D41B6DAA2F006C0F52 /* ArtworkMapVC.m in Sources */,
 				FAEB52B41B48D1C500D9361E /* Model.xcdatamodeld in Sources */,
 				FAC2C76B1B50E87700DE31A5 /* AddAndViewArtworkVC.m in Sources */,
 				FAC2C7681B50DE5900DE31A5 /* RecentsCDTVC.m in Sources */,
+				FA5339E31B6EE32E006C0F52 /* Artwork+Annotation.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

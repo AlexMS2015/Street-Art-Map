@@ -2,7 +2,7 @@
 //  Artwork.h
 //  Street Art Map
 //
-//  Created by Alex Smith on 26/07/2015.
+//  Created by Alex Smith on 3/08/2015.
 //  Copyright (c) 2015 Alex Smith. All rights reserved.
 //
 
@@ -17,6 +17,8 @@
 @property (nonatomic, retain) NSDate * lastEditDate;
 @property (nonatomic, retain) NSString * title;
 @property (nonatomic, retain) NSDate * uploadDate;
+@property (nonatomic, retain) NSNumber * lattitude;
+@property (nonatomic, retain) NSNumber * longitude;
 @property (nonatomic, retain) Artist *artist;
 @property (nonatomic, retain) Location *location;
 

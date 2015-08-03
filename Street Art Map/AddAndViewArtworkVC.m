@@ -11,11 +11,13 @@
 #import "Artwork.h"
 #import "ArtistsCDTVC.h"
 #import "PhotoLibraryInterface.h"
+#import <CoreLocation/CoreLocation.h>
 
 @interface AddAndViewArtworkVC () <UINavigationControllerDelegate, UIImagePickerControllerDelegate, UITextFieldDelegate, PhotoLibraryInterfaceDelegate>
 
 @property (strong, nonatomic) Artist *artistForArtwork;
 @property (strong, nonatomic) NSString *localIdentifierForArtworkImage;
+@property (strong, nonatomic) CLLocation *locationForArtWorkImage;
 @property (strong, nonatomic) PhotoLibraryInterface *photoLibInterface;
 
 // outlets
@@ -160,23 +162,15 @@
     [self.photoLibInterface getImageForLocalIdentifier:_localIdentifierForArtworkImage
                                               withSize:self.artworkImageView.bounds.size];
     
-    /*
-    PHFetchResult *result = [PHAsset fetchAssetsWithLocalIdentifiers:@[self.localIdentifierForArtworkImage] options:nil];
-    PHAsset *assetForArtworkImage = [result firstObject];
-    
-    // PHImageRequestOptions *options - consider implementing this if performance is bad? run against instruments to determine this
-    
-    [[PHImageManager defaultManager] requestImageForAsset:assetForArtworkImage
-                                               targetSize:self.artworkImageView.bounds.size
-                                              contentMode:PHImageContentModeAspectFit
-                                                  options:nil
-                                            resultHandler:^(UIImage *result, NSDictionary *info) {
-                if (info[PHImageErrorKey]) {
-                    // error handling
-                } else {
-                    self.artworkImageView.image = result;
-                }
-    }];*/
+    if (!self.locationForArtWorkImage)
+        self.locationForArtWorkImage = [self.photoLibInterface locationForImageWithLocalIdentifier:localIdentifierForArtworkImage];
+}
+
+-(void)setLocationForArtWorkImage:(CLLocation *)locationForArtWorkImage
+{
+    _locationForArtWorkImage = locationForArtWorkImage;
+    NSLog(@"longitude is: %f", self.locationForArtWorkImage.coordinate.longitude);
+    NSLog(@"lattitude is: %f", self.locationForArtWorkImage.coordinate.latitude);
 }
 
 #pragma mark - Actions
@@ -243,26 +237,9 @@
 {
     if (info[UIImagePickerControllerReferenceURL]) {
         self.localIdentifierForArtworkImage = [self.photoLibInterface localIdentifierForALAssetURL:info[UIImagePickerControllerReferenceURL]];
-        
-        /*PHFetchResult *result = [PHAsset fetchAssetsWithALAssetURLs:@[info[UIImagePickerControllerReferenceURL]] options:nil];
-         PHAsset *assetForArtworkImage = [result firstObject];
-         self.localIdentifierForArtworkImage = assetForArtworkImage.localIdentifier;*/
     } else {
         UIImage *artworkImage = info[UIImagePickerControllerOriginalImage];
         [self.photoLibInterface getLocalIdentifierForImage:artworkImage];
-        
-        /*__block NSString *localIdentifier;
-        
-        [[PHPhotoLibrary sharedPhotoLibrary] performChanges:^{
-            
-            PHAssetChangeRequest *addArtworkRequest = [PHAssetChangeRequest creationRequestForAssetFromImage:artworkImage];
-            PHObjectPlaceholder *addedArtworkPlaceholder = addArtworkRequest.placeholderForCreatedAsset;
-             localIdentifier = addedArtworkPlaceholder.localIdentifier;
-            
-        } completionHandler:^(BOOL success, NSError *error) {
-            self.localIdentifierForArtworkImage = localIdentifier;
-        }];*/
-        
     }
     
     [self dismissViewControllerAnimated:YES completion:NULL];
@@ -277,7 +254,7 @@
 
 -(void)image:(UIImage *)image forProvidedLocalIdentifier:(NSString *)identifier
 {
-    self.artworkImageView.image = image;\
+    self.artworkImageView.image = image;
     // WHY IS THIS CALLED TWICE?
     NSLog(@"setting image woohoo");
 }

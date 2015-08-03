@@ -11,6 +11,14 @@
 
 @implementation PhotoLibraryInterface
 
+-(CLLocation *)locationForImageWithLocalIdentifier:(NSString *)identifier
+{
+    PHFetchResult *result = [PHAsset fetchAssetsWithLocalIdentifiers:@[identifier] options:nil];
+    PHAsset *asset = [result firstObject];
+    
+    return asset.location;
+}
+
 -(NSString *)localIdentifierForALAssetURL:(NSURL *)url
 {
     PHFetchResult *result = [PHAsset fetchAssetsWithALAssetURLs:@[url] options:nil];
@@ -23,7 +31,7 @@
     PHFetchResult *result = [PHAsset fetchAssetsWithLocalIdentifiers:@[identifier] options:nil];
     PHAsset *asset = [result firstObject];
     
-    // PHImageRequestOptions *options - consider implementing this if performance is bad? run against instruments to determine this
+    // PHImageRequestOptions *options - consider implementing this if performance is bad? run in instruments to determine this
     
     [[PHImageManager defaultManager] requestImageForAsset:asset
                                                targetSize:size
@@ -33,8 +41,8 @@
                                                 if (info[PHImageErrorKey]) {
                                                     // error handling
                                                 } else {
-                                                    [self.delegate image:result
-                                                      forProvidedLocalIdentifier:identifier];
+                                                [self.delegate image:result
+                                          forProvidedLocalIdentifier:identifier];
                                                 }
                                             }];
 }

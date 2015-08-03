@@ -313,7 +313,7 @@
         <!--Map-->
         <scene sceneID="OVU-LX-8tc">
             <objects>
-                <viewController id="cNj-E5-zJJ" sceneMemberID="viewController">
+                <viewController id="cNj-E5-zJJ" customClass="ArtworkMapVC" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="tH8-jR-vCf"/>
                         <viewControllerLayoutGuide type="bottom" id="WhR-Mk-M8E"/>
@@ -321,9 +321,23 @@
                     <view key="view" contentMode="scaleToFill" id="PEm-CN-or7">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="O58-Xz-NYF">
+                                <rect key="frame" x="0.0" y="64" width="600" height="487"/>
+                            </mapView>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="O58-Xz-NYF" secondAttribute="trailing" id="6pu-7a-nPc"/>
+                            <constraint firstItem="O58-Xz-NYF" firstAttribute="leading" secondItem="PEm-CN-or7" secondAttribute="leading" id="JId-Fh-rHn"/>
+                            <constraint firstItem="WhR-Mk-M8E" firstAttribute="top" secondItem="O58-Xz-NYF" secondAttribute="bottom" id="i9V-mk-mHK"/>
+                            <constraint firstItem="O58-Xz-NYF" firstAttribute="top" secondItem="tH8-jR-vCf" secondAttribute="bottom" id="yab-Wy-N19"/>
+                        </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Map" id="2l1-Su-JPE"/>
+                    <connections>
+                        <outlet property="mapView" destination="O58-Xz-NYF" id="OjD-jx-eHS"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="jTC-vk-bgf" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
-
+#import <CoreLocation/CoreLocation.h>
 
 @protocol PhotoLibraryInterfaceDelegate <NSObject>
 
@@ -23,6 +23,7 @@
 @property (strong, nonatomic) id <PhotoLibraryInterfaceDelegate> delegate;
 
 -(NSString *)localIdentifierForALAssetURL:(NSURL *)url;
+-(CLLocation *)locationForImageWithLocalIdentifier:(NSString *)identifier;
 
 // will call the delegate method 'image:forProvidedLocalIdentifier' on completion
 -(void)getImageForLocalIdentifier:(NSString *)identifier withSize:(CGSize)size;

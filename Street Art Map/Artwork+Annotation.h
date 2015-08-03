@@ -1,18 +1,14 @@
 //
-//  Artist.m
+//  Artwork+Annotation.h
 //  Street Art Map
 //
 //  Created by Alex Smith on 3/08/2015.
 //  Copyright (c) 2015 Alex Smith. All rights reserved.
 //
 
-#import "Artist.h"
 #import "Artwork.h"
+#import <MapKit/MapKit.h>
 
-
-@implementation Artist
-
-@dynamic name;
-@dynamic artworks;
+@interface Artwork (Annotation) <MKAnnotation>
 
 @end

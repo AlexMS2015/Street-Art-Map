@@ -69,6 +69,8 @@
 
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
+    // THERE IS SOME DUPLICATED CODE HERE. FIX IT.
+    
     if ([segue.identifier isEqualToString:@"Select Artist Unwind"]) {
         if ([sender isMemberOfClass:[UITableViewCell class]]) {
             UITableViewCell *cellSelected = (UITableViewCell *)sender;

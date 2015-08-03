@@ -2,7 +2,7 @@
 //  Artwork.m
 //  Street Art Map
 //
-//  Created by Alex Smith on 26/07/2015.
+//  Created by Alex Smith on 3/08/2015.
 //  Copyright (c) 2015 Alex Smith. All rights reserved.
 //
 
@@ -17,6 +17,8 @@
 @dynamic lastEditDate;
 @dynamic title;
 @dynamic uploadDate;
+@dynamic lattitude;
+@dynamic longitude;
 @dynamic artist;
 @dynamic location;
 
