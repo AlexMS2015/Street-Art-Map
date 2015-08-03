@@ -68,9 +68,22 @@
 #pragma mark - Segues
 
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
-{
-    // THERE IS SOME DUPLICATED CODE HERE. FIX IT.
+{    
+    if ([sender isMemberOfClass:[UITableViewCell class]]) {
+        UITableViewCell *cellSelected = (UITableViewCell *)sender;
+        NSIndexPath *pathOfSelectedCell = [self.tableView indexPathForCell:cellSelected];
+        self.selectedArtist = [self.fetchedResultsController objectAtIndexPath:pathOfSelectedCell];
+        
+        if ([segue.identifier isEqualToString:@"Show Artwork For Artist"]) {
+            if ([segue.destinationViewController isMemberOfClass:[PhotosForArtistCDTVC class]]) {
+                PhotosForArtistCDTVC *photosForSelectedArtist = (PhotosForArtistCDTVC *)segue.destinationViewController;
+                photosForSelectedArtist.artistToShowPhotosFor = self.selectedArtist;
+                photosForSelectedArtist.context = self.context;
+            }
+        }
+    }
     
+    /*
     if ([segue.identifier isEqualToString:@"Select Artist Unwind"]) {
         if ([sender isMemberOfClass:[UITableViewCell class]]) {
             UITableViewCell *cellSelected = (UITableViewCell *)sender;
@@ -88,7 +101,7 @@
                 photosForSelectedArtist.context = self.context;
             }
         }
-    }
+    }*/
 }
 
 -(BOOL)shouldPerformSegueWithIdentifier:(NSString *)identifier sender:(id)sender

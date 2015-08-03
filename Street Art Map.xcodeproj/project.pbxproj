@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		FA0EB1131B649F110034FD18 /* ListOfPhotosCDTVC.m in Sources */ = {isa = PBXBuildFile; fileRef = FA0EB1121B649F110034FD18 /* ListOfPhotosCDTVC.m */; };
 		FA0EB1161B64A2F60034FD18 /* PhotosForArtistCDTVC.m in Sources */ = {isa = PBXBuildFile; fileRef = FA0EB1151B64A2F60034FD18 /* PhotosForArtistCDTVC.m */; };
+		FA4049271B6F6C2A0069144D /* ArtworkAnnotationView.m in Sources */ = {isa = PBXBuildFile; fileRef = FA4049261B6F6C2A0069144D /* ArtworkAnnotationView.m */; };
 		FA5339C41B650B0F006C0F52 /* PhotoLibraryInterface.m in Sources */ = {isa = PBXBuildFile; fileRef = FA5339C31B650B0F006C0F52 /* PhotoLibraryInterface.m */; };
 		FA5339D01B6655D1006C0F52 /* ArtworkTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = FA5339CE1B6655D1006C0F52 /* ArtworkTableViewCell.m */; };
 		FA5339D11B6655D1006C0F52 /* ArtworkTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = FA5339CF1B6655D1006C0F52 /* ArtworkTableViewCell.xib */; };
@@ -46,6 +47,8 @@
 		FA0EB1121B649F110034FD18 /* ListOfPhotosCDTVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ListOfPhotosCDTVC.m; sourceTree = "<group>"; };
 		FA0EB1141B64A2F60034FD18 /* PhotosForArtistCDTVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PhotosForArtistCDTVC.h; sourceTree = "<group>"; };
 		FA0EB1151B64A2F60034FD18 /* PhotosForArtistCDTVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PhotosForArtistCDTVC.m; sourceTree = "<group>"; };
+		FA4049251B6F6C2A0069144D /* ArtworkAnnotationView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ArtworkAnnotationView.h; sourceTree = "<group>"; };
+		FA4049261B6F6C2A0069144D /* ArtworkAnnotationView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ArtworkAnnotationView.m; sourceTree = "<group>"; };
 		FA5339C21B650B0F006C0F52 /* PhotoLibraryInterface.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PhotoLibraryInterface.h; sourceTree = "<group>"; };
 		FA5339C31B650B0F006C0F52 /* PhotoLibraryInterface.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PhotoLibraryInterface.m; sourceTree = "<group>"; };
 		FA5339CD1B6655D1006C0F52 /* ArtworkTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ArtworkTableViewCell.h; sourceTree = "<group>"; };
@@ -169,6 +172,8 @@
 				FA5339CD1B6655D1006C0F52 /* ArtworkTableViewCell.h */,
 				FA5339CE1B6655D1006C0F52 /* ArtworkTableViewCell.m */,
 				FA5339CF1B6655D1006C0F52 /* ArtworkTableViewCell.xib */,
+				FA4049251B6F6C2A0069144D /* ArtworkAnnotationView.h */,
+				FA4049261B6F6C2A0069144D /* ArtworkAnnotationView.m */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -200,6 +205,9 @@
 		FAEB52B51B48D1CE00D9361E /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				FAEB52B21B48D1C500D9361E /* Model.xcdatamodeld */,
+				FA5339C21B650B0F006C0F52 /* PhotoLibraryInterface.h */,
+				FA5339C31B650B0F006C0F52 /* PhotoLibraryInterface.m */,
 				FA5339E11B6EE32E006C0F52 /* Artwork+Annotation.h */,
 				FA5339E21B6EE32E006C0F52 /* Artwork+Annotation.m */,
 				FA5339DB1B6EE139006C0F52 /* Artwork.h */,
@@ -208,9 +216,6 @@
 				FA5339D91B6EE139006C0F52 /* Artist.m */,
 				FA5339D51B6EE138006C0F52 /* Location.h */,
 				FA5339D61B6EE138006C0F52 /* Location.m */,
-				FA5339C21B650B0F006C0F52 /* PhotoLibraryInterface.h */,
-				FA5339C31B650B0F006C0F52 /* PhotoLibraryInterface.m */,
-				FAEB52B21B48D1C500D9361E /* Model.xcdatamodeld */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -323,6 +328,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				FA0EB1161B64A2F60034FD18 /* PhotosForArtistCDTVC.m in Sources */,
+				FA4049271B6F6C2A0069144D /* ArtworkAnnotationView.m in Sources */,
 				FA5339D71B6EE138006C0F52 /* Location.m in Sources */,
 				FA5339DD1B6EE139006C0F52 /* Artwork.m in Sources */,
 				FAEB52901B48D14700D9361E /* AppDelegate.m in Sources */,
@@ -467,7 +473,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				INFOPLIST_FILE = "Street Art Map/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -479,7 +485,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				INFOPLIST_FILE = "Street Art Map/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};

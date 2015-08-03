@@ -17,7 +17,7 @@
 
 @property (strong, nonatomic) Artist *artistForArtwork;
 @property (strong, nonatomic) NSString *localIdentifierForArtworkImage;
-@property (strong, nonatomic) CLLocation *locationForArtWorkImage;
+@property (strong, nonatomic) CLLocation *locationForArtworkImage;
 @property (strong, nonatomic) PhotoLibraryInterface *photoLibInterface;
 
 // outlets
@@ -62,26 +62,33 @@
 
 #pragma mark - Segues
 
--(BOOL)updateArtworkFromView:(Artwork *)artworkToUpdate // will return YES if changes are made
+-(void)updateArtworkFromView:(Artwork *)artworkToUpdate // will return YES if changes are made
 {
     BOOL changesMade = NO;
     
+    // has the title changed?
     if (![artworkToUpdate.title isEqualToString:self.artworkTitleTextField.text]) {
         artworkToUpdate.title = self.artworkTitleTextField.text;
         changesMade = YES;
     }
     
+    // has the artist changed?
     if (artworkToUpdate.artist != self.artistForArtwork) {
         artworkToUpdate.artist = self.artistForArtwork;
         changesMade = YES;
     }
     
+    // has the image changed?
     if (![artworkToUpdate.imageLocation isEqualToString:self.localIdentifierForArtworkImage]) {
         artworkToUpdate.imageLocation = self.localIdentifierForArtworkImage;
+        artworkToUpdate.lattitude = [NSNumber numberWithDouble:self.locationForArtworkImage.coordinate.latitude];
+        artworkToUpdate.longitude = [NSNumber numberWithDouble:self.locationForArtworkImage.coordinate.longitude];
         changesMade = YES;
     }
     
-    return changesMade;
+    if (changesMade) {
+        artworkToUpdate.uploadDate = [NSDate date];
+    }
 }
 
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
@@ -96,9 +103,7 @@
             artworkToUpdate = self.artworkToView;
         }
         
-        if ([self updateArtworkFromView:artworkToUpdate]) {
-            artworkToUpdate.uploadDate = [NSDate date];
-        }
+        [self updateArtworkFromView:artworkToUpdate];
     
     } else if ([segue.identifier isEqualToString:@"Select Artist"]) {
         if ([segue.destinationViewController isMemberOfClass:[UINavigationController class]]) {
@@ -162,15 +167,13 @@
     [self.photoLibInterface getImageForLocalIdentifier:_localIdentifierForArtworkImage
                                               withSize:self.artworkImageView.bounds.size];
     
-    if (!self.locationForArtWorkImage)
-        self.locationForArtWorkImage = [self.photoLibInterface locationForImageWithLocalIdentifier:localIdentifierForArtworkImage];
+    if (!self.locationForArtworkImage)
+        self.locationForArtworkImage = [self.photoLibInterface locationForImageWithLocalIdentifier:localIdentifierForArtworkImage];
 }
 
--(void)setLocationForArtWorkImage:(CLLocation *)locationForArtWorkImage
+-(void)setLocationForArtworkImage:(CLLocation *)locationForArtworkImage
 {
-    _locationForArtWorkImage = locationForArtWorkImage;
-    NSLog(@"longitude is: %f", self.locationForArtWorkImage.coordinate.longitude);
-    NSLog(@"lattitude is: %f", self.locationForArtWorkImage.coordinate.latitude);
+    _locationForArtworkImage = locationForArtworkImage;
 }
 
 #pragma mark - Actions
@@ -256,7 +259,7 @@
 {
     self.artworkImageView.image = image;
     // WHY IS THIS CALLED TWICE?
-    NSLog(@"setting image woohoo");
+    NSLog(@"setting image");
 }
 
 -(void)localIdentifier:(NSString *)identifier forProvidedImage:(UIImage *)image

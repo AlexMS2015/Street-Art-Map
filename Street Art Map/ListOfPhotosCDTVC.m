@@ -14,13 +14,6 @@
 #import "ArtworkTableViewCell.h"
 #import <Photos/Photos.h>
 
-/*@interface ListOfPhotosCDTVC () <PhotoLibraryInterfaceDelegate>
-
-@property (strong, nonatomic) PhotoLibraryInterface *photoLibInterface;
-@property (strong, nonatomic) NSMutableDictionary *photosForTable;
-
-@end*/
-
 @implementation ListOfPhotosCDTVC
 
 #pragma mark - View Life Cycle
@@ -72,8 +65,6 @@
 }
 
 #pragma mark - UITableViewDataSource
-
-//#define CELL_IDENTIFIER @"ArtworkCell"
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {

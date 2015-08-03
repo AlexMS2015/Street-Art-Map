@@ -24,6 +24,7 @@
 
 -(NSString *)localIdentifierForALAssetURL:(NSURL *)url;
 -(CLLocation *)locationForImageWithLocalIdentifier:(NSString *)identifier;
+-(void)setImage:(UIImage *)image toImageWithLocalIdentifier:(NSString *)identifier;
 
 // will call the delegate method 'image:forProvidedLocalIdentifier' on completion
 -(void)getImageForLocalIdentifier:(NSString *)identifier withSize:(CGSize)size;
