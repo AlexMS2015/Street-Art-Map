@@ -83,11 +83,12 @@
         artworkToUpdate.imageLocation = self.localIdentifierForArtworkImage;
         artworkToUpdate.lattitude = [NSNumber numberWithDouble:self.locationForArtworkImage.coordinate.latitude];
         artworkToUpdate.longitude = [NSNumber numberWithDouble:self.locationForArtworkImage.coordinate.longitude];
+        artworkToUpdate.imageUploadDate = [NSDate date];
         changesMade = YES;
     }
     
     if (changesMade) {
-        artworkToUpdate.uploadDate = [NSDate date];
+        artworkToUpdate.lastEditDate = [NSDate date];
     }
 }
 
@@ -164,16 +165,17 @@
     
     // SET UP A TEST FOR A DELETED IMAGE
     
-    [self.photoLibInterface getImageForLocalIdentifier:_localIdentifierForArtworkImage
+    [self.photoLibInterface getImageForLocalIdentifier:self.localIdentifierForArtworkImage
                                               withSize:self.artworkImageView.bounds.size];
-    
-    if (!self.locationForArtworkImage)
-        self.locationForArtworkImage = [self.photoLibInterface locationForImageWithLocalIdentifier:localIdentifierForArtworkImage];
 }
 
--(void)setLocationForArtworkImage:(CLLocation *)locationForArtworkImage
+-(CLLocation *)locationForArtworkImage
 {
-    _locationForArtworkImage = locationForArtworkImage;
+    if (self.localIdentifierForArtworkImage) {
+        return [self.photoLibInterface locationForImageWithLocalIdentifier:self.localIdentifierForArtworkImage];
+    } else {
+        return [[CLLocation alloc] init];
+    }
 }
 
 #pragma mark - Actions

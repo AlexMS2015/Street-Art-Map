@@ -25,7 +25,6 @@
 
     if (self) {
         self.canShowCallout = YES;
-        [self setupImage];
     }
     
     return self;
@@ -33,12 +32,19 @@
 
 #pragma mark - Helper
 
+-(void)setupCallout
+{
+    self.rightCalloutAccessoryView = [UIButton buttonWithType:UIButtonTypeDetailDisclosure];
+}
+
 -(void)setupImage
 {
     Artwork *artwork = (Artwork *)self.annotation;
-    [self.photoLibInterface getImageForLocalIdentifier:artwork.imageLocation
-                                              withSize:self.image.size];
     
+    CGSize imageSize = CGSizeMake(self.image.size.width * 10, self.image.size.height * 10);
+    
+    [self.photoLibInterface getImageForLocalIdentifier:artwork.imageLocation
+                                              withSize:imageSize];
 }
 
 #pragma mark - PhotoLibraryInterfaceDelegate
@@ -53,7 +59,11 @@
 -(void)setAnnotation:(id<MKAnnotation>)annotation
 {
     [super setAnnotation:annotation];
-    [self setupImage];
+    Artwork *artwork = (Artwork *)annotation;
+    NSLog(@"%@ at %p is setting it's annotation with artwork %@", NSStringFromClass([self class]), &self, artwork.title);
+    if ([annotation isMemberOfClass:[Artwork class]]) {
+        [self setupImage];
+    }
 }
 
 -(PhotoLibraryInterface *)photoLibInterface

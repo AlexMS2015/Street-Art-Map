@@ -9,7 +9,6 @@
 #import "ArtworkMapVC.h"
 #import "DatabaseAvailability.h"
 #import "Artwork+Annotation.h"
-//#import "PhotoLibraryInterface.h"
 #import "AddAndViewArtworkVC.h"
 #import "ArtworkAnnotationView.h"
 #import <CoreData/CoreData.h>
@@ -20,7 +19,6 @@
 @property (strong, nonatomic) NSManagedObjectContext *context;
 @property (strong, nonatomic) NSArray *artworks;
 @property (weak, nonatomic) IBOutlet MKMapView *mapView;
-//@property (strong, nonatomic) PhotoLibraryInterface *photoLibInterface;
 
 @end
 
@@ -28,39 +26,36 @@
 
 #pragma mark - MKMapViewDelegate
 
-#define ANNOTATION_VIEW_REUSE @"MKAnnotationView"
+-(void)mapView:(MKMapView *)mapView didSelectAnnotationView:(MKAnnotationView *)view
+{
+    if ([view isMemberOfClass:[ArtworkAnnotationView class]]) {
+        ArtworkAnnotationView *selectedAnnotationView = (ArtworkAnnotationView *)view;
+        [selectedAnnotationView setupCallout];
+    }
+}
+
+-(void)mapView:(MKMapView *)mapView annotationView:(MKAnnotationView *)view calloutAccessoryControlTapped:(UIControl *)control
+{
+    if ([view.annotation isMemberOfClass:[Artwork class]]) {
+        [self performSegueWithIdentifier:@"View Photo" sender:view];
+    }
+}
+
+#define ANNOTATION_VIEW_REUSE @"ArtworkAnnotationView"
 -(MKAnnotationView *)mapView:(MKMapView *)mapView
            viewForAnnotation:(id<MKAnnotation>)annotation
-{
+{    
     ArtworkAnnotationView *annotationView = (ArtworkAnnotationView *)[self.mapView dequeueReusableAnnotationViewWithIdentifier:ANNOTATION_VIEW_REUSE];
     
      if (!annotationView) {
-         annotationView = [[ArtworkAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:ANNOTATION_VIEW_REUSE];
+         annotationView = [[ArtworkAnnotationView alloc] initWithAnnotation:annotation
+                                                            reuseIdentifier:ANNOTATION_VIEW_REUSE];
          annotationView.canShowCallout = YES;
      } else {
          annotationView.annotation = annotation;
      }
     
-    /*MKPinAnnotationView *annotationView = (MKPinAnnotationView *)[self.mapView dequeueReusableAnnotationViewWithIdentifier:ANNOTATION_VIEW_REUSE];
-    
-    if (!annotationView) {
-        annotationView = [[MKPinAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:ANNOTATION_VIEW_REUSE];
-        annotationView.canShowCallout = YES;
-        UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 46, 46)];
-        annotationView.leftCalloutAccessoryView = imageView;
-    } else {
-        annotationView.annotation = annotation;
-    }*/
-    
     return annotationView;
-}
-
--(void)mapView:(MKMapView *)mapView didSelectAnnotationView:(MKAnnotationView *)view
-{
-    if ([view.annotation isKindOfClass:[Artwork class]]) {
-        Artwork *artworkForAnnotationView = (Artwork *)view.annotation;
-        [self performSegueWithIdentifier:@"View Photo" sender:artworkForAnnotationView];
-    }
 }
 
 #pragma mark - Segues
@@ -77,8 +72,10 @@
                 AddAndViewArtworkVC *addAndViewArtworkVC = (AddAndViewArtworkVC *)[navController.viewControllers firstObject];
                 addAndViewArtworkVC.context = self.context;
                 
-                if ([sender isMemberOfClass:[Artwork class]]) {
-                    addAndViewArtworkVC.artworkToView = (Artwork *)sender;
+                if ([sender isKindOfClass:[MKAnnotationView class]]) {
+                    MKAnnotationView *annotationView = (MKAnnotationView *)sender;
+                    Artwork *artworkForAnnotationView = (Artwork *)annotationView.annotation;
+                    addAndViewArtworkVC.artworkToView = artworkForAnnotationView;
                 }
             }
         }
@@ -108,19 +105,13 @@
 -(void)updateMapViewAnnotations
 {
     NSFetchRequest *getAllArtworksRequest = [NSFetchRequest fetchRequestWithEntityName:@"Artwork"];
+    NSSortDescriptor *dateSort = [NSSortDescriptor sortDescriptorWithKey:@"imageUploadDate"
+                                                               ascending:NO];
+    getAllArtworksRequest.sortDescriptors = @[dateSort];
     self.artworks = [self.context executeFetchRequest:getAllArtworksRequest error:nil];
 }
 
 #pragma mark - Properties
-
-/*-(PhotoLibraryInterface *)photoLibInterface
-{
-    if (!_photoLibInterface) {
-        _photoLibInterface = [[PhotoLibraryInterface alloc] init];
-    }
-    
-    return _photoLibInterface;
-}*/
 
 -(void)setMapView:(MKMapView *)mapView
 {
@@ -136,12 +127,9 @@
 -(void)setArtworks:(NSArray *)artworks
 {
     _artworks = artworks;
-    [self.artworks enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
-        Artwork *artwork = (Artwork *)obj;
-        if (![self.mapView.annotations containsObject:artwork]) {
-            [self.mapView addAnnotation:artwork];
-        }
-    }];
+    
+    [self.mapView removeAnnotations:self.mapView.annotations];
+    [self.mapView addAnnotations:self.artworks];
     
     [self.mapView showAnnotations:@[[self.mapView.annotations lastObject]] animated:YES];
 }

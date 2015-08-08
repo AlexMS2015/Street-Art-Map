@@ -10,4 +10,6 @@
 
 @interface ArtworkAnnotationView : MKPinAnnotationView
 
+-(void)setupCallout; // sets up the callout. can be called when the annotation view is selected (i.e. to allow lazy loading) 
+
 @end

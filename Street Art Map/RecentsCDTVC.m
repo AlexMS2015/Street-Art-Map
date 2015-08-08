@@ -20,7 +20,7 @@
 {
     NSFetchRequest *recentsRequest = [NSFetchRequest fetchRequestWithEntityName:@"Artwork"];
     
-    NSSortDescriptor *dateSort = [NSSortDescriptor sortDescriptorWithKey:@"uploadDate" ascending:NO];
+    NSSortDescriptor *dateSort = [NSSortDescriptor sortDescriptorWithKey:@"imageUploadDate" ascending:NO];
     NSSortDescriptor *titleSort = [NSSortDescriptor sortDescriptorWithKey:@"title"
                                                             ascending:YES
                                                              selector:@selector(localizedCompare:)];

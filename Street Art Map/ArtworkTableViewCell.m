@@ -53,7 +53,7 @@
     
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
     dateFormatter.dateStyle = NSDateFormatterMediumStyle;
-    self.uploadDateLabel.text = [dateFormatter stringFromDate:artwork.uploadDate];
+    self.uploadDateLabel.text = [dateFormatter stringFromDate:artwork.imageUploadDate];
     
     NSString *location = artwork.imageLocation;
     if (location) {

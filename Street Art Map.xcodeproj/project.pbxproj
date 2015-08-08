@@ -10,13 +10,13 @@
 		FA0EB1131B649F110034FD18 /* ListOfPhotosCDTVC.m in Sources */ = {isa = PBXBuildFile; fileRef = FA0EB1121B649F110034FD18 /* ListOfPhotosCDTVC.m */; };
 		FA0EB1161B64A2F60034FD18 /* PhotosForArtistCDTVC.m in Sources */ = {isa = PBXBuildFile; fileRef = FA0EB1151B64A2F60034FD18 /* PhotosForArtistCDTVC.m */; };
 		FA4049271B6F6C2A0069144D /* ArtworkAnnotationView.m in Sources */ = {isa = PBXBuildFile; fileRef = FA4049261B6F6C2A0069144D /* ArtworkAnnotationView.m */; };
+		FA40492A1B75CAC80069144D /* Artwork.m in Sources */ = {isa = PBXBuildFile; fileRef = FA4049291B75CAC80069144D /* Artwork.m */; };
+		FA40492D1B75CAC90069144D /* Location.m in Sources */ = {isa = PBXBuildFile; fileRef = FA40492C1B75CAC90069144D /* Location.m */; };
+		FA4049301B75CAC90069144D /* Artist.m in Sources */ = {isa = PBXBuildFile; fileRef = FA40492F1B75CAC90069144D /* Artist.m */; };
 		FA5339C41B650B0F006C0F52 /* PhotoLibraryInterface.m in Sources */ = {isa = PBXBuildFile; fileRef = FA5339C31B650B0F006C0F52 /* PhotoLibraryInterface.m */; };
 		FA5339D01B6655D1006C0F52 /* ArtworkTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = FA5339CE1B6655D1006C0F52 /* ArtworkTableViewCell.m */; };
 		FA5339D11B6655D1006C0F52 /* ArtworkTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = FA5339CF1B6655D1006C0F52 /* ArtworkTableViewCell.xib */; };
 		FA5339D41B6DAA2F006C0F52 /* ArtworkMapVC.m in Sources */ = {isa = PBXBuildFile; fileRef = FA5339D31B6DAA2F006C0F52 /* ArtworkMapVC.m */; };
-		FA5339D71B6EE138006C0F52 /* Location.m in Sources */ = {isa = PBXBuildFile; fileRef = FA5339D61B6EE138006C0F52 /* Location.m */; };
-		FA5339DA1B6EE139006C0F52 /* Artist.m in Sources */ = {isa = PBXBuildFile; fileRef = FA5339D91B6EE139006C0F52 /* Artist.m */; };
-		FA5339DD1B6EE139006C0F52 /* Artwork.m in Sources */ = {isa = PBXBuildFile; fileRef = FA5339DC1B6EE139006C0F52 /* Artwork.m */; };
 		FA5339E31B6EE32E006C0F52 /* Artwork+Annotation.m in Sources */ = {isa = PBXBuildFile; fileRef = FA5339E21B6EE32E006C0F52 /* Artwork+Annotation.m */; };
 		FA5339E81B6EE9F7006C0F52 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FA5339E71B6EE9F7006C0F52 /* MapKit.framework */; };
 		FAC2C7651B50B83200DE31A5 /* CoreDataTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FAC2C7641B50B83200DE31A5 /* CoreDataTableViewController.m */; };
@@ -49,6 +49,12 @@
 		FA0EB1151B64A2F60034FD18 /* PhotosForArtistCDTVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PhotosForArtistCDTVC.m; sourceTree = "<group>"; };
 		FA4049251B6F6C2A0069144D /* ArtworkAnnotationView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ArtworkAnnotationView.h; sourceTree = "<group>"; };
 		FA4049261B6F6C2A0069144D /* ArtworkAnnotationView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ArtworkAnnotationView.m; sourceTree = "<group>"; };
+		FA4049281B75CAC80069144D /* Artwork.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Artwork.h; sourceTree = "<group>"; };
+		FA4049291B75CAC80069144D /* Artwork.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Artwork.m; sourceTree = "<group>"; };
+		FA40492B1B75CAC90069144D /* Location.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Location.h; sourceTree = "<group>"; };
+		FA40492C1B75CAC90069144D /* Location.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Location.m; sourceTree = "<group>"; };
+		FA40492E1B75CAC90069144D /* Artist.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Artist.h; sourceTree = "<group>"; };
+		FA40492F1B75CAC90069144D /* Artist.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Artist.m; sourceTree = "<group>"; };
 		FA5339C21B650B0F006C0F52 /* PhotoLibraryInterface.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PhotoLibraryInterface.h; sourceTree = "<group>"; };
 		FA5339C31B650B0F006C0F52 /* PhotoLibraryInterface.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PhotoLibraryInterface.m; sourceTree = "<group>"; };
 		FA5339CD1B6655D1006C0F52 /* ArtworkTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ArtworkTableViewCell.h; sourceTree = "<group>"; };
@@ -56,12 +62,6 @@
 		FA5339CF1B6655D1006C0F52 /* ArtworkTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ArtworkTableViewCell.xib; sourceTree = "<group>"; };
 		FA5339D21B6DAA2F006C0F52 /* ArtworkMapVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ArtworkMapVC.h; sourceTree = "<group>"; };
 		FA5339D31B6DAA2F006C0F52 /* ArtworkMapVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ArtworkMapVC.m; sourceTree = "<group>"; };
-		FA5339D51B6EE138006C0F52 /* Location.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Location.h; sourceTree = "<group>"; };
-		FA5339D61B6EE138006C0F52 /* Location.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Location.m; sourceTree = "<group>"; };
-		FA5339D81B6EE139006C0F52 /* Artist.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Artist.h; sourceTree = "<group>"; };
-		FA5339D91B6EE139006C0F52 /* Artist.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Artist.m; sourceTree = "<group>"; };
-		FA5339DB1B6EE139006C0F52 /* Artwork.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Artwork.h; sourceTree = "<group>"; };
-		FA5339DC1B6EE139006C0F52 /* Artwork.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Artwork.m; sourceTree = "<group>"; };
 		FA5339E11B6EE32E006C0F52 /* Artwork+Annotation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Artwork+Annotation.h"; sourceTree = "<group>"; };
 		FA5339E21B6EE32E006C0F52 /* Artwork+Annotation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Artwork+Annotation.m"; sourceTree = "<group>"; };
 		FA5339E71B6EE9F7006C0F52 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
@@ -205,17 +205,17 @@
 		FAEB52B51B48D1CE00D9361E /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				FAEB52B21B48D1C500D9361E /* Model.xcdatamodeld */,
 				FA5339C21B650B0F006C0F52 /* PhotoLibraryInterface.h */,
 				FA5339C31B650B0F006C0F52 /* PhotoLibraryInterface.m */,
+				FAEB52B21B48D1C500D9361E /* Model.xcdatamodeld */,
+				FA40492E1B75CAC90069144D /* Artist.h */,
+				FA40492F1B75CAC90069144D /* Artist.m */,
+				FA40492B1B75CAC90069144D /* Location.h */,
+				FA40492C1B75CAC90069144D /* Location.m */,
+				FA4049281B75CAC80069144D /* Artwork.h */,
+				FA4049291B75CAC80069144D /* Artwork.m */,
 				FA5339E11B6EE32E006C0F52 /* Artwork+Annotation.h */,
 				FA5339E21B6EE32E006C0F52 /* Artwork+Annotation.m */,
-				FA5339DB1B6EE139006C0F52 /* Artwork.h */,
-				FA5339DC1B6EE139006C0F52 /* Artwork.m */,
-				FA5339D81B6EE139006C0F52 /* Artist.h */,
-				FA5339D91B6EE139006C0F52 /* Artist.m */,
-				FA5339D51B6EE138006C0F52 /* Location.h */,
-				FA5339D61B6EE138006C0F52 /* Location.m */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -329,20 +329,20 @@
 			files = (
 				FA0EB1161B64A2F60034FD18 /* PhotosForArtistCDTVC.m in Sources */,
 				FA4049271B6F6C2A0069144D /* ArtworkAnnotationView.m in Sources */,
-				FA5339D71B6EE138006C0F52 /* Location.m in Sources */,
-				FA5339DD1B6EE139006C0F52 /* Artwork.m in Sources */,
 				FAEB52901B48D14700D9361E /* AppDelegate.m in Sources */,
 				FAC2C7651B50B83200DE31A5 /* CoreDataTableViewController.m in Sources */,
-				FA5339DA1B6EE139006C0F52 /* Artist.m in Sources */,
+				FA4049301B75CAC90069144D /* Artist.m in Sources */,
 				FAC2C76E1B51E44800DE31A5 /* ArtistsCDTVC.m in Sources */,
 				FA5339D01B6655D1006C0F52 /* ArtworkTableViewCell.m in Sources */,
 				FA0EB1131B649F110034FD18 /* ListOfPhotosCDTVC.m in Sources */,
 				FAEB528D1B48D14700D9361E /* main.m in Sources */,
+				FA40492A1B75CAC80069144D /* Artwork.m in Sources */,
 				FA5339C41B650B0F006C0F52 /* PhotoLibraryInterface.m in Sources */,
 				FA5339D41B6DAA2F006C0F52 /* ArtworkMapVC.m in Sources */,
 				FAEB52B41B48D1C500D9361E /* Model.xcdatamodeld in Sources */,
 				FAC2C76B1B50E87700DE31A5 /* AddAndViewArtworkVC.m in Sources */,
 				FAC2C7681B50DE5900DE31A5 /* RecentsCDTVC.m in Sources */,
+				FA40492D1B75CAC90069144D /* Location.m in Sources */,
 				FA5339E31B6EE32E006C0F52 /* Artwork+Annotation.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

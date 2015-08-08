@@ -69,24 +69,6 @@
 -(void)getImageForLocalIdentifier:(NSString *)identifier withSize:(CGSize)size
 {
     [self getImageForLocalIdentifier:identifier withSize:size inImage:nil];
-    
-    /*PHFetchResult *result = [PHAsset fetchAssetsWithLocalIdentifiers:@[identifier] options:nil];
-    PHAsset *asset = [result firstObject];
-    
-    // PHImageRequestOptions *options - consider implementing this if performance is bad? run in instruments to determine this
-    
-    [[PHImageManager defaultManager] requestImageForAsset:asset
-                                               targetSize:size
-                                              contentMode:PHImageContentModeAspectFit
-                                                  options:nil
-                                            resultHandler:^(UIImage *result, NSDictionary *info) {
-                                                if (info[PHImageErrorKey]) {
-                                                    // error handling
-                                                } else {
-                                                [self.delegate image:result
-                                          forProvidedLocalIdentifier:identifier];
-                                                }
-                                            }];*/
 }
 
 -(void)getLocalIdentifierForImage:(UIImage *)image
