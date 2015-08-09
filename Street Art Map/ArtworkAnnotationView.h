@@ -8,7 +8,7 @@
 
 #import <MapKit/MapKit.h>
 
-@interface ArtworkAnnotationView : MKPinAnnotationView
+@interface ArtworkAnnotationView : MKAnnotationView
 
 -(void)setupCallout; // sets up the callout. can be called when the annotation view is selected (i.e. to allow lazy loading) 
 

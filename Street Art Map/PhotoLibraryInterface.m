@@ -13,7 +13,7 @@
 
 #pragma mark - Helper
 
-// this method will call the relevant delegate method if no imageView is provided
+/*// this method will call the relevant delegate method if no imageView is provided
 -(void)getImageForLocalIdentifier:(NSString *)identifier
                          withSize:(CGSize)size
                           inImage:(UIImage *)image
@@ -42,7 +42,7 @@
                                                     blockImage = result;
                                                 }
                                             }];
-}
+}*/
 
 #pragma mark - Public Interface
 
@@ -50,7 +50,7 @@
 {
     PHFetchResult *result = [PHAsset fetchAssetsWithLocalIdentifiers:@[identifier] options:nil];
     PHAsset *asset = [result firstObject];
-    
+
     return asset.location;
 }
 
@@ -61,14 +61,31 @@
     return assetForArtworkImage.localIdentifier;
 }
 
--(void)setImage:(UIImage *)image toImageWithLocalIdentifier:(NSString *)identifier
+/*-(void)setImage:(UIImage *)image toImageWithLocalIdentifier:(NSString *)identifier
 {
     [self getImageForLocalIdentifier:identifier withSize:image.size inImage:image];
-}
+}*/
 
 -(void)getImageForLocalIdentifier:(NSString *)identifier withSize:(CGSize)size
 {
-    [self getImageForLocalIdentifier:identifier withSize:size inImage:nil];
+    //[self getImageForLocalIdentifier:identifier withSize:size inImage:nil];
+    
+    PHFetchResult *result = [PHAsset fetchAssetsWithLocalIdentifiers:@[identifier] options:nil];
+    PHAsset *asset = [result firstObject];
+    
+    // PHImageRequestOptions *options - consider implementing this if performance is bad? run in instruments to determine this
+    
+    [[PHImageManager defaultManager] requestImageForAsset:asset
+                                               targetSize:size
+                                              contentMode:PHImageContentModeAspectFit
+                                                  options:nil
+                                            resultHandler:^(UIImage *result, NSDictionary *info) {
+                                                if (info[PHImageErrorKey]) {
+                                                    // error handling
+                                                } else {
+                [self.delegate image:result forProvidedLocalIdentifier:identifier];
+                                                }
+                                            }];
 }
 
 -(void)getLocalIdentifierForImage:(UIImage *)image

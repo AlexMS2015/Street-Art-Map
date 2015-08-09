@@ -293,11 +293,6 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="Artists" id="Bxq-t7-XBL">
-                        <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="Aat-DB-dZo">
-                            <connections>
-                                <action selector="cancel:" destination="eDo-LD-hrY" id="knf-GX-LZW"/>
-                            </connections>
-                        </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="gae-Ki-Bai">
                             <connections>
                                 <action selector="addArtist:" destination="eDo-LD-hrY" id="l1p-QQ-2P6"/>
@@ -570,11 +565,6 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="Artists" id="qaX-sU-w75">
-                        <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="JGQ-6I-MNd">
-                            <connections>
-                                <action selector="cancel:" destination="20v-PQ-yIo" id="9Qz-vB-elc"/>
-                            </connections>
-                        </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="ZeY-ix-BD0">
                             <connections>
                                 <action selector="addArtist:" destination="20v-PQ-yIo" id="Vjh-DC-LsR"/>

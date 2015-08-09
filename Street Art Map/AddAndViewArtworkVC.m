@@ -41,10 +41,10 @@
         if (self.artworkToView.imageLocation)
             self.localIdentifierForArtworkImage = self.artworkToView.imageLocation;
         
-        self.title = @"View/Edit Art";
         self.navigationItem.leftBarButtonItem = nil;
+        self.navigationItem.title = @"View/Edit Art";
     } else {
-        self.title = @"Add Art";
+        self.navigationItem.title = @"Add Art";
     }
 }
 
@@ -52,9 +52,13 @@
 
 -(void)showSingleButtonAlertWithMessage:(NSString *)message andTitle:(NSString *)title
 {
-    UIAlertController *alert = [UIAlertController alertControllerWithTitle:title message:message preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:title
+                                                                   message:message
+                                                            preferredStyle:UIAlertControllerStyleAlert];
     
-    UIAlertAction *okButton = [UIAlertAction actionWithTitle:@"Ok" style:UIAlertActionStyleDefault handler:NULL];
+    UIAlertAction *okButton = [UIAlertAction actionWithTitle:@"Ok"
+                                                       style:UIAlertActionStyleDefault
+                                                     handler:NULL];
     [alert addAction:okButton];
     
     [self presentViewController:alert animated:YES completion:NULL];
@@ -62,7 +66,7 @@
 
 #pragma mark - Segues
 
--(void)updateArtworkFromView:(Artwork *)artworkToUpdate // will return YES if changes are made
+-(void)updateArtworkFromView:(Artwork *)artworkToUpdate
 {
     BOOL changesMade = NO;
     
@@ -114,6 +118,7 @@
                 ArtistsCDTVC *artistSelection = (ArtistsCDTVC *)[navController.viewControllers firstObject];
                 artistSelection.context = self.context;
                 artistSelection.screenMode = SelectionMode;
+                artistSelection.selectedArtist = self.artistForArtwork;
             }
         }
     }
@@ -122,12 +127,12 @@
 -(BOOL)shouldPerformSegueWithIdentifier:(NSString *)identifier sender:(id)sender
 {
     if ([identifier isEqualToString:@"Add Photo Unwind"]) {
-        if (!self.artworkTitleTextField.text || !self.artworkImageView.image) {
+        if ([self.artworkTitleTextField.text length] == 0 || !self.artworkImageView.image) {
             [self showSingleButtonAlertWithMessage:@"Photo title or image not set" andTitle:nil];
             return NO;
         }
     }
-    
+
     return YES;
 }
 

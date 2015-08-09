@@ -15,4 +15,23 @@
 @dynamic name;
 @dynamic artworks;
 
+/*-(BOOL)isEqual:(id)object
+{
+    if (self == object) {
+        return YES;
+    }
+    
+    if (object && [object isMemberOfClass:[self class]]) {
+        Artist *otherArtist = (Artist *)object;
+        return [self.name isEqualToString:otherArtist.name];
+    }
+    
+    return NO;
+}
+
+-(NSUInteger)hash
+{
+    return [self.artworks hash] ^ [self.name hash];
+}*/
+
 @end

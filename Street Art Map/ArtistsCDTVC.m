@@ -25,11 +25,12 @@
     _screenMode = screenMode;
     if (self.screenMode == ViewingMode) {
         self.cellIdentifier = @"ArtistViewCell";
-        self.navigationItem.leftBarButtonItem = nil;
-        self.title = @"Artists";
+        self.navigationItem.title = @"Artists";
     } else if (self.screenMode == SelectionMode) {
         self.cellIdentifier = @"ArtistSelectCell";
-        self.title = @"Select Artist";
+        UIBarButtonItem *cancelButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel target:self action:@selector(cancel:)];
+        self.navigationItem.leftBarButtonItem = cancelButton;
+        self.navigationItem.title = @"Select Artist";
     }
 }
 
@@ -62,6 +63,16 @@
     cell.textLabel.text = artist.name;
     cell.detailTextLabel.text = [NSString stringWithFormat:@"Number of photos: %lu", (unsigned long)[artist.artworks count]];
     
+    if (self.selectedArtist && [artist.name isEqualToString:self.selectedArtist.name]) {
+    /*if (self.selectedArtist == artist) {
+        NSLog(@"found equal artists");
+        NSLog(@"Selected artist located at: %p", &_selectedArtist);
+        NSLog(@"Current artist: %@ located at: %p", artist.name, &artist);*/
+        cell.accessoryType = UITableViewCellAccessoryCheckmark;
+    } else {
+        cell.accessoryType = UITableViewCellAccessoryNone;
+    }
+    
     return cell;
 }
 
@@ -82,26 +93,6 @@
             }
         }
     }
-    
-    /*
-    if ([segue.identifier isEqualToString:@"Select Artist Unwind"]) {
-        if ([sender isMemberOfClass:[UITableViewCell class]]) {
-            UITableViewCell *cellSelected = (UITableViewCell *)sender;
-            NSIndexPath *pathOfSelectedCell = [self.tableView indexPathForCell:cellSelected];
-            self.selectedArtist = [self.fetchedResultsController objectAtIndexPath:pathOfSelectedCell];
-        }
-    } else if ([segue.identifier isEqualToString:@"Show Artwork For Artist"]) {
-        if ([sender isMemberOfClass:[UITableViewCell class]]) {
-            UITableViewCell *cellSelected = (UITableViewCell *)sender;
-            NSIndexPath *pathOfSelectedCell = [self.tableView indexPathForCell:cellSelected];
-            self.selectedArtist = [self.fetchedResultsController objectAtIndexPath:pathOfSelectedCell];
-            if ([segue.destinationViewController isMemberOfClass:[PhotosForArtistCDTVC class]]) {
-                PhotosForArtistCDTVC *photosForSelectedArtist = (PhotosForArtistCDTVC *)segue.destinationViewController;
-                photosForSelectedArtist.artistToShowPhotosFor = self.selectedArtist;
-                photosForSelectedArtist.context = self.context;
-            }
-        }
-    }*/
 }
 
 -(BOOL)shouldPerformSegueWithIdentifier:(NSString *)identifier sender:(id)sender
@@ -141,6 +132,10 @@
     UIAlertAction *addArtistAction = [UIAlertAction actionWithTitle:@"Add"
                                                               style:UIAlertActionStyleDefault
                                                             handler:^(UIAlertAction *action) {
+            
+            
+            // ONLY ALLOW THE CREATION OF A NEW ARTIST IF NOT A DUPLICATE
+                                                                
             NSString *newArtistName = ((UITextField *)[newArtistAlert.textFields firstObject]).text;
             Artist *newArtist = [NSEntityDescription insertNewObjectForEntityForName:@"Artist"
                                                               inManagedObjectContext:self.context];
@@ -151,7 +146,9 @@
     
     [newArtistAlert addAction:addArtistAction];
     
-    [newArtistAlert addTextFieldWithConfigurationHandler:NULL];
+    [newArtistAlert addTextFieldWithConfigurationHandler:^(UITextField *textField) {
+        textField.autocapitalizationType = UITextAutocapitalizationTypeWords;
+    }];
     
     [self presentViewController:newArtistAlert animated:YES completion:NULL];
 }

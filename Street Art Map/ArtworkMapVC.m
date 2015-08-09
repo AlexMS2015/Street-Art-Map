@@ -28,6 +28,7 @@
 
 -(void)mapView:(MKMapView *)mapView didSelectAnnotationView:(MKAnnotationView *)view
 {
+    NSLog(@"Selected annotation view");
     if ([view isMemberOfClass:[ArtworkAnnotationView class]]) {
         ArtworkAnnotationView *selectedAnnotationView = (ArtworkAnnotationView *)view;
         [selectedAnnotationView setupCallout];
@@ -36,9 +37,8 @@
 
 -(void)mapView:(MKMapView *)mapView annotationView:(MKAnnotationView *)view calloutAccessoryControlTapped:(UIControl *)control
 {
-    if ([view.annotation isMemberOfClass:[Artwork class]]) {
+    if ([view.annotation isMemberOfClass:[Artwork class]])
         [self performSegueWithIdentifier:@"View Photo" sender:view];
-    }
 }
 
 #define ANNOTATION_VIEW_REUSE @"ArtworkAnnotationView"
@@ -66,16 +66,20 @@
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
     if ([segue.identifier isEqualToString:@"View Photo"]) {
+        
         if ([segue.destinationViewController isMemberOfClass:[UINavigationController class]]) {
             UINavigationController *navController = (UINavigationController *)segue.destinationViewController;
+            
             if ([[navController.viewControllers firstObject] isMemberOfClass:[AddAndViewArtworkVC class]]) {
                 AddAndViewArtworkVC *addAndViewArtworkVC = (AddAndViewArtworkVC *)[navController.viewControllers firstObject];
                 addAndViewArtworkVC.context = self.context;
                 
                 if ([sender isKindOfClass:[MKAnnotationView class]]) {
                     MKAnnotationView *annotationView = (MKAnnotationView *)sender;
-                    Artwork *artworkForAnnotationView = (Artwork *)annotationView.annotation;
-                    addAndViewArtworkVC.artworkToView = artworkForAnnotationView;
+                    if ([annotationView.annotation isMemberOfClass:[Artwork class]]) {
+                        Artwork *artworkForAnnotationView = (Artwork *)annotationView.annotation;
+                        addAndViewArtworkVC.artworkToView = artworkForAnnotationView;
+                    }
                 }
             }
         }
@@ -97,18 +101,11 @@
 -(void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
-    [self updateMapViewAnnotations];
-}
 
-#pragma mark - Helpers
-
--(void)updateMapViewAnnotations
-{
-    NSFetchRequest *getAllArtworksRequest = [NSFetchRequest fetchRequestWithEntityName:@"Artwork"];
-    NSSortDescriptor *dateSort = [NSSortDescriptor sortDescriptorWithKey:@"imageUploadDate"
-                                                               ascending:NO];
-    getAllArtworksRequest.sortDescriptors = @[dateSort];
-    self.artworks = [self.context executeFetchRequest:getAllArtworksRequest error:nil];
+    if (self.context) {
+        NSFetchRequest *getAllArtworksRequest = [NSFetchRequest fetchRequestWithEntityName:@"Artwork"];
+        self.artworks = [self.context executeFetchRequest:getAllArtworksRequest error:nil];
+    }
 }
 
 #pragma mark - Properties
@@ -119,19 +116,12 @@
     self.mapView.delegate = self;
 }
 
--(void)setContext:(NSManagedObjectContext *)context
-{
-    _context = context;
-}
-
 -(void)setArtworks:(NSArray *)artworks
 {
     _artworks = artworks;
     
     [self.mapView removeAnnotations:self.mapView.annotations];
     [self.mapView addAnnotations:self.artworks];
-    
-    [self.mapView showAnnotations:@[[self.mapView.annotations lastObject]] animated:YES];
 }
 
 @end

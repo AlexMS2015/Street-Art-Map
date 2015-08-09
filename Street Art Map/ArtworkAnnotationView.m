@@ -37,21 +37,28 @@
     self.rightCalloutAccessoryView = [UIButton buttonWithType:UIButtonTypeDetailDisclosure];
 }
 
+#define WIDTH_AND_HEIGHT 85
 -(void)setupImage
 {
+    CGRect frame = CGRectMake(0, 0, WIDTH_AND_HEIGHT, WIDTH_AND_HEIGHT);
+    self.frame = frame;
+    
+    UIImageView *iv = [[UIImageView alloc] initWithFrame:frame];
+    iv.layer.borderColor = [UIColor whiteColor].CGColor;
+    iv.layer.borderWidth = 2;
+    [self addSubview:iv];
     Artwork *artwork = (Artwork *)self.annotation;
-    
-    CGSize imageSize = CGSizeMake(self.image.size.width * 10, self.image.size.height * 10);
-    
     [self.photoLibInterface getImageForLocalIdentifier:artwork.imageLocation
-                                              withSize:imageSize];
+                                              withSize:CGSizeMake(self.image.size.width * 2.0, self.image.size.width * 2.0)];
 }
 
 #pragma mark - PhotoLibraryInterfaceDelegate
 
 -(void)image:(UIImage *)image forProvidedLocalIdentifier:(NSString *)identifier
 {
-    self.image = image;
+    //self.image = image;
+    UIImageView *iv = (UIImageView *)[self.subviews firstObject];
+    iv.image = image;
 }
 
 #pragma mark - Properties
@@ -59,11 +66,9 @@
 -(void)setAnnotation:(id<MKAnnotation>)annotation
 {
     [super setAnnotation:annotation];
-    Artwork *artwork = (Artwork *)annotation;
-    NSLog(@"%@ at %p is setting it's annotation with artwork %@", NSStringFromClass([self class]), &self, artwork.title);
-    if ([annotation isMemberOfClass:[Artwork class]]) {
+    
+    if ([annotation isMemberOfClass:[Artwork class]])
         [self setupImage];
-    }
 }
 
 -(PhotoLibraryInterface *)photoLibInterface

@@ -13,7 +13,7 @@
 
 @interface Artist : NSManagedObject
 
-@property (nonatomic, retain) NSString * name;
+@property (nonatomic, retain) NSString *name;
 @property (nonatomic, retain) NSSet *artworks;
 @end
 
