@@ -8,17 +8,30 @@
 
 #import "ArtistsCDTVC.h"
 #import "Artist.h"
+#import "Artist+Equality.h"
+#import "Artist+Create.h"
 #import "PhotosForArtistCDTVC.h"
 
 @interface ArtistsCDTVC ()
 
 @property (strong, nonatomic) NSString *cellIdentifier;
+@property (strong, nonatomic) NSArray *allArtists;
 
 @end
 
 @implementation ArtistsCDTVC
 
 #pragma mark - Properties
+
+-(NSArray *)allArtists
+{
+    if (!_allArtists) {
+        if (self.fetchedResultsController)
+            _allArtists = [self.fetchedResultsController fetchedObjects];
+    }
+    
+    return _allArtists;
+}
 
 -(void)setScreenMode:(ArtistScreenMode)screenMode
 {
@@ -63,11 +76,7 @@
     cell.textLabel.text = artist.name;
     cell.detailTextLabel.text = [NSString stringWithFormat:@"Number of photos: %lu", (unsigned long)[artist.artworks count]];
     
-    if (self.selectedArtist && [artist.name isEqualToString:self.selectedArtist.name]) {
-    /*if (self.selectedArtist == artist) {
-        NSLog(@"found equal artists");
-        NSLog(@"Selected artist located at: %p", &_selectedArtist);
-        NSLog(@"Current artist: %@ located at: %p", artist.name, &artist);*/
+    if (self.screenMode == SelectionMode && [self.selectedArtist isEqualToArtist:artist]) {
         cell.accessoryType = UITableViewCellAccessoryCheckmark;
     } else {
         cell.accessoryType = UITableViewCellAccessoryNone;
@@ -98,13 +107,9 @@
 -(BOOL)shouldPerformSegueWithIdentifier:(NSString *)identifier sender:(id)sender
 {
     if ([identifier isEqualToString:@"Select Artist Unwind"]) {
-        if (self.screenMode == SelectionMode) {
-            return YES;
-        }
+        return self.screenMode == SelectionMode;
     } else if ([identifier isEqualToString:@"Show Artwork For Artist"]) {
-        if (self.screenMode == ViewingMode) {
-            return YES;
-        }
+        return self.screenMode == ViewingMode;
     }
     
     return NO;
@@ -124,7 +129,6 @@
     UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"Cancel"
                                                      style:UIAlertActionStyleCancel
                                                    handler:NULL];
-    
     [newArtistAlert addAction:cancelAction];
     
 #warning THIS MIGHT CREATE A STRONG REFERECNE CYCLE
@@ -132,18 +136,14 @@
     UIAlertAction *addArtistAction = [UIAlertAction actionWithTitle:@"Add"
                                                               style:UIAlertActionStyleDefault
                                                             handler:^(UIAlertAction *action) {
-            
-            
-            // ONLY ALLOW THE CREATION OF A NEW ARTIST IF NOT A DUPLICATE
-                                                                
             NSString *newArtistName = ((UITextField *)[newArtistAlert.textFields firstObject]).text;
-            Artist *newArtist = [NSEntityDescription insertNewObjectForEntityForName:@"Artist"
-                                                              inManagedObjectContext:self.context];
-            newArtist.name = newArtistName;
-            self.selectedArtist = newArtist;
-            [self performSegueWithIdentifier:@"Select Artist Unwind" sender:newArtistAlert];
-        }];
-    
+            self.selectedArtist = [Artist artistWithName:newArtistName
+                                  inManagedObjectContext:self.context];
+            
+            if (self.screenMode == SelectionMode) {
+                [self performSegueWithIdentifier:@"Select Artist Unwind" sender:newArtistAlert];
+            }
+    }];
     [newArtistAlert addAction:addArtistAction];
     
     [newArtistAlert addTextFieldWithConfigurationHandler:^(UITextField *textField) {
@@ -153,5 +153,18 @@
     [self presentViewController:newArtistAlert animated:YES completion:NULL];
 }
 
+#pragma mark - Helpers
+
+// will return nil if an artist with that name cannot be found
+-(Artist *)getArtistObjectWithNameInDatabase:(NSString *)artistName
+{
+    for (Artist *artist in self.allArtists) {
+        if ([artistName isEqualToString:artist.name]) {
+            return artist;
+        }
+    }
+    
+    return nil;
+}
 
 @end

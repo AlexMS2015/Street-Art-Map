@@ -68,6 +68,9 @@
 
 -(void)updateArtworkFromView:(Artwork *)artworkToUpdate
 {
+    
+    // THIS METHOD SHOULD BE IN A CATEGORY ON THE ARTIST CLASS !!!
+    
     BOOL changesMade = NO;
     
     // has the title changed?
