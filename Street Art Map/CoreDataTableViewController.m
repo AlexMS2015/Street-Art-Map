@@ -22,6 +22,7 @@
 
 -(void)awakeFromNib
 {
+    NSLog(@"this should vanish in MASTER");
     [[NSNotificationCenter defaultCenter] addObserverForName:DATABASE_AVAILABLE_NOTIFICATION
                                                       object:nil
                                                        queue:nil

@@ -77,6 +77,8 @@
 
     [self getManagedDocument];
     
+    NSLog(@"this should vanish in MASTER");
+    
     return YES;
 }
 
