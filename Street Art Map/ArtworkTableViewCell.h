@@ -7,12 +7,15 @@
 //
 
 #import <UIKit/UIKit.h>
-@class Artwork;
 
 @interface ArtworkTableViewCell : UITableViewCell
 
-@property (strong, nonatomic) Artwork *artwork;
-@property (nonatomic) float cellHeight;
+@property (weak, nonatomic) IBOutlet UILabel *titleLabel;
+@property (weak, nonatomic) IBOutlet UILabel *artistLabel;
+@property (weak, nonatomic) IBOutlet UILabel *uploadDateLabel;
+@property (weak, nonatomic) IBOutlet UIImageView *artworkImageView;
+
++(CGFloat)cellHeight;
 
 @end
 

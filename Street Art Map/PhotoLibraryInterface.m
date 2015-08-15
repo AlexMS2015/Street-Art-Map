@@ -9,40 +9,35 @@
 #import "PhotoLibraryInterface.h"
 @import Photos;
 
+@interface PhotoLibraryInterface ()
+
+@property (strong, nonatomic) NSMutableDictionary *imagesForImageURLs;
+
+@end
+
 @implementation PhotoLibraryInterface
 
-#pragma mark - Helper
-
-/*// this method will call the relevant delegate method if no imageView is provided
--(void)getImageForLocalIdentifier:(NSString *)identifier
-                         withSize:(CGSize)size
-                          inImage:(UIImage *)image
++(instancetype)sharedInterface
 {
-    PHFetchResult *result = [PHAsset fetchAssetsWithLocalIdentifiers:@[identifier] options:nil];
-    PHAsset *asset = [result firstObject];
+    static PhotoLibraryInterface *sharedInterface;
     
-    // PHImageRequestOptions *options - consider implementing this if performance is bad? run in instruments to determine this
+    if (!sharedInterface) {
+        sharedInterface = [[self alloc] init];
+    }
     
-    __block UIImage *blockImage = image;
+    return sharedInterface;
+}
+
+#pragma mark - Properties
+
+-(NSMutableDictionary *)imagesForImageURLs
+{
+    if (!_imagesForImageURLs) {
+        _imagesForImageURLs = [NSMutableDictionary dictionary];
+    }
     
-    [[PHImageManager defaultManager] requestImageForAsset:asset
-                                               targetSize:size
-                                              contentMode:PHImageContentModeAspectFit
-                                                  options:nil
-                                            resultHandler:^(UIImage *result, NSDictionary *info) {
-                                                if (info[PHImageErrorKey]) {
-                                                    // error handling
-                                                } else {
-                                                    if (!blockImage) {
-                                                        [self.delegate image:result
-                                                  forProvidedLocalIdentifier:identifier];
-                                                    } else {
-                                                        blockImage = result;
-                                                    }
-                                                    blockImage = result;
-                                                }
-                                            }];
-}*/
+    return _imagesForImageURLs;
+}
 
 #pragma mark - Public Interface
 
@@ -61,10 +56,34 @@
     return assetForArtworkImage.localIdentifier;
 }
 
-/*-(void)setImage:(UIImage *)image toImageWithLocalIdentifier:(NSString *)identifier
+-(void)setImageInImageView:(UIImageView *)imageView toImageWithLocalIdentifier:(NSString *)identifier
 {
-    [self getImageForLocalIdentifier:identifier withSize:image.size inImage:image];
-}*/
+    NSString *dictIdentifier = [NSString stringWithFormat:@"%@%f%f", identifier, imageView.bounds.size.width, imageView.bounds.size.height];
+    
+    if (self.imagesForImageURLs[dictIdentifier]) {
+        imageView.image = self.imagesForImageURLs[dictIdentifier];
+        NSLog(@"setting image from dict");
+    } else {
+        PHFetchResult *result = [PHAsset fetchAssetsWithLocalIdentifiers:@[identifier] options:nil];
+        PHAsset *asset = [result firstObject];
+        
+        // PHImageRequestOptions *options - consider implementing this if performance is bad? run in instruments to determine this
+        
+        [[PHImageManager defaultManager] requestImageForAsset:asset
+                                                   targetSize:imageView.bounds.size
+                                                  contentMode:PHImageContentModeAspectFit
+                                                      options:nil
+                                                resultHandler:^(UIImage *result, NSDictionary *info) {
+                                                    if (info[PHImageErrorKey]) {
+                                                        // error handling
+                                                    } else {
+                                                        imageView.image = result;
+                                                        self.imagesForImageURLs[dictIdentifier] = result;
+                                                        NSLog(@"adding new image to dict");
+                                                    }
+                                                }];
+    }
+}
 
 -(void)getImageForLocalIdentifier:(NSString *)identifier withSize:(CGSize)size
 {

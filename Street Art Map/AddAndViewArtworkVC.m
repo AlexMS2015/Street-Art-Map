@@ -10,15 +10,16 @@
 #import "Artist.h"
 #import "Artwork.h"
 #import "ArtistsCDTVC.h"
-#import "PhotoLibraryInterface.h"
+//#import "PhotoLibraryInterface.h"
+#import <Photos/Photos.h>
 #import <CoreLocation/CoreLocation.h>
 
-@interface AddAndViewArtworkVC () <UINavigationControllerDelegate, UIImagePickerControllerDelegate, UITextFieldDelegate, PhotoLibraryInterfaceDelegate>
+@interface AddAndViewArtworkVC () <UINavigationControllerDelegate, UIImagePickerControllerDelegate, UITextFieldDelegate>//, PhotoLibraryInterfaceDelegate>
 
 @property (strong, nonatomic) Artist *artistForArtwork;
 @property (strong, nonatomic) NSString *localIdentifierForArtworkImage;
 @property (strong, nonatomic) CLLocation *locationForArtworkImage;
-@property (strong, nonatomic) PhotoLibraryInterface *photoLibInterface;
+//@property (strong, nonatomic) PhotoLibraryInterface *photoLibInterface;
 
 // outlets
 @property (weak, nonatomic) IBOutlet UIImageView *artworkImageView;
@@ -173,8 +174,19 @@
     
     // SET UP A TEST FOR A DELETED IMAGE
     
-    [self.photoLibInterface getImageForLocalIdentifier:self.localIdentifierForArtworkImage
+    PHFetchResult *result = [PHAsset fetchAssetsWithLocalIdentifiers:@[self.localIdentifierForArtworkImage] options:nil];
+    
+    [[PHImageManager defaultManager] requestImageForAsset:[result firstObject] targetSize:self.artworkImageView.bounds.size contentMode:PHImageContentModeAspectFit options:nil resultHandler:^(UIImage *result, NSDictionary *info) {
+        if (info[PHImageErrorKey]) {
+            // error handling
+        } else {
+            self.artworkImageView.image = result;
+        }
+    }];
+    
+    /*[self.photoLibInterface getImageForLocalIdentifier:self.localIdentifierForArtworkImage
                                               withSize:self.artworkImageView.bounds.size];
+    [[PhotoLibraryInterface sharedInterface] setImageInImageView:self.artworkImageView toImageWithLocalIdentifier:self.localIdentifierForArtworkImage];*/
 }
 
 -(CLLocation *)locationForArtworkImage
@@ -263,19 +275,17 @@
     [self dismissViewControllerAnimated:YES completion:NULL];
 }
 
-#pragma mark - PhotoLibraryInterfaceDelegate
+/*#pragma mark - PhotoLibraryInterfaceDelegate
 
 -(void)image:(UIImage *)image forProvidedLocalIdentifier:(NSString *)identifier
 {
     self.artworkImageView.image = image;
     // WHY IS THIS CALLED TWICE?
-    NSLog(@"setting image");
 }
 
 -(void)localIdentifier:(NSString *)identifier forProvidedImage:(UIImage *)image
 {
     self.localIdentifierForArtworkImage = identifier;
-    NSLog(@"identifer set as = %@", identifier);
-}
+}*/
 
 @end

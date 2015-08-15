@@ -6,10 +6,10 @@
 //  Copyright (c) 2015 Alex Smith. All rights reserved.
 //
 
-#import "ListOfPhotosCDTVC.h"
+#import "ListOfArtworksCDTVC.h"
 @class Artist;
 
-@interface PhotosForArtistCDTVC : ListOfPhotosCDTVC
+@interface ArtworksForArtistCDTVC : ListOfArtworksCDTVC
 
 @property (strong, nonatomic) Artist *artistToShowPhotosFor;
 

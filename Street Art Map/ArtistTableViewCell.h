@@ -11,6 +11,6 @@
 
 @interface ArtistTableViewCell : UITableViewCell
 
-@property (strong, nonatomic) Artist *artist;
+@property (weak, nonatomic) IBOutlet UILabel *nameLabel;
 
 @end

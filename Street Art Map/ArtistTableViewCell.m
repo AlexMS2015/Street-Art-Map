@@ -11,18 +11,9 @@
 
 @interface ArtistTableViewCell ()
 
-@property (weak, nonatomic) IBOutlet UILabel *nameLabel;
 
 @end
 
 @implementation ArtistTableViewCell
-
-#pragma mark - Properties
-
--(void)setArtist:(Artist *)artist
-{
-    _artist = artist;
-    self.nameLabel.text = artist.name;
-}
 
 @end

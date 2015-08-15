@@ -22,9 +22,12 @@
 
 @property (strong, nonatomic) id <PhotoLibraryInterfaceDelegate> delegate;
 
++(instancetype)sharedInterface;
+
 -(NSString *)localIdentifierForALAssetURL:(NSURL *)url;
 -(CLLocation *)locationForImageWithLocalIdentifier:(NSString *)identifier;
-//-(void)setImage:(UIImage *)image toImageWithLocalIdentifier:(NSString *)identifier;
+-(void)setImageInImageView:(UIImageView *)imageView
+toImageWithLocalIdentifier:(NSString *)identifier;
 
 // will call the delegate method 'image:forProvidedLocalIdentifier' on completion
 -(void)getImageForLocalIdentifier:(NSString *)identifier withSize:(CGSize)size;

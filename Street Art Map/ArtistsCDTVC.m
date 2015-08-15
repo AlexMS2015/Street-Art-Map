@@ -10,7 +10,7 @@
 #import "Artist.h"
 #import "Artist+Equality.h"
 #import "Artist+Create.h"
-#import "PhotosForArtistCDTVC.h"
+#import "ArtworksForArtistCDTVC.h"
 #import "ArtistTableViewCell.h"
 
 @interface ArtistsCDTVC ()
@@ -99,7 +99,7 @@
     
     ArtistTableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:CELL_IDENTIFIER];
     Artist *artist = [self.fetchedResultsController objectAtIndexPath:indexPath];
-    cell.artist = artist;
+    cell.nameLabel.text = artist.name;
     return cell;
 }
 
@@ -113,10 +113,10 @@
         self.selectedArtist = [self.fetchedResultsController objectAtIndexPath:pathOfSelectedCell];
         
         if ([segue.identifier isEqualToString:@"Show Artwork For Artist"]) {
-            if ([segue.destinationViewController isMemberOfClass:[PhotosForArtistCDTVC class]]) {
-                PhotosForArtistCDTVC *photosForSelectedArtist = (PhotosForArtistCDTVC *)segue.destinationViewController;
-                photosForSelectedArtist.artistToShowPhotosFor = self.selectedArtist;
-                photosForSelectedArtist.context = self.context;
+            if ([segue.destinationViewController isMemberOfClass:[ArtworksForArtistCDTVC class]]) {
+                ArtworksForArtistCDTVC *artworksForSelectedArtist = (ArtworksForArtistCDTVC *)segue.destinationViewController;
+                artworksForSelectedArtist.artistToShowPhotosFor = self.selectedArtist;
+                artworksForSelectedArtist.context = self.context;
             }
         }
     }

@@ -8,7 +8,7 @@
 
 #import "CoreDataTableViewController.h"
 
-@interface ListOfPhotosCDTVC : CoreDataTableViewController
+@interface ListOfArtworksCDTVC : CoreDataTableViewController
 
 // still need to implement the following abstract method
 -(void)setupFetchedResultsController;

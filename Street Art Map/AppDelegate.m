@@ -76,9 +76,7 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
 
     [self getManagedDocument];
-    
-    NSLog(@"this should vanish in MASTER");
-    
+        
     return YES;
 }
 

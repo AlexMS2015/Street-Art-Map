@@ -6,8 +6,8 @@
 //  Copyright (c) 2015 Alex Smith. All rights reserved.
 //
 
-#import "ListOfPhotosCDTVC.h"
+#import "ListOfArtworksCDTVC.h"
 
-@interface RecentsCDTVC : ListOfPhotosCDTVC
+@interface RecentsCDTVC : ListOfArtworksCDTVC
 
 @end

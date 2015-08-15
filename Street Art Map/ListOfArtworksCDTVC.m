@@ -6,15 +6,14 @@
 //  Copyright (c) 2015 Alex Smith. All rights reserved.
 //
 
-#import "ListOfPhotosCDTVC.h"
+#import "ListOfArtworksCDTVC.h"
 #import "Artwork.h"
 #import "Artist.h"
 #import "AddAndViewArtworkVC.h"
-#import "PhotoLibraryInterface.h"
 #import "ArtworkTableViewCell.h"
 #import <Photos/Photos.h>
 
-@implementation ListOfPhotosCDTVC
+@implementation ListOfArtworksCDTVC
 
 #pragma mark - View Life Cycle
 
@@ -60,11 +59,7 @@
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    //UITableViewCell *currentTVC = [self.tableView cellForRowAtIndexPath:indexPath];
-    //ArtworkTableViewCell *currentATVC = (ArtworkTableViewCell *)currentTVC;
-    //return currentATVC.cellHeight;
-    NSLog(@"%f", [[UIScreen mainScreen] bounds].size.width - 20);
-    return [[UIScreen mainScreen] bounds].size.width - 20;
+    return [ArtworkTableViewCell cellHeight];
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
@@ -79,7 +74,35 @@
 {
     ArtworkTableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:CELL_IDENTIFIER];
     Artwork *artwork = [self.fetchedResultsController objectAtIndexPath:indexPath];
-    cell.artwork = artwork;
+    
+    cell.titleLabel.text = artwork.title;
+    cell.artistLabel.text = artwork.artist.name;
+    cell.artworkImageView.image = nil;
+    
+    PHImageManager *manager = [PHImageManager defaultManager];
+    
+    // if we are re-using a cell that has an image request going then cancel it
+    if (cell.tag != 0) {
+        [manager cancelImageRequest:(PHImageRequestID)cell.tag];
+    }
+    
+    /*PHImageRequestOptions *options = [[PHImageRequestOptions alloc] init];
+    options.deliveryMode = PHImageRequestOptionsDeliveryModeHighQualityFormat;*/
+    
+    PHFetchResult *result = [PHAsset fetchAssetsWithLocalIdentifiers:@[artwork.imageLocation]
+                                                             options:nil];
+    
+    cell.tag = [manager requestImageForAsset:[result firstObject] targetSize:cell.artworkImageView.bounds.size contentMode:PHImageContentModeAspectFit options:nil resultHandler:^(UIImage *result, NSDictionary *info) {
+            if (info[PHImageErrorKey]) {
+                // error handling
+            } else {
+                // make sure cell is visible before setting image
+                if ([tableView cellForRowAtIndexPath:indexPath]) {
+                    cell.artworkImageView.image = result;
+                    cell.tag = 0;
+                }
+            }
+    }];
     
     return cell;
 }
