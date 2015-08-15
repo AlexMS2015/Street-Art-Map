@@ -12,6 +12,7 @@
 @interface ArtworkTableViewCell : UITableViewCell
 
 @property (strong, nonatomic) Artwork *artwork;
+@property (nonatomic) float cellHeight;
 
 @end
 

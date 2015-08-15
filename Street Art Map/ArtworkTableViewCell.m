@@ -35,6 +35,12 @@
 
 #pragma mark - Properties
 
+-(float)cellHeight
+{
+    NSLog(@"%f", [[UIScreen mainScreen] bounds].size.width + 40);
+    return [[UIScreen mainScreen] bounds].size.width + 40;
+}
+
 -(PhotoLibraryInterface *)photoLibInterface
 {
     if (!_photoLibInterface) {

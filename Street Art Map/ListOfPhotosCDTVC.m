@@ -58,6 +58,15 @@
 
 #pragma mark - UITableViewDelegate
 
+-(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    //UITableViewCell *currentTVC = [self.tableView cellForRowAtIndexPath:indexPath];
+    //ArtworkTableViewCell *currentATVC = (ArtworkTableViewCell *)currentTVC;
+    //return currentATVC.cellHeight;
+    NSLog(@"%f", [[UIScreen mainScreen] bounds].size.width - 20);
+    return [[UIScreen mainScreen] bounds].size.width - 20;
+}
+
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [self performSegueWithIdentifier:@"View Photo"
@@ -65,11 +74,6 @@
 }
 
 #pragma mark - UITableViewDataSource
-
--(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    return 400;
-}
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {

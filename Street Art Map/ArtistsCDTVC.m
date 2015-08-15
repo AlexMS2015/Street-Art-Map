@@ -11,6 +11,7 @@
 #import "Artist+Equality.h"
 #import "Artist+Create.h"
 #import "PhotosForArtistCDTVC.h"
+#import "ArtistTableViewCell.h"
 
 @interface ArtistsCDTVC ()
 
@@ -49,9 +50,13 @@
 
 #pragma mark - View Life Cycle
 
+#define CELL_IDENTIFIER @"ArtistTableViewCell"
+
 -(void)viewDidLoad
 {
     self.screenMode = ViewingMode;
+    UINib *nib = [UINib nibWithNibName:@"ArtistTableViewCell" bundle:nil];
+    [self.tableView registerNib:nib forCellReuseIdentifier:CELL_IDENTIFIER];
 }
 
 #pragma mark - Abstract Methods
@@ -65,11 +70,19 @@
     self.fetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:request managedObjectContext:self.context sectionNameKeyPath:nil cacheName:nil];
 }
 
+#pragma mark - UITableViewDelegate
+
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    [self performSegueWithIdentifier:@"Show Artwork For Artist"
+                              sender:[self.tableView cellForRowAtIndexPath:indexPath]];
+}
+
 #pragma mark - UITableViewDataSource
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    UITableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:self.cellIdentifier];
+    /*UITableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:self.cellIdentifier];
     
     Artist *artist = [self.fetchedResultsController objectAtIndexPath:indexPath];
     
@@ -82,6 +95,11 @@
         cell.accessoryType = UITableViewCellAccessoryNone;
     }
     
+    return cell;*/
+    
+    ArtistTableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:CELL_IDENTIFIER];
+    Artist *artist = [self.fetchedResultsController objectAtIndexPath:indexPath];
+    cell.artist = artist;
     return cell;
 }
 
