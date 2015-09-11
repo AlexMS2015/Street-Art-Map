@@ -12,7 +12,7 @@
 
 +(CGFloat)cellHeight
 {
-    return [[UIScreen mainScreen] bounds].size.width - 20;
+    return [[UIScreen mainScreen] bounds].size.width - 20; // 20 is a magic number!?
 }
 
 @end

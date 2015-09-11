@@ -10,16 +10,15 @@
 #import "Artist.h"
 #import "Artwork.h"
 #import "ArtistsCDTVC.h"
-//#import "PhotoLibraryInterface.h"
-#import <Photos/Photos.h>
+#import "PhotoLibraryInterface.h"
 #import <CoreLocation/CoreLocation.h>
 
-@interface AddAndViewArtworkVC () <UINavigationControllerDelegate, UIImagePickerControllerDelegate, UITextFieldDelegate>//, PhotoLibraryInterfaceDelegate>
+@interface AddAndViewArtworkVC () <UINavigationControllerDelegate, UIImagePickerControllerDelegate, UITextFieldDelegate, PhotoLibraryInterfaceDelegate>
 
 @property (strong, nonatomic) Artist *artistForArtwork;
 @property (strong, nonatomic) NSString *localIdentifierForArtworkImage;
 @property (strong, nonatomic) CLLocation *locationForArtworkImage;
-//@property (strong, nonatomic) PhotoLibraryInterface *photoLibInterface;
+@property (strong, nonatomic) PhotoLibraryInterface *photoLibInterface;
 
 // outlets
 @property (weak, nonatomic) IBOutlet UIImageView *artworkImageView;
@@ -51,6 +50,7 @@
 
 #pragma mark - Helpers
 
+#warning THIS SHOULD BE A CATEGORY ON THE UIALERTCONTROLLER CLASS
 -(void)showSingleButtonAlertWithMessage:(NSString *)message andTitle:(NSString *)title
 {
     UIAlertController *alert = [UIAlertController alertControllerWithTitle:title
@@ -172,21 +172,10 @@
 {
     _localIdentifierForArtworkImage = localIdentifierForArtworkImage;
     
-    // SET UP A TEST FOR A DELETED IMAGE
-    
-    PHFetchResult *result = [PHAsset fetchAssetsWithLocalIdentifiers:@[self.localIdentifierForArtworkImage] options:nil];
-    
-    [[PHImageManager defaultManager] requestImageForAsset:[result firstObject] targetSize:self.artworkImageView.bounds.size contentMode:PHImageContentModeAspectFit options:nil resultHandler:^(UIImage *result, NSDictionary *info) {
-        if (info[PHImageErrorKey]) {
-            // error handling
-        } else {
-            self.artworkImageView.image = result;
-        }
-    }];
-    
-    /*[self.photoLibInterface getImageForLocalIdentifier:self.localIdentifierForArtworkImage
-                                              withSize:self.artworkImageView.bounds.size];
-    [[PhotoLibraryInterface sharedInterface] setImageInImageView:self.artworkImageView toImageWithLocalIdentifier:self.localIdentifierForArtworkImage];*/
+    [[PhotoLibraryInterface sharedLibrary] setImageInImageView:self.artworkImageView
+                                    toImageWithLocalIdentifier:self.localIdentifierForArtworkImage
+                               andExecuteBlockOnceImageFetched:^{}];
+
 }
 
 -(CLLocation *)locationForArtworkImage
@@ -275,17 +264,11 @@
     [self dismissViewControllerAnimated:YES completion:NULL];
 }
 
-/*#pragma mark - PhotoLibraryInterfaceDelegate
-
--(void)image:(UIImage *)image forProvidedLocalIdentifier:(NSString *)identifier
-{
-    self.artworkImageView.image = image;
-    // WHY IS THIS CALLED TWICE?
-}
+#pragma mark - PhotoLibraryInterfaceDelegate
 
 -(void)localIdentifier:(NSString *)identifier forProvidedImage:(UIImage *)image
 {
     self.localIdentifierForArtworkImage = identifier;
-}*/
+}
 
 @end

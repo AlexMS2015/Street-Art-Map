@@ -10,7 +10,8 @@
 #import "DatabaseAvailability.h"
 #import "Artwork+Annotation.h"
 #import "AddAndViewArtworkVC.h"
-#import "ArtworkAnnotationView.h"
+//#import "ArtworkAnnotationView.h"
+#import "PhotoLibraryInterface.h"
 #import <CoreData/CoreData.h>
 #import <MapKit/MapKit.h>
 
@@ -28,11 +29,11 @@
 
 -(void)mapView:(MKMapView *)mapView didSelectAnnotationView:(MKAnnotationView *)view
 {
-    NSLog(@"Selected annotation view");
-    if ([view isMemberOfClass:[ArtworkAnnotationView class]]) {
+    /*if ([view isMemberOfClass:[ArtworkAnnotationView class]]) {
         ArtworkAnnotationView *selectedAnnotationView = (ArtworkAnnotationView *)view;
         [selectedAnnotationView setupCallout];
-    }
+    }*/
+    view.rightCalloutAccessoryView = [UIButton buttonWithType:UIButtonTypeDetailDisclosure];
 }
 
 -(void)mapView:(MKMapView *)mapView annotationView:(MKAnnotationView *)view calloutAccessoryControlTapped:(UIControl *)control
@@ -41,11 +42,12 @@
         [self performSegueWithIdentifier:@"View Photo" sender:view];
 }
 
-#define ANNOTATION_VIEW_REUSE @"ArtworkAnnotationView"
+#define ANNOTATION_VIEW_REUSE @"AnnotationView"
+#define WIDTH_AND_HEIGHT 85
 -(MKAnnotationView *)mapView:(MKMapView *)mapView
            viewForAnnotation:(id<MKAnnotation>)annotation
-{    
-    ArtworkAnnotationView *annotationView = (ArtworkAnnotationView *)[self.mapView dequeueReusableAnnotationViewWithIdentifier:ANNOTATION_VIEW_REUSE];
+{
+    /*ArtworkAnnotationView *annotationView = (ArtworkAnnotationView *)[self.mapView dequeueReusableAnnotationViewWithIdentifier:ANNOTATION_VIEW_REUSE];
     
      if (!annotationView) {
          annotationView = [[ArtworkAnnotationView alloc] initWithAnnotation:annotation
@@ -53,7 +55,31 @@
          annotationView.canShowCallout = YES;
      } else {
          annotationView.annotation = annotation;
-     }
+     }*/
+    
+    MKAnnotationView *annotationView = [self.mapView dequeueReusableAnnotationViewWithIdentifier:ANNOTATION_VIEW_REUSE];
+    
+        UIImageView *iv;
+    
+    if (!annotationView) {
+         annotationView = [[MKAnnotationView alloc] initWithAnnotation:annotation
+                                                            reuseIdentifier:ANNOTATION_VIEW_REUSE];
+         annotationView.canShowCallout = YES;
+        
+         CGRect frame = CGRectMake(0, 0, WIDTH_AND_HEIGHT, WIDTH_AND_HEIGHT);
+         annotationView.frame = frame;
+         
+         iv = [[UIImageView alloc] initWithFrame:frame];
+         iv.layer.borderColor = [UIColor whiteColor].CGColor;
+         iv.layer.borderWidth = 2;
+         [annotationView addSubview:iv];
+    } else {
+         annotationView.annotation = annotation;
+         iv = (UIImageView *)[annotationView.subviews firstObject];
+    }
+
+    Artwork *artwork = (Artwork *)annotation;
+    [[PhotoLibraryInterface sharedLibrary] setImageInImageView:iv toImageWithLocalIdentifier:artwork.imageLocation andExecuteBlockOnceImageFetched:^{}];
     
     return annotationView;
 }
@@ -98,11 +124,11 @@
     }];
 }
 
--(void)viewDidAppear:(BOOL)animated
+-(void)viewWillAppear:(BOOL)animated
 {
-    [super viewDidAppear:animated];
+    [super viewWillAppear:animated];
 
-    if (self.context) {
+    if (self.context && !self.artworks) {
         NSFetchRequest *getAllArtworksRequest = [NSFetchRequest fetchRequestWithEntityName:@"Artwork"];
         self.artworks = [self.context executeFetchRequest:getAllArtworksRequest error:nil];
     }

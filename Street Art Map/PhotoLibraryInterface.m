@@ -7,94 +7,74 @@
 //
 
 #import "PhotoLibraryInterface.h"
-@import Photos;
-
-@interface PhotoLibraryInterface ()
-
-@property (strong, nonatomic) NSMutableDictionary *imagesForImageURLs;
-
-@end
 
 @implementation PhotoLibraryInterface
 
-+(instancetype)sharedInterface
-{
-    static PhotoLibraryInterface *sharedInterface;
-    
-    if (!sharedInterface) {
-        sharedInterface = [[self alloc] init];
-    }
-    
-    return sharedInterface;
-}
+#pragma mark - Helper
 
-#pragma mark - Properties
-
--(NSMutableDictionary *)imagesForImageURLs
+-(PHAsset *)assetForIdentifer:(id)identifier
 {
-    if (!_imagesForImageURLs) {
-        _imagesForImageURLs = [NSMutableDictionary dictionary];
+    PHFetchResult *result;
+    if ([identifier isKindOfClass:[NSString class]]) {
+        result = [PHAsset fetchAssetsWithLocalIdentifiers:@[identifier] options:nil];
+    } else if ([identifier isKindOfClass:[NSURL class]]) {
+        result = [PHAsset fetchAssetsWithALAssetURLs:@[identifier] options:nil];
     }
-    
-    return _imagesForImageURLs;
+    return result ? [result firstObject] : nil;
 }
 
 #pragma mark - Public Interface
 
++(instancetype)sharedLibrary
+{
+    static PhotoLibraryInterface *sharedLibrary;
+    
+    if (!sharedLibrary) {
+        sharedLibrary = [[self alloc] init];
+    }
+    
+    return sharedLibrary;
+}
+
 -(CLLocation *)locationForImageWithLocalIdentifier:(NSString *)identifier
 {
-    PHFetchResult *result = [PHAsset fetchAssetsWithLocalIdentifiers:@[identifier] options:nil];
-    PHAsset *asset = [result firstObject];
-
-    return asset.location;
+    return [self assetForIdentifer:identifier].location;
 }
 
 -(NSString *)localIdentifierForALAssetURL:(NSURL *)url
 {
-    PHFetchResult *result = [PHAsset fetchAssetsWithALAssetURLs:@[url] options:nil];
-    PHAsset *assetForArtworkImage = [result firstObject];
-    return assetForArtworkImage.localIdentifier;
+    return [self assetForIdentifer:url].localIdentifier;
 }
 
--(void)setImageInImageView:(UIImageView *)imageView toImageWithLocalIdentifier:(NSString *)identifier
+-(void)cancelRequestWithID:(PHImageRequestID)requestID
 {
-    NSString *dictIdentifier = [NSString stringWithFormat:@"%@%f%f", identifier, imageView.bounds.size.width, imageView.bounds.size.height];
-    
-    if (self.imagesForImageURLs[dictIdentifier]) {
-        imageView.image = self.imagesForImageURLs[dictIdentifier];
-        NSLog(@"setting image from dict");
-    } else {
-        PHFetchResult *result = [PHAsset fetchAssetsWithLocalIdentifiers:@[identifier] options:nil];
-        PHAsset *asset = [result firstObject];
-        
-        // PHImageRequestOptions *options - consider implementing this if performance is bad? run in instruments to determine this
-        
-        [[PHImageManager defaultManager] requestImageForAsset:asset
-                                                   targetSize:imageView.bounds.size
-                                                  contentMode:PHImageContentModeAspectFit
-                                                      options:nil
-                                                resultHandler:^(UIImage *result, NSDictionary *info) {
-                                                    if (info[PHImageErrorKey]) {
-                                                        // error handling
-                                                    } else {
-                                                        imageView.image = result;
-                                                        self.imagesForImageURLs[dictIdentifier] = result;
-                                                        NSLog(@"adding new image to dict");
-                                                    }
-                                                }];
-    }
+    [[PHImageManager defaultManager] cancelImageRequest:requestID];
 }
 
--(void)getImageForLocalIdentifier:(NSString *)identifier withSize:(CGSize)size
+-(PHImageRequestID)setImageInImageView:(UIImageView *)imageView toImageWithLocalIdentifier:(NSString *)identifier andExecuteBlockOnceImageFetched:(void (^)(void))block
 {
-    //[self getImageForLocalIdentifier:identifier withSize:size inImage:nil];
+    //PHImageRequestOptions *options - consider implementing this if performance is bad? run in instruments to determine this
     
+    PHImageRequestID requestID = [[PHImageManager defaultManager] requestImageForAsset:[self assetForIdentifer:identifier] targetSize:imageView.bounds.size contentMode:PHImageContentModeAspectFit options:nil resultHandler:^(UIImage *result, NSDictionary *info) {
+            if (info[PHImageErrorKey]) {
+                // error handling
+            } else {
+                imageView.image = result;
+                block();
+            }
+        }];
+    
+    return requestID;
+}
+
+/*-(void)getImageForLocalIdentifier:(NSString *)identifier withSize:(CGSize)size
+{
     PHFetchResult *result = [PHAsset fetchAssetsWithLocalIdentifiers:@[identifier] options:nil];
     PHAsset *asset = [result firstObject];
     
     // PHImageRequestOptions *options - consider implementing this if performance is bad? run in instruments to determine this
     
-    [[PHImageManager defaultManager] requestImageForAsset:asset
+    [[PHImageManager defaultManager] requestImageForAsset:[self assetForIdentifer:identifier]
                                                targetSize:size
                                               contentMode:PHImageContentModeAspectFit
                                                   options:nil
@@ -105,18 +85,16 @@
                 [self.delegate image:result forProvidedLocalIdentifier:identifier];
                                                 }
                                             }];
-}
+}*/
 
 -(void)getLocalIdentifierForImage:(UIImage *)image
 {
     __block NSString *localIdentifier;
     
     [[PHPhotoLibrary sharedPhotoLibrary] performChanges:^{
-        
         PHAssetChangeRequest *addArtworkRequest = [PHAssetChangeRequest creationRequestForAssetFromImage:image];
         PHObjectPlaceholder *addedArtworkPlaceholder = addArtworkRequest.placeholderForCreatedAsset;
         localIdentifier = addedArtworkPlaceholder.localIdentifier;
-        
     } completionHandler:^(BOOL success, NSError *error) {
         [self.delegate localIdentifier:localIdentifier forProvidedImage:image];;
     }];

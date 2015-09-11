@@ -48,8 +48,8 @@
     iv.layer.borderWidth = 2;
     [self addSubview:iv];
     Artwork *artwork = (Artwork *)self.annotation;
-    [self.photoLibInterface getImageForLocalIdentifier:artwork.imageLocation
-                                              withSize:CGSizeMake(self.image.size.width * 2.0, self.image.size.width * 2.0)];
+    /*[self.photoLibInterface getImageForLocalIdentifier:artwork.imageLocation
+                                              withSize:CGSizeMake(self.image.size.width * 2.0, self.image.size.width * 2.0)];*/
 }
 
 #pragma mark - PhotoLibraryInterfaceDelegate

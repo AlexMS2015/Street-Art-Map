@@ -11,4 +11,7 @@
 
 @interface Artwork (Annotation) <MKAnnotation>
 
+// override the getter of the 'coordinate' property in the MKAnnotation protocol to allow Artwork objects to be displayed in a map view
+-(CLLocationCoordinate2D)coordinate;
+
 @end

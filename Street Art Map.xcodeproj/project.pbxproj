@@ -118,9 +118,11 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		FA4049631B7CA01B0069144D /* Junk */ = {
+		FACDBBE91BA1B3FD00744488 /* Junk */ = {
 			isa = PBXGroup;
 			children = (
+				FA4049251B6F6C2A0069144D /* ArtworkAnnotationView.h */,
+				FA4049261B6F6C2A0069144D /* ArtworkAnnotationView.m */,
 			);
 			name = Junk;
 			sourceTree = "<group>";
@@ -147,7 +149,6 @@
 		FAEB52891B48D14700D9361E /* Street Art Map */ = {
 			isa = PBXGroup;
 			children = (
-				FA4049631B7CA01B0069144D /* Junk */,
 				FAEB52B11B48D17F00D9361E /* Controller */,
 				FAEB52B01B48D17500D9361E /* View */,
 				FAEB52B51B48D1CE00D9361E /* Model */,
@@ -194,8 +195,7 @@
 				FA4049641B7EBA6E0069144D /* ArtistTableViewCell.h */,
 				FA4049651B7EBA6E0069144D /* ArtistTableViewCell.m */,
 				FA4049661B7EBA6E0069144D /* ArtistTableViewCell.xib */,
-				FA4049251B6F6C2A0069144D /* ArtworkAnnotationView.h */,
-				FA4049261B6F6C2A0069144D /* ArtworkAnnotationView.m */,
+				FACDBBE91BA1B3FD00744488 /* Junk */,
 			);
 			name = View;
 			sourceTree = "<group>";
