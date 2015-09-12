@@ -13,7 +13,7 @@
 
 @property (strong, nonatomic) NSManagedObjectContext *context;
 
-// set this property if you want to view some artwork rather than add new artwork (the default)
+// set this property if you want to view an artwork rather than add new artwork (the default)
 @property (strong, nonatomic) Artwork *artworkToView;
 
 @end

@@ -148,7 +148,7 @@
                         </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" systemItem="done" id="hNK-K6-EXO">
                             <connections>
-                                <segue destination="iaj-Rm-lM8" kind="unwind" unwindAction="done:" id="iB2-rC-dDJ"/>
+                                <segue destination="iaj-Rm-lM8" kind="unwind" identifier="Add Artwork Unwind" unwindAction="done:" id="iB2-rC-dDJ"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>

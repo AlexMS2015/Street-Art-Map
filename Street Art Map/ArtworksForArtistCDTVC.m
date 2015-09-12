@@ -29,8 +29,7 @@
 {
     NSFetchRequest *artworkForArtistRequest = [NSFetchRequest fetchRequestWithEntityName:@"Artwork"];
     
-    NSPredicate *specificArtistPredicate = [NSPredicate predicateWithFormat:@"artist.name = %@", self.artistToShowPhotosFor.name];
-    artworkForArtistRequest.predicate = specificArtistPredicate;
+    artworkForArtistRequest.predicate  = [NSPredicate predicateWithFormat:@"artist.name = %@", self.artistToShowPhotosFor.name];
     
     NSSortDescriptor *nameSort = [NSSortDescriptor sortDescriptorWithKey:@"artist.name"
                                                                ascending:YES];

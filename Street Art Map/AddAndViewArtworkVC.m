@@ -11,6 +11,9 @@
 #import "Artwork.h"
 #import "ArtistsCDTVC.h"
 #import "PhotoLibraryInterface.h"
+#import "UIAlertController+SingleButtonAlert.h"
+//#import "Artwork+Create.h"
+#import "Artwork+Update.h"
 #import <CoreLocation/CoreLocation.h>
 
 @interface AddAndViewArtworkVC () <UINavigationControllerDelegate, UIImagePickerControllerDelegate, UITextFieldDelegate, PhotoLibraryInterfaceDelegate>
@@ -34,7 +37,7 @@
 
 -(void)viewDidLoad
 {
-    if (self.artworkToView) {
+    if (self.artworkToView) { // an existing artwork is being viewed
         self.artworkTitleTextField.text = self.artworkToView.title;
         self.artistForArtwork = self.artworkToView.artist;
         
@@ -43,33 +46,15 @@
         
         self.navigationItem.leftBarButtonItem = nil;
         self.navigationItem.title = @"View/Edit Art";
-    } else {
+    } else { // a new artwork is being added
         self.navigationItem.title = @"Add Art";
     }
 }
 
-#pragma mark - Helpers
-
-#warning THIS SHOULD BE A CATEGORY ON THE UIALERTCONTROLLER CLASS
--(void)showSingleButtonAlertWithMessage:(NSString *)message andTitle:(NSString *)title
-{
-    UIAlertController *alert = [UIAlertController alertControllerWithTitle:title
-                                                                   message:message
-                                                            preferredStyle:UIAlertControllerStyleAlert];
-    
-    UIAlertAction *okButton = [UIAlertAction actionWithTitle:@"Ok"
-                                                       style:UIAlertActionStyleDefault
-                                                     handler:NULL];
-    [alert addAction:okButton];
-    
-    [self presentViewController:alert animated:YES completion:NULL];
-}
-
 #pragma mark - Segues
 
--(void)updateArtworkFromView:(Artwork *)artworkToUpdate
+/*-(void)updateArtworkFromView:(Artwork *)artworkToUpdate
 {
-    
     // THIS METHOD SHOULD BE IN A CATEGORY ON THE ARTIST CLASS !!!
     
     BOOL changesMade = NO;
@@ -98,21 +83,27 @@
     if (changesMade) {
         artworkToUpdate.lastEditDate = [NSDate date];
     }
-}
+}*/
 
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
-    if ([segue.identifier isEqualToString:@"Add Photo Unwind"]) {
+    if ([segue.identifier isEqualToString:@"Add Artwork Unwind"]) { // rewind segue from the add artwork screen
         Artwork *artworkToUpdate;
         
-        if (!self.artworkToView) {
-            artworkToUpdate = [NSEntityDescription insertNewObjectForEntityForName:@"Artwork"
-                                                                inManagedObjectContext:self.context];
+        if (!self.artworkToView) { // create a new artwork if the user is not viewing an existing artwork
+            artworkToUpdate = [NSEntityDescription insertNewObjectForEntityForName:@"Artwork"inManagedObjectContext:self.context];
         } else {
             artworkToUpdate = self.artworkToView;
         }
         
-        [self updateArtworkFromView:artworkToUpdate];
+        //[self updateArtworkFromView:artworkToUpdate];
+        
+        /*self.artworkToView = [Artwork artworkWithTitle:self.artworkTitleTextField.text
+                                      andImageLocation:self.localIdentifierForArtworkImage
+                                           andLocation:self.locationForArtworkImage
+                                             andArtist:self.artistForArtwork
+                                             inContext:self.context];*/
+        [artworkToUpdate updateWithTitle:self.artworkTitleTextField.text imageLocation:self.localIdentifierForArtworkImage location:self.locationForArtworkImage artist:self.artistForArtwork inContext:self.context];
     
     } else if ([segue.identifier isEqualToString:@"Select Artist"]) {
         if ([segue.destinationViewController isMemberOfClass:[UINavigationController class]]) {
@@ -130,9 +121,9 @@
 
 -(BOOL)shouldPerformSegueWithIdentifier:(NSString *)identifier sender:(id)sender
 {
-    if ([identifier isEqualToString:@"Add Photo Unwind"]) {
+    if ([identifier isEqualToString:@"Add Artwork Unwind"]) {
         if ([self.artworkTitleTextField.text length] == 0 || !self.artworkImageView.image) {
-            [self showSingleButtonAlertWithMessage:@"Photo title or image not set" andTitle:nil];
+            [self presentViewController:[UIAlertController singleButtonAlertWithMessage:@"Photo title or image not set"] animated:YES completion:NULL];
             return NO;
         }
     }
@@ -198,8 +189,7 @@
         
         [self presentViewController:imagePicker animated:YES completion:NULL];
     } else {
-        [self showSingleButtonAlertWithMessage:@"Sorry, that option is not available on your device"
-                                      andTitle:nil];
+        [self presentViewController:[UIAlertController singleButtonAlertWithMessage:@"Sorry, that option is not available on your device"] animated:YES completion:NULL];
     }
 }
 
@@ -239,6 +229,7 @@
 
 #pragma mark - UITextFieldDelegate
 
+#warning - THE KEYBOARD BLOCKS THE FIELD BEING TYPED IN
 -(BOOL)textFieldShouldReturn:(UITextField *)textField
 {
     [textField resignFirstResponder];

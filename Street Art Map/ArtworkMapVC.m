@@ -29,10 +29,6 @@
 
 -(void)mapView:(MKMapView *)mapView didSelectAnnotationView:(MKAnnotationView *)view
 {
-    /*if ([view isMemberOfClass:[ArtworkAnnotationView class]]) {
-        ArtworkAnnotationView *selectedAnnotationView = (ArtworkAnnotationView *)view;
-        [selectedAnnotationView setupCallout];
-    }*/
     view.rightCalloutAccessoryView = [UIButton buttonWithType:UIButtonTypeDetailDisclosure];
 }
 
@@ -47,16 +43,6 @@
 -(MKAnnotationView *)mapView:(MKMapView *)mapView
            viewForAnnotation:(id<MKAnnotation>)annotation
 {
-    /*ArtworkAnnotationView *annotationView = (ArtworkAnnotationView *)[self.mapView dequeueReusableAnnotationViewWithIdentifier:ANNOTATION_VIEW_REUSE];
-    
-     if (!annotationView) {
-         annotationView = [[ArtworkAnnotationView alloc] initWithAnnotation:annotation
-                                                            reuseIdentifier:ANNOTATION_VIEW_REUSE];
-         annotationView.canShowCallout = YES;
-     } else {
-         annotationView.annotation = annotation;
-     }*/
-    
     MKAnnotationView *annotationView = [self.mapView dequeueReusableAnnotationViewWithIdentifier:ANNOTATION_VIEW_REUSE];
     
         UIImageView *iv;

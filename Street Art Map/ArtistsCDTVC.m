@@ -42,9 +42,9 @@
         self.navigationItem.title = @"Artists";
     } else if (self.screenMode == SelectionMode) {
         self.cellIdentifier = @"ArtistSelectCell";
+        self.navigationItem.title = @"Select Artist";
         UIBarButtonItem *cancelButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel target:self action:@selector(cancel:)];
         self.navigationItem.leftBarButtonItem = cancelButton;
-        self.navigationItem.title = @"Select Artist";
     }
 }
 
@@ -74,15 +74,15 @@
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    [self performSegueWithIdentifier:@"Show Artwork For Artist"
-                              sender:[self.tableView cellForRowAtIndexPath:indexPath]];
+    /*[self performSegueWithIdentifier:@"Show Artwork For Artist"
+                              sender:[self.tableView cellForRowAtIndexPath:indexPath]];*/
 }
 
 #pragma mark - UITableViewDataSource
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    /*UITableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:self.cellIdentifier];
+    UITableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:self.cellIdentifier];
     
     Artist *artist = [self.fetchedResultsController objectAtIndexPath:indexPath];
     
@@ -95,11 +95,11 @@
         cell.accessoryType = UITableViewCellAccessoryNone;
     }
     
-    return cell;*/
+    return cell;
     
-    ArtistTableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:CELL_IDENTIFIER];
+    /*ArtistTableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:CELL_IDENTIFIER];
     Artist *artist = [self.fetchedResultsController objectAtIndexPath:indexPath];
-    cell.nameLabel.text = artist.name;
+    cell.nameLabel.text = artist.name;*/
     return cell;
 }
 
@@ -155,12 +155,10 @@
                                                               style:UIAlertActionStyleDefault
                                                             handler:^(UIAlertAction *action) {
             NSString *newArtistName = ((UITextField *)[newArtistAlert.textFields firstObject]).text;
-            self.selectedArtist = [Artist artistWithName:newArtistName
-                                  inManagedObjectContext:self.context];
+            self.selectedArtist = [Artist artistWithName:newArtistName inManagedObjectContext:self.context];
             
-            if (self.screenMode == SelectionMode) {
+            if (self.screenMode == SelectionMode)
                 [self performSegueWithIdentifier:@"Select Artist Unwind" sender:newArtistAlert];
-            }
     }];
     [newArtistAlert addAction:addArtistAction];
     
@@ -177,9 +175,8 @@
 -(Artist *)getArtistObjectWithNameInDatabase:(NSString *)artistName
 {
     for (Artist *artist in self.allArtists) {
-        if ([artistName isEqualToString:artist.name]) {
+        if ([artistName isEqualToString:artist.name])
             return artist;
-        }
     }
     
     return nil;
