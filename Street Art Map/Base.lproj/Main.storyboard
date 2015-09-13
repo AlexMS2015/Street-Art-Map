@@ -233,6 +233,9 @@
                             </connections>
                         </barButtonItem>
                     </navigationItem>
+                    <connections>
+                        <segue destination="5G1-qx-dWf" kind="show" identifier="Show Artwork For Artist" id="qax-Uq-a5a"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="nFw-ta-QAQ" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="Nyu-kv-8qo" userLabel="Exit" sceneMemberID="exit"/>
@@ -472,6 +475,7 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="1wL-PX-QkG"/>
+        <segue reference="hM0-e5-lOF"/>
+        <segue reference="cqd-hm-FSI"/>
     </inferredMetricsTieBreakers>
 </document>

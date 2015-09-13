@@ -84,9 +84,13 @@
     cell.artistLabel.text = artwork.artist.name;
     cell.artworkImageView.image = nil;
     
+    NSDateFormatter *lastEditDateFormatter = [[NSDateFormatter alloc] init];
+    lastEditDateFormatter.dateStyle = NSDateFormatterMediumStyle;
+    cell.lastEditDateLabel.text = [lastEditDateFormatter stringFromDate:artwork.lastEditDate];
+    
     PhotoLibraryInterface *interface = [PhotoLibraryInterface sharedLibrary];
     
-    if (cell.tag != 0) {
+    if (cell.tag != 0) { // is the cell already loading an image and has been re-used? cancel that request if so
         [interface cancelRequestWithID:(PHImageRequestID)cell.tag];
     }
     

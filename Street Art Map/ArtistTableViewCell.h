@@ -12,5 +12,8 @@
 @interface ArtistTableViewCell : UITableViewCell
 
 @property (weak, nonatomic) IBOutlet UILabel *nameLabel;
+@property (weak, nonatomic) IBOutlet UICollectionView *artworkImagesCV;
+
++(CGFloat)cellHeight;
 
 @end

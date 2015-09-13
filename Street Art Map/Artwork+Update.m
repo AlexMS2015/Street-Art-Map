@@ -33,8 +33,7 @@
         changesMade = YES;
     }
     
-    if (changesMade)
-        self.lastEditDate = [NSDate date];
+    if (changesMade) self.lastEditDate = [NSDate date];
 }
 
 @end

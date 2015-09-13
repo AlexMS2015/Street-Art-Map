@@ -12,7 +12,6 @@
 #import "ArtistsCDTVC.h"
 #import "PhotoLibraryInterface.h"
 #import "UIAlertController+SingleButtonAlert.h"
-//#import "Artwork+Create.h"
 #import "Artwork+Update.h"
 #import <CoreLocation/CoreLocation.h>
 
@@ -53,38 +52,6 @@
 
 #pragma mark - Segues
 
-/*-(void)updateArtworkFromView:(Artwork *)artworkToUpdate
-{
-    // THIS METHOD SHOULD BE IN A CATEGORY ON THE ARTIST CLASS !!!
-    
-    BOOL changesMade = NO;
-    
-    // has the title changed?
-    if (![artworkToUpdate.title isEqualToString:self.artworkTitleTextField.text]) {
-        artworkToUpdate.title = self.artworkTitleTextField.text;
-        changesMade = YES;
-    }
-    
-    // has the artist changed?
-    if (artworkToUpdate.artist != self.artistForArtwork) {
-        artworkToUpdate.artist = self.artistForArtwork;
-        changesMade = YES;
-    }
-    
-    // has the image changed?
-    if (![artworkToUpdate.imageLocation isEqualToString:self.localIdentifierForArtworkImage]) {
-        artworkToUpdate.imageLocation = self.localIdentifierForArtworkImage;
-        artworkToUpdate.lattitude = [NSNumber numberWithDouble:self.locationForArtworkImage.coordinate.latitude];
-        artworkToUpdate.longitude = [NSNumber numberWithDouble:self.locationForArtworkImage.coordinate.longitude];
-        artworkToUpdate.imageUploadDate = [NSDate date];
-        changesMade = YES;
-    }
-    
-    if (changesMade) {
-        artworkToUpdate.lastEditDate = [NSDate date];
-    }
-}*/
-
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
     if ([segue.identifier isEqualToString:@"Add Artwork Unwind"]) { // rewind segue from the add artwork screen
@@ -96,13 +63,6 @@
             artworkToUpdate = self.artworkToView;
         }
         
-        //[self updateArtworkFromView:artworkToUpdate];
-        
-        /*self.artworkToView = [Artwork artworkWithTitle:self.artworkTitleTextField.text
-                                      andImageLocation:self.localIdentifierForArtworkImage
-                                           andLocation:self.locationForArtworkImage
-                                             andArtist:self.artistForArtwork
-                                             inContext:self.context];*/
         [artworkToUpdate updateWithTitle:self.artworkTitleTextField.text imageLocation:self.localIdentifierForArtworkImage location:self.locationForArtworkImage artist:self.artistForArtwork inContext:self.context];
     
     } else if ([segue.identifier isEqualToString:@"Select Artist"]) {

@@ -11,12 +11,16 @@
 #import "Artist+Equality.h"
 #import "Artist+Create.h"
 #import "ArtworksForArtistCDTVC.h"
+#import "Artwork.h"
+#import "PhotoLibraryInterface.h"
 #import "ArtistTableViewCell.h"
+#import "GridVC.h"
 
 @interface ArtistsCDTVC ()
 
 @property (strong, nonatomic) NSString *cellIdentifier;
-@property (strong, nonatomic) NSArray *allArtists;
+@property (strong, nonatomic) NSMutableArray *artworkImageGridVCs;
+@property (strong, nonatomic) NSMutableDictionary *artworksForArtists;
 
 @end
 
@@ -24,14 +28,22 @@
 
 #pragma mark - Properties
 
--(NSArray *)allArtists
+-(NSMutableArray *)artworkImageGridVCs
 {
-    if (!_allArtists) {
-        if (self.fetchedResultsController)
-            _allArtists = [self.fetchedResultsController fetchedObjects];
+    if (!_artworkImageGridVCs) {
+        _artworkImageGridVCs = [NSMutableArray array];
     }
     
-    return _allArtists;
+    return _artworkImageGridVCs;
+}
+
+-(NSMutableDictionary *)artworksForArtists
+{
+    if (!_artworksForArtists) {
+        _artworksForArtists = [NSMutableDictionary dictionary];
+    }
+    
+    return _artworksForArtists;
 }
 
 -(void)setScreenMode:(ArtistScreenMode)screenMode
@@ -68,46 +80,77 @@
     request.sortDescriptors = @[nameSort];
     
     self.fetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:request managedObjectContext:self.context sectionNameKeyPath:nil cacheName:nil];
+    
+    for (Artist *artist in [self.fetchedResultsController fetchedObjects])
+        self.artworksForArtists[artist.name] = artist.artworks;
 }
 
 #pragma mark - UITableViewDelegate
 
+-(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return [ArtistTableViewCell cellHeight];
+}
+
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    /*[self performSegueWithIdentifier:@"Show Artwork For Artist"
-                              sender:[self.tableView cellForRowAtIndexPath:indexPath]];*/
+    NSString *segueIdentifier = self.screenMode == ViewingMode ?
+                                    @"Show Artwork For Artist" : @"Select Artist Unwind";
+    
+    [self performSegueWithIdentifier:segueIdentifier
+                              sender:[self.tableView cellForRowAtIndexPath:indexPath]];
 }
 
 #pragma mark - UITableViewDataSource
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    UITableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:self.cellIdentifier];
-    
+    ArtistTableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:CELL_IDENTIFIER];
     Artist *artist = [self.fetchedResultsController objectAtIndexPath:indexPath];
+    cell.nameLabel.text = artist.name;
     
-    cell.textLabel.text = artist.name;
-    cell.detailTextLabel.text = [NSString stringWithFormat:@"Number of photos: %lu", (unsigned long)[artist.artworks count]];
+    NSArray *artworksForArtist = [self.artworksForArtists[artist.name] allObjects];
     
+    GridVC *artworkImagesCVC = [[GridVC alloc] initWithgridSize:(GridSize){1, 16} collectionView:cell.artworkImagesCV andCellConfigureBlock:^(UICollectionViewCell *cvc, Position position, int index) {
+        cvc.backgroundView = [[UIView alloc] init];
+        cvc.backgroundView.layer.borderColor = [UIColor whiteColor].CGColor;
+        cvc.backgroundView.layer.borderWidth = 0.5;
+
+        UIImageView *artworkImageView;
+        if ([cvc.backgroundView.subviews count]) {
+            if ([[cvc.backgroundView.subviews firstObject] isMemberOfClass:[UIImageView class]]) {
+                artworkImageView = (UIImageView *)[cvc.backgroundView.subviews firstObject];
+                artworkImageView.image = nil;
+            }
+        } else {
+            artworkImageView = [[UIImageView alloc] initWithFrame:cvc.bounds];
+            artworkImageView.clipsToBounds = YES;
+            [cvc.backgroundView addSubview:artworkImageView];
+        }
+        
+        if (index < [artworksForArtist count]) {
+            Artwork *artworkToDisplayImageFor = artworksForArtist[index];
+            [[PhotoLibraryInterface sharedLibrary] setImageInImageView:artworkImageView toImageWithLocalIdentifier:artworkToDisplayImageFor.imageLocation andExecuteBlockOnceImageFetched:^{}];
+            // CACHE THE IMAGES in a dictionary with 'imageLocation' keys
+        }
+    }];
+    [self.artworkImageGridVCs addObject:artworkImagesCVC];
+    
+#warning - The table should auto scroll to the selected artist (might be offscreen)
     if (self.screenMode == SelectionMode && [self.selectedArtist isEqualToArtist:artist]) {
-        cell.accessoryType = UITableViewCellAccessoryCheckmark;
+        cell.backgroundColor = [UIColor lightGrayColor];
     } else {
-        cell.accessoryType = UITableViewCellAccessoryNone;
+        cell.backgroundColor = [UIColor whiteColor];
     }
     
-    return cell;
-    
-    /*ArtistTableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:CELL_IDENTIFIER];
-    Artist *artist = [self.fetchedResultsController objectAtIndexPath:indexPath];
-    cell.nameLabel.text = artist.name;*/
     return cell;
 }
 
 #pragma mark - Segues
 
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
-{    
-    if ([sender isMemberOfClass:[UITableViewCell class]]) {
+{
+    if ([sender isKindOfClass:[UITableViewCell class]]) {
         UITableViewCell *cellSelected = (UITableViewCell *)sender;
         NSIndexPath *pathOfSelectedCell = [self.tableView indexPathForCell:cellSelected];
         self.selectedArtist = [self.fetchedResultsController objectAtIndexPath:pathOfSelectedCell];
@@ -120,17 +163,6 @@
             }
         }
     }
-}
-
--(BOOL)shouldPerformSegueWithIdentifier:(NSString *)identifier sender:(id)sender
-{
-    if ([identifier isEqualToString:@"Select Artist Unwind"]) {
-        return self.screenMode == SelectionMode;
-    } else if ([identifier isEqualToString:@"Show Artwork For Artist"]) {
-        return self.screenMode == ViewingMode;
-    }
-    
-    return NO;
 }
 
 #pragma mark - Actions
@@ -167,19 +199,6 @@
     }];
     
     [self presentViewController:newArtistAlert animated:YES completion:NULL];
-}
-
-#pragma mark - Helpers
-
-// will return nil if an artist with that name cannot be found
--(Artist *)getArtistObjectWithNameInDatabase:(NSString *)artistName
-{
-    for (Artist *artist in self.allArtists) {
-        if ([artistName isEqualToString:artist.name])
-            return artist;
-    }
-    
-    return nil;
 }
 
 @end

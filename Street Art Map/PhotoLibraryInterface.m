@@ -55,7 +55,7 @@
 {
     //PHImageRequestOptions *options - consider implementing this if performance is bad? run in instruments to determine this
     
-    PHImageRequestID requestID = [[PHImageManager defaultManager] requestImageForAsset:[self assetForIdentifer:identifier] targetSize:imageView.bounds.size contentMode:PHImageContentModeAspectFit options:nil resultHandler:^(UIImage *result, NSDictionary *info) {
+    PHImageRequestID requestID = [[PHImageManager defaultManager] requestImageForAsset:[self assetForIdentifer:identifier] targetSize:imageView.bounds.size contentMode:PHImageContentModeAspectFill options:nil resultHandler:^(UIImage *result, NSDictionary *info) {
             if (info[PHImageErrorKey]) {
                 // error handling
             } else {

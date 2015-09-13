@@ -14,7 +14,7 @@
 @protocol PhotoLibraryInterfaceDelegate <NSObject>
 
 @optional
-//-(void)image:(UIImage *)image forProvidedLocalIdentifier:(NSString *)identifier;
+-(void)image:(UIImage *)image forProvidedLocalIdentifier:(NSString *)identifier;
 -(void)localIdentifier:(NSString *)identifier forProvidedImage:(UIImage *)image;
 
 @end
@@ -35,7 +35,7 @@
 -(void)cancelRequestWithID:(PHImageRequestID)requestID;
 
 // will call the delegate method 'image:forProvidedLocalIdentifier' on completion
-//-(void)getImageForLocalIdentifier:(NSString *)identifier withSize:(CGSize)size;
+-(void)getImageForLocalIdentifier:(NSString *)identifier withSize:(CGSize)size;
 
 // will call the delegate method 'localIdentifier:forProvidedImage:' on completion
 -(void)getLocalIdentifierForImage:(UIImage *)image;

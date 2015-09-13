@@ -27,8 +27,8 @@
                         <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <label opaque="NO" userInteractionEnabled="NO" tag="102" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Upload Date" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Nun-rl-yOg">
-                        <rect key="frame" x="487.5" y="16" width="96.5" height="20.5"/>
+                    <label opaque="NO" userInteractionEnabled="NO" tag="102" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Last Edit Date" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Nun-rl-yOg">
+                        <rect key="frame" x="475" y="16" width="109" height="20.5"/>
                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                         <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                         <nil key="highlightedColor"/>
@@ -55,8 +55,8 @@
             <connections>
                 <outlet property="artistLabel" destination="4h4-cn-2e4" id="fc0-QP-ipp"/>
                 <outlet property="artworkImageView" destination="6sy-ka-O4o" id="W1R-0v-vPX"/>
+                <outlet property="lastEditDateLabel" destination="Nun-rl-yOg" id="Ao3-FW-HY8"/>
                 <outlet property="titleLabel" destination="wWg-lT-G2e" id="DuW-gn-4TB"/>
-                <outlet property="uploadDateLabel" destination="Nun-rl-yOg" id="cal-8E-0FM"/>
             </connections>
             <point key="canvasLocation" x="320" y="402"/>
         </tableViewCell>

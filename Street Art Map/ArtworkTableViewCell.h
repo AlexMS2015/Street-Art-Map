@@ -12,7 +12,7 @@
 
 @property (weak, nonatomic) IBOutlet UILabel *titleLabel;
 @property (weak, nonatomic) IBOutlet UILabel *artistLabel;
-@property (weak, nonatomic) IBOutlet UILabel *uploadDateLabel;
+@property (weak, nonatomic) IBOutlet UILabel *lastEditDateLabel;
 @property (weak, nonatomic) IBOutlet UIImageView *artworkImageView;
 
 +(CGFloat)cellHeight;

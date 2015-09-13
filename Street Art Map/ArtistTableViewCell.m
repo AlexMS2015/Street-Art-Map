@@ -16,4 +16,9 @@
 
 @implementation ArtistTableViewCell
 
++(CGFloat)cellHeight
+{
+    return 75; // 75 is a magic number!?
+}
+
 @end
