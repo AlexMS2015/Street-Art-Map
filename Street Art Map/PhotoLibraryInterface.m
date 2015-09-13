@@ -25,15 +25,15 @@
 
 #pragma mark - Public Interface
 
-+(instancetype)sharedLibrary
++(instancetype)shared
 {
-    static PhotoLibraryInterface *sharedLibrary;
+    static PhotoLibraryInterface *shared;
     
-    if (!sharedLibrary) {
-        sharedLibrary = [[self alloc] init];
+    if (!shared) {
+        shared = [[self alloc] init];
     }
     
-    return sharedLibrary;
+    return shared;
 }
 
 -(CLLocation *)locationForImageWithLocalIdentifier:(NSString *)identifier
@@ -50,57 +50,6 @@
 {
     [[PHImageManager defaultManager] cancelImageRequest:requestID];
 }
-
-/*-(PHImageRequestID)setImageInImageView:(UIImageView *)imageView toImageWithLocalIdentifier:(NSString *)identifier andExecuteBlockOnceImageFetched:(void (^)(void))block
-{
-    //PHImageRequestOptions *options - consider implementing this if performance is bad? run in instruments to determine this
-    
-    PHImageRequestID requestID = [[PHImageManager defaultManager] requestImageForAsset:[self assetForIdentifer:identifier] targetSize:imageView.bounds.size contentMode:PHImageContentModeAspectFill options:nil resultHandler:^(UIImage *result, NSDictionary *info) {
-            if (info[PHImageErrorKey]) {
-                // error handling
-            } else {
-                imageView.image = result;
-                block();
-            }
-        }];
-    
-    return requestID;
-}*/
-
-/*-(void)getImageForLocalIdentifier:(NSString *)identifier withSize:(CGSize)size
-{
-    PHFetchResult *result = [PHAsset fetchAssetsWithLocalIdentifiers:@[identifier] options:nil];
-    PHAsset *asset = [result firstObject];
-    
-    // PHImageRequestOptions *options - consider implementing this if performance is bad? run in instruments to determine this
-    
-    [[PHImageManager defaultManager] requestImageForAsset:[self assetForIdentifer:identifier]
-                                               targetSize:size
-                                              contentMode:PHImageContentModeAspectFit
-                                                  options:nil
-                                            resultHandler:^(UIImage *result, NSDictionary *info) {
-                                                if (info[PHImageErrorKey]) {
-                                                    // error handling
-                                                } else {
-                [self.delegate image:result forProvidedLocalIdentifier:identifier];
-                                                }
-                                            }];
-}*/
-
-/*-(void)getLocalIdentifierForImage:(UIImage *)image
-{
-    __block NSString *localIdentifier;
-    
-    [[PHPhotoLibrary sharedPhotoLibrary] performChanges:^{
-        PHAssetChangeRequest *addArtworkRequest = [PHAssetChangeRequest creationRequestForAssetFromImage:image];
-        PHObjectPlaceholder *addedArtworkPlaceholder = addArtworkRequest.placeholderForCreatedAsset;
-        localIdentifier = addedArtworkPlaceholder.localIdentifier;
-    } completionHandler:^(BOOL success, NSError *error) {
-        [self.delegate localIdentifier:localIdentifier forProvidedImage:image];;
-    }];
-}*/
-
-#pragma mark - New Methods
 
 -(PHImageRequestID)imageWithLocalIdentifier:(NSString *)identifier size:(CGSize)size completion:(void (^)(UIImage *))block
 {

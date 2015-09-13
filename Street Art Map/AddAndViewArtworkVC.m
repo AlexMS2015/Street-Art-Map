@@ -15,7 +15,7 @@
 #import "Artwork+Update.h"
 #import <CoreLocation/CoreLocation.h>
 
-@interface AddAndViewArtworkVC () <UINavigationControllerDelegate, UIImagePickerControllerDelegate, UITextFieldDelegate> //, PhotoLibraryInterfaceDelegate>
+@interface AddAndViewArtworkVC () <UINavigationControllerDelegate, UIImagePickerControllerDelegate, UITextFieldDelegate>
 
 @property (strong, nonatomic) Artist *artistForArtwork;
 @property (strong, nonatomic) NSString *localIdentifierForArtworkImage;
@@ -111,21 +111,15 @@
 -(void)setLocalIdentifierForArtworkImage:(NSString *)localIdentifierForArtworkImage
 {
     _localIdentifierForArtworkImage = localIdentifierForArtworkImage;
-    
-    /*[[PhotoLibraryInterface sharedLibrary] setImageInImageView:self.artworkImageView
-                                    toImageWithLocalIdentifier:self.localIdentifierForArtworkImage
-                               andExecuteBlockOnceImageFetched:^{}];*/
-    
-    [[PhotoLibraryInterface sharedLibrary] imageWithLocalIdentifier:self.localIdentifierForArtworkImage size:self.artworkImageView.bounds.size completion:^(UIImage *image) {
+    [[PhotoLibraryInterface shared] imageWithLocalIdentifier:self.localIdentifierForArtworkImage size:self.artworkImageView.bounds.size completion:^(UIImage *image) {
         self.artworkImageView.image = image;
     }];
-
 }
 
 -(CLLocation *)locationForArtworkImage
 {
     if (self.localIdentifierForArtworkImage) {
-        return [[PhotoLibraryInterface sharedLibrary] locationForImageWithLocalIdentifier:self.localIdentifierForArtworkImage];
+        return [[PhotoLibraryInterface shared] locationForImageWithLocalIdentifier:self.localIdentifierForArtworkImage];
     } else {
         return [[CLLocation alloc] init];
     }
@@ -148,26 +142,17 @@
 
 - (IBAction)addPhotoToArtwork:(UIBarButtonItem *)sender
 {
-    UIAlertController *addPhotoAlert =
-            [UIAlertController alertControllerWithTitle:nil
-                                                message:nil
-                                         preferredStyle:UIAlertControllerStyleActionSheet];
+    UIAlertController *addPhotoAlert = [UIAlertController alertControllerWithTitle:nil message:nil preferredStyle:UIAlertControllerStyleActionSheet];
     
-    UIAlertAction *cancelButton = [UIAlertAction actionWithTitle:@"Cancel"
-                                                           style:UIAlertActionStyleCancel
-                                                         handler:NULL];
+    UIAlertAction *cancelButton = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:NULL];
     [addPhotoAlert addAction:cancelButton];
     
-    UIAlertAction *fromCameraButton = [UIAlertAction actionWithTitle:@"Take photo"
-                                                               style:UIAlertActionStyleDefault handler:
-                                       ^(UIAlertAction *action) {
+    UIAlertAction *fromCameraButton = [UIAlertAction actionWithTitle:@"Take photo" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
         [self selectImageWithSourceType:UIImagePickerControllerSourceTypeCamera];
     }];
     [addPhotoAlert addAction:fromCameraButton];
     
-    UIAlertAction *fromExistingButton = [UIAlertAction actionWithTitle:@"Choose photo"
-                                                                 style:UIAlertActionStyleDefault handler:
-                                         ^(UIAlertAction *action) {
+    UIAlertAction *fromExistingButton = [UIAlertAction actionWithTitle:@"Choose photo" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
         [self selectImageWithSourceType:UIImagePickerControllerSourceTypePhotoLibrary];
     }];
     [addPhotoAlert addAction:fromExistingButton];
@@ -193,16 +178,14 @@
 
 -(void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
 {
-    if (info[UIImagePickerControllerReferenceURL]) {
-        self.localIdentifierForArtworkImage = [[PhotoLibraryInterface sharedLibrary] localIdentifierForALAssetURL:info[UIImagePickerControllerReferenceURL]];
-    } else {
+    if (info[UIImagePickerControllerReferenceURL]) { // chose an existing photo
+        self.localIdentifierForArtworkImage = [[PhotoLibraryInterface shared] localIdentifierForALAssetURL:info[UIImagePickerControllerReferenceURL]];
+    } else { // took a new photo
         UIImage *artworkImage = info[UIImagePickerControllerOriginalImage];
-        [[PhotoLibraryInterface sharedLibrary] localIdentifierForImage:artworkImage completion:^(NSString *identifier) {
+        [[PhotoLibraryInterface shared] localIdentifierForImage:artworkImage completion:^(NSString *identifier) {
             self.localIdentifierForArtworkImage = identifier;
         }];
-        //[self.photoLibInterface getLocalIdentifierForImage:artworkImage];
     }
-    
     [self dismissViewControllerAnimated:YES completion:NULL];
 }
 
@@ -210,12 +193,5 @@
 {
     [self dismissViewControllerAnimated:YES completion:NULL];
 }
-
-/*#pragma mark - PhotoLibraryInterfaceDelegate
-
--(void)localIdentifier:(NSString *)identifier forProvidedImage:(UIImage *)image
-{
-    self.localIdentifierForArtworkImage = identifier;
-}*/
 
 @end

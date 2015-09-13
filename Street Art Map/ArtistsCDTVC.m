@@ -90,9 +90,6 @@
     request.sortDescriptors = @[nameSort];
     
     self.fetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:request managedObjectContext:self.context sectionNameKeyPath:nil cacheName:nil];
-    
-    //for (Artist *artist in [self.fetchedResultsController fetchedObjects])
-    //    self.artworksForArtists[artist.name] = artist.artworks;
 }
 
 #pragma mark - UITableViewDelegate
@@ -120,10 +117,11 @@
     cell.nameLabel.text = artist.name;
     
     if (!self.artworksForArtists[artist.name])
-        self.artworksForArtists[artist.name] = artist.artworks;
+        self.artworksForArtists[artist.name] = [artist.artworks allObjects];
 
-    NSArray *artworksForArtist = [self.artworksForArtists[artist.name] allObjects];
+    NSArray *artworksForArtist = self.artworksForArtists[artist.name];
     
+#warning - THIS DOESN'T REFRESH IF THE USER MOVES AN ARTWORK FROM ONE ARTIST TO ANOTHER
     GridVC *artworkImagesCVC = [[GridVC alloc] initWithgridSize:(GridSize){1, 16} collectionView:cell.artworkImagesCV andCellConfigureBlock:^(UICollectionViewCell *cvc, Position position, int index) {
         cvc.backgroundView = [[UIView alloc] init];
         cvc.backgroundView.layer.borderColor = [UIColor whiteColor].CGColor;
@@ -145,8 +143,7 @@
             Artwork *artworkToDisplayImageFor = artworksForArtist[index];
             
             if (!self.cachedImages[artworkToDisplayImageFor.imageLocation]) {
-                //[[PhotoLibraryInterface sharedLibrary] setImageInImageView:artworkImageView toImageWithLocalIdentifier:artworkToDisplayImageFor.imageLocation andExecuteBlockOnceImageFetched:^{}];
-                [[PhotoLibraryInterface sharedLibrary] imageWithLocalIdentifier:artworkToDisplayImageFor.imageLocation size:artworkImageView.bounds.size completion:^(UIImage *image) {
+                [[PhotoLibraryInterface shared] imageWithLocalIdentifier:artworkToDisplayImageFor.imageLocation size:artworkImageView.bounds.size completion:^(UIImage *image) {
                     artworkImageView.image = image;
                     self.cachedImages[artworkToDisplayImageFor.imageLocation] = image;
                 }];
@@ -157,7 +154,7 @@
     }];
     [self.artworkImageGridVCs addObject:artworkImagesCVC];
     
-#warning - The table should auto scroll to the selected artist (might be offscreen)
+#warning - The table should auto scroll to the selected artist if in selection mode (might be offscreen)
     if (self.screenMode == SelectionMode && [self.selectedArtist isEqualToArtist:artist]) {
         cell.backgroundColor = [UIColor lightGrayColor];
     } else {

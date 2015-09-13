@@ -11,47 +11,16 @@
 #import <Photos/Photos.h>
 #import <CoreLocation/CoreLocation.h>
 
-/*@protocol PhotoLibraryInterfaceDelegate <NSObject>
-
-@optional
--(void)image:(UIImage *)image forProvidedLocalIdentifier:(NSString *)identifier;
--(void)localIdentifier:(NSString *)identifier forProvidedImage:(UIImage *)image;
-
-@end*/
-
 @interface PhotoLibraryInterface : NSObject
 
-//@property (weak, nonatomic) id <PhotoLibraryInterfaceDelegate> delegate;
-
-+(instancetype)sharedLibrary;
-
-
-
-/*-(PHImageRequestID)setImageInImageView:(UIImageView *)imageView
-            toImageWithLocalIdentifier:(NSString *)identifier
-       andExecuteBlockOnceImageFetched:(void (^)(void))block;*/
-
-
-// will call the delegate method 'image:forProvidedLocalIdentifier' on completion
-//-(void)getImageForLocalIdentifier:(NSString *)identifier withSize:(CGSize)size;
-
-// will call the delegate method 'localIdentifier:forProvidedImage:' on completion
-//-(void)getLocalIdentifierForImage:(UIImage *)image;
-
-// NEW METHODS
-
--(NSString *)localIdentifierForALAssetURL:(NSURL *)url;
++(instancetype)shared;
 
 -(CLLocation *)locationForImageWithLocalIdentifier:(NSString *)identifier;
 
+-(PHImageRequestID)imageWithLocalIdentifier:(NSString *)identifier size:(CGSize)size completion:(void (^)(UIImage *image))block;
 -(void)cancelRequestWithID:(PHImageRequestID)requestID;
 
--(PHImageRequestID)imageWithLocalIdentifier:(NSString *)identifier
-                                       size:(CGSize)size
-                                 completion:(void (^)(UIImage *image))block;
-
--(void)localIdentifierForImage:(UIImage *)image
-                    completion:(void (^)(NSString *identifier))block;
-
+-(void)localIdentifierForImage:(UIImage *)image completion:(void (^)(NSString *identifier))block;
+-(NSString *)localIdentifierForALAssetURL:(NSURL *)url;
 
 @end
