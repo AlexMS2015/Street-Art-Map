@@ -94,9 +94,14 @@
         [interface cancelRequestWithID:(PHImageRequestID)cell.tag];
     }
     
-    cell.tag = [interface setImageInImageView:cell.artworkImageView
+    /*cell.tag = [interface setImageInImageView:cell.artworkImageView
                    toImageWithLocalIdentifier:artwork.imageLocation
-              andExecuteBlockOnceImageFetched:^{cell.tag = 0;}];
+              andExecuteBlockOnceImageFetched:^{cell.tag = 0;}];*/
+    
+    cell.tag = [interface imageWithLocalIdentifier:artwork.imageLocation size:cell.artworkImageView.bounds.size completion:^(UIImage *image) {
+        cell.artworkImageView.image = image;
+        cell.tag = 0;
+    }];
     
     return cell;
     

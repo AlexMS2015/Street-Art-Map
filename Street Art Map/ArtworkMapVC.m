@@ -65,7 +65,10 @@
     }
 
     Artwork *artwork = (Artwork *)annotation;
-    [[PhotoLibraryInterface sharedLibrary] setImageInImageView:iv toImageWithLocalIdentifier:artwork.imageLocation andExecuteBlockOnceImageFetched:^{}];
+    /*[[PhotoLibraryInterface sharedLibrary] setImageInImageView:iv toImageWithLocalIdentifier:artwork.imageLocation andExecuteBlockOnceImageFetched:^{}];*/
+    [[PhotoLibraryInterface sharedLibrary] imageWithLocalIdentifier:artwork.imageLocation size:iv.bounds.size completion:^(UIImage *image) {
+        iv.image = image;
+    }];
     
     return annotationView;
 }

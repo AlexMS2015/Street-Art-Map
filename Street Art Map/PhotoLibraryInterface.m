@@ -51,7 +51,7 @@
     [[PHImageManager defaultManager] cancelImageRequest:requestID];
 }
 
--(PHImageRequestID)setImageInImageView:(UIImageView *)imageView toImageWithLocalIdentifier:(NSString *)identifier andExecuteBlockOnceImageFetched:(void (^)(void))block
+/*-(PHImageRequestID)setImageInImageView:(UIImageView *)imageView toImageWithLocalIdentifier:(NSString *)identifier andExecuteBlockOnceImageFetched:(void (^)(void))block
 {
     //PHImageRequestOptions *options - consider implementing this if performance is bad? run in instruments to determine this
     
@@ -65,7 +65,7 @@
         }];
     
     return requestID;
-}
+}*/
 
 /*-(void)getImageForLocalIdentifier:(NSString *)identifier withSize:(CGSize)size
 {
@@ -87,7 +87,7 @@
                                             }];
 }*/
 
--(void)getLocalIdentifierForImage:(UIImage *)image
+/*-(void)getLocalIdentifierForImage:(UIImage *)image
 {
     __block NSString *localIdentifier;
     
@@ -97,6 +97,36 @@
         localIdentifier = addedArtworkPlaceholder.localIdentifier;
     } completionHandler:^(BOOL success, NSError *error) {
         [self.delegate localIdentifier:localIdentifier forProvidedImage:image];;
+    }];
+}*/
+
+#pragma mark - New Methods
+
+-(PHImageRequestID)imageWithLocalIdentifier:(NSString *)identifier size:(CGSize)size completion:(void (^)(UIImage *))block
+{
+    //PHImageRequestOptions *options - consider implementing this if performance is bad? run in instruments to determine this
+    
+    PHImageRequestID requestID = [[PHImageManager defaultManager] requestImageForAsset:[self assetForIdentifer:identifier] targetSize:size contentMode:PHImageContentModeAspectFill options:nil resultHandler:^(UIImage *result, NSDictionary *info) {
+        if (info[PHImageErrorKey]) {
+            // error handling
+        } else {
+            block(result);
+        }
+    }];
+    
+    return requestID;
+}
+
+-(void)localIdentifierForImage:(UIImage *)image completion:(void (^)(NSString *))block
+{
+    __block NSString *localIdentifier;
+    
+    [[PHPhotoLibrary sharedPhotoLibrary] performChanges:^{
+        PHAssetChangeRequest *addArtworkRequest = [PHAssetChangeRequest creationRequestForAssetFromImage:image];
+        PHObjectPlaceholder *addedArtworkPlaceholder = addArtworkRequest.placeholderForCreatedAsset;
+        localIdentifier = addedArtworkPlaceholder.localIdentifier;
+    } completionHandler:^(BOOL success, NSError *error) {
+        block(localIdentifier);
     }];
 }
 

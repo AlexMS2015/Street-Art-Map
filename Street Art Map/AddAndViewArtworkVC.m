@@ -15,12 +15,11 @@
 #import "Artwork+Update.h"
 #import <CoreLocation/CoreLocation.h>
 
-@interface AddAndViewArtworkVC () <UINavigationControllerDelegate, UIImagePickerControllerDelegate, UITextFieldDelegate, PhotoLibraryInterfaceDelegate>
+@interface AddAndViewArtworkVC () <UINavigationControllerDelegate, UIImagePickerControllerDelegate, UITextFieldDelegate> //, PhotoLibraryInterfaceDelegate>
 
 @property (strong, nonatomic) Artist *artistForArtwork;
 @property (strong, nonatomic) NSString *localIdentifierForArtworkImage;
 @property (strong, nonatomic) CLLocation *locationForArtworkImage;
-@property (strong, nonatomic) PhotoLibraryInterface *photoLibInterface;
 
 // outlets
 @property (weak, nonatomic) IBOutlet UIImageView *artworkImageView;
@@ -103,16 +102,6 @@
 
 #pragma mark - Properties
 
--(PhotoLibraryInterface *)photoLibInterface
-{
-    if (!_photoLibInterface) {
-        _photoLibInterface = [[PhotoLibraryInterface alloc] init];
-        _photoLibInterface.delegate = self;
-    }
-    
-    return _photoLibInterface;
-}
-
 -(void)setArtistForArtwork:(Artist *)artistForArtwork
 {
     _artistForArtwork = artistForArtwork;
@@ -123,16 +112,20 @@
 {
     _localIdentifierForArtworkImage = localIdentifierForArtworkImage;
     
-    [[PhotoLibraryInterface sharedLibrary] setImageInImageView:self.artworkImageView
+    /*[[PhotoLibraryInterface sharedLibrary] setImageInImageView:self.artworkImageView
                                     toImageWithLocalIdentifier:self.localIdentifierForArtworkImage
-                               andExecuteBlockOnceImageFetched:^{}];
+                               andExecuteBlockOnceImageFetched:^{}];*/
+    
+    [[PhotoLibraryInterface sharedLibrary] imageWithLocalIdentifier:self.localIdentifierForArtworkImage size:self.artworkImageView.bounds.size completion:^(UIImage *image) {
+        self.artworkImageView.image = image;
+    }];
 
 }
 
 -(CLLocation *)locationForArtworkImage
 {
     if (self.localIdentifierForArtworkImage) {
-        return [self.photoLibInterface locationForImageWithLocalIdentifier:self.localIdentifierForArtworkImage];
+        return [[PhotoLibraryInterface sharedLibrary] locationForImageWithLocalIdentifier:self.localIdentifierForArtworkImage];
     } else {
         return [[CLLocation alloc] init];
     }
@@ -201,10 +194,13 @@
 -(void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
 {
     if (info[UIImagePickerControllerReferenceURL]) {
-        self.localIdentifierForArtworkImage = [self.photoLibInterface localIdentifierForALAssetURL:info[UIImagePickerControllerReferenceURL]];
+        self.localIdentifierForArtworkImage = [[PhotoLibraryInterface sharedLibrary] localIdentifierForALAssetURL:info[UIImagePickerControllerReferenceURL]];
     } else {
         UIImage *artworkImage = info[UIImagePickerControllerOriginalImage];
-        [self.photoLibInterface getLocalIdentifierForImage:artworkImage];
+        [[PhotoLibraryInterface sharedLibrary] localIdentifierForImage:artworkImage completion:^(NSString *identifier) {
+            self.localIdentifierForArtworkImage = identifier;
+        }];
+        //[self.photoLibInterface getLocalIdentifierForImage:artworkImage];
     }
     
     [self dismissViewControllerAnimated:YES completion:NULL];
@@ -215,11 +211,11 @@
     [self dismissViewControllerAnimated:YES completion:NULL];
 }
 
-#pragma mark - PhotoLibraryInterfaceDelegate
+/*#pragma mark - PhotoLibraryInterfaceDelegate
 
 -(void)localIdentifier:(NSString *)identifier forProvidedImage:(UIImage *)image
 {
     self.localIdentifierForArtworkImage = identifier;
-}
+}*/
 
 @end

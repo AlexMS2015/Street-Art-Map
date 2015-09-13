@@ -11,34 +11,47 @@
 #import <Photos/Photos.h>
 #import <CoreLocation/CoreLocation.h>
 
-@protocol PhotoLibraryInterfaceDelegate <NSObject>
+/*@protocol PhotoLibraryInterfaceDelegate <NSObject>
 
 @optional
 -(void)image:(UIImage *)image forProvidedLocalIdentifier:(NSString *)identifier;
 -(void)localIdentifier:(NSString *)identifier forProvidedImage:(UIImage *)image;
 
-@end
+@end*/
 
 @interface PhotoLibraryInterface : NSObject
 
-@property (weak, nonatomic) id <PhotoLibraryInterfaceDelegate> delegate;
+//@property (weak, nonatomic) id <PhotoLibraryInterfaceDelegate> delegate;
 
 +(instancetype)sharedLibrary;
 
--(NSString *)localIdentifierForALAssetURL:(NSURL *)url;
--(CLLocation *)locationForImageWithLocalIdentifier:(NSString *)identifier;
 
--(PHImageRequestID)setImageInImageView:(UIImageView *)imageView
+
+/*-(PHImageRequestID)setImageInImageView:(UIImageView *)imageView
             toImageWithLocalIdentifier:(NSString *)identifier
-       andExecuteBlockOnceImageFetched:(void (^)(void))block;
+       andExecuteBlockOnceImageFetched:(void (^)(void))block;*/
+
+
+// will call the delegate method 'image:forProvidedLocalIdentifier' on completion
+//-(void)getImageForLocalIdentifier:(NSString *)identifier withSize:(CGSize)size;
+
+// will call the delegate method 'localIdentifier:forProvidedImage:' on completion
+//-(void)getLocalIdentifierForImage:(UIImage *)image;
+
+// NEW METHODS
+
+-(NSString *)localIdentifierForALAssetURL:(NSURL *)url;
+
+-(CLLocation *)locationForImageWithLocalIdentifier:(NSString *)identifier;
 
 -(void)cancelRequestWithID:(PHImageRequestID)requestID;
 
-// will call the delegate method 'image:forProvidedLocalIdentifier' on completion
--(void)getImageForLocalIdentifier:(NSString *)identifier withSize:(CGSize)size;
+-(PHImageRequestID)imageWithLocalIdentifier:(NSString *)identifier
+                                       size:(CGSize)size
+                                 completion:(void (^)(UIImage *image))block;
 
-// will call the delegate method 'localIdentifier:forProvidedImage:' on completion
--(void)getLocalIdentifierForImage:(UIImage *)image;
--(void)setString:(NSString *)string toLocalIdentifierForImage:(UIImage *)image; // 'string' can't be modified in a block... how to implement this??
+-(void)localIdentifierForImage:(UIImage *)image
+                    completion:(void (^)(NSString *identifier))block;
+
 
 @end

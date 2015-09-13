@@ -21,6 +21,7 @@
 @property (strong, nonatomic) NSString *cellIdentifier;
 @property (strong, nonatomic) NSMutableArray *artworkImageGridVCs;
 @property (strong, nonatomic) NSMutableDictionary *artworksForArtists;
+@property (strong, nonatomic) NSMutableDictionary *cachedImages;
 
 @end
 
@@ -44,6 +45,15 @@
     }
     
     return _artworksForArtists;
+}
+
+-(NSMutableDictionary *)cachedImages
+{
+    if (!_cachedImages) {
+        _cachedImages = [NSMutableDictionary dictionary];
+    }
+    
+    return _cachedImages;
 }
 
 -(void)setScreenMode:(ArtistScreenMode)screenMode
@@ -81,8 +91,8 @@
     
     self.fetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:request managedObjectContext:self.context sectionNameKeyPath:nil cacheName:nil];
     
-    for (Artist *artist in [self.fetchedResultsController fetchedObjects])
-        self.artworksForArtists[artist.name] = artist.artworks;
+    //for (Artist *artist in [self.fetchedResultsController fetchedObjects])
+    //    self.artworksForArtists[artist.name] = artist.artworks;
 }
 
 #pragma mark - UITableViewDelegate
@@ -109,6 +119,9 @@
     Artist *artist = [self.fetchedResultsController objectAtIndexPath:indexPath];
     cell.nameLabel.text = artist.name;
     
+    if (!self.artworksForArtists[artist.name])
+        self.artworksForArtists[artist.name] = artist.artworks;
+
     NSArray *artworksForArtist = [self.artworksForArtists[artist.name] allObjects];
     
     GridVC *artworkImagesCVC = [[GridVC alloc] initWithgridSize:(GridSize){1, 16} collectionView:cell.artworkImagesCV andCellConfigureBlock:^(UICollectionViewCell *cvc, Position position, int index) {
@@ -130,8 +143,16 @@
         
         if (index < [artworksForArtist count]) {
             Artwork *artworkToDisplayImageFor = artworksForArtist[index];
-            [[PhotoLibraryInterface sharedLibrary] setImageInImageView:artworkImageView toImageWithLocalIdentifier:artworkToDisplayImageFor.imageLocation andExecuteBlockOnceImageFetched:^{}];
-            // CACHE THE IMAGES in a dictionary with 'imageLocation' keys
+            
+            if (!self.cachedImages[artworkToDisplayImageFor.imageLocation]) {
+                //[[PhotoLibraryInterface sharedLibrary] setImageInImageView:artworkImageView toImageWithLocalIdentifier:artworkToDisplayImageFor.imageLocation andExecuteBlockOnceImageFetched:^{}];
+                [[PhotoLibraryInterface sharedLibrary] imageWithLocalIdentifier:artworkToDisplayImageFor.imageLocation size:artworkImageView.bounds.size completion:^(UIImage *image) {
+                    artworkImageView.image = image;
+                    self.cachedImages[artworkToDisplayImageFor.imageLocation] = image;
+                }];
+            } else {
+                artworkImageView.image = self.cachedImages[artworkToDisplayImageFor.imageLocation];
+            }
         }
     }];
     [self.artworkImageGridVCs addObject:artworkImagesCVC];
