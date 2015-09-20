@@ -45,15 +45,16 @@
     _collectionView = collectionView;
     self.collectionView.delegate = self;
     self.collectionView.dataSource = self;
-    [self.collectionView registerClass:[UICollectionViewCell class] forCellWithReuseIdentifier:CELL_IDENTIFIER];
+    //[self.collectionView registerClass:[UICollectionViewCell class] forCellWithReuseIdentifier:CELL_IDENTIFIER];
 }
 
 #pragma mark - Initialiser
 
--(instancetype)initWithgridSize:(GridSize)size collectionView:(UICollectionView *)collectionView andCellConfigureBlock:(void (^)(UICollectionViewCell *, Position, int))cellConfigureBlock
+-(instancetype)initWithgridSize:(GridSize)size collectionView:(UICollectionView *)collectionView andClass:(UICollectionViewCell *)customCVCClass andCellConfigureBlock:(void (^)(UICollectionViewCell *, Position, int))cellConfigureBlock
 {
     if (self = [super init]) {
         self.collectionView = collectionView;
+        [self.collectionView registerClass:[customCVCClass class] forCellWithReuseIdentifier:CELL_IDENTIFIER];
         self.cellConfigureBlock = cellConfigureBlock;
         
         UICollectionViewFlowLayout *layout = (UICollectionViewFlowLayout *)self.collectionView.collectionViewLayout;

@@ -15,6 +15,7 @@
 #import "PhotoLibraryInterface.h"
 #import "ArtistTableViewCell.h"
 #import "GridVC.h"
+#import "ImageCVC.h"
 
 @interface ArtistsCDTVC ()
 
@@ -81,6 +82,12 @@
     [self.tableView registerNib:nib forCellReuseIdentifier:CELL_IDENTIFIER];
 }
 
+-(void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    //[self performFetch];
+}
+
 #pragma mark - Abstract Methods
 
 -(void)setupFetchedResultsController
@@ -114,53 +121,61 @@
 {
     ArtistTableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:CELL_IDENTIFIER];
     Artist *artist = [self.fetchedResultsController objectAtIndexPath:indexPath];
-    cell.nameLabel.text = artist.name;
-    
-    if (!self.artworksForArtists[artist.name])
-        self.artworksForArtists[artist.name] = [artist.artworks allObjects];
+
+    // need to overwrite this each time this method is called as users may have changed which artworks are assigned to different artists
+    self.artworksForArtists[artist.name] = [artist.artworks allObjects];
 
     NSArray *artworksForArtist = self.artworksForArtists[artist.name];
     
-#warning - THIS DOESN'T REFRESH IF THE USER MOVES AN ARTWORK FROM ONE ARTIST TO ANOTHER
-    GridVC *artworkImagesCVC = [[GridVC alloc] initWithgridSize:(GridSize){1, 16} collectionView:cell.artworkImagesCV andCellConfigureBlock:^(UICollectionViewCell *cvc, Position position, int index) {
-        cvc.backgroundView = [[UIView alloc] init];
-        cvc.backgroundView.layer.borderColor = [UIColor whiteColor].CGColor;
-        cvc.backgroundView.layer.borderWidth = 0.5;
+#warning - This is horrible code
+    if (self.screenMode == ViewingMode) {
+        [cell CVLayoutWithTitle:artist.name andImageCount:(int)artist.artworks.count];
 
-        UIImageView *artworkImageView;
-        if ([cvc.backgroundView.subviews count]) {
-            if ([[cvc.backgroundView.subviews firstObject] isMemberOfClass:[UIImageView class]]) {
-                artworkImageView = (UIImageView *)[cvc.backgroundView.subviews firstObject];
-                artworkImageView.image = nil;
-            }
-        } else {
-            artworkImageView = [[UIImageView alloc] initWithFrame:cvc.bounds];
-            artworkImageView.clipsToBounds = YES;
-            [cvc.backgroundView addSubview:artworkImageView];
-        }
-        
-        if (index < [artworksForArtist count]) {
-            Artwork *artworkToDisplayImageFor = artworksForArtist[index];
+        GridVC *artworkImagesCVC = [[GridVC alloc] initWithgridSize:(GridSize){1, 16} collectionView:cell.artworkImagesCV andClass:[[ImageCVC alloc] init] andCellConfigureBlock:^(UICollectionViewCell *cvc, Position position, int index) {
             
-            if (!self.cachedImages[artworkToDisplayImageFor.imageLocation]) {
-                [[PhotoLibraryInterface shared] imageWithLocalIdentifier:artworkToDisplayImageFor.imageLocation size:artworkImageView.bounds.size completion:^(UIImage *image) {
-                    artworkImageView.image = image;
-                    self.cachedImages[artworkToDisplayImageFor.imageLocation] = image;
-                }];
+            /*cvc.backgroundView = [[UIView alloc] init];
+            cvc.backgroundView.layer.borderColor = [UIColor whiteColor].CGColor;
+            cvc.backgroundView.layer.borderWidth = 0.5;
+
+            UIImageView *artworkImageView;
+            // does the collectionViewCell (cvc) already have an imageView added?
+            if ([cvc.backgroundView.subviews count]) {
+                if ([[cvc.backgroundView.subviews firstObject] isMemberOfClass:[UIImageView class]]) {
+                    artworkImageView = (UIImageView *)[cvc.backgroundView.subviews firstObject];
+                    artworkImageView.image = nil;
+                }
+            } else { // add one if not
+                artworkImageView = [[UIImageView alloc] initWithFrame:cvc.bounds];
+                artworkImageView.clipsToBounds = YES;
+                [cvc.backgroundView addSubview:artworkImageView];
+            }*/
+            ImageCVC *imageCVC = (ImageCVC *)cvc;
+            
+            if (index < [artworksForArtist count]) {
+                Artwork *artworkToDisplayImageFor = artworksForArtist[index];
+                
+                if (!self.cachedImages[artworkToDisplayImageFor.imageLocation]) {
+                    [[PhotoLibraryInterface shared] imageWithLocalIdentifier:artworkToDisplayImageFor.imageLocation size:cvc.bounds.size completion:^(UIImage *image) {
+                        //artworkImageView.image = image;
+                        imageCVC.image = image;
+                        self.cachedImages[artworkToDisplayImageFor.imageLocation] = image;
+                    }];
+                } else {
+                    //artworkImageView.image = self.cachedImages[artworkToDisplayImageFor.imageLocation];
+                    imageCVC.image = self.cachedImages[artworkToDisplayImageFor.imageLocation];
+                }
             } else {
-                artworkImageView.image = self.cachedImages[artworkToDisplayImageFor.imageLocation];
+                imageCVC.image = nil;
             }
-        }
-    }];
-    [self.artworkImageGridVCs addObject:artworkImagesCVC];
-    
-#warning - The table should auto scroll to the selected artist if in selection mode (might be offscreen)
-    if (self.screenMode == SelectionMode && [self.selectedArtist isEqualToArtist:artist]) {
-        cell.backgroundColor = [UIColor lightGrayColor];
+        }];
+        [self.artworkImageGridVCs addObject:artworkImagesCVC];
     } else {
-        cell.backgroundColor = [UIColor whiteColor];
+        [cell simpleLayoutWithTitle:artist.name];
+        cell.highlighted = [self.selectedArtist isEqualToArtist:artist];
     }
     
+#warning - The table should auto scroll to the selected artist if in selection mode (might be offscreen)
+
     return cell;
 }
 

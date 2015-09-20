@@ -19,11 +19,12 @@
 
 @property (strong, nonatomic) id<GridVCDelegate> delegate;
 @property (strong, nonatomic) UICollectionView *collectionView;
-@property (nonatomic, strong) Grid *grid;
+@property (strong, nonatomic) Grid *grid;
 
 // the 'Orientation' of the grid will be determined by the passed in collectionView's scrolling direction.
 -(instancetype)initWithgridSize:(GridSize)size
                  collectionView:(UICollectionView *)collectionView
+                       andClass:(UICollectionViewCell *)customCVCClass
           andCellConfigureBlock:(void (^)(UICollectionViewCell *cell, Position position, int index))cellConfigureBlock;
 
 @end

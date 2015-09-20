@@ -11,8 +11,11 @@
 
 @interface ArtistTableViewCell : UITableViewCell
 
-@property (weak, nonatomic) IBOutlet UILabel *nameLabel;
 @property (weak, nonatomic) IBOutlet UICollectionView *artworkImagesCV;
+@property (nonatomic) BOOL highlighted;
+
+-(void)simpleLayoutWithTitle:(NSString *)title;
+-(void)CVLayoutWithTitle:(NSString *)title andImageCount:(int)count;
 
 +(CGFloat)cellHeight;
 
