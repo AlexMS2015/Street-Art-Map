@@ -55,6 +55,8 @@
 {
     //PHImageRequestOptions *options - consider implementing this if performance is bad? run in instruments to determine this
     
+#warning - Consider using a PHCachingImageManager here
+    
     PHImageRequestID requestID = [[PHImageManager defaultManager] requestImageForAsset:[self assetForIdentifer:identifier] targetSize:size contentMode:PHImageContentModeAspectFill options:nil resultHandler:^(UIImage *result, NSDictionary *info) {
         if (info[PHImageErrorKey]) {
             // error handling

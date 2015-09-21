@@ -11,6 +11,7 @@
 @interface GridVC ()
 
 @property (nonatomic, copy) void (^cellConfigureBlock)(UICollectionViewCell *, Position, int);
+@property (nonatomic, copy) void (^cellTapHandler)(UICollectionViewCell *, Position, int);
 @property (nonatomic) float cellWidth;
 @property (nonatomic) float cellHeight;
 
@@ -45,21 +46,20 @@
     _collectionView = collectionView;
     self.collectionView.delegate = self;
     self.collectionView.dataSource = self;
-    //[self.collectionView registerClass:[UICollectionViewCell class] forCellWithReuseIdentifier:CELL_IDENTIFIER];
+    [self.collectionView registerClass:[UICollectionViewCell class] forCellWithReuseIdentifier:CELL_IDENTIFIER];
 }
 
 #pragma mark - Initialiser
 
--(instancetype)initWithgridSize:(GridSize)size collectionView:(UICollectionView *)collectionView andClass:(UICollectionViewCell *)customCVCClass andCellConfigureBlock:(void (^)(UICollectionViewCell *, Position, int))cellConfigureBlock
+-(instancetype)initWithgridSize:(GridSize)size collectionView:(UICollectionView *)collectionView andCellConfigureBlock:(void (^)(UICollectionViewCell *, Position, int))cellConfigureBlock andCellTapHandler:(void (^)(UICollectionViewCell *, Position, int))cellTapHandler
 {
     if (self = [super init]) {
         self.collectionView = collectionView;
-        [self.collectionView registerClass:[customCVCClass class] forCellWithReuseIdentifier:CELL_IDENTIFIER];
         self.cellConfigureBlock = cellConfigureBlock;
+        self.cellTapHandler = cellTapHandler;
         
         UICollectionViewFlowLayout *layout = (UICollectionViewFlowLayout *)self.collectionView.collectionViewLayout;
-        Orientation orientation = layout.scrollDirection == UICollectionViewScrollDirectionVertical ?
-                            VERTICAL : HORIZONTAL;
+        Orientation orientation = layout.scrollDirection == UICollectionViewScrollDirectionVertical ? VERTICAL : HORIZONTAL;
         
         self.grid = [[Grid alloc] initWithGridSize:size andOrientation:orientation];
     }
@@ -72,8 +72,9 @@
 -(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
     int objIndex = (int)indexPath.item;
-    if (self.delegate)
-        [self.delegate tileTappedAtPosition:[self.grid positionOfIndex:objIndex]];
+    Position currentPos = [self.grid positionOfIndex:objIndex];
+    UICollectionViewCell *cell = [self.collectionView cellForItemAtIndexPath:indexPath];
+    self.cellTapHandler(cell, currentPos, objIndex);
 }
 
 #pragma mark - UICollectionViewDelegateFlowLayout

@@ -10,7 +10,6 @@
 #import "DatabaseAvailability.h"
 #import "Artwork+Annotation.h"
 #import "AddAndViewArtworkVC.h"
-//#import "ArtworkAnnotationView.h"
 #import "PhotoLibraryInterface.h"
 #import <CoreData/CoreData.h>
 #import <MapKit/MapKit.h>
@@ -29,14 +28,16 @@
 
 -(void)mapView:(MKMapView *)mapView didSelectAnnotationView:(MKAnnotationView *)view
 {
-    view.rightCalloutAccessoryView = [UIButton buttonWithType:UIButtonTypeDetailDisclosure];
-}
-
--(void)mapView:(MKMapView *)mapView annotationView:(MKAnnotationView *)view calloutAccessoryControlTapped:(UIControl *)control
-{
+    //view.rightCalloutAccessoryView = [UIButton buttonWithType:UIButtonTypeDetailDisclosure];
     if ([view.annotation isMemberOfClass:[Artwork class]])
         [self performSegueWithIdentifier:@"View Photo" sender:view];
 }
+
+/*-(void)mapView:(MKMapView *)mapView annotationView:(MKAnnotationView *)view calloutAccessoryControlTapped:(UIControl *)control
+{
+    if ([view.annotation isMemberOfClass:[Artwork class]])
+        [self performSegueWithIdentifier:@"View Photo" sender:view];
+}*/
 
 #define ANNOTATION_VIEW_REUSE @"AnnotationView"
 #define WIDTH_AND_HEIGHT 85
@@ -50,7 +51,7 @@
     if (!annotationView) {
          annotationView = [[MKAnnotationView alloc] initWithAnnotation:annotation
                                                             reuseIdentifier:ANNOTATION_VIEW_REUSE];
-         annotationView.canShowCallout = YES;
+         //annotationView.canShowCallout = YES;
         
          CGRect frame = CGRectMake(0, 0, WIDTH_AND_HEIGHT, WIDTH_AND_HEIGHT);
          annotationView.frame = frame;
@@ -65,7 +66,6 @@
     }
 
     Artwork *artwork = (Artwork *)annotation;
-    /*[[PhotoLibraryInterface shared] setImageInImageView:iv toImageWithLocalIdentifier:artwork.imageLocation andExecuteBlockOnceImageFetched:^{}];*/
     [[PhotoLibraryInterface shared] imageWithLocalIdentifier:artwork.imageLocation size:iv.bounds.size completion:^(UIImage *image) {
         iv.image = image;
     }];

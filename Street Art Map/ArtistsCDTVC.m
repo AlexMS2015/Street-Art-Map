@@ -13,17 +13,16 @@
 #import "ArtworksForArtistCDTVC.h"
 #import "Artwork.h"
 #import "PhotoLibraryInterface.h"
-#import "ArtistTableViewCell.h"
+#import "ViewArtistTVC.h"
+#import "SelectArtistTVC.h"
 #import "GridVC.h"
-#import "ImageCVC.h"
+#import "ArtworkImageView.h"
+#import "AddAndViewArtworkVC.h"
+#import "Artwork+Update.h"
 
 @interface ArtistsCDTVC ()
-
-@property (strong, nonatomic) NSString *cellIdentifier;
 @property (strong, nonatomic) NSMutableArray *artworkImageGridVCs;
-@property (strong, nonatomic) NSMutableDictionary *artworksForArtists;
 @property (strong, nonatomic) NSMutableDictionary *cachedImages;
-
 @end
 
 @implementation ArtistsCDTVC
@@ -39,15 +38,6 @@
     return _artworkImageGridVCs;
 }
 
--(NSMutableDictionary *)artworksForArtists
-{
-    if (!_artworksForArtists) {
-        _artworksForArtists = [NSMutableDictionary dictionary];
-    }
-    
-    return _artworksForArtists;
-}
-
 -(NSMutableDictionary *)cachedImages
 {
     if (!_cachedImages) {
@@ -57,35 +47,28 @@
     return _cachedImages;
 }
 
+#define CELL_IDENTIFIER @"ArtistTableViewCell"
 -(void)setScreenMode:(ArtistScreenMode)screenMode
 {
     _screenMode = screenMode;
+    UINib *nib;
     if (self.screenMode == ViewingMode) {
-        self.cellIdentifier = @"ArtistViewCell";
+        nib = [UINib nibWithNibName:@"ViewArtistTVC" bundle:nil];
         self.navigationItem.title = @"Artists";
     } else if (self.screenMode == SelectionMode) {
-        self.cellIdentifier = @"ArtistSelectCell";
+        nib = [UINib nibWithNibName:@"SelectArtistTVC" bundle:nil];
         self.navigationItem.title = @"Select Artist";
         UIBarButtonItem *cancelButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel target:self action:@selector(cancel:)];
         self.navigationItem.leftBarButtonItem = cancelButton;
     }
+    [self.tableView registerNib:nib forCellReuseIdentifier:CELL_IDENTIFIER];
 }
 
 #pragma mark - View Life Cycle
 
-#define CELL_IDENTIFIER @"ArtistTableViewCell"
-
 -(void)viewDidLoad
 {
     self.screenMode = ViewingMode;
-    UINib *nib = [UINib nibWithNibName:@"ArtistTableViewCell" bundle:nil];
-    [self.tableView registerNib:nib forCellReuseIdentifier:CELL_IDENTIFIER];
-}
-
--(void)viewWillAppear:(BOOL)animated
-{
-    [super viewWillAppear:animated];
-    //[self performFetch];
 }
 
 #pragma mark - Abstract Methods
@@ -103,83 +86,86 @@
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return [ArtistTableViewCell cellHeight];
+    return self.screenMode == ViewingMode ?
+        [ViewArtistTVC cellHeight] : [SelectArtistTVC cellHeight];
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    NSString *segueIdentifier = self.screenMode == ViewingMode ?
-                                    @"Show Artwork For Artist" : @"Select Artist Unwind";
-    
-    [self performSegueWithIdentifier:segueIdentifier
-                              sender:[self.tableView cellForRowAtIndexPath:indexPath]];
+    if (self.screenMode == SelectionMode)
+        [self performSegueWithIdentifier: @"Select Artist Unwind" sender:[self.tableView cellForRowAtIndexPath:indexPath]];
 }
 
 #pragma mark - UITableViewDataSource
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    ArtistTableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:CELL_IDENTIFIER];
+#warning - The table should auto scroll to the selected artist if in selection mode (might be offscreen)
+    
+    UITableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:CELL_IDENTIFIER];
+
     Artist *artist = [self.fetchedResultsController objectAtIndexPath:indexPath];
 
-    // need to overwrite this each time this method is called as users may have changed which artworks are assigned to different artists
-    self.artworksForArtists[artist.name] = [artist.artworks allObjects];
-
-    NSArray *artworksForArtist = self.artworksForArtists[artist.name];
-    
-#warning - This is horrible code
     if (self.screenMode == ViewingMode) {
-        [cell CVLayoutWithTitle:artist.name andImageCount:(int)artist.artworks.count];
-
-        GridVC *artworkImagesCVC = [[GridVC alloc] initWithgridSize:(GridSize){1, 16} collectionView:cell.artworkImagesCV andClass:[[ImageCVC alloc] init] andCellConfigureBlock:^(UICollectionViewCell *cvc, Position position, int index) {
+        ViewArtistTVC *viewingCell = (ViewArtistTVC *)cell;
+        [viewingCell setTitle:artist.name andImageCount:(int)artist.artworks.count];
+        
+        int numArtworkCVCs = [artist.artworks count] + 1;
+        
+        GridVC *artworkImagesCVC = [[GridVC alloc] initWithgridSize:(GridSize){1, numArtworkCVCs} collectionView:viewingCell.artworkImagesCV andCellConfigureBlock:^(UICollectionViewCell *cvc, Position position, int index) {
+     
+#warning - Make a separate 'imageCache' class?
             
-            /*cvc.backgroundView = [[UIView alloc] init];
-            cvc.backgroundView.layer.borderColor = [UIColor whiteColor].CGColor;
-            cvc.backgroundView.layer.borderWidth = 0.5;
-
-            UIImageView *artworkImageView;
-            // does the collectionViewCell (cvc) already have an imageView added?
-            if ([cvc.backgroundView.subviews count]) {
-                if ([[cvc.backgroundView.subviews firstObject] isMemberOfClass:[UIImageView class]]) {
-                    artworkImageView = (UIImageView *)[cvc.backgroundView.subviews firstObject];
-                    artworkImageView.image = nil;
-                }
-            } else { // add one if not
-                artworkImageView = [[UIImageView alloc] initWithFrame:cvc.bounds];
-                artworkImageView.clipsToBounds = YES;
-                [cvc.backgroundView addSubview:artworkImageView];
-            }*/
-            ImageCVC *imageCVC = (ImageCVC *)cvc;
-            
-            if (index < [artworksForArtist count]) {
-                Artwork *artworkToDisplayImageFor = artworksForArtist[index];
+            __block UIImage *artworkImage;
+            if (index < [artist.artworks count]) {
                 
+                Artwork *artworkToDisplayImageFor = [artist.artworks allObjects][index];
+                
+                // is the image for this artwork already cached?
                 if (!self.cachedImages[artworkToDisplayImageFor.imageLocation]) {
+                    // fetch the photo and add it to the cache if not
                     [[PhotoLibraryInterface shared] imageWithLocalIdentifier:artworkToDisplayImageFor.imageLocation size:cvc.bounds.size completion:^(UIImage *image) {
-                        //artworkImageView.image = image;
-                        imageCVC.image = image;
-                        self.cachedImages[artworkToDisplayImageFor.imageLocation] = image;
+                        artworkImage = image;
+                        if (image)
+                            self.cachedImages[artworkToDisplayImageFor.imageLocation] = image;
                     }];
-                } else {
-                    //artworkImageView.image = self.cachedImages[artworkToDisplayImageFor.imageLocation];
-                    imageCVC.image = self.cachedImages[artworkToDisplayImageFor.imageLocation];
+                } else { // retrieve the image from cache
+                    artworkImage = self.cachedImages[artworkToDisplayImageFor.imageLocation];
                 }
             } else {
-                imageCVC.image = nil;
+                artworkImage = nil;
             }
+            cvc.backgroundView = [[ArtworkImageView alloc] initWithFrame:cvc.frame
+                                                                andImage:artworkImage];
+            
+        } andCellTapHandler:^(UICollectionViewCell *cell, Position position, int index) {
+            Artwork *artworkToView;
+            
+            if (index < [artist.artworks count]) {
+                artworkToView = [artist.artworks allObjects][index];
+            } else {
+                artworkToView = [NSEntityDescription insertNewObjectForEntityForName:@"Artwork"inManagedObjectContext:self.context];
+                artworkToView.artist = artist;
+            }
+            
+            [self performSegueWithIdentifier:@"Add or View Artwork" sender:artworkToView];
+
+            
         }];
-        [self.artworkImageGridVCs addObject:artworkImagesCVC];
+        [self.artworkImageGridVCs addObject:artworkImagesCVC]; // need to hang on to the view controllers that are responsible for the collection view in each table view cell
     } else {
-        [cell simpleLayoutWithTitle:artist.name];
-        cell.highlighted = [self.selectedArtist isEqualToArtist:artist];
+        SelectArtistTVC *selectionCell = (SelectArtistTVC *)cell;
+        selectionCell.titleLabel.text = artist.name;
+        selectionCell.selected = [self.selectedArtist isEqualToArtist:artist];
     }
     
-#warning - The table should auto scroll to the selected artist if in selection mode (might be offscreen)
-
     return cell;
 }
 
 #pragma mark - Segues
+
+// called on rewind from adding a photo or editing an existing photo
+-(IBAction)done:(UIStoryboardSegue *)segue { }
 
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
@@ -187,13 +173,14 @@
         UITableViewCell *cellSelected = (UITableViewCell *)sender;
         NSIndexPath *pathOfSelectedCell = [self.tableView indexPathForCell:cellSelected];
         self.selectedArtist = [self.fetchedResultsController objectAtIndexPath:pathOfSelectedCell];
-        
-        if ([segue.identifier isEqualToString:@"Show Artwork For Artist"]) {
-            if ([segue.destinationViewController isMemberOfClass:[ArtworksForArtistCDTVC class]]) {
-                ArtworksForArtistCDTVC *artworksForSelectedArtist = (ArtworksForArtistCDTVC *)segue.destinationViewController;
-                artworksForSelectedArtist.artistToShowPhotosFor = self.selectedArtist;
-                artworksForSelectedArtist.context = self.context;
-            }
+    } else {
+        if ([segue.identifier isEqualToString:@"Add or View Artwork"]) {
+            UINavigationController *nc = (UINavigationController *)segue.destinationViewController;
+            AddAndViewArtworkVC *artworkView = (AddAndViewArtworkVC *)[nc.viewControllers firstObject];
+            
+            Artwork *artworkToView = (Artwork *)sender;
+            artworkView.artworkToView = artworkToView;
+            artworkView.context = self.context;
         }
     }
 }

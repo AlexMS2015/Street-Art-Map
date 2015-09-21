@@ -10,7 +10,7 @@
 #import "Artwork.h"
 #import "Artist.h"
 #import "AddAndViewArtworkVC.h"
-#import "ArtworkTableViewCell.h"
+#import "ArtworkTVC.h"
 #import "PhotoLibraryInterface.h"
 
 @implementation ListOfArtworksCDTVC
@@ -21,7 +21,7 @@
 
 -(void)viewDidLoad
 {
-    UINib *nib = [UINib nibWithNibName:@"ArtworkTableViewCell" bundle:nil];
+    UINib *nib = [UINib nibWithNibName:@"ArtworkTVC" bundle:nil];
     [self.tableView registerNib:nib forCellReuseIdentifier:CELL_IDENTIFIER];
 }
 
@@ -37,8 +37,8 @@
 
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
-    if ([segue.identifier isEqualToString:@"Add Photo"] ||
-                    [segue.identifier isEqualToString:@"View Photo"]) {
+    if ([segue.identifier isEqualToString:@"Add Artwork"] ||
+                    [segue.identifier isEqualToString:@"View Artwork"]) {
         
         if ([segue.destinationViewController isMemberOfClass:[UINavigationController class]]) {
             UINavigationController *navController = (UINavigationController *)segue.destinationViewController;
@@ -46,7 +46,7 @@
                 AddAndViewArtworkVC *addAndViewArtworkVC = (AddAndViewArtworkVC *)[navController.viewControllers firstObject];
                 addAndViewArtworkVC.context = self.context;
                 
-                if ([segue.identifier isEqualToString:@"View Photo"]) {
+                if ([segue.identifier isEqualToString:@"View Artwork"]) {
                     if ([sender isKindOfClass:[UITableViewCell class]]) {
                         UITableViewCell *selectedArtwork = (UITableViewCell *)sender;
                         NSIndexPath *pathOfSelectedArtwork = [self.tableView indexPathForCell:selectedArtwork];
@@ -62,13 +62,13 @@
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return [ArtworkTableViewCell cellHeight];
+    return [ArtworkTVC cellHeight];
 }
 
 // need to do this in code because using a custom cell loaded from a nib/xib
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    [self performSegueWithIdentifier:@"View Photo"
+    [self performSegueWithIdentifier:@"View Artwork"
                               sender:[self.tableView cellForRowAtIndexPath:indexPath]];
 }
 
@@ -76,7 +76,7 @@
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    ArtworkTableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:CELL_IDENTIFIER];
+    ArtworkTVC *cell = [self.tableView dequeueReusableCellWithIdentifier:CELL_IDENTIFIER];
     Artwork *artwork = [self.fetchedResultsController objectAtIndexPath:indexPath];
     
     cell.titleLabel.text = artwork.title;

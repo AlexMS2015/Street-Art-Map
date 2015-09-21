@@ -44,12 +44,12 @@
                     <navigationItem key="navigationItem" title="Recent" id="Amr-LH-7DQ">
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="1Fp-Bx-Znp">
                             <connections>
-                                <segue destination="wD5-RQ-0zd" kind="presentation" identifier="Add Photo" id="IiH-x5-zZk"/>
+                                <segue destination="wD5-RQ-0zd" kind="presentation" identifier="Add Artwork" id="IiH-x5-zZk"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
                     <connections>
-                        <segue destination="wD5-RQ-0zd" kind="presentation" identifier="View Photo" id="Ska-Zc-fp3"/>
+                        <segue destination="wD5-RQ-0zd" kind="presentation" identifier="View Artwork" id="Ska-Zc-fp3"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ASR-fH-Pcj" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -69,10 +69,10 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="1cp-Um-AAR">
-                                <rect key="frame" x="0.0" y="64" width="600" height="300"/>
+                                <rect key="frame" x="0.0" y="64" width="600" height="450"/>
                                 <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" secondItem="1cp-Um-AAR" secondAttribute="width" multiplier="0.5" id="hXj-9Q-6if"/>
+                                    <constraint firstAttribute="height" secondItem="1cp-Um-AAR" secondAttribute="width" multiplier="0.75" id="hXj-9Q-6if"/>
                                 </constraints>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="p2o-wm-Duj">
@@ -186,12 +186,12 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
-                        <segue destination="5G1-qx-dWf" kind="show" identifier="Show Artwork For Artist" id="qax-Uq-a5a"/>
+                        <segue destination="wD5-RQ-0zd" kind="presentation" identifier="Add or View Artwork" id="utv-0Q-uFf"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="nFw-ta-QAQ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="417" y="-41"/>
+            <point key="canvasLocation" x="1273" y="-41"/>
         </scene>
         <!--Map-->
         <scene sceneID="OVU-LX-8tc">
@@ -306,34 +306,6 @@
             </objects>
             <point key="canvasLocation" x="-335" y="-41"/>
         </scene>
-        <!--Artwork For Artist-->
-        <scene sceneID="IUJ-nt-Xuu">
-            <objects>
-                <tableViewController id="5G1-qx-dWf" customClass="ArtworksForArtistCDTVC" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="173" sectionHeaderHeight="22" sectionFooterHeight="22" id="RPC-ve-ibc">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <connections>
-                            <outlet property="dataSource" destination="5G1-qx-dWf" id="foa-Xa-IB7"/>
-                            <outlet property="delegate" destination="5G1-qx-dWf" id="4QH-S7-bb1"/>
-                        </connections>
-                    </tableView>
-                    <navigationItem key="navigationItem" title="Artwork For Artist" id="Iec-56-JNd">
-                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="R0Y-eT-oDx">
-                            <connections>
-                                <segue destination="wD5-RQ-0zd" kind="presentation" identifier="Add Photo" id="cb8-d4-wsY"/>
-                            </connections>
-                        </barButtonItem>
-                    </navigationItem>
-                    <connections>
-                        <segue destination="wD5-RQ-0zd" kind="presentation" identifier="View Photo" id="cqd-hm-FSI"/>
-                    </connections>
-                </tableViewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="bqj-yu-IGV" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="1273" y="-41"/>
-        </scene>
         <!--Artists-->
         <scene sceneID="0hy-8a-UQ6">
             <objects>
@@ -426,6 +398,6 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="cqd-hm-FSI"/>
+        <segue reference="IiH-x5-zZk"/>
     </inferredMetricsTieBreakers>
 </document>

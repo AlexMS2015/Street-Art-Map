@@ -7,16 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
-@class Artist;
 
-@interface ArtistTableViewCell : UITableViewCell
+@interface ViewArtistTVC : UITableViewCell
 
 @property (weak, nonatomic) IBOutlet UICollectionView *artworkImagesCV;
-@property (nonatomic) BOOL highlighted;
 
--(void)simpleLayoutWithTitle:(NSString *)title;
--(void)CVLayoutWithTitle:(NSString *)title andImageCount:(int)count;
-
+-(void)setTitle:(NSString *)title andImageCount:(int)count;
 +(CGFloat)cellHeight;
 
 @end

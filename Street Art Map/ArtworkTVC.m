@@ -6,9 +6,9 @@
 //  Copyright (c) 2015 Alex Smith. All rights reserved.
 //
 
-#import "ArtworkTableViewCell.h"
+#import "ArtworkTVC.h"
 
-@implementation ArtworkTableViewCell
+@implementation ArtworkTVC
 
 +(CGFloat)cellHeight
 {

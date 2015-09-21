@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface ArtworkTableViewCell : UITableViewCell
+@interface ArtworkTVC : UITableViewCell
 
 @property (weak, nonatomic) IBOutlet UILabel *titleLabel;
 @property (weak, nonatomic) IBOutlet UILabel *artistLabel;
