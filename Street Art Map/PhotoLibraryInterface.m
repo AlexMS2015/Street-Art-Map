@@ -61,7 +61,6 @@
         if (info[PHImageErrorKey]) {
             // error handling
         } else {
-            NSLog(@"found an image %@ with identifier %@", result, identifier);
             block(result);
         }
     }];
