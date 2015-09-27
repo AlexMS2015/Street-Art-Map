@@ -93,7 +93,7 @@
                     MKAnnotationView *annotationView = (MKAnnotationView *)sender;
                     if ([annotationView.annotation isMemberOfClass:[Artwork class]]) {
                         Artwork *artworkForAnnotationView = (Artwork *)annotationView.annotation;
-                        addAndViewArtworkVC.artworkToView = artworkForAnnotationView;
+                        [addAndViewArtworkVC loadExistingArtwork:artworkForAnnotationView];
                     }
                 }
             }

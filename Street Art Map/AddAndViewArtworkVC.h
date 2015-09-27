@@ -8,12 +8,13 @@
 
 #import <UIKit/UIKit.h>
 @class Artwork;
+@class Artist;
 
 @interface AddAndViewArtworkVC : UIViewController
 
 @property (strong, nonatomic) NSManagedObjectContext *context;
 
-// set this property if you want to view an artwork rather than add new artwork (the default)
-@property (strong, nonatomic) Artwork *artworkToView;
+-(void)loadExistingArtwork:(Artwork *)artworkToview;
+-(void)newArtworkWithTitle:(NSString *)title andArtist:(Artist *)artist;
 
 @end

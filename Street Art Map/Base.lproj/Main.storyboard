@@ -186,7 +186,8 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
-                        <segue destination="wD5-RQ-0zd" kind="presentation" identifier="Add or View Artwork" id="utv-0Q-uFf"/>
+                        <segue destination="wD5-RQ-0zd" kind="presentation" identifier="View Artwork" id="utv-0Q-uFf"/>
+                        <segue destination="wD5-RQ-0zd" kind="presentation" identifier="Add Artwork" id="w2N-b7-Qzf"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="nFw-ta-QAQ" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -338,26 +339,6 @@
                                     <segue destination="LmT-Kh-iP3" kind="unwind" identifier="Select Artist Unwind" unwindAction="done:" id="og2-Ta-gMN"/>
                                 </connections>
                             </tableViewCell>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="ArtistViewCell" textLabel="uwH-5U-UWE" detailTextLabel="U0a-5l-0zZ" style="IBUITableViewCellStyleSubtitle" id="gQF-3b-Fjj">
-                                <autoresizingMask key="autoresizingMask"/>
-                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="gQF-3b-Fjj" id="Q2b-5e-KWA">
-                                    <autoresizingMask key="autoresizingMask"/>
-                                    <subviews>
-                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="uwH-5U-UWE">
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                            <nil key="highlightedColor"/>
-                                        </label>
-                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Subtitle" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="U0a-5l-0zZ">
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="11"/>
-                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                            <nil key="highlightedColor"/>
-                                        </label>
-                                    </subviews>
-                                </tableViewCellContentView>
-                            </tableViewCell>
                         </prototypes>
                         <connections>
                             <outlet property="dataSource" destination="20v-PQ-yIo" id="CFB-uK-BqM"/>
@@ -398,6 +379,6 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="IiH-x5-zZk"/>
+        <segue reference="w2N-b7-Qzf"/>
     </inferredMetricsTieBreakers>
 </document>

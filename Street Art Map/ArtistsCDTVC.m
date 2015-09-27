@@ -18,7 +18,6 @@
 #import "GridVC.h"
 #import "ArtworkImageView.h"
 #import "AddAndViewArtworkVC.h"
-#import "Artwork+Update.h"
 
 @interface ArtistsCDTVC ()
 @property (strong, nonatomic) NSMutableArray *artworkImageGridVCs;
@@ -141,15 +140,12 @@
         } andCellTapHandler:^(UICollectionViewCell *cell, Position position, int index) {
             Artwork *artworkToView;
             
-            if (index < [artist.artworks count]) {
+            if (index < [artist.artworks count]) { // user selected an existing artwork
                 artworkToView = [artist.artworks allObjects][index];
-            } else {
-                artworkToView = [NSEntityDescription insertNewObjectForEntityForName:@"Artwork"inManagedObjectContext:self.context];
-                artworkToView.artist = artist;
+                [self performSegueWithIdentifier:@"View Artwork" sender:artworkToView];
+            } else { // user selected the '+' button
+                [self performSegueWithIdentifier:@"Add Artwork" sender:artist];
             }
-            
-            [self performSegueWithIdentifier:@"Add or View Artwork" sender:artworkToView];
-
             
         }];
         [self.artworkImageGridVCs addObject:artworkImagesCVC]; // need to hang on to the view controllers that are responsible for the collection view in each table view cell
@@ -169,18 +165,28 @@
 
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
-    if ([sender isKindOfClass:[UITableViewCell class]]) {
-        UITableViewCell *cellSelected = (UITableViewCell *)sender;
-        NSIndexPath *pathOfSelectedCell = [self.tableView indexPathForCell:cellSelected];
-        self.selectedArtist = [self.fetchedResultsController objectAtIndexPath:pathOfSelectedCell];
-    } else {
-        if ([segue.identifier isEqualToString:@"Add or View Artwork"]) {
+    if ([segue.identifier isEqualToString:@"Select Artist Unwind"]) {
+        if ([sender isKindOfClass:[UITableViewCell class]]) {
+            UITableViewCell *cellSelected = (UITableViewCell *)sender;
+            NSIndexPath *pathOfSelectedCell = [self.tableView indexPathForCell:cellSelected];
+            self.selectedArtist = [self.fetchedResultsController objectAtIndexPath:pathOfSelectedCell];
+        }
+    } else if ([segue.identifier isEqualToString:@"View Artwork"] ||
+               [segue.identifier isEqualToString:@"Add Artwork"]) {
+        
+        if ([segue.destinationViewController isKindOfClass:[UINavigationController class]]) {
             UINavigationController *nc = (UINavigationController *)segue.destinationViewController;
-            AddAndViewArtworkVC *artworkView = (AddAndViewArtworkVC *)[nc.viewControllers firstObject];
-            
-            Artwork *artworkToView = (Artwork *)sender;
-            artworkView.artworkToView = artworkToView;
-            artworkView.context = self.context;
+            if ([[nc.viewControllers firstObject] isMemberOfClass:[AddAndViewArtworkVC class]]) {
+                AddAndViewArtworkVC *artworkView = (AddAndViewArtworkVC *)[nc.viewControllers firstObject];
+                artworkView.context = self.context;
+                if ([sender isMemberOfClass:[Artwork class]]) { // viewing an artwork
+                    NSLog(@"viewing an artwork");
+                    [artworkView loadExistingArtwork:(Artwork *)sender];
+                } else if ([sender isMemberOfClass:[Artist class]]) { // adding an artwork
+                    NSLog(@"creating an artwork");
+                    [artworkView newArtworkWithTitle:nil andArtist:(Artist *)sender];
+                }
+            }
         }
     }
 }

@@ -50,7 +50,7 @@
                     if ([sender isKindOfClass:[UITableViewCell class]]) {
                         UITableViewCell *selectedArtwork = (UITableViewCell *)sender;
                         NSIndexPath *pathOfSelectedArtwork = [self.tableView indexPathForCell:selectedArtwork];
-                        addAndViewArtworkVC.artworkToView = [self.fetchedResultsController objectAtIndexPath:pathOfSelectedArtwork];
+                        [addAndViewArtworkVC loadExistingArtwork:[self.fetchedResultsController objectAtIndexPath:pathOfSelectedArtwork]];
                     }
                 }
             }

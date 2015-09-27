@@ -12,14 +12,23 @@
 #import "ArtistsCDTVC.h"
 #import "PhotoLibraryInterface.h"
 #import "UIAlertController+SingleButtonAlert.h"
-#import "Artwork+Update.h"
+#import "Artwork+Create.h"
 #import <CoreLocation/CoreLocation.h>
+
+typedef enum {
+    Create, Existing
+} CreateArtworkScreenMode;
 
 @interface AddAndViewArtworkVC () <UINavigationControllerDelegate, UIImagePickerControllerDelegate, UITextFieldDelegate>
 
+// properties for the artwork that a user is viewing or adding
+@property (strong, nonatomic) NSString *titleForArtwork;
 @property (strong, nonatomic) Artist *artistForArtwork;
 @property (strong, nonatomic) NSString *localIdentifierForArtworkImage;
 @property (strong, nonatomic) CLLocation *locationForArtworkImage;
+@property (nonatomic) CreateArtworkScreenMode screenMode;
+@property (strong, nonatomic) Artwork *artworkToView;
+@property (strong, nonatomic) Artwork *artwork;
 
 // outlets
 @property (weak, nonatomic) IBOutlet UIImageView *artworkImageView;
@@ -31,20 +40,64 @@
 
 @implementation AddAndViewArtworkVC
 
+-(void)awakeFromNib
+{
+    [[NSNotificationCenter defaultCenter] addObserverForName:NSManagedObjectContextObjectsDidChangeNotification object:nil queue:nil usingBlock:^(NSNotification *note) {
+        NSLog(@"managed object changed");
+    }];
+}
+
+-(void)loadExistingArtwork:(Artwork *)artworkToview
+{
+    //self.artworkToView = artworkToview;
+    self.artwork = artworkToview;
+    self.screenMode = Existing;
+}
+
+-(void)newArtworkWithTitle:(NSString *)title andArtist:(Artist *)artist
+{
+    //self.artworkToView = [Artwork artworkWithTitle:title artist:artist inContext:self.context];
+    self.artwork = [Artwork artworkWithTitle:title artist:artist inContext:self.context];
+    self.screenMode = Create;
+}
+
 #pragma mark - View Life Cycle
+
+-(void)setViewFromCurrentArtwork
+{
+    self.titleForArtwork = self.artwork.title;
+    self.artworkArtistTextField.text = self.artwork.artist.name;
+    if (self.artwork.imageLocation) {
+        [[PhotoLibraryInterface shared] imageWithLocalIdentifier:self.localIdentifierForArtworkImage size:self.artworkImageView.bounds.size completion:^(UIImage *image) {
+            self.artworkImageView.image = image;
+        }];
+    }
+}
 
 -(void)viewDidLoad
 {
-    if (self.artworkToView) { // an existing artwork is being viewed
+    [super viewDidLoad];
+    
+    if (!self.artwork) {
+        self.artwork = [Artwork artworkWithTitle:nil artist:nil inContext:self.context];
+    }
+    
+    [self setViewFromCurrentArtwork];
+
+    /*if (self.artworkToView) {
         self.artworkTitleTextField.text = self.artworkToView.title;
         self.artistForArtwork = self.artworkToView.artist;
         
-        if (self.artworkToView.imageLocation)
+        if (self.artworkToView.imageLocation) {
             self.localIdentifierForArtworkImage = self.artworkToView.imageLocation;
-        
+            NSLog(@"loading image for existing artwork");
+        }
+    }*/
+    
+    if (self.screenMode == Existing) { // viewing an existing artwork
         self.navigationItem.leftBarButtonItem = nil;
         self.navigationItem.title = @"View/Edit Art";
-    } else { // a new artwork is being added
+    } else { // creating an new artwork
         self.navigationItem.title = @"Add Art";
     }
 }
@@ -54,16 +107,14 @@
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
     if ([segue.identifier isEqualToString:@"Add Artwork Unwind"]) { // rewind segue from the add artwork screen
-        Artwork *artworkToUpdate;
-        
-        if (!self.artworkToView) { // create a new artwork if the user is not viewing an existing artwork
-            artworkToUpdate = [NSEntityDescription insertNewObjectForEntityForName:@"Artwork"inManagedObjectContext:self.context];
+        /*Artwork *artworkToUpdate;
+        if (!self.artworkToView) {
+            artworkToUpdate = [Artwork artworkWithTitle:self.artworkTitleTextField.text artist:self.artistForArtwork inContext:self.context];
         } else {
             artworkToUpdate = self.artworkToView;
         }
+        [artworkToUpdate updateWithTitle:self.artworkTitleTextField.text artist:self.artistForArtwork imageLocation:self.localIdentifierForArtworkImage location:self.locationForArtworkImage];*/
         
-        [artworkToUpdate updateWithTitle:self.artworkTitleTextField.text imageLocation:self.localIdentifierForArtworkImage location:self.locationForArtworkImage artist:self.artistForArtwork inContext:self.context];
-    
     } else if ([segue.identifier isEqualToString:@"Select Artist"]) {
         if ([segue.destinationViewController isMemberOfClass:[UINavigationController class]]) {
             UINavigationController *navController = (UINavigationController *)segue
@@ -102,7 +153,7 @@
 
 #pragma mark - Properties
 
--(void)setArtistForArtwork:(Artist *)artistForArtwork
+/*-(void)setArtistForArtwork:(Artist *)artistForArtwork
 {
     _artistForArtwork = artistForArtwork;
     self.artworkArtistTextField.text = _artistForArtwork.name;
@@ -113,6 +164,7 @@
     _localIdentifierForArtworkImage = localIdentifierForArtworkImage;
     [[PhotoLibraryInterface shared] imageWithLocalIdentifier:self.localIdentifierForArtworkImage size:self.artworkImageView.bounds.size completion:^(UIImage *image) {
         self.artworkImageView.image = image;
+        NSLog(@"setting image for artwork %@", self.localIdentifierForArtworkImage);
     }];
 }
 
@@ -123,7 +175,7 @@
     } else {
         return [[CLLocation alloc] init];
     }
-}
+}*/
 
 #pragma mark - Actions
 
@@ -185,6 +237,7 @@
         [[PhotoLibraryInterface shared] localIdentifierForImage:artworkImage completion:^(NSString *identifier) {
             self.localIdentifierForArtworkImage = identifier;
         }];
+        // [[PhotoLibraryInterface shared] locationForImageWithLocalIdentifier:self.localIdentifierForArtworkImage];
     }
     [self dismissViewControllerAnimated:YES completion:NULL];
 }

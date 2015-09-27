@@ -30,7 +30,7 @@
 		FAC2C76B1B50E87700DE31A5 /* AddAndViewArtworkVC.m in Sources */ = {isa = PBXBuildFile; fileRef = FAC2C76A1B50E87700DE31A5 /* AddAndViewArtworkVC.m */; };
 		FAC2C76E1B51E44800DE31A5 /* ArtistsCDTVC.m in Sources */ = {isa = PBXBuildFile; fileRef = FAC2C76D1B51E44800DE31A5 /* ArtistsCDTVC.m */; };
 		FACDBBEC1BA3087B00744488 /* UIAlertController+SingleButtonAlert.m in Sources */ = {isa = PBXBuildFile; fileRef = FACDBBEB1BA3087B00744488 /* UIAlertController+SingleButtonAlert.m */; };
-		FACDBBF61BA3BB5200744488 /* Artwork+Update.m in Sources */ = {isa = PBXBuildFile; fileRef = FACDBBF51BA3BB5200744488 /* Artwork+Update.m */; };
+		FACDBBF61BA3BB5200744488 /* Artwork+Create.m in Sources */ = {isa = PBXBuildFile; fileRef = FACDBBF51BA3BB5200744488 /* Artwork+Create.m */; };
 		FACDBC0E1BA40ED700744488 /* Grid.m in Sources */ = {isa = PBXBuildFile; fileRef = FACDBC0B1BA40ED700744488 /* Grid.m */; };
 		FACDBC121BA40EE500744488 /* PositionStruct.m in Sources */ = {isa = PBXBuildFile; fileRef = FACDBC111BA40EE500744488 /* PositionStruct.m */; };
 		FACDBC161BA40F5600744488 /* GridVC.m in Sources */ = {isa = PBXBuildFile; fileRef = FACDBC151BA40F5600744488 /* GridVC.m */; };
@@ -97,8 +97,8 @@
 		FAC2C76D1B51E44800DE31A5 /* ArtistsCDTVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ArtistsCDTVC.m; sourceTree = "<group>"; };
 		FACDBBEA1BA3087B00744488 /* UIAlertController+SingleButtonAlert.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIAlertController+SingleButtonAlert.h"; sourceTree = "<group>"; };
 		FACDBBEB1BA3087B00744488 /* UIAlertController+SingleButtonAlert.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIAlertController+SingleButtonAlert.m"; sourceTree = "<group>"; };
-		FACDBBF41BA3BB5200744488 /* Artwork+Update.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Artwork+Update.h"; sourceTree = "<group>"; };
-		FACDBBF51BA3BB5200744488 /* Artwork+Update.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Artwork+Update.m"; sourceTree = "<group>"; };
+		FACDBBF41BA3BB5200744488 /* Artwork+Create.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Artwork+Create.h"; sourceTree = "<group>"; };
+		FACDBBF51BA3BB5200744488 /* Artwork+Create.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Artwork+Create.m"; sourceTree = "<group>"; };
 		FACDBC0A1BA40ED700744488 /* Grid.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Grid.h; sourceTree = "<group>"; };
 		FACDBC0B1BA40ED700744488 /* Grid.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Grid.m; sourceTree = "<group>"; };
 		FACDBC101BA40EE500744488 /* PositionStruct.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PositionStruct.h; sourceTree = "<group>"; };
@@ -281,8 +281,8 @@
 				FA40492C1B75CAC90069144D /* Location.m */,
 				FA4049281B75CAC80069144D /* Artwork.h */,
 				FA4049291B75CAC80069144D /* Artwork.m */,
-				FACDBBF41BA3BB5200744488 /* Artwork+Update.h */,
-				FACDBBF51BA3BB5200744488 /* Artwork+Update.m */,
+				FACDBBF41BA3BB5200744488 /* Artwork+Create.h */,
+				FACDBBF51BA3BB5200744488 /* Artwork+Create.m */,
 				FA5339E11B6EE32E006C0F52 /* Artwork+Annotation.h */,
 				FA5339E21B6EE32E006C0F52 /* Artwork+Annotation.m */,
 				FACDBC171BA411F100744488 /* CodableObject.h */,
@@ -401,7 +401,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				FACDBBF61BA3BB5200744488 /* Artwork+Update.m in Sources */,
+				FACDBBF61BA3BB5200744488 /* Artwork+Create.m in Sources */,
 				FA0EB1161B64A2F60034FD18 /* ArtworksForArtistCDTVC.m in Sources */,
 				FAEB52901B48D14700D9361E /* AppDelegate.m in Sources */,
 				FACDBC161BA40F5600744488 /* GridVC.m in Sources */,
