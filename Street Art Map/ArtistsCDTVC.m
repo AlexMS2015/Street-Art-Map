@@ -83,6 +83,11 @@
 
 #pragma mark - UITableViewDelegate
 
+-(BOOL)tableView:(UITableView *)tableView shouldHighlightRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return !self.screenMode == ViewingMode;
+}
+
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     return self.screenMode == ViewingMode ?
@@ -161,7 +166,7 @@
 #pragma mark - Segues
 
 // called on rewind from adding a photo or editing an existing photo
--(IBAction)done:(UIStoryboardSegue *)segue { }
+-(IBAction)done:(UIStoryboardSegue *)segue { [self.tableView reloadData]; }
 
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
@@ -180,10 +185,8 @@
                 AddAndViewArtworkVC *artworkView = (AddAndViewArtworkVC *)[nc.viewControllers firstObject];
                 artworkView.context = self.context;
                 if ([sender isMemberOfClass:[Artwork class]]) { // viewing an artwork
-                    NSLog(@"viewing an artwork");
                     [artworkView loadExistingArtwork:(Artwork *)sender];
                 } else if ([sender isMemberOfClass:[Artist class]]) { // adding an artwork
-                    NSLog(@"creating an artwork");
                     [artworkView newArtworkWithTitle:nil andArtist:(Artist *)sender];
                 }
             }

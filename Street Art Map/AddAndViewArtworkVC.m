@@ -15,143 +15,57 @@
 #import "Artwork+Create.h"
 #import <CoreLocation/CoreLocation.h>
 
+// denotes whether this VC is being used to create a new artwork or view an existing one
 typedef enum {
     Create, Existing
-} CreateArtworkScreenMode;
+} ScreenMode;
 
-@interface AddAndViewArtworkVC () <UINavigationControllerDelegate, UIImagePickerControllerDelegate, UITextFieldDelegate, NSFetchedResultsControllerDelegate>
+@interface AddAndViewArtworkVC () <UINavigationControllerDelegate, UIImagePickerControllerDelegate>
 
-// properties for the artwork that a user is viewing or adding
-/*@property (strong, nonatomic) NSString *titleForArtwork;
-@property (strong, nonatomic) Artist *artistForArtwork;
-@property (strong, nonatomic) NSString *localIdentifierForArtworkImage;
-@property (strong, nonatomic) CLLocation *locationForArtworkImage;
-@property (strong, nonatomic) Artwork *artworkToView;*/
-
-@property (nonatomic) CreateArtworkScreenMode screenMode;
+@property (nonatomic) ScreenMode screenMode;
 @property (strong, nonatomic) Artwork *artwork;
-@property (strong, nonatomic) NSFetchedResultsController *fetchedResultsController;
 
 // outlets
-@property (weak, nonatomic) IBOutlet UITextField *artworkTitleTextField;
-@property (weak, nonatomic) IBOutlet UITextField *artworkArtistTextField;
 @property (weak, nonatomic) IBOutlet UIImageView *artworkImageView;
-@property (weak, nonatomic) IBOutlet UIBarButtonItem *cancelButton;
 
 @end
 
 @implementation AddAndViewArtworkVC
 
-/*-(void)awakeFromNib
-{
-    [[NSNotificationCenter defaultCenter] addObserverForName:NSManagedObjectContextObjectsDidChangeNotification object:nil queue:nil usingBlock:^(NSNotification *note) {
-        NSLog(@"managed object changed");
-    }];
-}*/
-
 -(void)loadExistingArtwork:(Artwork *)artworkToview
 {
-    //self.artworkToView = artworkToview;
     self.artwork = artworkToview;
     self.screenMode = Existing;
 }
 
 -(void)newArtworkWithTitle:(NSString *)title andArtist:(Artist *)artist
 {
-    //self.artworkToView = [Artwork artworkWithTitle:title artist:artist inContext:self.context];
     self.artwork = [Artwork artworkWithTitle:title artist:artist inContext:self.context];
     self.screenMode = Create;
 }
 
-/*#pragma mark - NSFetchedResultsControllerDelegate
-
--(void)controller:(NSFetchedResultsController *)controller
-  didChangeObject:(id)anObject
-      atIndexPath:(NSIndexPath *)indexPath
-    forChangeType:(NSFetchedResultsChangeType)type
-     newIndexPath:(NSIndexPath *)newIndexPath
-{
-    Artwork *tempArtwork = (Artwork *)anObject;
-    
-    self.artworkTitleTextField.text = tempArtwork.title;
-    self.artworkArtistTextField.text = tempArtwork.artist.name;
-    
-    if (tempArtwork.imageLocation) {
-        [[PhotoLibraryInterface shared] imageWithLocalIdentifier:tempArtwork.imageLocation size:self.artworkImageView.bounds.size completion:^(UIImage *image) {
-            self.artworkImageView.image = image;
-        }];
-    }
-
-    NSLog(@"delegate");
-    if (type == NSFetchedResultsChangeUpdate) {
-        NSLog(@"updated %@", anObject);
-    }
-}*/
-
 #pragma mark - View Life Cycle
-
--(void)setViewFromCurrentArtwork
-{
-    self.artworkTitleTextField.text = self.artwork.title;
-    self.artworkArtistTextField.text = self.artwork.artist.name;
-    if (self.artwork.imageLocation) {
-        [[PhotoLibraryInterface shared] imageWithLocalIdentifier:self.artwork.imageLocation size:self.artworkImageView.bounds.size completion:^(UIImage *image) {
-            self.artworkImageView.image = image;
-        }];
-    }
-}
-
-/*-(void)setupFetchedResultsController
-{
-    NSFetchRequest *artworkRequest = [NSFetchRequest fetchRequestWithEntityName:@"Artwork"];
-    
-    NSPredicate *titlePredicate = [NSPredicate predicateWithFormat:@"title = %@", self.artwork.title];
-    NSPredicate *artistPredicate = [NSPredicate predicateWithFormat:@"artist.name = %@", self.artwork.artist.name];
-    artworkRequest.predicate = [NSCompoundPredicate andPredicateWithSubpredicates:@[titlePredicate, artistPredicate]];
-    
-    artworkRequest.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"lastEditDate"
-                                                                     ascending:NO]];
-    
-    self.fetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:artworkRequest managedObjectContext:self.context sectionNameKeyPath:nil cacheName:nil];
-}
-
--(void)setFetchedResultsController:(NSFetchedResultsController *)fetchedResultsController
-{
-    _fetchedResultsController = fetchedResultsController;
-    self.fetchedResultsController.delegate = self;
-    
-    NSError *error;
-    BOOL success = [self.fetchedResultsController performFetch:&error];
-    if (!success) NSLog(@"[%@ %@] performFetch: failed", NSStringFromClass([self class]), NSStringFromSelector(_cmd));
-    if (error) NSLog(@"[%@ %@] %@ (%@)", NSStringFromClass([self class]), NSStringFromSelector(_cmd), [error localizedDescription], [error localizedFailureReason]);
-    
-    NSLog(@"%@", self.fetchedResultsController.fetchedObjects);
-}*/
 
 -(void)viewDidLoad
 {
     [super viewDidLoad];
     
+    // if the user hasn't loaded an artwork or pre-filled one then this VC must be in 'Create' mode. set up a new artwork with attributes set to nil
     if (!self.artwork) {
         self.artwork = [Artwork artworkWithTitle:nil artist:nil inContext:self.context];
-    }
-    
-    [self setViewFromCurrentArtwork];
-    //[self setupFetchedResultsController];
-    
-    /*if (self.artworkToView) {
-        self.artworkTitleTextField.text = self.artworkToView.title;
-        self.artistForArtwork = self.artworkToView.artist;
-        
-        if (self.artworkToView.imageLocation) {
-            self.localIdentifierForArtworkImage = self.artworkToView.imageLocation;
-            NSLog(@"loading image for existing artwork");
+        self.screenMode = Create;
+    } else {
+        // set up the view from the loaded or pre-filled artwork
+        self.title = self.artwork.title;
+        if (self.artwork.imageLocation) {
+            [[PhotoLibraryInterface shared] imageWithLocalIdentifier:self.artwork.imageLocation size:self.artworkImageView.bounds.size completion:^(UIImage *image) {
+                self.artworkImageView.image = image;
+            }];
         }
-    }*/
+    }
     
     if (self.screenMode == Existing) { // viewing an existing artwork
         self.navigationItem.leftBarButtonItem = nil;
-        self.navigationItem.title = @"View/Edit Art";
     } else { // creating an new artwork
         self.navigationItem.title = @"Add Art";
     }
@@ -162,15 +76,9 @@ typedef enum {
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
     if ([segue.identifier isEqualToString:@"Add Artwork Unwind"]) { // rewind segue from the add artwork screen
-#warning - NEED TO UPDATE THE ARTWORK'S GEOLOCATION - Perhaps do this when setting the image?
-        /*Artwork *artworkToUpdate;
-        if (!self.artworkToView) {
-            artworkToUpdate = [Artwork artworkWithTitle:self.artworkTitleTextField.text artist:self.artistForArtwork inContext:self.context];
-        } else {
-            artworkToUpdate = self.artworkToView;
-        }
-        [artworkToUpdate updateWithTitle:self.artworkTitleTextField.text artist:self.artistForArtwork imageLocation:self.localIdentifierForArtworkImage location:self.locationForArtworkImage];*/
         
+#warning - NEED TO UPDATE THE ARTWORK'S GEOLOCATION - Perhaps do this when setting the image?
+
     } else if ([segue.identifier isEqualToString:@"Select Artist"]) {
         if ([segue.destinationViewController isMemberOfClass:[UINavigationController class]]) {
             UINavigationController *navController = (UINavigationController *)segue
@@ -179,7 +87,6 @@ typedef enum {
                 ArtistsCDTVC *artistSelection = (ArtistsCDTVC *)[navController.viewControllers firstObject];
                 artistSelection.context = self.context;
                 artistSelection.screenMode = SelectionMode;
-                //artistSelection.selectedArtist = self.artistForArtwork;
                 artistSelection.selectedArtist = self.artwork.artist;
             }
         }
@@ -189,13 +96,37 @@ typedef enum {
 -(BOOL)shouldPerformSegueWithIdentifier:(NSString *)identifier sender:(id)sender
 {
     if ([identifier isEqualToString:@"Add Artwork Unwind"]) {
-        if ([self.artworkTitleTextField.text length] == 0 || !self.artworkImageView.image) {
+        if ([self.artwork.title length] == 0 || !self.artwork.imageLocation) {
             [self presentViewController:[UIAlertController singleButtonAlertWithMessage:@"Photo title or image not set"] animated:YES completion:NULL];
             return NO;
         }
     }
-
     return YES;
+}
+
+#pragma mark - Actions
+
+- (IBAction)changeTitle:(UIBarButtonItem *)sender
+{
+    UIAlertController *changeTitleAlert = [UIAlertController alertControllerWithTitle:@"Title" message:@"Please type a title for this street art" preferredStyle:UIAlertControllerStyleAlert];
+    
+    [changeTitleAlert addAction:[UIAlertAction actionWithTitle:@"Cancel"
+                                                         style:UIAlertActionStyleCancel
+                                                       handler:NULL]];
+    
+#warning THIS MIGHT CREATE A STRONG REFERECNE CYCLE
+    
+    [changeTitleAlert addAction:[UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+        NSString *title = ((UITextField *)[changeTitleAlert.textFields firstObject]).text;
+        self.artwork.title = title;
+        self.navigationItem.title = self.artwork.title;
+    }]];
+    
+    [changeTitleAlert addTextFieldWithConfigurationHandler:^(UITextField *textField) {
+        textField.autocapitalizationType = UITextAutocapitalizationTypeWords;
+    }];
+    
+    [self presentViewController:changeTitleAlert animated:YES completion:NULL];
 }
 
 -(IBAction)done:(UIStoryboardSegue *)segue
@@ -203,40 +134,10 @@ typedef enum {
     if ([segue.identifier isEqualToString:@"Select Artist Unwind"]) {
         if ([segue.sourceViewController isMemberOfClass:[ArtistsCDTVC class]]) {
             ArtistsCDTVC *artistSelection = (ArtistsCDTVC *)segue.sourceViewController;
-            //self.artistForArtwork = artistSelection.selectedArtist;
             self.artwork.artist = artistSelection.selectedArtist;
-            self.artworkArtistTextField.text = artistSelection.selectedArtist.name;
         }
     }
 }
-
-#pragma mark - Properties
-
-/*-(void)setArtistForArtwork:(Artist *)artistForArtwork
-{
-    _artistForArtwork = artistForArtwork;
-    self.artworkArtistTextField.text = _artistForArtwork.name;
-}
-
--(void)setLocalIdentifierForArtworkImage:(NSString *)localIdentifierForArtworkImage
-{
-    _localIdentifierForArtworkImage = localIdentifierForArtworkImage;
-    [[PhotoLibraryInterface shared] imageWithLocalIdentifier:self.localIdentifierForArtworkImage size:self.artworkImageView.bounds.size completion:^(UIImage *image) {
-        self.artworkImageView.image = image;
-        NSLog(@"setting image for artwork %@", self.localIdentifierForArtworkImage);
-    }];
-}
-
--(CLLocation *)locationForArtworkImage
-{
-    if (self.localIdentifierForArtworkImage) {
-        return [[PhotoLibraryInterface shared] locationForImageWithLocalIdentifier:self.localIdentifierForArtworkImage];
-    } else {
-        return [[CLLocation alloc] init];
-    }
-}*/
-
-#pragma mark - Actions
 
 -(void)selectImageWithSourceType:(UIImagePickerControllerSourceType)sourceType
 {
@@ -244,7 +145,7 @@ typedef enum {
         UIImagePickerController *imagePicker = [[UIImagePickerController alloc] init];
         imagePicker.sourceType = sourceType;
         imagePicker.delegate = self;
-        
+        //imagePicker.allowsEditing = YES;
         [self presentViewController:imagePicker animated:YES completion:NULL];
     } else {
         [self presentViewController:[UIAlertController singleButtonAlertWithMessage:@"Sorry, that option is not available on your device"] animated:YES completion:NULL];
@@ -258,54 +159,45 @@ typedef enum {
     UIAlertAction *cancelButton = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:NULL];
     [addPhotoAlert addAction:cancelButton];
     
-    UIAlertAction *fromCameraButton = [UIAlertAction actionWithTitle:@"Take photo" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+    [addPhotoAlert addAction:[UIAlertAction actionWithTitle:@"Take photo" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
         [self selectImageWithSourceType:UIImagePickerControllerSourceTypeCamera];
-    }];
-    [addPhotoAlert addAction:fromCameraButton];
+    }]];
     
-    UIAlertAction *fromExistingButton = [UIAlertAction actionWithTitle:@"Choose photo" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+    [addPhotoAlert addAction:[UIAlertAction actionWithTitle:@"Choose photo" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
         [self selectImageWithSourceType:UIImagePickerControllerSourceTypePhotoLibrary];
-    }];
-    [addPhotoAlert addAction:fromExistingButton];
+    }]];
     
     [self presentViewController:addPhotoAlert animated:YES completion:NULL];
 }
 
-- (IBAction)cancel:(UIBarButtonItem *)sender
+- (IBAction)deleteCurrentArtwork:(UIBarButtonItem *)sender
 {
+    [self.artwork deleteFromDatabase];
     [self.presentingViewController dismissViewControllerAnimated:YES completion:NULL];
-}
-
-#pragma mark - UITextFieldDelegate
-
-#warning - THE KEYBOARD BLOCKS THE FIELD BEING TYPED IN
--(BOOL)textFieldShouldReturn:(UITextField *)textField
-{
-    self.artwork.title = self.artworkTitleTextField.text;
-    [textField resignFirstResponder];
-    return YES;
 }
 
 #pragma mark - UIImagePickerControllerDelegate
 
 -(void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
 {
+#warning - Should the following line be at the end of the method of start?
+    [self dismissViewControllerAnimated:YES completion:NULL];
+    
     if (info[UIImagePickerControllerReferenceURL]) { // chose an existing photo
-        //self.localIdentifierForArtworkImage = [[PhotoLibraryInterface shared] localIdentifierForALAssetURL:info[UIImagePickerControllerReferenceURL]];
         self.artwork.imageLocation = [[PhotoLibraryInterface shared] localIdentifierForALAssetURL:info[UIImagePickerControllerReferenceURL]];
-        NSLog(@"delegate should be called");
     } else { // took a new photo
         UIImage *artworkImage = info[UIImagePickerControllerOriginalImage];
         [[PhotoLibraryInterface shared] localIdentifierForImage:artworkImage completion:^(NSString *identifier) {
-            //self.localIdentifierForArtworkImage = identifier;
             self.artwork.imageLocation = identifier;
-            NSLog(@"delegate should be called");
         }];
     }
+#warning - THIS CODE IS RUBBISH
     [[PhotoLibraryInterface shared] imageWithLocalIdentifier:self.artwork.imageLocation size:self.artworkImageView.bounds.size completion:^(UIImage *image) {
         self.artworkImageView.image = image;
     }];
-    [self dismissViewControllerAnimated:YES completion:NULL];
+    CLLocation *location = [[PhotoLibraryInterface shared] locationForImageWithLocalIdentifier:self.artwork.imageLocation];
+    self.artwork.lattitude = [NSNumber numberWithDouble:location.coordinate.latitude];
+    self.artwork.longitude = [NSNumber numberWithDouble:location.coordinate.longitude];
 }
 
 -(void)imagePickerControllerDidCancel:(UIImagePickerController *)picker

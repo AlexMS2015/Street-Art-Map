@@ -17,8 +17,7 @@ typedef enum {
 
 @property (nonatomic) ArtistScreenMode screenMode; // the default is 'SelectionMode'
 
-#warning - Not really 'in'?? Never used?
-// in (for viewing) and out (for selection)
+// if in selection mode, this property will be set to the artist the user selects
 @property (strong, nonatomic) Artist *selectedArtist;
 
 @end

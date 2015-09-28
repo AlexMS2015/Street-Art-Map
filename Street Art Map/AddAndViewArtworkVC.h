@@ -14,7 +14,7 @@
 
 @property (strong, nonatomic) NSManagedObjectContext *context;
 
--(void)loadExistingArtwork:(Artwork *)artworkToview;
--(void)newArtworkWithTitle:(NSString *)title andArtist:(Artist *)artist;
+-(void)loadExistingArtwork:(Artwork *)artworkToview; // view an existing artwork
+-(void)newArtworkWithTitle:(NSString *)title andArtist:(Artist *)artist; // create a new artwork with a pre-filled title and/or artist
 
 @end

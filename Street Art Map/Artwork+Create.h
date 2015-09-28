@@ -12,9 +12,6 @@
 @interface Artwork (Create)
 
 +(Artwork *)artworkWithTitle:(NSString *)title artist:(Artist *)artist inContext:(NSManagedObjectContext *)context;
-
--(void)updateWithTitle:(NSString *)title artist:(Artist *)artist imageLocation:(NSString *)imageLocation location:(CLLocation *)location;
-
 -(void)deleteFromDatabase;
 
 @end

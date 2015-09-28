@@ -12,17 +12,9 @@
 
 +(UIAlertController *)singleButtonAlertWithMessage:(NSString *)message
 {
-    UIAlertController *alert = [UIAlertController alertControllerWithTitle:nil
-                                                                   message:message
-                                                            preferredStyle:UIAlertControllerStyleAlert];
-    
-    UIAlertAction *okButton = [UIAlertAction actionWithTitle:@"Ok"
-                                                       style:UIAlertActionStyleDefault
-                                                     handler:NULL];
-    [alert addAction:okButton];
-    
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:nil message:message preferredStyle:UIAlertControllerStyleAlert];
+    [alert addAction:[UIAlertAction actionWithTitle:@"Ok" style:UIAlertActionStyleDefault handler:NULL]];
     return alert;
 }
-
 
 @end

@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7706" systemVersion="14E46" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="RrQ-vg-uDG">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="8191" systemVersion="14E46" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="RrQ-vg-uDG">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
-        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
-        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8154"/>
     </dependencies>
     <scenes>
         <!--Street Art Map-->
@@ -69,81 +68,45 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="1cp-Um-AAR">
-                                <rect key="frame" x="0.0" y="64" width="600" height="450"/>
+                                <rect key="frame" x="0.0" y="64" width="600" height="492"/>
                                 <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" secondItem="1cp-Um-AAR" secondAttribute="width" multiplier="0.75" id="hXj-9Q-6if"/>
-                                </constraints>
                             </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="p2o-wm-Duj">
-                                <rect key="frame" x="36" y="812" width="33" height="21"/>
-                                <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="17"/>
-                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Artist" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SnX-8U-QLa">
-                                <rect key="frame" x="36" y="857" width="41" height="21"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <textField opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Artist" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="DJf-C7-ICj">
-                                <rect key="frame" x="85" y="853" width="479" height="30"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
-                                <connections>
-                                    <outlet property="delegate" destination="w0d-tB-UnZ" id="N8d-3g-iO2"/>
-                                </connections>
-                            </textField>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Title" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Dnx-rx-s7c">
-                                <rect key="frame" x="85" y="808" width="479" height="30"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits" autocapitalizationType="words"/>
-                                <connections>
-                                    <outlet property="delegate" destination="U4G-UC-dUa" id="Bjb-12-OqT"/>
-                                </connections>
-                            </textField>
-                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="NXe-jk-YvR">
-                                <rect key="frame" x="-11" y="480" width="600" height="44"/>
-                                <items>
-                                    <barButtonItem systemItem="camera" id="dQX-FA-iRQ">
-                                        <connections>
-                                            <action selector="addPhotoToArtwork:" destination="U4G-UC-dUa" id="F41-lm-Kho"/>
-                                        </connections>
-                                    </barButtonItem>
-                                    <barButtonItem title="Artist" id="kq6-8T-vyU">
-                                        <connections>
-                                            <segue destination="u5u-Ru-eKj" kind="presentation" identifier="Select Artist" id="U47-Sb-gDV"/>
-                                        </connections>
-                                    </barButtonItem>
-                                </items>
-                            </toolbar>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="1cp-Um-AAR" firstAttribute="trailing" secondItem="UVM-iF-oh4" secondAttribute="trailing" id="1eM-E1-qHB"/>
-                            <constraint firstItem="1cp-Um-AAR" firstAttribute="trailing" secondItem="Dnx-rx-s7c" secondAttribute="trailing" id="2mv-83-Tno"/>
-                            <constraint firstItem="DJf-C7-ICj" firstAttribute="trailing" secondItem="Dnx-rx-s7c" secondAttribute="trailing" id="6Vx-ZU-HGg"/>
-                            <constraint firstItem="1cp-Um-AAR" firstAttribute="leading" secondItem="p2o-wm-Duj" secondAttribute="leading" id="8WM-bA-wI4"/>
-                            <constraint firstItem="DJf-C7-ICj" firstAttribute="leading" secondItem="Dnx-rx-s7c" secondAttribute="leading" id="G5d-Ql-uqf"/>
-                            <constraint firstItem="SnX-8U-QLa" firstAttribute="top" secondItem="p2o-wm-Duj" secondAttribute="bottom" constant="24" id="ItF-bk-8s4"/>
-                            <constraint firstItem="Dnx-rx-s7c" firstAttribute="leading" secondItem="p2o-wm-Duj" secondAttribute="trailing" constant="16" id="MkX-Lw-5C1"/>
-                            <constraint firstItem="p2o-wm-Duj" firstAttribute="leading" secondItem="SnX-8U-QLa" secondAttribute="leading" id="PhJ-e3-XuI"/>
-                            <constraint firstItem="NXe-jk-YvR" firstAttribute="leading" secondItem="UVM-iF-oh4" secondAttribute="leading" id="QPl-HG-ar6"/>
-                            <constraint firstItem="p2o-wm-Duj" firstAttribute="centerY" secondItem="Dnx-rx-s7c" secondAttribute="centerY" id="SOr-Xf-03c"/>
-                            <constraint firstItem="1cp-Um-AAR" firstAttribute="top" secondItem="amZ-mK-duq" secondAttribute="bottom" id="WAm-cL-uuP"/>
-                            <constraint firstItem="1cp-Um-AAR" firstAttribute="leading" secondItem="UVM-iF-oh4" secondAttribute="leading" id="YBy-10-gah"/>
-                            <constraint firstItem="p2o-wm-Duj" firstAttribute="top" secondItem="1cp-Um-AAR" secondAttribute="bottom" constant="24" id="Z1R-pj-0lz"/>
-                            <constraint firstItem="DJf-C7-ICj" firstAttribute="centerY" secondItem="SnX-8U-QLa" secondAttribute="centerY" id="p4e-nP-ymB"/>
-                            <constraint firstAttribute="trailing" secondItem="NXe-jk-YvR" secondAttribute="trailing" id="uP6-IP-c2f"/>
-                            <constraint firstItem="NXe-jk-YvR" firstAttribute="bottom" secondItem="UVM-iF-oh4" secondAttribute="bottomMargin" id="yI9-lR-FfW"/>
+                            <constraint firstItem="jZh-KK-s2m" firstAttribute="top" secondItem="1cp-Um-AAR" secondAttribute="bottom" id="6Of-i0-oqp"/>
+                            <constraint firstItem="1cp-Um-AAR" firstAttribute="top" secondItem="amZ-mK-duq" secondAttribute="bottom" id="ESW-0B-hWO"/>
+                            <constraint firstItem="1cp-Um-AAR" firstAttribute="leading" secondItem="UVM-iF-oh4" secondAttribute="leading" id="nzG-5N-d7M"/>
+                            <constraint firstAttribute="trailing" secondItem="1cp-Um-AAR" secondAttribute="trailing" id="tiP-VH-dEd"/>
                         </constraints>
                     </view>
-                    <toolbarItems/>
+                    <toolbarItems>
+                        <barButtonItem systemItem="camera" id="dQX-FA-iRQ">
+                            <connections>
+                                <action selector="addPhotoToArtwork:" destination="U4G-UC-dUa" id="F41-lm-Kho"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem systemItem="compose" id="O7O-GY-OIn">
+                            <connections>
+                                <action selector="changeTitle:" destination="U4G-UC-dUa" id="awd-IW-9fK"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem title="Artist" id="kq6-8T-vyU">
+                            <connections>
+                                <segue destination="u5u-Ru-eKj" kind="presentation" identifier="Select Artist" id="U47-Sb-gDV"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem style="plain" systemItem="flexibleSpace" id="ozv-vd-WFD"/>
+                        <barButtonItem systemItem="trash" id="mHN-3f-gXZ">
+                            <connections>
+                                <action selector="deleteCurrentArtwork:" destination="U4G-UC-dUa" id="eBJ-Ro-sCf"/>
+                            </connections>
+                        </barButtonItem>
+                    </toolbarItems>
                     <navigationItem key="navigationItem" title="Add Art" id="w0d-tB-UnZ">
                         <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="J1z-Vq-kPo">
                             <connections>
-                                <action selector="cancel:" destination="U4G-UC-dUa" id="8cO-N2-irP"/>
+                                <action selector="deleteCurrentArtwork:" destination="U4G-UC-dUa" id="ayT-CC-icI"/>
                             </connections>
                         </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" systemItem="done" id="hNK-K6-EXO">
@@ -154,10 +117,7 @@
                     </navigationItem>
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
-                        <outlet property="artworkArtistTextField" destination="DJf-C7-ICj" id="eGH-WX-Ktb"/>
                         <outlet property="artworkImageView" destination="1cp-Um-AAR" id="xX3-8a-V1A"/>
-                        <outlet property="artworkTitleTextField" destination="Dnx-rx-s7c" id="hPs-hM-2a4"/>
-                        <outlet property="cancelButton" destination="J1z-Vq-kPo" id="yd3-8B-0FM"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Dup-gT-6yb" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -273,13 +233,19 @@
         <!--Navigation Controller-->
         <scene sceneID="izd-jM-toS">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="wD5-RQ-0zd" sceneMemberID="viewController">
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" toolbarHidden="NO" id="wD5-RQ-0zd" sceneMemberID="viewController">
                     <toolbarItems/>
+                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
+                    <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="s3b-nF-fBs">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
+                    <toolbar key="toolbar" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="3m3-uV-vkL">
+                        <rect key="frame" x="0.0" y="556" width="600" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </toolbar>
                     <connections>
                         <segue destination="U4G-UC-dUa" kind="relationship" relationship="rootViewController" id="Bf8-JM-Fo0"/>
                     </connections>
@@ -317,17 +283,21 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
                             <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="ArtistSelectCell" textLabel="zE0-V0-bJf" detailTextLabel="xNC-cK-otx" style="IBUITableViewCellStyleSubtitle" id="PxU-4q-mgd">
+                                <rect key="frame" x="0.0" y="86" width="600" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="PxU-4q-mgd" id="Etx-Pz-J8B">
+                                    <rect key="frame" x="0.0" y="0.0" width="600" height="43.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="zE0-V0-bJf">
+                                            <rect key="frame" x="15" y="6" width="31.5" height="19.5"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Subtitle" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="xNC-cK-otx">
+                                            <rect key="frame" x="15" y="25.5" width="40.5" height="13.5"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="11"/>
                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>

@@ -35,34 +35,39 @@
     return artwork;
 }
 
--(void)updateWithTitle:(NSString *)title artist:(Artist *)artist imageLocation:(NSString *)imageLocation location:(CLLocation *)location;
-{
-    BOOL changesMade = NO;
-    
-    if (![self.title isEqualToString:title]) {
-        self.title = title;
-        changesMade = YES;
-    }
-    
-    if (![self.imageLocation isEqualToString:imageLocation]) {
-        self.imageLocation = imageLocation;
-        self.imageUploadDate = [NSDate date];
-        self.lattitude = [NSNumber numberWithDouble:location.coordinate.latitude];
-        self.longitude = [NSNumber numberWithDouble:location.coordinate.longitude];
-        changesMade = YES;
-    }
-    
-    if (artist.name && ![self.artist.name isEqualToString:artist.name]) {
-        self.artist = artist;
-        changesMade = YES;
-    }
-    
-    if (changesMade) self.lastEditDate = [NSDate date];
-}
-
 -(void)deleteFromDatabase
 {
     [self.managedObjectContext deleteObject:self];
+}
+
+-(void)setTitle:(NSString *)title
+{
+    [self setPrimitiveValue:title forKey:@"Title"];
+    self.lastEditDate = [NSDate date];
+}
+
+-(void)setArtist:(Artist *)artist
+{
+    [self setPrimitiveValue:artist forKey:@"Artist"];
+    self.lastEditDate = [NSDate date];
+}
+
+-(void)setImageLocation:(NSString *)imageLocation
+{
+    [self setPrimitiveValue:imageLocation forKey:@"ImageLocation"];
+    self.lastEditDate = [NSDate date];
+}
+
+-(void)setLattitude:(NSNumber *)lattitude
+{
+    [self setPrimitiveValue:lattitude forKey:@"Lattitude"];
+    self.lastEditDate = [NSDate date];
+}
+
+-(void)setLongitude:(NSNumber *)longitude
+{
+    [self setPrimitiveValue:longitude forKey:@"Longitude"];
+    self.lastEditDate = [NSDate date];
 }
 
 @end

@@ -28,16 +28,9 @@
 
 -(void)mapView:(MKMapView *)mapView didSelectAnnotationView:(MKAnnotationView *)view
 {
-    //view.rightCalloutAccessoryView = [UIButton buttonWithType:UIButtonTypeDetailDisclosure];
     if ([view.annotation isMemberOfClass:[Artwork class]])
         [self performSegueWithIdentifier:@"View Photo" sender:view];
 }
-
-/*-(void)mapView:(MKMapView *)mapView annotationView:(MKAnnotationView *)view calloutAccessoryControlTapped:(UIControl *)control
-{
-    if ([view.annotation isMemberOfClass:[Artwork class]])
-        [self performSegueWithIdentifier:@"View Photo" sender:view];
-}*/
 
 #define ANNOTATION_VIEW_REUSE @"AnnotationView"
 #define WIDTH_AND_HEIGHT 85
@@ -46,17 +39,14 @@
 {
     MKAnnotationView *annotationView = [self.mapView dequeueReusableAnnotationViewWithIdentifier:ANNOTATION_VIEW_REUSE];
     
-        UIImageView *iv;
-    
+    UIImageView *iv;
     if (!annotationView) {
          annotationView = [[MKAnnotationView alloc] initWithAnnotation:annotation
                                                             reuseIdentifier:ANNOTATION_VIEW_REUSE];
-         //annotationView.canShowCallout = YES;
         
-         CGRect frame = CGRectMake(0, 0, WIDTH_AND_HEIGHT, WIDTH_AND_HEIGHT);
-         annotationView.frame = frame;
+         annotationView.frame = CGRectMake(0, 0, WIDTH_AND_HEIGHT, WIDTH_AND_HEIGHT);
          
-         iv = [[UIImageView alloc] initWithFrame:frame];
+         iv = [[UIImageView alloc] initWithFrame:annotationView.frame];
          iv.layer.borderColor = [UIColor whiteColor].CGColor;
          iv.layer.borderWidth = 2;
          [annotationView addSubview:iv];
@@ -76,7 +66,7 @@
 #pragma mark - Segues
 
 // called on rewind from adding a photo or editing an existing photo
--(IBAction)done:(UIStoryboardSegue *)segue { }
+-(IBAction)done:(UIStoryboardSegue *)segue {}
 
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
@@ -137,6 +127,7 @@
     
     [self.mapView removeAnnotations:self.mapView.annotations];
     [self.mapView addAnnotations:self.artworks];
+    [self.mapView layoutSubviews];
 }
 
 @end
