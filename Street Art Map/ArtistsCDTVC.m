@@ -10,7 +10,6 @@
 #import "Artist.h"
 #import "Artist+Equality.h"
 #import "Artist+Create.h"
-#import "ArtworksForArtistCDTVC.h"
 #import "Artwork.h"
 #import "PhotoLibraryInterface.h"
 #import "ViewArtistTVC.h"
@@ -68,6 +67,9 @@
 -(void)viewDidLoad
 {
     self.screenMode = ViewingMode;
+    
+    // allow row deletion
+    self.navigationItem.leftBarButtonItem = self.editButtonItem;
 }
 
 #pragma mark - Abstract Methods
@@ -101,6 +103,15 @@
 }
 
 #pragma mark - UITableViewDataSource
+
+-(void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if (editingStyle == UITableViewCellEditingStyleDelete) {
+        Artist *artistToDelete = [self.fetchedResultsController objectAtIndexPath:indexPath];
+        [artistToDelete deleteFromDatabase];
+#warning - Should offer the option of deleting all the artworks associated with that artist (and also ask if you want to delete that artist at all!)
+    }
+}
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {

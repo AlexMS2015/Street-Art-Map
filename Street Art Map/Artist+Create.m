@@ -29,4 +29,9 @@
     return artist;
 }
 
+-(void)deleteFromDatabase
+{
+    [self.managedObjectContext deleteObject:self];
+}
+
 @end

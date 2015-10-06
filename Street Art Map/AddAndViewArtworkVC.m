@@ -56,7 +56,7 @@ typedef enum {
         self.screenMode = Create;
     } else {
         // set up the view from the loaded or pre-filled artwork
-        self.title = self.artwork.title;
+        self.navigationItem.title = self.artwork.title;
         if (self.artwork.imageLocation) {
             [[PhotoLibraryInterface shared] imageWithLocalIdentifier:self.artwork.imageLocation size:self.artworkImageView.bounds.size completion:^(UIImage *image) {
                 self.artworkImageView.image = image;

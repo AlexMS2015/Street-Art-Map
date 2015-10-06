@@ -41,6 +41,7 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="Recent" id="Amr-LH-7DQ">
+                        <barButtonItem key="leftBarButtonItem" systemItem="edit" id="VnG-pi-bd3"/>
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="1Fp-Bx-Znp">
                             <connections>
                                 <segue destination="wD5-RQ-0zd" kind="presentation" identifier="Add Artwork" id="IiH-x5-zZk"/>
@@ -139,6 +140,7 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="Artists" id="Bxq-t7-XBL">
+                        <barButtonItem key="leftBarButtonItem" systemItem="edit" id="pl7-O2-c5d"/>
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="gae-Ki-Bai">
                             <connections>
                                 <action selector="addArtist:" destination="eDo-LD-hrY" id="l1p-QQ-2P6"/>
@@ -349,6 +351,6 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="w2N-b7-Qzf"/>
+        <segue reference="IiH-x5-zZk"/>
     </inferredMetricsTieBreakers>
 </document>

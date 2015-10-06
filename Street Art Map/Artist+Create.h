@@ -11,5 +11,6 @@
 @interface Artist (Create)
 
 +(Artist *)artistWithName:(NSString *)name inManagedObjectContext:(NSManagedObjectContext *)context;
+-(void)deleteFromDatabase;
 
 @end

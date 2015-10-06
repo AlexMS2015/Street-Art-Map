@@ -12,6 +12,7 @@
 #import "AddAndViewArtworkVC.h"
 #import "ArtworkTVC.h"
 #import "PhotoLibraryInterface.h"
+#import "Artwork+Create.h"
 
 @implementation ListOfArtworksCDTVC
 
@@ -21,8 +22,12 @@
 
 -(void)viewDidLoad
 {
+    // load the custom table view cell for an 'Artwork'
     UINib *nib = [UINib nibWithNibName:@"ArtworkTVC" bundle:nil];
     [self.tableView registerNib:nib forCellReuseIdentifier:CELL_IDENTIFIER];
+
+    // allow row deletion
+    self.navigationItem.leftBarButtonItem = self.editButtonItem;
 }
 
 #pragma mark - Implemented Abstract Methods
@@ -73,6 +78,15 @@
 }
 
 #pragma mark - UITableViewDataSource
+
+-(void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if (editingStyle == UITableViewCellEditingStyleDelete) {
+        Artwork *artworkToDelete = [self.fetchedResultsController objectAtIndexPath:indexPath];
+        [artworkToDelete deleteFromDatabase];
+#warning - Should request confirmation here
+    }
+}
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
