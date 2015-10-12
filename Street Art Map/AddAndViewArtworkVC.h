@@ -12,9 +12,11 @@
 
 @interface AddAndViewArtworkVC : UIViewController
 
-@property (strong, nonatomic) NSManagedObjectContext *context;
+// view an existing artwork
+-(void)loadExistingArtwork:(Artwork *)artworkToview;
 
--(void)loadExistingArtwork:(Artwork *)artworkToview; // view an existing artwork
--(void)newArtworkWithTitle:(NSString *)title andArtist:(Artist *)artist; // create a new artwork with a pre-filled title and/or artist
-
+// create new artwork with pre-filled title and/or artist (set both to nil for totally new artwork
+-(void)newArtworkWithTitle:(NSString *)title
+                 andArtist:(Artist *)artist
+                 inContext:(NSManagedObjectContext *)context;
 @end

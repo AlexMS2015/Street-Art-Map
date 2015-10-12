@@ -24,6 +24,7 @@ typedef enum {
 
 @property (nonatomic) ScreenMode screenMode;
 @property (strong, nonatomic) Artwork *artwork;
+@property (strong, nonatomic) NSManagedObjectContext *context;
 
 // outlets
 @property (weak, nonatomic) IBOutlet UIImageView *artworkImageView;
@@ -36,12 +37,14 @@ typedef enum {
 {
     self.artwork = artworkToview;
     self.screenMode = Existing;
+    self.context = artworkToview.managedObjectContext;
 }
 
--(void)newArtworkWithTitle:(NSString *)title andArtist:(Artist *)artist
+-(void)newArtworkWithTitle:(NSString *)title andArtist:(Artist *)artist inContext:(NSManagedObjectContext *)context
 {
-    self.artwork = [Artwork artworkWithTitle:title artist:artist inContext:self.context];
+    self.artwork = [Artwork artworkWithTitle:title artist:artist inContext:context];
     self.screenMode = Create;
+    self.context = context;
 }
 
 #pragma mark - View Life Cycle
@@ -51,24 +54,29 @@ typedef enum {
     [super viewDidLoad];
     
     // if the user hasn't loaded an artwork or pre-filled one then this VC must be in 'Create' mode. set up a new artwork with attributes set to nil
-    if (!self.artwork) {
+    /*if (!self.artwork) {
         self.artwork = [Artwork artworkWithTitle:nil artist:nil inContext:self.context];
         self.screenMode = Create;
-    } else {
+    } else {*/
         // set up the view from the loaded or pre-filled artwork
+    if (self.artwork.title) {
         self.navigationItem.title = self.artwork.title;
-        if (self.artwork.imageLocation) {
-            [[PhotoLibraryInterface shared] imageWithLocalIdentifier:self.artwork.imageLocation size:self.artworkImageView.bounds.size completion:^(UIImage *image) {
-                self.artworkImageView.image = image;
-            }];
-        }
+    } else {
+        self.navigationItem.title = @"Add Art";
     }
+    
+    if (self.artwork.imageLocation) {
+        [[PhotoLibraryInterface shared] imageWithLocalIdentifier:self.artwork.imageLocation size:self.artworkImageView.bounds.size completion:^(UIImage *image) {
+            self.artworkImageView.image = image;
+        }];
+    }
+    //}
     
     if (self.screenMode == Existing) { // viewing an existing artwork
         self.navigationItem.leftBarButtonItem = nil;
-    } else { // creating an new artwork
+    } /*else { // creating an new artwork
         self.navigationItem.title = @"Add Art";
-    }
+    }*/
 }
 
 #pragma mark - Segues

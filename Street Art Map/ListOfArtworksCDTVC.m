@@ -49,7 +49,7 @@
             UINavigationController *navController = (UINavigationController *)segue.destinationViewController;
             if ([[navController.viewControllers firstObject] isMemberOfClass:[AddAndViewArtworkVC class]]) {
                 AddAndViewArtworkVC *addAndViewArtworkVC = (AddAndViewArtworkVC *)[navController.viewControllers firstObject];
-                addAndViewArtworkVC.context = self.context;
+                //addAndViewArtworkVC.context = self.context;
                 
                 if ([segue.identifier isEqualToString:@"View Artwork"]) {
                     if ([sender isKindOfClass:[UITableViewCell class]]) {
@@ -57,6 +57,8 @@
                         NSIndexPath *pathOfSelectedArtwork = [self.tableView indexPathForCell:selectedArtwork];
                         [addAndViewArtworkVC loadExistingArtwork:[self.fetchedResultsController objectAtIndexPath:pathOfSelectedArtwork]];
                     }
+                } else {
+                    [addAndViewArtworkVC newArtworkWithTitle:nil andArtist:nil inContext:self.context];
                 }
             }
         }

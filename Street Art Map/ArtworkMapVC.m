@@ -77,7 +77,7 @@
             
             if ([[navController.viewControllers firstObject] isMemberOfClass:[AddAndViewArtworkVC class]]) {
                 AddAndViewArtworkVC *addAndViewArtworkVC = (AddAndViewArtworkVC *)[navController.viewControllers firstObject];
-                addAndViewArtworkVC.context = self.context;
+                //addAndViewArtworkVC.context = self.context;
                 
                 if ([sender isKindOfClass:[MKAnnotationView class]]) {
                     MKAnnotationView *annotationView = (MKAnnotationView *)sender;

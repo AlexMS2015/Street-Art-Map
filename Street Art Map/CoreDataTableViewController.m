@@ -1,16 +1,6 @@
-//
-//  CoreDataTableViewController.m
-//
-//  Created for Stanford CS193p Fall 2013.
-//  Copyright 2013 Stanford University. All rights reserved.
-//
 
 #import "CoreDataTableViewController.h"
 #import "DatabaseAvailability.h"
-
-@interface CoreDataTableViewController ()
-
-@end
 
 @implementation CoreDataTableViewController
 
@@ -38,7 +28,23 @@
     [self setupFetchedResultsController];
 }
 
--(void)setFetchedResultsController:(NSFetchedResultsController *)newfrc
+-(void)setFetchedResultsController:(NSFetchedResultsController *)fetchedResultsController
+{
+    _fetchedResultsController = fetchedResultsController;
+    fetchedResultsController.delegate = self;
+    
+    NSError *error;
+    BOOL success = [fetchedResultsController performFetch:&error];
+    
+    if (!success)
+        NSLog(@"[%@ %@] performFetch: failed", NSStringFromClass([self class]), NSStringFromSelector(_cmd));
+    if (error)
+        NSLog(@"[%@ %@] %@ (%@)", NSStringFromClass([self class]), NSStringFromSelector(_cmd), [error localizedDescription], [error localizedFailureReason]);
+    
+    [self.tableView reloadData];
+}
+
+/*-(void)setFetchedResultsController:(NSFetchedResultsController *)newfrc
 {
     NSFetchedResultsController *oldfrc = _fetchedResultsController;
     if (newfrc != oldfrc) {
@@ -75,32 +81,28 @@
         if (self.debug) NSLog(@"[%@ %@] no NSFetchedResultsController (yet?)", NSStringFromClass([self class]), NSStringFromSelector(_cmd));
     }
     [self.tableView reloadData];
-}
+}*/
 
 #pragma mark - UITableViewDataSource
 
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    NSInteger sections = [[self.fetchedResultsController sections] count];
-    return sections;
+    return [[self.fetchedResultsController sections] count];
 }
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    NSInteger rows = 0;
-    if ([[self.fetchedResultsController sections] count] > 0) {
-        id <NSFetchedResultsSectionInfo> sectionInfo = [[self.fetchedResultsController sections] objectAtIndex:section];
-        rows = [sectionInfo numberOfObjects];
-    }
-    return rows;
+    id <NSFetchedResultsSectionInfo> sectionInfo = [[self.fetchedResultsController sections] objectAtIndex:section];
+    return [sectionInfo numberOfObjects];
 }
 
 -(NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
 {
-	return [[[self.fetchedResultsController sections] objectAtIndex:section] name];
+	return [[[self.fetchedResultsController sections] objectAtIndex:section] name]; // name is one of the properties on the NSFetchedResultsSectionInfo protocol to which section objects in a fetched results controller conform.
 }
 
--(NSInteger)tableView:(UITableView *)tableView sectionForSectionIndexTitle:(NSString *)title atIndex:(NSInteger)index
+#warning - What do the following 2 methods actually do???
+/*-(NSInteger)tableView:(UITableView *)tableView sectionForSectionIndexTitle:(NSString *)title atIndex:(NSInteger)index
 {
 	return [self.fetchedResultsController sectionForSectionIndexTitle:title atIndex:index];
 }
@@ -108,10 +110,11 @@
 -(NSArray *)sectionIndexTitlesForTableView:(UITableView *)tableView
 {
     return [self.fetchedResultsController sectionIndexTitles];
-}
+}*/
 
 #pragma mark - NSFetchedResultsControllerDelegate
 
+// notifies the receiver that the fetched results controller is about to start processing of one or more changes due to an add, remove, move, or update.
 -(void)controllerWillChangeContent:(NSFetchedResultsController *)controller
 {
     [self.tableView beginUpdates];

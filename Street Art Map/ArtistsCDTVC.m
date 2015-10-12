@@ -194,11 +194,11 @@
             UINavigationController *nc = (UINavigationController *)segue.destinationViewController;
             if ([[nc.viewControllers firstObject] isMemberOfClass:[AddAndViewArtworkVC class]]) {
                 AddAndViewArtworkVC *artworkView = (AddAndViewArtworkVC *)[nc.viewControllers firstObject];
-                artworkView.context = self.context;
+                //artworkView.context = self.context;
                 if ([sender isMemberOfClass:[Artwork class]]) { // viewing an artwork
                     [artworkView loadExistingArtwork:(Artwork *)sender];
                 } else if ([sender isMemberOfClass:[Artist class]]) { // adding an artwork
-                    [artworkView newArtworkWithTitle:nil andArtist:(Artist *)sender];
+                    [artworkView newArtworkWithTitle:nil andArtist:(Artist *)sender inContext:self.context];
                 }
             }
         }
