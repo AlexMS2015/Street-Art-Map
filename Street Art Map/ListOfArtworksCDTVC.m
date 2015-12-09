@@ -12,6 +12,7 @@
 #import "AddAndViewArtworkVC.h"
 #import "ArtworkTVC.h"
 #import "PhotoLibraryInterface.h"
+#import "UIAlertController+TwoButtonAlertWithAction.h"
 #import "Artwork+Create.h"
 
 @implementation ListOfArtworksCDTVC
@@ -84,14 +85,18 @@
 -(void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (editingStyle == UITableViewCellEditingStyleDelete) {
-        Artwork *artworkToDelete = [self.fetchedResultsController objectAtIndexPath:indexPath];
-        [artworkToDelete deleteFromDatabase];
-#warning - Should request confirmation here
+        [self presentViewController:[UIAlertController twoButtonAlertWithTitle:@"Delete Photo" andMessage:@"Are you sure you want to delete this photo?" andAction:^(UIAlertAction *action) {
+            Artwork *artworkToDelete = [self.fetchedResultsController objectAtIndexPath:indexPath];
+            [artworkToDelete deleteFromDatabase];
+            [self.presentingViewController dismissViewControllerAnimated:YES completion:NULL];
+        }] animated:YES completion:NULL];
     }
 }
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    NSLog(@"refreshing table view");
+    
     ArtworkTVC *cell = [self.tableView dequeueReusableCellWithIdentifier:CELL_IDENTIFIER];
     Artwork *artwork = [self.fetchedResultsController objectAtIndexPath:indexPath];
     
@@ -108,6 +113,7 @@
     
     cell.tag = [[PhotoLibraryInterface shared] imageWithLocalIdentifier:artwork.imageLocation size:cell.artworkImageView.bounds.size completion:^(UIImage *image) {
         cell.artworkImageView.image = image;
+        NSLog(@"setting image for artwork: %@ in location: %@", artwork.title, artwork.imageLocation);
         cell.tag = 0;
     }];
     

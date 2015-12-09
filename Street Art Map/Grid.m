@@ -1,6 +1,5 @@
 //
 //  Grid.m
-//  Sliding Puzzle
 //
 //  Created by Alex Smith on 27/08/2015.
 //  Copyright (c) 2015 Alex Smith. All rights reserved.
@@ -40,6 +39,14 @@
     return self.orientation == VERTICAL ?
         self.size.columns * position.row + position.column :
         self.size.rows * position.column + position.row;
+}
+
+-(Position)randomPosition
+{
+    int randomRow = arc4random() % self.size.rows;
+    int randomCol = arc4random() % self.size.columns;
+    
+    return (Position){randomRow, randomCol};
 }
 
 -(Position)randomPositionAdjacentToPosition:(Position)position

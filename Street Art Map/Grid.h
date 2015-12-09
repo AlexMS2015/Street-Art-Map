@@ -46,4 +46,7 @@ typedef enum {
 -(int)indexOfPosition:(Position)position;
 -(Position)randomPositionAdjacentToPosition:(Position)position;
 
+// new methods
+-(Position)randomPosition;
+
 @end

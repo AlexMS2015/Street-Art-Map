@@ -17,6 +17,7 @@
 #import "GridVC.h"
 #import "ArtworkImageView.h"
 #import "AddAndViewArtworkVC.h"
+#import "UIAlertController+TwoButtonAlertWithAction.h"
 
 @interface ArtistsCDTVC ()
 @property (strong, nonatomic) NSMutableArray *artworkImageGridVCs;
@@ -45,6 +46,18 @@
     return _cachedImages;
 }
 
+-(void)setSelectedArtist:(Artist *)selectedArtist
+{
+    _selectedArtist = selectedArtist;
+    if (!self.screenMode) {
+        self.screenMode = SelectionMode;
+    }
+    
+    NSIndexPath *pathOfSelectedArtist = [self.fetchedResultsController indexPathForObject:_selectedArtist];
+    [self.tableView scrollToRowAtIndexPath:pathOfSelectedArtist atScrollPosition:UITableViewScrollPositionNone animated:NO];
+    NSLog(@"path of selected artist %@ is %ld", _selectedArtist.name, (long)pathOfSelectedArtist.row);
+}
+
 #define CELL_IDENTIFIER @"ArtistTableViewCell"
 -(void)setScreenMode:(ArtistScreenMode)screenMode
 {
@@ -70,6 +83,11 @@
     
     // allow row deletion
     self.navigationItem.leftBarButtonItem = self.editButtonItem;
+}
+
+-(void)viewWillAppear:(BOOL)animated
+{
+    [self.tableView reloadData];
 }
 
 #pragma mark - Abstract Methods
@@ -107,25 +125,25 @@
 -(void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (editingStyle == UITableViewCellEditingStyleDelete) {
-        Artist *artistToDelete = [self.fetchedResultsController objectAtIndexPath:indexPath];
-        [artistToDelete deleteFromDatabase];
-#warning - Should offer the option of deleting all the artworks associated with that artist (and also ask if you want to delete that artist at all!)
+        [self presentViewController:[UIAlertController twoButtonAlertWithTitle:@"Delete Artist" andMessage:@"Are you sure you want to delete this artist (the attached photos will not be deleted)?" andAction:^(UIAlertAction *action) {
+            Artist *artistToDelete = [self.fetchedResultsController objectAtIndexPath:indexPath];
+            [artistToDelete deleteFromDatabase];
+            [self.presentingViewController dismissViewControllerAnimated:YES completion:NULL];
+        }] animated:YES completion:NULL];
     }
 }
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-#warning - The table should auto scroll to the selected artist if in selection mode (might be offscreen)
-    
     UITableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:CELL_IDENTIFIER];
 
     Artist *artist = [self.fetchedResultsController objectAtIndexPath:indexPath];
-
+    
     if (self.screenMode == ViewingMode) {
         ViewArtistTVC *viewingCell = (ViewArtistTVC *)cell;
         [viewingCell setTitle:artist.name andImageCount:(int)artist.artworks.count];
         
-        int numArtworkCVCs = [artist.artworks count] + 1;
+        int numArtworkCVCs = (int)[artist.artworks count] + 1;
         
         GridVC *artworkImagesCVC = [[GridVC alloc] initWithgridSize:(GridSize){1, numArtworkCVCs} collectionView:viewingCell.artworkImagesCV andCellConfigureBlock:^(UICollectionViewCell *cvc, Position position, int index) {
      
@@ -169,6 +187,13 @@
         SelectArtistTVC *selectionCell = (SelectArtistTVC *)cell;
         selectionCell.titleLabel.text = artist.name;
         selectionCell.selected = [self.selectedArtist isEqualToArtist:artist];
+        /*if ([self.selectedArtist isEqualToArtist:artist]) {
+            NSLog(@"highlight: %@", artist.name);
+            selectionCell.selected = YES;
+        } else {
+            NSLog(@"UN-highlight: %@", artist.name);
+            selectionCell.selected = NO;
+        }*/
     }
     
     return cell;

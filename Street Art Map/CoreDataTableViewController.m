@@ -102,7 +102,7 @@
 }
 
 #warning - What do the following 2 methods actually do???
-/*-(NSInteger)tableView:(UITableView *)tableView sectionForSectionIndexTitle:(NSString *)title atIndex:(NSInteger)index
+-(NSInteger)tableView:(UITableView *)tableView sectionForSectionIndexTitle:(NSString *)title atIndex:(NSInteger)index
 {
 	return [self.fetchedResultsController sectionForSectionIndexTitle:title atIndex:index];
 }
@@ -110,7 +110,7 @@
 -(NSArray *)sectionIndexTitlesForTableView:(UITableView *)tableView
 {
     return [self.fetchedResultsController sectionIndexTitles];
-}*/
+}
 
 #pragma mark - NSFetchedResultsControllerDelegate
 

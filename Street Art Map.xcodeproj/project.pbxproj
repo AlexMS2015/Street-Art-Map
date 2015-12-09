@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		FA0EB1131B649F110034FD18 /* ListOfArtworksCDTVC.m in Sources */ = {isa = PBXBuildFile; fileRef = FA0EB1121B649F110034FD18 /* ListOfArtworksCDTVC.m */; };
+		FA239F641BE78D0500DB3FF9 /* UIAlertController+TwoButtonAlertWithAction.m in Sources */ = {isa = PBXBuildFile; fileRef = FA239F631BE78D0500DB3FF9 /* UIAlertController+TwoButtonAlertWithAction.m */; settings = {ASSET_TAGS = (); }; };
 		FA315FBB1BAE59B300BE5F02 /* SelectArtistTVC.m in Sources */ = {isa = PBXBuildFile; fileRef = FA315FB91BAE59B300BE5F02 /* SelectArtistTVC.m */; };
 		FA315FBC1BAE59B300BE5F02 /* SelectArtistTVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = FA315FBA1BAE59B300BE5F02 /* SelectArtistTVC.xib */; };
 		FA315FC21BAE852400BE5F02 /* ArtworkImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = FA315FC11BAE852400BE5F02 /* ArtworkImageView.m */; };
@@ -31,10 +32,12 @@
 		FAC2C76E1B51E44800DE31A5 /* ArtistsCDTVC.m in Sources */ = {isa = PBXBuildFile; fileRef = FAC2C76D1B51E44800DE31A5 /* ArtistsCDTVC.m */; };
 		FACDBBEC1BA3087B00744488 /* UIAlertController+SingleButtonAlert.m in Sources */ = {isa = PBXBuildFile; fileRef = FACDBBEB1BA3087B00744488 /* UIAlertController+SingleButtonAlert.m */; };
 		FACDBBF61BA3BB5200744488 /* Artwork+Create.m in Sources */ = {isa = PBXBuildFile; fileRef = FACDBBF51BA3BB5200744488 /* Artwork+Create.m */; };
-		FACDBC0E1BA40ED700744488 /* Grid.m in Sources */ = {isa = PBXBuildFile; fileRef = FACDBC0B1BA40ED700744488 /* Grid.m */; };
-		FACDBC121BA40EE500744488 /* PositionStruct.m in Sources */ = {isa = PBXBuildFile; fileRef = FACDBC111BA40EE500744488 /* PositionStruct.m */; };
-		FACDBC161BA40F5600744488 /* GridVC.m in Sources */ = {isa = PBXBuildFile; fileRef = FACDBC151BA40F5600744488 /* GridVC.m */; };
-		FACDBC191BA411F100744488 /* CodableObject.m in Sources */ = {isa = PBXBuildFile; fileRef = FACDBC181BA411F100744488 /* CodableObject.m */; };
+		FAD65AEB1C18407F00FA21E7 /* GridVC.m in Sources */ = {isa = PBXBuildFile; fileRef = FAD65AE81C18407F00FA21E7 /* GridVC.m */; settings = {ASSET_TAGS = (); }; };
+		FAD65AEC1C18407F00FA21E7 /* NoScrollGridVC.m in Sources */ = {isa = PBXBuildFile; fileRef = FAD65AEA1C18407F00FA21E7 /* NoScrollGridVC.m */; settings = {ASSET_TAGS = (); }; };
+		FAD65AF51C1840B400FA21E7 /* CodableObject.m in Sources */ = {isa = PBXBuildFile; fileRef = FAD65AEE1C1840B400FA21E7 /* CodableObject.m */; settings = {ASSET_TAGS = (); }; };
+		FAD65AF61C1840B400FA21E7 /* Grid.m in Sources */ = {isa = PBXBuildFile; fileRef = FAD65AF01C1840B400FA21E7 /* Grid.m */; settings = {ASSET_TAGS = (); }; };
+		FAD65AF71C1840B400FA21E7 /* GridOfObjects.m in Sources */ = {isa = PBXBuildFile; fileRef = FAD65AF21C1840B400FA21E7 /* GridOfObjects.m */; settings = {ASSET_TAGS = (); }; };
+		FAD65AF81C1840B400FA21E7 /* PositionStruct.m in Sources */ = {isa = PBXBuildFile; fileRef = FAD65AF41C1840B400FA21E7 /* PositionStruct.m */; settings = {ASSET_TAGS = (); }; };
 		FAEB528D1B48D14700D9361E /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = FAEB528C1B48D14700D9361E /* main.m */; };
 		FAEB52901B48D14700D9361E /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = FAEB528F1B48D14700D9361E /* AppDelegate.m */; };
 		FAEB52961B48D14700D9361E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FAEB52941B48D14700D9361E /* Main.storyboard */; };
@@ -57,6 +60,8 @@
 /* Begin PBXFileReference section */
 		FA0EB1111B649F110034FD18 /* ListOfArtworksCDTVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ListOfArtworksCDTVC.h; sourceTree = "<group>"; };
 		FA0EB1121B649F110034FD18 /* ListOfArtworksCDTVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ListOfArtworksCDTVC.m; sourceTree = "<group>"; };
+		FA239F621BE78D0500DB3FF9 /* UIAlertController+TwoButtonAlertWithAction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIAlertController+TwoButtonAlertWithAction.h"; sourceTree = "<group>"; };
+		FA239F631BE78D0500DB3FF9 /* UIAlertController+TwoButtonAlertWithAction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIAlertController+TwoButtonAlertWithAction.m"; sourceTree = "<group>"; };
 		FA315FB81BAE59B300BE5F02 /* SelectArtistTVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SelectArtistTVC.h; sourceTree = "<group>"; };
 		FA315FB91BAE59B300BE5F02 /* SelectArtistTVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SelectArtistTVC.m; sourceTree = "<group>"; };
 		FA315FBA1BAE59B300BE5F02 /* SelectArtistTVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SelectArtistTVC.xib; sourceTree = "<group>"; };
@@ -99,14 +104,18 @@
 		FACDBBEB1BA3087B00744488 /* UIAlertController+SingleButtonAlert.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIAlertController+SingleButtonAlert.m"; sourceTree = "<group>"; };
 		FACDBBF41BA3BB5200744488 /* Artwork+Create.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Artwork+Create.h"; sourceTree = "<group>"; };
 		FACDBBF51BA3BB5200744488 /* Artwork+Create.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Artwork+Create.m"; sourceTree = "<group>"; };
-		FACDBC0A1BA40ED700744488 /* Grid.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Grid.h; sourceTree = "<group>"; };
-		FACDBC0B1BA40ED700744488 /* Grid.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Grid.m; sourceTree = "<group>"; };
-		FACDBC101BA40EE500744488 /* PositionStruct.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PositionStruct.h; sourceTree = "<group>"; };
-		FACDBC111BA40EE500744488 /* PositionStruct.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PositionStruct.m; sourceTree = "<group>"; };
-		FACDBC141BA40F5600744488 /* GridVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GridVC.h; sourceTree = "<group>"; };
-		FACDBC151BA40F5600744488 /* GridVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GridVC.m; sourceTree = "<group>"; };
-		FACDBC171BA411F100744488 /* CodableObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CodableObject.h; sourceTree = "<group>"; };
-		FACDBC181BA411F100744488 /* CodableObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CodableObject.m; sourceTree = "<group>"; };
+		FAD65AE71C18407F00FA21E7 /* GridVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GridVC.h; sourceTree = "<group>"; };
+		FAD65AE81C18407F00FA21E7 /* GridVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GridVC.m; sourceTree = "<group>"; };
+		FAD65AE91C18407F00FA21E7 /* NoScrollGridVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NoScrollGridVC.h; sourceTree = "<group>"; };
+		FAD65AEA1C18407F00FA21E7 /* NoScrollGridVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NoScrollGridVC.m; sourceTree = "<group>"; };
+		FAD65AED1C1840B400FA21E7 /* CodableObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CodableObject.h; sourceTree = "<group>"; };
+		FAD65AEE1C1840B400FA21E7 /* CodableObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CodableObject.m; sourceTree = "<group>"; };
+		FAD65AEF1C1840B400FA21E7 /* Grid.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Grid.h; sourceTree = "<group>"; };
+		FAD65AF01C1840B400FA21E7 /* Grid.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Grid.m; sourceTree = "<group>"; };
+		FAD65AF11C1840B400FA21E7 /* GridOfObjects.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GridOfObjects.h; sourceTree = "<group>"; };
+		FAD65AF21C1840B400FA21E7 /* GridOfObjects.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GridOfObjects.m; sourceTree = "<group>"; };
+		FAD65AF31C1840B400FA21E7 /* PositionStruct.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PositionStruct.h; sourceTree = "<group>"; };
+		FAD65AF41C1840B400FA21E7 /* PositionStruct.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PositionStruct.m; sourceTree = "<group>"; };
 		FAEB52871B48D14700D9361E /* Street Art Map.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Street Art Map.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		FAEB528B1B48D14700D9361E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		FAEB528C1B48D14700D9361E /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -146,19 +155,45 @@
 			children = (
 				FACDBBEA1BA3087B00744488 /* UIAlertController+SingleButtonAlert.h */,
 				FACDBBEB1BA3087B00744488 /* UIAlertController+SingleButtonAlert.m */,
+				FA239F621BE78D0500DB3FF9 /* UIAlertController+TwoButtonAlertWithAction.h */,
+				FA239F631BE78D0500DB3FF9 /* UIAlertController+TwoButtonAlertWithAction.m */,
 			);
 			name = Categories;
 			sourceTree = "<group>";
 		};
-		FACDBC131BA40EEA00744488 /* Grid */ = {
+		FACDBC131BA40EEA00744488 /* Grid Framework */ = {
 			isa = PBXGroup;
 			children = (
-				FACDBC101BA40EE500744488 /* PositionStruct.h */,
-				FACDBC111BA40EE500744488 /* PositionStruct.m */,
-				FACDBC0A1BA40ED700744488 /* Grid.h */,
-				FACDBC0B1BA40ED700744488 /* Grid.m */,
+				FAD65AE51C18402C00FA21E7 /* Controller */,
+				FAD65AE61C18403600FA21E7 /* Model */,
 			);
-			name = Grid;
+			name = "Grid Framework";
+			sourceTree = "<group>";
+		};
+		FAD65AE51C18402C00FA21E7 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				FAD65AE71C18407F00FA21E7 /* GridVC.h */,
+				FAD65AE81C18407F00FA21E7 /* GridVC.m */,
+				FAD65AE91C18407F00FA21E7 /* NoScrollGridVC.h */,
+				FAD65AEA1C18407F00FA21E7 /* NoScrollGridVC.m */,
+			);
+			name = Controller;
+			sourceTree = "<group>";
+		};
+		FAD65AE61C18403600FA21E7 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				FAD65AED1C1840B400FA21E7 /* CodableObject.h */,
+				FAD65AEE1C1840B400FA21E7 /* CodableObject.m */,
+				FAD65AEF1C1840B400FA21E7 /* Grid.h */,
+				FAD65AF01C1840B400FA21E7 /* Grid.m */,
+				FAD65AF11C1840B400FA21E7 /* GridOfObjects.h */,
+				FAD65AF21C1840B400FA21E7 /* GridOfObjects.m */,
+				FAD65AF31C1840B400FA21E7 /* PositionStruct.h */,
+				FAD65AF41C1840B400FA21E7 /* PositionStruct.m */,
+			);
+			name = Model;
 			sourceTree = "<group>";
 		};
 		FAEB527E1B48D14700D9361E = {
@@ -183,6 +218,8 @@
 		FAEB52891B48D14700D9361E /* Street Art Map */ = {
 			isa = PBXGroup;
 			children = (
+				FACDBC131BA40EEA00744488 /* Grid Framework */,
+				FACDBBED1BA30A2100744488 /* Categories */,
 				FAEB52B11B48D17F00D9361E /* Controller */,
 				FAEB52B01B48D17500D9361E /* View */,
 				FAEB52B51B48D1CE00D9361E /* Model */,
@@ -256,9 +293,6 @@
 				FAC2C76D1B51E44800DE31A5 /* ArtistsCDTVC.m */,
 				FA5339D21B6DAA2F006C0F52 /* ArtworkMapVC.h */,
 				FA5339D31B6DAA2F006C0F52 /* ArtworkMapVC.m */,
-				FACDBC141BA40F5600744488 /* GridVC.h */,
-				FACDBC151BA40F5600744488 /* GridVC.m */,
-				FACDBBED1BA30A2100744488 /* Categories */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -285,9 +319,6 @@
 				FACDBBF51BA3BB5200744488 /* Artwork+Create.m */,
 				FA5339E11B6EE32E006C0F52 /* Artwork+Annotation.h */,
 				FA5339E21B6EE32E006C0F52 /* Artwork+Annotation.m */,
-				FACDBC171BA411F100744488 /* CodableObject.h */,
-				FACDBC181BA411F100744488 /* CodableObject.m */,
-				FACDBC131BA40EEA00744488 /* Grid */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -401,12 +432,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FA239F641BE78D0500DB3FF9 /* UIAlertController+TwoButtonAlertWithAction.m in Sources */,
 				FACDBBF61BA3BB5200744488 /* Artwork+Create.m in Sources */,
 				FAEB52901B48D14700D9361E /* AppDelegate.m in Sources */,
-				FACDBC161BA40F5600744488 /* GridVC.m in Sources */,
-				FACDBC191BA411F100744488 /* CodableObject.m in Sources */,
+				FAD65AF61C1840B400FA21E7 /* Grid.m in Sources */,
 				FAC2C7651B50B83200DE31A5 /* CoreDataTableViewController.m in Sources */,
+				FAD65AF81C1840B400FA21E7 /* PositionStruct.m in Sources */,
 				FA4049301B75CAC90069144D /* Artist.m in Sources */,
+				FAD65AEB1C18407F00FA21E7 /* GridVC.m in Sources */,
 				FAC2C76E1B51E44800DE31A5 /* ArtistsCDTVC.m in Sources */,
 				FA5339D01B6655D1006C0F52 /* ArtworkTVC.m in Sources */,
 				FA0EB1131B649F110034FD18 /* ListOfArtworksCDTVC.m in Sources */,
@@ -417,17 +450,18 @@
 				FA5339C41B650B0F006C0F52 /* PhotoLibraryInterface.m in Sources */,
 				FA5339D41B6DAA2F006C0F52 /* ArtworkMapVC.m in Sources */,
 				FACDBBEC1BA3087B00744488 /* UIAlertController+SingleButtonAlert.m in Sources */,
-				FACDBC121BA40EE500744488 /* PositionStruct.m in Sources */,
 				FAEB52B41B48D1C500D9361E /* Model.xcdatamodeld in Sources */,
-				FACDBC0E1BA40ED700744488 /* Grid.m in Sources */,
 				FA315FC71BB7A83900BE5F02 /* Location+Create.m in Sources */,
 				FA315FC21BAE852400BE5F02 /* ArtworkImageView.m in Sources */,
 				FAC2C76B1B50E87700DE31A5 /* AddAndViewArtworkVC.m in Sources */,
+				FAD65AF71C1840B400FA21E7 /* GridOfObjects.m in Sources */,
 				FAC2C7681B50DE5900DE31A5 /* RecentsCDTVC.m in Sources */,
+				FAD65AF51C1840B400FA21E7 /* CodableObject.m in Sources */,
 				FA40492D1B75CAC90069144D /* Location.m in Sources */,
 				FA5339E31B6EE32E006C0F52 /* Artwork+Annotation.m in Sources */,
 				FA4049671B7EBA6E0069144D /* ViewArtistTVC.m in Sources */,
 				FA40494C1B7734630069144D /* Artist+Create.m in Sources */,
+				FAD65AEC1C18407F00FA21E7 /* NoScrollGridVC.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -505,7 +539,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -543,7 +577,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -560,6 +594,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
 		};
@@ -572,6 +607,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
 		};

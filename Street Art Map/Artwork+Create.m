@@ -40,7 +40,7 @@
     [self.managedObjectContext deleteObject:self];
 }
 
--(void)setTitle:(NSString *)title
+/*-(void)setTitle:(NSString *)title
 {
     [self setPrimitiveValue:title forKey:@"Title"];
     self.lastEditDate = [NSDate date];
@@ -68,6 +68,6 @@
 {
     [self setPrimitiveValue:longitude forKey:@"Longitude"];
     self.lastEditDate = [NSDate date];
-}
+}*/
 
 @end

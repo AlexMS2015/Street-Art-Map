@@ -10,10 +10,13 @@
 
 @implementation SelectArtistTVC
 
-- (void)setSelected:(BOOL)selected animated:(BOOL)animated {
+-(void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];
-    if (selected)
+    if (selected) {
         self.backgroundColor = [UIColor lightGrayColor];
+    } else {
+        self.backgroundColor = [UIColor clearColor];
+    }
 }
 
 +(CGFloat)cellHeight

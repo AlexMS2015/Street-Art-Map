@@ -14,6 +14,7 @@
 #import "UIAlertController+SingleButtonAlert.h"
 #import "Artwork+Create.h"
 #import <CoreLocation/CoreLocation.h>
+#import "UIAlertController+TwoButtonAlertWithAction.h"
 
 // denotes whether this VC is being used to create a new artwork or view an existing one
 typedef enum {
@@ -53,12 +54,6 @@ typedef enum {
 {
     [super viewDidLoad];
     
-    // if the user hasn't loaded an artwork or pre-filled one then this VC must be in 'Create' mode. set up a new artwork with attributes set to nil
-    /*if (!self.artwork) {
-        self.artwork = [Artwork artworkWithTitle:nil artist:nil inContext:self.context];
-        self.screenMode = Create;
-    } else {*/
-        // set up the view from the loaded or pre-filled artwork
     if (self.artwork.title) {
         self.navigationItem.title = self.artwork.title;
     } else {
@@ -70,13 +65,10 @@ typedef enum {
             self.artworkImageView.image = image;
         }];
     }
-    //}
     
     if (self.screenMode == Existing) { // viewing an existing artwork
         self.navigationItem.leftBarButtonItem = nil;
-    } /*else { // creating an new artwork
-        self.navigationItem.title = @"Add Art";
-    }*/
+    }
 }
 
 #pragma mark - Segues
@@ -164,8 +156,7 @@ typedef enum {
 {
     UIAlertController *addPhotoAlert = [UIAlertController alertControllerWithTitle:nil message:nil preferredStyle:UIAlertControllerStyleActionSheet];
     
-    UIAlertAction *cancelButton = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:NULL];
-    [addPhotoAlert addAction:cancelButton];
+    [addPhotoAlert addAction:[UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:NULL]];
     
     [addPhotoAlert addAction:[UIAlertAction actionWithTitle:@"Take photo" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
         [self selectImageWithSourceType:UIImagePickerControllerSourceTypeCamera];
@@ -180,15 +171,17 @@ typedef enum {
 
 - (IBAction)deleteCurrentArtwork:(UIBarButtonItem *)sender
 {
-    [self.artwork deleteFromDatabase];
-    [self.presentingViewController dismissViewControllerAnimated:YES completion:NULL];
+    [self presentViewController:[UIAlertController twoButtonAlertWithTitle:@"Delete Photo" andMessage:@"Are you sure you want to delete this photo?" andAction:^(UIAlertAction *action) {
+        [self.artwork deleteFromDatabase];
+        [self.presentingViewController dismissViewControllerAnimated:YES completion:NULL];
+    }] animated:YES completion:NULL];
 }
 
 #pragma mark - UIImagePickerControllerDelegate
 
 -(void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
 {
-#warning - Should the following line be at the end of the method of start?
+#warning - Should the following line be at the end of the method or start?
     [self dismissViewControllerAnimated:YES completion:NULL];
     
     if (info[UIImagePickerControllerReferenceURL]) { // chose an existing photo
