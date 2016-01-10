@@ -75,7 +75,7 @@
 -(NSArray *)objectsInColumn:(int)column
 {
     NSMutableArray *objectsInCol = [NSMutableArray array];
-    for (int currRow = 0; currRow < self.size.columns; currRow++) {
+    for (int currRow = 0; currRow < self.size.rows; currRow++) {
         Position currPos = (Position){currRow, column};
         [objectsInCol addObject:[self objectAtPosition:currPos]];
     }
