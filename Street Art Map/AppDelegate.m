@@ -8,6 +8,7 @@
 
 #import "AppDelegate.h"
 #import "DatabaseAvailability.h"
+@import CoreData;
 
 @interface AppDelegate ()
 
@@ -22,6 +23,7 @@
 -(void)setDatabaseContext:(NSManagedObjectContext *)databaseContext
 {
     _databaseContext = databaseContext;
+    _databaseContext.undoManager = [[NSUndoManager alloc] init];
     
     NSDictionary *userInfo = @{DATABASE_CONTEXT : self.databaseContext};
     [[NSNotificationCenter defaultCenter] postNotificationName:DATABASE_AVAILABLE_NOTIFICATION
@@ -76,6 +78,7 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
 
     [self getManagedDocument];
+    application.applicationSupportsShakeToEdit = YES;
         
     return YES;
 }

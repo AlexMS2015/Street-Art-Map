@@ -10,7 +10,7 @@
 
 @interface ListOfArtworksCDTVC : CoreDataTableViewController
 
-// still need to implement the following abstract method
+// this class is still abstract. subclasses  need to implement the following method to actually query some data to display
 -(void)setupFetchedResultsController;
 
 @end

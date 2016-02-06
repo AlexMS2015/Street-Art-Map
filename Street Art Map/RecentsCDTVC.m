@@ -27,6 +27,7 @@
                                                             ascending:YES
                                                              selector:@selector(localizedCompare:)];
     
+    recentsRequest.fetchLimit = 20;
     recentsRequest.sortDescriptors = @[dateSort, titleSort];
     
     self.fetchedResultsController =

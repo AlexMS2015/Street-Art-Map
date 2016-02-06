@@ -18,5 +18,3 @@
 +(CGFloat)cellHeight;
 
 @end
-
-// READ UP BNR ON HOW FILE OWNER WORKS - REFRESH!!!!! XIB vs NIB?

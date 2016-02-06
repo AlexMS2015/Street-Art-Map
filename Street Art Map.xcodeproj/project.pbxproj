@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		FA0EB1131B649F110034FD18 /* ListOfArtworksCDTVC.m in Sources */ = {isa = PBXBuildFile; fileRef = FA0EB1121B649F110034FD18 /* ListOfArtworksCDTVC.m */; };
-		FA239F641BE78D0500DB3FF9 /* UIAlertController+TwoButtonAlertWithAction.m in Sources */ = {isa = PBXBuildFile; fileRef = FA239F631BE78D0500DB3FF9 /* UIAlertController+TwoButtonAlertWithAction.m */; settings = {ASSET_TAGS = (); }; };
+		FA0FAA231C65DFD60023FC48 /* UIAlertController+ConvinienceMethods.m in Sources */ = {isa = PBXBuildFile; fileRef = FA0FAA221C65DFD60023FC48 /* UIAlertController+ConvinienceMethods.m */; settings = {ASSET_TAGS = (); }; };
 		FA315FBB1BAE59B300BE5F02 /* SelectArtistTVC.m in Sources */ = {isa = PBXBuildFile; fileRef = FA315FB91BAE59B300BE5F02 /* SelectArtistTVC.m */; };
 		FA315FBC1BAE59B300BE5F02 /* SelectArtistTVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = FA315FBA1BAE59B300BE5F02 /* SelectArtistTVC.xib */; };
 		FA315FC21BAE852400BE5F02 /* ArtworkImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = FA315FC11BAE852400BE5F02 /* ArtworkImageView.m */; };
@@ -36,7 +36,6 @@
 		FAC2C7681B50DE5900DE31A5 /* RecentsCDTVC.m in Sources */ = {isa = PBXBuildFile; fileRef = FAC2C7671B50DE5900DE31A5 /* RecentsCDTVC.m */; };
 		FAC2C76B1B50E87700DE31A5 /* AddAndViewArtworkVC.m in Sources */ = {isa = PBXBuildFile; fileRef = FAC2C76A1B50E87700DE31A5 /* AddAndViewArtworkVC.m */; };
 		FAC2C76E1B51E44800DE31A5 /* ArtistsCDTVC.m in Sources */ = {isa = PBXBuildFile; fileRef = FAC2C76D1B51E44800DE31A5 /* ArtistsCDTVC.m */; };
-		FACDBBEC1BA3087B00744488 /* UIAlertController+SingleButtonAlert.m in Sources */ = {isa = PBXBuildFile; fileRef = FACDBBEB1BA3087B00744488 /* UIAlertController+SingleButtonAlert.m */; };
 		FACDBBF61BA3BB5200744488 /* Artwork+Create.m in Sources */ = {isa = PBXBuildFile; fileRef = FACDBBF51BA3BB5200744488 /* Artwork+Create.m */; };
 		FAEB528D1B48D14700D9361E /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = FAEB528C1B48D14700D9361E /* main.m */; };
 		FAEB52901B48D14700D9361E /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = FAEB528F1B48D14700D9361E /* AppDelegate.m */; };
@@ -60,8 +59,8 @@
 /* Begin PBXFileReference section */
 		FA0EB1111B649F110034FD18 /* ListOfArtworksCDTVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ListOfArtworksCDTVC.h; sourceTree = "<group>"; };
 		FA0EB1121B649F110034FD18 /* ListOfArtworksCDTVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ListOfArtworksCDTVC.m; sourceTree = "<group>"; };
-		FA239F621BE78D0500DB3FF9 /* UIAlertController+TwoButtonAlertWithAction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIAlertController+TwoButtonAlertWithAction.h"; sourceTree = "<group>"; };
-		FA239F631BE78D0500DB3FF9 /* UIAlertController+TwoButtonAlertWithAction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIAlertController+TwoButtonAlertWithAction.m"; sourceTree = "<group>"; };
+		FA0FAA211C65DFD60023FC48 /* UIAlertController+ConvinienceMethods.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIAlertController+ConvinienceMethods.h"; sourceTree = "<group>"; };
+		FA0FAA221C65DFD60023FC48 /* UIAlertController+ConvinienceMethods.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIAlertController+ConvinienceMethods.m"; sourceTree = "<group>"; };
 		FA315FB81BAE59B300BE5F02 /* SelectArtistTVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SelectArtistTVC.h; sourceTree = "<group>"; };
 		FA315FB91BAE59B300BE5F02 /* SelectArtistTVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SelectArtistTVC.m; sourceTree = "<group>"; };
 		FA315FBA1BAE59B300BE5F02 /* SelectArtistTVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SelectArtistTVC.xib; sourceTree = "<group>"; };
@@ -112,8 +111,6 @@
 		FAC2C76A1B50E87700DE31A5 /* AddAndViewArtworkVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddAndViewArtworkVC.m; sourceTree = "<group>"; };
 		FAC2C76C1B51E44800DE31A5 /* ArtistsCDTVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ArtistsCDTVC.h; sourceTree = "<group>"; };
 		FAC2C76D1B51E44800DE31A5 /* ArtistsCDTVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ArtistsCDTVC.m; sourceTree = "<group>"; };
-		FACDBBEA1BA3087B00744488 /* UIAlertController+SingleButtonAlert.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIAlertController+SingleButtonAlert.h"; sourceTree = "<group>"; };
-		FACDBBEB1BA3087B00744488 /* UIAlertController+SingleButtonAlert.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIAlertController+SingleButtonAlert.m"; sourceTree = "<group>"; };
 		FACDBBF41BA3BB5200744488 /* Artwork+Create.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Artwork+Create.h"; sourceTree = "<group>"; };
 		FACDBBF51BA3BB5200744488 /* Artwork+Create.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Artwork+Create.m"; sourceTree = "<group>"; };
 		FAEB52871B48D14700D9361E /* Street Art Map.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Street Art Map.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -150,6 +147,31 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		FA0FAA1F1C6564EC0023FC48 /* Custom Table View Cells */ = {
+			isa = PBXGroup;
+			children = (
+				FA5339CD1B6655D1006C0F52 /* ArtworkTVC.h */,
+				FA5339CE1B6655D1006C0F52 /* ArtworkTVC.m */,
+				FA5339CF1B6655D1006C0F52 /* ArtworkTVC.xib */,
+				FA4049641B7EBA6E0069144D /* ViewArtistTVC.h */,
+				FA4049651B7EBA6E0069144D /* ViewArtistTVC.m */,
+				FA4049661B7EBA6E0069144D /* ViewArtistTVC.xib */,
+				FA315FB81BAE59B300BE5F02 /* SelectArtistTVC.h */,
+				FA315FB91BAE59B300BE5F02 /* SelectArtistTVC.m */,
+				FA315FBA1BAE59B300BE5F02 /* SelectArtistTVC.xib */,
+			);
+			name = "Custom Table View Cells";
+			sourceTree = "<group>";
+		};
+		FA0FAA201C657B460023FC48 /* Helper Objects */ = {
+			isa = PBXGroup;
+			children = (
+				FA5339C21B650B0F006C0F52 /* PhotoLibraryInterface.h */,
+				FA5339C31B650B0F006C0F52 /* PhotoLibraryInterface.m */,
+			);
+			name = "Helper Objects";
+			sourceTree = "<group>";
+		};
 		FABBF6751C420A79008DB672 /* GridInterface */ = {
 			isa = PBXGroup;
 			children = (
@@ -188,10 +210,8 @@
 		FACDBBED1BA30A2100744488 /* Categories */ = {
 			isa = PBXGroup;
 			children = (
-				FACDBBEA1BA3087B00744488 /* UIAlertController+SingleButtonAlert.h */,
-				FACDBBEB1BA3087B00744488 /* UIAlertController+SingleButtonAlert.m */,
-				FA239F621BE78D0500DB3FF9 /* UIAlertController+TwoButtonAlertWithAction.h */,
-				FA239F631BE78D0500DB3FF9 /* UIAlertController+TwoButtonAlertWithAction.m */,
+				FA0FAA211C65DFD60023FC48 /* UIAlertController+ConvinienceMethods.h */,
+				FA0FAA221C65DFD60023FC48 /* UIAlertController+ConvinienceMethods.m */,
 			);
 			name = Categories;
 			sourceTree = "<group>";
@@ -220,6 +240,7 @@
 			children = (
 				FABBF6751C420A79008DB672 /* GridInterface */,
 				FACDBBED1BA30A2100744488 /* Categories */,
+				FA0FAA201C657B460023FC48 /* Helper Objects */,
 				FAEB52B11B48D17F00D9361E /* Controller */,
 				FAEB52B01B48D17500D9361E /* View */,
 				FAEB52B51B48D1CE00D9361E /* Model */,
@@ -260,17 +281,9 @@
 			children = (
 				FAEB52991B48D14700D9361E /* LaunchScreen.xib */,
 				FAEB52941B48D14700D9361E /* Main.storyboard */,
-				FA5339CD1B6655D1006C0F52 /* ArtworkTVC.h */,
-				FA5339CE1B6655D1006C0F52 /* ArtworkTVC.m */,
-				FA5339CF1B6655D1006C0F52 /* ArtworkTVC.xib */,
-				FA4049641B7EBA6E0069144D /* ViewArtistTVC.h */,
-				FA4049651B7EBA6E0069144D /* ViewArtistTVC.m */,
-				FA4049661B7EBA6E0069144D /* ViewArtistTVC.xib */,
-				FA315FB81BAE59B300BE5F02 /* SelectArtistTVC.h */,
-				FA315FB91BAE59B300BE5F02 /* SelectArtistTVC.m */,
-				FA315FBA1BAE59B300BE5F02 /* SelectArtistTVC.xib */,
 				FA315FC01BAE852400BE5F02 /* ArtworkImageView.h */,
 				FA315FC11BAE852400BE5F02 /* ArtworkImageView.m */,
+				FA0FAA1F1C6564EC0023FC48 /* Custom Table View Cells */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -300,8 +313,6 @@
 		FAEB52B51B48D1CE00D9361E /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				FA5339C21B650B0F006C0F52 /* PhotoLibraryInterface.h */,
-				FA5339C31B650B0F006C0F52 /* PhotoLibraryInterface.m */,
 				FAEB52B21B48D1C500D9361E /* Model.xcdatamodeld */,
 				FA40492E1B75CAC90069144D /* Artist.h */,
 				FA40492F1B75CAC90069144D /* Artist.m */,
@@ -432,7 +443,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				FA239F641BE78D0500DB3FF9 /* UIAlertController+TwoButtonAlertWithAction.m in Sources */,
 				FACDBBF61BA3BB5200744488 /* Artwork+Create.m in Sources */,
 				FAEB52901B48D14700D9361E /* AppDelegate.m in Sources */,
 				FAC2C7651B50B83200DE31A5 /* CoreDataTableViewController.m in Sources */,
@@ -451,7 +461,6 @@
 				FABBF6831C420A8C008DB672 /* Grid.m in Sources */,
 				FA5339C41B650B0F006C0F52 /* PhotoLibraryInterface.m in Sources */,
 				FA5339D41B6DAA2F006C0F52 /* ArtworkMapVC.m in Sources */,
-				FACDBBEC1BA3087B00744488 /* UIAlertController+SingleButtonAlert.m in Sources */,
 				FAEB52B41B48D1C500D9361E /* Model.xcdatamodeld in Sources */,
 				FA315FC71BB7A83900BE5F02 /* Location+Create.m in Sources */,
 				FA315FC21BAE852400BE5F02 /* ArtworkImageView.m in Sources */,
@@ -462,6 +471,7 @@
 				FA4049671B7EBA6E0069144D /* ViewArtistTVC.m in Sources */,
 				FA40494C1B7734630069144D /* Artist+Create.m in Sources */,
 				FABBF6861C420A8C008DB672 /* NoScrollGridVC.m in Sources */,
+				FA0FAA231C65DFD60023FC48 /* UIAlertController+ConvinienceMethods.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

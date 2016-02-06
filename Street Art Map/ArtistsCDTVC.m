@@ -17,7 +17,7 @@
 #import "GridVC.h"
 #import "ArtworkImageView.h"
 #import "AddAndViewArtworkVC.h"
-#import "UIAlertController+TwoButtonAlertWithAction.h"
+#import "UIAlertController+ConvinienceMethods.h"
 
 @interface ArtistsCDTVC ()
 @property (strong, nonatomic) NSMutableArray *artworkImageGridVCs;
@@ -105,7 +105,7 @@
 
 -(BOOL)tableView:(UITableView *)tableView shouldHighlightRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return !self.screenMode == ViewingMode;
+    return self.screenMode == SelectionMode;
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -125,10 +125,10 @@
 -(void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (editingStyle == UITableViewCellEditingStyleDelete) {
-        [self presentViewController:[UIAlertController twoButtonAlertWithTitle:@"Delete Artist" andMessage:@"Are you sure you want to delete this artist (the attached photos will not be deleted)?" andAction:^(UIAlertAction *action) {
+        [self presentViewController:[UIAlertController YesNoAlertWithMessage:@"Are you sure you want to delete this artist (the attached photos will not be deleted)?" andHandler:^(UIAlertAction *action, UIAlertController *alertVC) {
             Artist *artistToDelete = [self.fetchedResultsController objectAtIndexPath:indexPath];
             [artistToDelete deleteFromDatabase];
-            [self.presentingViewController dismissViewControllerAnimated:YES completion:NULL];
+            //[self.presentingViewController dismissViewControllerAnimated:YES completion:NULL];
         }] animated:YES completion:NULL];
     }
 }
@@ -239,25 +239,14 @@
 
 - (IBAction)addArtist:(UIBarButtonItem *)sender
 {
-    UIAlertController *newArtistAlert = [UIAlertController alertControllerWithTitle:@"New Artist" message:@"Please type the artist's name" preferredStyle:UIAlertControllerStyleAlert];
-    
-    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"Cancel"
-                                                     style:UIAlertActionStyleCancel
-                                                   handler:NULL];
-    [newArtistAlert addAction:cancelAction];
-    
 #warning THIS MIGHT CREATE A STRONG REFERECNE CYCLE
-    
-    UIAlertAction *addArtistAction = [UIAlertAction actionWithTitle:@"Add"
-                                                              style:UIAlertActionStyleDefault
-                                                            handler:^(UIAlertAction *action) {
-            NSString *newArtistName = ((UITextField *)[newArtistAlert.textFields firstObject]).text;
-            self.selectedArtist = [Artist artistWithName:newArtistName inManagedObjectContext:self.context];
-            
-            if (self.screenMode == SelectionMode)
-                [self performSegueWithIdentifier:@"Select Artist Unwind" sender:newArtistAlert];
+    UIAlertController *newArtistAlert = [UIAlertController OKCancelAlertWithMessage:@"Please type the artist's name" andHandler:^(UIAlertAction *action, UIAlertController *alertVC) {
+        NSString *newArtistName = ((UITextField *)[alertVC.textFields firstObject]).text;
+        self.selectedArtist = [Artist artistWithName:newArtistName inManagedObjectContext:self.context];
+        
+        if (self.screenMode == SelectionMode)
+            [self performSegueWithIdentifier:@"Select Artist Unwind" sender:newArtistAlert];
     }];
-    [newArtistAlert addAction:addArtistAction];
     
     [newArtistAlert addTextFieldWithConfigurationHandler:^(UITextField *textField) {
         textField.autocapitalizationType = UITextAutocapitalizationTypeWords;

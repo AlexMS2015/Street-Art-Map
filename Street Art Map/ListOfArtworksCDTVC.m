@@ -8,18 +8,22 @@
 
 #import "ListOfArtworksCDTVC.h"
 #import "Artwork.h"
+#import "Artwork+Create.h"
 #import "Artist.h"
 #import "AddAndViewArtworkVC.h"
 #import "ArtworkTVC.h"
 #import "PhotoLibraryInterface.h"
-#import "UIAlertController+TwoButtonAlertWithAction.h"
-#import "Artwork+Create.h"
+#import "UIAlertController+ConvinienceMethods.h"
 
 @implementation ListOfArtworksCDTVC
 
-#pragma mark - View Life Cycle
+#pragma mark - Constants
 
-#define CELL_IDENTIFIER @"ArtworkCell"
+static NSString * const CELL_IDENTIFIER = @"ArtworkCell";
+static NSString * const ADD_ARTWORK_SEGUE = @"Add Artwork";
+static NSString * const VIEW_ARTWORK_SEGUE = @"View Artwork";
+
+#pragma mark - View Life Cycle
 
 -(void)viewDidLoad
 {
@@ -31,11 +35,6 @@
     self.navigationItem.leftBarButtonItem = self.editButtonItem;
 }
 
-#pragma mark - Implemented Abstract Methods
-
-// subclass will set up a query for some artworks from the database
--(void)setupFetchedResultsController { }
-
 #pragma mark - Segues
 
 // called on rewind from adding a photo or editing an existing photo
@@ -43,16 +42,14 @@
 
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
-    if ([segue.identifier isEqualToString:@"Add Artwork"] ||
-                    [segue.identifier isEqualToString:@"View Artwork"]) {
+    if ([segue.identifier isEqualToString:ADD_ARTWORK_SEGUE] || [segue.identifier isEqualToString:VIEW_ARTWORK_SEGUE]) {
         
         if ([segue.destinationViewController isMemberOfClass:[UINavigationController class]]) {
             UINavigationController *navController = (UINavigationController *)segue.destinationViewController;
             if ([[navController.viewControllers firstObject] isMemberOfClass:[AddAndViewArtworkVC class]]) {
                 AddAndViewArtworkVC *addAndViewArtworkVC = (AddAndViewArtworkVC *)[navController.viewControllers firstObject];
-                //addAndViewArtworkVC.context = self.context;
                 
-                if ([segue.identifier isEqualToString:@"View Artwork"]) {
+                if ([segue.identifier isEqualToString:VIEW_ARTWORK_SEGUE]) {
                     if ([sender isKindOfClass:[UITableViewCell class]]) {
                         UITableViewCell *selectedArtwork = (UITableViewCell *)sender;
                         NSIndexPath *pathOfSelectedArtwork = [self.tableView indexPathForCell:selectedArtwork];
@@ -85,18 +82,15 @@
 -(void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (editingStyle == UITableViewCellEditingStyleDelete) {
-        [self presentViewController:[UIAlertController twoButtonAlertWithTitle:@"Delete Photo" andMessage:@"Are you sure you want to delete this photo?" andAction:^(UIAlertAction *action) {
+        [self presentViewController:[UIAlertController YesNoAlertWithMessage:@"Are you sure you want to delete this photo?" andHandler:^(UIAlertAction *action, UIAlertController *alertVC) {
             Artwork *artworkToDelete = [self.fetchedResultsController objectAtIndexPath:indexPath];
             [artworkToDelete deleteFromDatabase];
-            [self.presentingViewController dismissViewControllerAnimated:YES completion:NULL];
         }] animated:YES completion:NULL];
     }
 }
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    NSLog(@"refreshing table view");
-    
     ArtworkTVC *cell = [self.tableView dequeueReusableCellWithIdentifier:CELL_IDENTIFIER];
     Artwork *artwork = [self.fetchedResultsController objectAtIndexPath:indexPath];
     
@@ -108,12 +102,11 @@
     lastEditDateFormatter.dateStyle = NSDateFormatterMediumStyle;
     cell.lastEditDateLabel.text = [lastEditDateFormatter stringFromDate:artwork.lastEditDate];
     
-    if (cell.tag != 0) // cancel any existing requests on the cell (perhaps being re-used)
+    if (cell.tag != 0) // cancel any existing requests on the cell (perhaps the cell is being re-used as the user has scrolled)
         [[PhotoLibraryInterface shared] cancelRequestWithID:(PHImageRequestID)cell.tag];
     
     cell.tag = [[PhotoLibraryInterface shared] imageWithLocalIdentifier:artwork.imageLocation size:cell.artworkImageView.bounds.size completion:^(UIImage *image) {
         cell.artworkImageView.image = image;
-        NSLog(@"setting image for artwork: %@ in location: %@", artwork.title, artwork.imageLocation);
         cell.tag = 0;
     }];
     

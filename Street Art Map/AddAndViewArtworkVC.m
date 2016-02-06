@@ -9,21 +9,14 @@
 #import "AddAndViewArtworkVC.h"
 #import "Artist.h"
 #import "Artwork.h"
+#import "Artwork+Create.h"
 #import "ArtistsCDTVC.h"
 #import "PhotoLibraryInterface.h"
-#import "UIAlertController+SingleButtonAlert.h"
-#import "Artwork+Create.h"
+#import "UIAlertController+ConvinienceMethods.h"
 #import <CoreLocation/CoreLocation.h>
-#import "UIAlertController+TwoButtonAlertWithAction.h"
-
-// denotes whether this VC is being used to create a new artwork or view an existing one
-typedef enum {
-    Create, Existing
-} ScreenMode;
 
 @interface AddAndViewArtworkVC () <UINavigationControllerDelegate, UIImagePickerControllerDelegate>
 
-@property (nonatomic) ScreenMode screenMode;
 @property (strong, nonatomic) Artwork *artwork;
 @property (strong, nonatomic) NSManagedObjectContext *context;
 
@@ -34,17 +27,20 @@ typedef enum {
 
 @implementation AddAndViewArtworkVC
 
+#pragma mark - Constants
+
+static NSString * const ADD_ARTWORK_UNWINDSEG = @"Add Artwork Unwind";
+static NSString * const SELECT_ARTIST_SEGUE = @"Select Artist";
+
 -(void)loadExistingArtwork:(Artwork *)artworkToview
 {
     self.artwork = artworkToview;
-    self.screenMode = Existing;
     self.context = artworkToview.managedObjectContext;
 }
 
 -(void)newArtworkWithTitle:(NSString *)title andArtist:(Artist *)artist inContext:(NSManagedObjectContext *)context
 {
     self.artwork = [Artwork artworkWithTitle:title artist:artist inContext:context];
-    self.screenMode = Create;
     self.context = context;
 }
 
@@ -64,10 +60,7 @@ typedef enum {
         [[PhotoLibraryInterface shared] imageWithLocalIdentifier:self.artwork.imageLocation size:self.artworkImageView.bounds.size completion:^(UIImage *image) {
             self.artworkImageView.image = image;
         }];
-    }
-    
-    if (self.screenMode == Existing) { // viewing an existing artwork
-        self.navigationItem.leftBarButtonItem = nil;
+        self.navigationItem.leftBarButtonItem = nil; // if there's an image, we must be viewing an existing artwork. Hence, remove the 'cancel' button present when creating an artwork.
     }
 }
 
@@ -75,11 +68,12 @@ typedef enum {
 
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
-    if ([segue.identifier isEqualToString:@"Add Artwork Unwind"]) { // rewind segue from the add artwork screen
-        
-#warning - NEED TO UPDATE THE ARTWORK'S GEOLOCATION - Perhaps do this when setting the image?
+    if ([segue.identifier isEqualToString:ADD_ARTWORK_UNWINDSEG]) {
 
-    } else if ([segue.identifier isEqualToString:@"Select Artist"]) {
+#warning - NEED TO UPDATE THE ARTWORK'S GEOLOCATION HERE - Perhaps do this when setting the image?
+
+        
+    } else if ([segue.identifier isEqualToString:SELECT_ARTIST_SEGUE]) {
         if ([segue.destinationViewController isMemberOfClass:[UINavigationController class]]) {
             UINavigationController *navController = (UINavigationController *)segue
             .destinationViewController;
@@ -95,9 +89,9 @@ typedef enum {
 
 -(BOOL)shouldPerformSegueWithIdentifier:(NSString *)identifier sender:(id)sender
 {
-    if ([identifier isEqualToString:@"Add Artwork Unwind"]) {
+    if ([identifier isEqualToString:ADD_ARTWORK_UNWINDSEG]) {
         if ([self.artwork.title length] == 0 || !self.artwork.imageLocation) {
-            [self presentViewController:[UIAlertController singleButtonAlertWithMessage:@"Photo title or image not set"] animated:YES completion:NULL];
+            [self presentViewController:[UIAlertController OKAlertWithMessage:@"Photo title or image not set"] animated:YES completion:NULL];
             return NO;
         }
     }
@@ -108,19 +102,24 @@ typedef enum {
 
 - (IBAction)changeTitle:(UIBarButtonItem *)sender
 {
-    UIAlertController *changeTitleAlert = [UIAlertController alertControllerWithTitle:@"Title" message:@"Please type a title for this street art" preferredStyle:UIAlertControllerStyleAlert];
+#warning THIS MIGHT CREATE A STRONG REFERECNE CYCLE
+    /*UIAlertController *changeTitleAlert = [UIAlertController alertControllerWithTitle:@"Title" message:@"Please type a title for this street art" preferredStyle:UIAlertControllerStyleAlert];
     
     [changeTitleAlert addAction:[UIAlertAction actionWithTitle:@"Cancel"
                                                          style:UIAlertActionStyleCancel
                                                        handler:NULL]];
-    
-#warning THIS MIGHT CREATE A STRONG REFERECNE CYCLE
-    
+     
     [changeTitleAlert addAction:[UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
         NSString *title = ((UITextField *)[changeTitleAlert.textFields firstObject]).text;
         self.artwork.title = title;
         self.navigationItem.title = self.artwork.title;
-    }]];
+    }]];*/
+    
+    UIAlertController *changeTitleAlert = [UIAlertController OKCancelAlertWithMessage:@"please type a title for this street art:" andHandler:^(UIAlertAction *action, UIAlertController *alertVC) {
+        NSString *title = ((UITextField *)[alertVC.textFields firstObject]).text;
+        self.artwork.title = title;
+        self.navigationItem.title = self.artwork.title;
+    }];
     
     [changeTitleAlert addTextFieldWithConfigurationHandler:^(UITextField *textField) {
         textField.autocapitalizationType = UITextAutocapitalizationTypeWords;
@@ -148,7 +147,7 @@ typedef enum {
         //imagePicker.allowsEditing = YES;
         [self presentViewController:imagePicker animated:YES completion:NULL];
     } else {
-        [self presentViewController:[UIAlertController singleButtonAlertWithMessage:@"Sorry, that option is not available on your device"] animated:YES completion:NULL];
+        [self presentViewController:[UIAlertController OKAlertWithMessage:@"Sorry, that option is not available on your device"] animated:YES completion:NULL];
     }
 }
 
@@ -171,7 +170,7 @@ typedef enum {
 
 - (IBAction)deleteCurrentArtwork:(UIBarButtonItem *)sender
 {
-    [self presentViewController:[UIAlertController twoButtonAlertWithTitle:@"Delete Photo" andMessage:@"Are you sure you want to delete this photo?" andAction:^(UIAlertAction *action) {
+    [self presentViewController:[UIAlertController YesNoAlertWithMessage:@"Are you sure you want to delete this photo?" andHandler:^(UIAlertAction *action, UIAlertController *alertVC) {
         [self.artwork deleteFromDatabase];
         [self.presentingViewController dismissViewControllerAnimated:YES completion:NULL];
     }] animated:YES completion:NULL];

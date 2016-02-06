@@ -59,7 +59,7 @@
     
     PHImageRequestID requestID = [[PHImageManager defaultManager] requestImageForAsset:[self assetForIdentifer:identifier] targetSize:size contentMode:PHImageContentModeAspectFill options:nil resultHandler:^(UIImage *result, NSDictionary *info) {
         if (info[PHImageErrorKey]) {
-            // error handling
+            NSLog(@"Error fetching image from local identifier");
         } else {
             block(result);
         }

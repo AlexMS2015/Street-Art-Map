@@ -333,6 +333,7 @@
         <!--Artists-->
         <scene sceneID="3sU-og-nhp">
             <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="WjQ-Sp-rTH" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="u5u-Ru-eKj" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Artists" id="kgW-DY-Tj6"/>
                     <toolbarItems/>
@@ -345,12 +346,11 @@
                         <segue destination="20v-PQ-yIo" kind="relationship" relationship="rootViewController" id="iFa-td-1UN"/>
                     </connections>
                 </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="WjQ-Sp-rTH" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2807" y="715"/>
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="w2N-b7-Qzf"/>
+        <segue reference="Ska-Zc-fp3"/>
     </inferredMetricsTieBreakers>
 </document>
