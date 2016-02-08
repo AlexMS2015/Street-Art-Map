@@ -10,8 +10,8 @@
 
 @interface GridVC ()
 
-@property (nonatomic, copy) void (^cellConfigureBlock)(UICollectionViewCell *, Position, int);
-@property (nonatomic, copy) void (^cellTapHandler)(UICollectionViewCell *, Position, int);
+@property (nonatomic, copy) gridBlock cellConfigureBlock;
+@property (nonatomic, copy) gridBlock cellTapHandler;
 @property (nonatomic) float cellWidth;
 @property (nonatomic) float cellHeight;
 
@@ -63,7 +63,7 @@
 
 #pragma mark - Initialiser
 
--(instancetype)initWithgridSize:(GridSize)size collectionView:(UICollectionView *)collectionView andCellConfigureBlock:(void (^)(UICollectionViewCell *, Position, int))cellConfigureBlock andCellTapHandler:(void (^)(UICollectionViewCell *, Position, int))cellTapHandler
+-(instancetype)initWithgridSize:(GridSize)size collectionView:(UICollectionView *)collectionView andCellConfigureBlock:(gridBlock)cellConfigureBlock andCellTapHandler:(gridBlock)cellTapHandler
 {
     if (self = [super init]) {
         self.collectionView = collectionView;
@@ -75,7 +75,6 @@
         
         self.grid = [[Grid alloc] initWithGridSize:size andOrientation:orientation];
         
-        // add a swipe gesture recogniser as a test
         [self.collectionView addGestureRecognizer:[self swipeGestureWithDirection:UISwipeGestureRecognizerDirectionLeft]];
         [self.collectionView addGestureRecognizer:[self swipeGestureWithDirection:UISwipeGestureRecognizerDirectionRight]];
         [self.collectionView addGestureRecognizer:[self swipeGestureWithDirection:UISwipeGestureRecognizerDirectionUp]];

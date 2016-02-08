@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		FA0EB1131B649F110034FD18 /* ListOfArtworksCDTVC.m in Sources */ = {isa = PBXBuildFile; fileRef = FA0EB1121B649F110034FD18 /* ListOfArtworksCDTVC.m */; };
 		FA0FAA231C65DFD60023FC48 /* UIAlertController+ConvinienceMethods.m in Sources */ = {isa = PBXBuildFile; fileRef = FA0FAA221C65DFD60023FC48 /* UIAlertController+ConvinienceMethods.m */; settings = {ASSET_TAGS = (); }; };
+		FA0FAA6F1C68BBC00023FC48 /* DoubleTapToZoomScrollViewDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = FA0FAA6E1C68BBC00023FC48 /* DoubleTapToZoomScrollViewDelegate.m */; settings = {ASSET_TAGS = (); }; };
 		FA315FBB1BAE59B300BE5F02 /* SelectArtistTVC.m in Sources */ = {isa = PBXBuildFile; fileRef = FA315FB91BAE59B300BE5F02 /* SelectArtistTVC.m */; };
 		FA315FBC1BAE59B300BE5F02 /* SelectArtistTVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = FA315FBA1BAE59B300BE5F02 /* SelectArtistTVC.xib */; };
 		FA315FC21BAE852400BE5F02 /* ArtworkImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = FA315FC11BAE852400BE5F02 /* ArtworkImageView.m */; };
@@ -61,6 +62,8 @@
 		FA0EB1121B649F110034FD18 /* ListOfArtworksCDTVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ListOfArtworksCDTVC.m; sourceTree = "<group>"; };
 		FA0FAA211C65DFD60023FC48 /* UIAlertController+ConvinienceMethods.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIAlertController+ConvinienceMethods.h"; sourceTree = "<group>"; };
 		FA0FAA221C65DFD60023FC48 /* UIAlertController+ConvinienceMethods.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIAlertController+ConvinienceMethods.m"; sourceTree = "<group>"; };
+		FA0FAA6D1C68BBC00023FC48 /* DoubleTapToZoomScrollViewDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DoubleTapToZoomScrollViewDelegate.h; sourceTree = "<group>"; };
+		FA0FAA6E1C68BBC00023FC48 /* DoubleTapToZoomScrollViewDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DoubleTapToZoomScrollViewDelegate.m; sourceTree = "<group>"; };
 		FA315FB81BAE59B300BE5F02 /* SelectArtistTVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SelectArtistTVC.h; sourceTree = "<group>"; };
 		FA315FB91BAE59B300BE5F02 /* SelectArtistTVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SelectArtistTVC.m; sourceTree = "<group>"; };
 		FA315FBA1BAE59B300BE5F02 /* SelectArtistTVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SelectArtistTVC.xib; sourceTree = "<group>"; };
@@ -302,6 +305,8 @@
 				FAC2C7671B50DE5900DE31A5 /* RecentsCDTVC.m */,
 				FAC2C7691B50E87700DE31A5 /* AddAndViewArtworkVC.h */,
 				FAC2C76A1B50E87700DE31A5 /* AddAndViewArtworkVC.m */,
+				FA0FAA6D1C68BBC00023FC48 /* DoubleTapToZoomScrollViewDelegate.h */,
+				FA0FAA6E1C68BBC00023FC48 /* DoubleTapToZoomScrollViewDelegate.m */,
 				FAC2C76C1B51E44800DE31A5 /* ArtistsCDTVC.h */,
 				FAC2C76D1B51E44800DE31A5 /* ArtistsCDTVC.m */,
 				FA5339D21B6DAA2F006C0F52 /* ArtworkMapVC.h */,
@@ -450,6 +455,7 @@
 				FABBF6871C420A8C008DB672 /* PositionStruct.m in Sources */,
 				FAC2C76E1B51E44800DE31A5 /* ArtistsCDTVC.m in Sources */,
 				FABBF6851C420A8C008DB672 /* GridVC.m in Sources */,
+				FA0FAA6F1C68BBC00023FC48 /* DoubleTapToZoomScrollViewDelegate.m in Sources */,
 				FA5339D01B6655D1006C0F52 /* ArtworkTVC.m in Sources */,
 				FA0EB1131B649F110034FD18 /* ListOfArtworksCDTVC.m in Sources */,
 				FABBF6821C420A8C008DB672 /* CodableObject.m in Sources */,

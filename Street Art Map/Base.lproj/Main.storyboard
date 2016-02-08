@@ -56,7 +56,7 @@
             </objects>
             <point key="canvasLocation" x="417" y="715"/>
         </scene>
-        <!--Add Art-->
+        <!--Add Artwork-->
         <scene sceneID="INf-Ot-SeB">
             <objects>
                 <viewController id="U4G-UC-dUa" customClass="AddAndViewArtworkVC" sceneMemberID="viewController">
@@ -68,17 +68,38 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="1cp-Um-AAR">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="IFI-KH-wfc">
                                 <rect key="frame" x="0.0" y="64" width="600" height="492"/>
-                                <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                            </imageView>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </view>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="PX1-hM-4n4">
+                                <rect key="frame" x="0.0" y="64" width="600" height="492"/>
+                                <subviews>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="1cp-Um-AAR">
+                                        <rect key="frame" x="0.0" y="0.0" width="600" height="492"/>
+                                        <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                    </imageView>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstAttribute="bottom" secondItem="1cp-Um-AAR" secondAttribute="bottom" id="lGL-sy-qcf"/>
+                                    <constraint firstAttribute="trailing" secondItem="1cp-Um-AAR" secondAttribute="trailing" id="qGI-hs-dgy"/>
+                                    <constraint firstItem="1cp-Um-AAR" firstAttribute="leading" secondItem="PX1-hM-4n4" secondAttribute="leading" id="rRh-uB-q0n"/>
+                                    <constraint firstItem="1cp-Um-AAR" firstAttribute="top" secondItem="PX1-hM-4n4" secondAttribute="top" id="sSY-BI-Ril"/>
+                                </constraints>
+                            </scrollView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="jZh-KK-s2m" firstAttribute="top" secondItem="1cp-Um-AAR" secondAttribute="bottom" id="6Of-i0-oqp"/>
-                            <constraint firstItem="1cp-Um-AAR" firstAttribute="top" secondItem="amZ-mK-duq" secondAttribute="bottom" id="ESW-0B-hWO"/>
-                            <constraint firstItem="1cp-Um-AAR" firstAttribute="leading" secondItem="UVM-iF-oh4" secondAttribute="leading" id="nzG-5N-d7M"/>
-                            <constraint firstAttribute="trailing" secondItem="1cp-Um-AAR" secondAttribute="trailing" id="tiP-VH-dEd"/>
+                            <constraint firstItem="1cp-Um-AAR" firstAttribute="width" secondItem="UVM-iF-oh4" secondAttribute="width" id="2Vb-7Q-Zqu"/>
+                            <constraint firstAttribute="trailing" secondItem="PX1-hM-4n4" secondAttribute="trailing" id="4iB-KR-Kto"/>
+                            <constraint firstItem="PX1-hM-4n4" firstAttribute="leading" secondItem="UVM-iF-oh4" secondAttribute="leading" id="ADT-0f-7IX"/>
+                            <constraint firstAttribute="trailing" secondItem="IFI-KH-wfc" secondAttribute="trailing" id="CFP-ph-gjE"/>
+                            <constraint firstItem="IFI-KH-wfc" firstAttribute="top" secondItem="amZ-mK-duq" secondAttribute="bottom" id="Kp4-ag-19G"/>
+                            <constraint firstItem="IFI-KH-wfc" firstAttribute="leading" secondItem="UVM-iF-oh4" secondAttribute="leading" id="W8y-dm-woI"/>
+                            <constraint firstItem="jZh-KK-s2m" firstAttribute="top" secondItem="IFI-KH-wfc" secondAttribute="bottom" id="Zc0-nY-4gB"/>
+                            <constraint firstItem="PX1-hM-4n4" firstAttribute="top" secondItem="amZ-mK-duq" secondAttribute="bottom" id="Zfw-2e-TBK"/>
+                            <constraint firstItem="1cp-Um-AAR" firstAttribute="height" secondItem="IFI-KH-wfc" secondAttribute="height" id="btx-rD-jDp"/>
+                            <constraint firstItem="jZh-KK-s2m" firstAttribute="top" secondItem="PX1-hM-4n4" secondAttribute="bottom" id="sg9-hD-Far"/>
                         </constraints>
                     </view>
                     <toolbarItems>
@@ -104,10 +125,10 @@
                             </connections>
                         </barButtonItem>
                     </toolbarItems>
-                    <navigationItem key="navigationItem" title="Add Art" id="w0d-tB-UnZ">
+                    <navigationItem key="navigationItem" title="Add Artwork" id="w0d-tB-UnZ">
                         <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="J1z-Vq-kPo">
                             <connections>
-                                <action selector="deleteCurrentArtwork:" destination="U4G-UC-dUa" id="ayT-CC-icI"/>
+                                <action selector="cancel:" destination="U4G-UC-dUa" id="nir-Cz-AgE"/>
                             </connections>
                         </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" systemItem="done" id="hNK-K6-EXO">
@@ -119,6 +140,8 @@
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="artworkImageView" destination="1cp-Um-AAR" id="xX3-8a-V1A"/>
+                        <outlet property="artworkScrollView" destination="PX1-hM-4n4" id="SBM-wu-1Te"/>
+                        <outlet property="deleteBarButtonItem" destination="mHN-3f-gXZ" id="HJM-cH-NIk"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Dup-gT-6yb" userLabel="First Responder" sceneMemberID="firstResponder"/>

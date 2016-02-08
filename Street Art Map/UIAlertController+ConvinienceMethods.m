@@ -17,7 +17,7 @@
     return alertVC;
 }
 
-+(UIAlertController *)YesNoAlertWithMessage:(NSString *)message andAction:(void (^)(UIAlertAction *, UIAlertController *))actionBlock
++(UIAlertController *)YesNoAlertWithMessage:(NSString *)message andHandler:(void (^)(UIAlertAction *, UIAlertController *))actionBlock
 {
     UIAlertController *alertVC = [UIAlertController twoButtonAlertWithMessage:message andButtonTitles:@[@"Yes", @"No"] andHandler:actionBlock];
     

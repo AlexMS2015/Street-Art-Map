@@ -73,9 +73,9 @@
     __block NSString *localIdentifier;
     
     [[PHPhotoLibrary sharedPhotoLibrary] performChanges:^{
-        PHAssetChangeRequest *addArtworkRequest = [PHAssetChangeRequest creationRequestForAssetFromImage:image];
-        PHObjectPlaceholder *addedArtworkPlaceholder = addArtworkRequest.placeholderForCreatedAsset;
-        localIdentifier = addedArtworkPlaceholder.localIdentifier;
+        PHAssetChangeRequest *request = [PHAssetChangeRequest creationRequestForAssetFromImage:image];
+        PHObjectPlaceholder *placeholder = request.placeholderForCreatedAsset;
+        localIdentifier = placeholder.localIdentifier;
     } completionHandler:^(BOOL success, NSError *error) {
         block(localIdentifier);
     }];

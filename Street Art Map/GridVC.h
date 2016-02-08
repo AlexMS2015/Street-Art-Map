@@ -17,6 +17,8 @@
 
 @end
 
+typedef void (^gridBlock)(UICollectionViewCell *cell, Position position, int index);
+
 @interface GridVC : UIViewController <UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout>
 
 @property (weak, nonatomic) id<GridVCDelegate> delegate;
@@ -26,8 +28,8 @@
 // the 'Orientation' of the grid will be determined by the passed in collectionView's scrolling direction.
 -(instancetype)initWithgridSize:(GridSize)size
                  collectionView:(UICollectionView *)collectionView
-          andCellConfigureBlock:(void (^)(UICollectionViewCell *cell, Position position, int index))cellConfigureBlock
-              andCellTapHandler:(void (^)(UICollectionViewCell *cell, Position position, int index))cellTapHandler;
+          andCellConfigureBlock:(gridBlock)cellConfigureBlock
+              andCellTapHandler:(gridBlock)cellTapHandler;
 
 -(NSIndexPath *)indexPathForPosition:(Position)position;
 -(UICollectionViewCell *)cellAtPosition:(Position)position;

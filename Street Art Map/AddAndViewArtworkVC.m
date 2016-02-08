@@ -13,15 +13,19 @@
 #import "ArtistsCDTVC.h"
 #import "PhotoLibraryInterface.h"
 #import "UIAlertController+ConvinienceMethods.h"
+#import "DoubleTapToZoomScrollViewDelegate.h"
 #import <CoreLocation/CoreLocation.h>
 
-@interface AddAndViewArtworkVC () <UINavigationControllerDelegate, UIImagePickerControllerDelegate>
+@interface AddAndViewArtworkVC () <UINavigationControllerDelegate, UIImagePickerControllerDelegate, UIScrollViewDelegate>
 
 @property (strong, nonatomic) Artwork *artwork;
 @property (strong, nonatomic) NSManagedObjectContext *context;
+@property (strong, nonatomic) DoubleTapToZoomScrollViewDelegate *svZoomDelegate;
 
 // outlets
 @property (weak, nonatomic) IBOutlet UIImageView *artworkImageView;
+@property (weak, nonatomic) IBOutlet UIBarButtonItem *deleteBarButtonItem;
+@property (weak, nonatomic) IBOutlet UIScrollView *artworkScrollView;
 
 @end
 
@@ -31,6 +35,9 @@
 
 static NSString * const ADD_ARTWORK_UNWINDSEG = @"Add Artwork Unwind";
 static NSString * const SELECT_ARTIST_SEGUE = @"Select Artist";
+static NSString * const SELECT_ARTIST_UNWINDSEG = @"Select Artist Unwind";
+static const int MINIMUM_ZOOM_SCALE = 1;
+static const int MAXIMUM_ZOOM_SCALE = 3;
 
 -(void)loadExistingArtwork:(Artwork *)artworkToview
 {
@@ -52,36 +59,37 @@ static NSString * const SELECT_ARTIST_SEGUE = @"Select Artist";
     
     if (self.artwork.title) {
         self.navigationItem.title = self.artwork.title;
-    } else {
-        self.navigationItem.title = @"Add Art";
     }
     
     if (self.artwork.imageLocation) {
         [[PhotoLibraryInterface shared] imageWithLocalIdentifier:self.artwork.imageLocation size:self.artworkImageView.bounds.size completion:^(UIImage *image) {
             self.artworkImageView.image = image;
         }];
-        self.navigationItem.leftBarButtonItem = nil; // if there's an image, we must be viewing an existing artwork. Hence, remove the 'cancel' button present when creating an artwork.
+        self.navigationItem.leftBarButtonItem = nil; // if there's an image we must be viewing an existing artwork. Hence, remove the 'cancel' button present when creating an artwork.
+    } else {
+        self.deleteBarButtonItem.tintColor = [UIColor clearColor];
+        self.deleteBarButtonItem.enabled = NO;
     }
+    
+    self.svZoomDelegate = [[DoubleTapToZoomScrollViewDelegate alloc] initWithViewToZoom:self.artworkImageView inScrollView:self.artworkScrollView withMinZoomScale:MINIMUM_ZOOM_SCALE andMaxZoomScale:MAXIMUM_ZOOM_SCALE];
 }
 
 #pragma mark - Segues
 
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
-    if ([segue.identifier isEqualToString:ADD_ARTWORK_UNWINDSEG]) {
+    //if ([segue.identifier isEqualToString:ADD_ARTWORK_UNWINDSEG]) {
+    // NEED TO UPDATE THE ARTWORK'S GEOLOCATION HERE - Perhaps do this when setting the image?
 
-#warning - NEED TO UPDATE THE ARTWORK'S GEOLOCATION HERE - Perhaps do this when setting the image?
-
-        
-    } else if ([segue.identifier isEqualToString:SELECT_ARTIST_SEGUE]) {
+    if ([segue.identifier isEqualToString:SELECT_ARTIST_SEGUE]) {
         if ([segue.destinationViewController isMemberOfClass:[UINavigationController class]]) {
             UINavigationController *navController = (UINavigationController *)segue
             .destinationViewController;
             if ([[navController.viewControllers firstObject] isMemberOfClass:[ArtistsCDTVC class]]) {
-                ArtistsCDTVC *artistSelection = (ArtistsCDTVC *)[navController.viewControllers firstObject];
-                artistSelection.context = self.context;
-                artistSelection.screenMode = SelectionMode;
-                artistSelection.selectedArtist = self.artwork.artist;
+                ArtistsCDTVC *selectArtistVC = (ArtistsCDTVC *)[navController.viewControllers firstObject];
+                selectArtistVC.context = self.context;
+                selectArtistVC.screenMode = SelectionMode;
+                selectArtistVC.selectedArtist = self.artwork.artist;
             }
         }
     }
@@ -91,7 +99,7 @@ static NSString * const SELECT_ARTIST_SEGUE = @"Select Artist";
 {
     if ([identifier isEqualToString:ADD_ARTWORK_UNWINDSEG]) {
         if ([self.artwork.title length] == 0 || !self.artwork.imageLocation) {
-            [self presentViewController:[UIAlertController OKAlertWithMessage:@"Photo title or image not set"] animated:YES completion:NULL];
+            [self presentViewController:[UIAlertController OKAlertWithMessage:@"Artwork title or image not set"] animated:YES completion:NULL];
             return NO;
         }
     }
@@ -102,20 +110,7 @@ static NSString * const SELECT_ARTIST_SEGUE = @"Select Artist";
 
 - (IBAction)changeTitle:(UIBarButtonItem *)sender
 {
-#warning THIS MIGHT CREATE A STRONG REFERECNE CYCLE
-    /*UIAlertController *changeTitleAlert = [UIAlertController alertControllerWithTitle:@"Title" message:@"Please type a title for this street art" preferredStyle:UIAlertControllerStyleAlert];
-    
-    [changeTitleAlert addAction:[UIAlertAction actionWithTitle:@"Cancel"
-                                                         style:UIAlertActionStyleCancel
-                                                       handler:NULL]];
-     
-    [changeTitleAlert addAction:[UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
-        NSString *title = ((UITextField *)[changeTitleAlert.textFields firstObject]).text;
-        self.artwork.title = title;
-        self.navigationItem.title = self.artwork.title;
-    }]];*/
-    
-    UIAlertController *changeTitleAlert = [UIAlertController OKCancelAlertWithMessage:@"please type a title for this street art:" andHandler:^(UIAlertAction *action, UIAlertController *alertVC) {
+    UIAlertController *changeTitleAlert = [UIAlertController OKCancelAlertWithMessage:@"Please type a title for this street art" andHandler:^(UIAlertAction *action, UIAlertController *alertVC) {
         NSString *title = ((UITextField *)[alertVC.textFields firstObject]).text;
         self.artwork.title = title;
         self.navigationItem.title = self.artwork.title;
@@ -130,7 +125,7 @@ static NSString * const SELECT_ARTIST_SEGUE = @"Select Artist";
 
 -(IBAction)done:(UIStoryboardSegue *)segue
 {
-    if ([segue.identifier isEqualToString:@"Select Artist Unwind"]) {
+    if ([segue.identifier isEqualToString:SELECT_ARTIST_UNWINDSEG]) {
         if ([segue.sourceViewController isMemberOfClass:[ArtistsCDTVC class]]) {
             ArtistsCDTVC *artistSelection = (ArtistsCDTVC *)segue.sourceViewController;
             self.artwork.artist = artistSelection.selectedArtist;
@@ -168,36 +163,54 @@ static NSString * const SELECT_ARTIST_SEGUE = @"Select Artist";
     [self presentViewController:addPhotoAlert animated:YES completion:NULL];
 }
 
+-(void)deleteAndExit
+{
+    [self.artwork deleteFromDatabase];
+    [self.presentingViewController dismissViewControllerAnimated:YES completion:NULL];
+}
+
+- (IBAction)cancel:(UIBarButtonItem *)sender
+{
+    [self deleteAndExit];
+}
+
 - (IBAction)deleteCurrentArtwork:(UIBarButtonItem *)sender
 {
-    [self presentViewController:[UIAlertController YesNoAlertWithMessage:@"Are you sure you want to delete this photo?" andHandler:^(UIAlertAction *action, UIAlertController *alertVC) {
-        [self.artwork deleteFromDatabase];
-        [self.presentingViewController dismissViewControllerAnimated:YES completion:NULL];
+    [self presentViewController:[UIAlertController YesNoAlertWithMessage:@"Are you sure you want to delete this artwork?" andHandler:^(UIAlertAction *action, UIAlertController *alertVC) {
+        [self deleteAndExit];
     }] animated:YES completion:NULL];
+}
+
+#pragma mark - UIScrollViewDelegate
+
+-(UIView *)viewForZoomingInScrollView:(UIScrollView *)scrollView
+{
+    return self.artworkImageView;
 }
 
 #pragma mark - UIImagePickerControllerDelegate
 
 -(void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
 {
-#warning - Should the following line be at the end of the method or start?
-    [self dismissViewControllerAnimated:YES completion:NULL];
     
     if (info[UIImagePickerControllerReferenceURL]) { // chose an existing photo
         self.artwork.imageLocation = [[PhotoLibraryInterface shared] localIdentifierForALAssetURL:info[UIImagePickerControllerReferenceURL]];
+        [[PhotoLibraryInterface shared] imageWithLocalIdentifier:self.artwork.imageLocation size:self.artworkImageView.bounds.size completion:^(UIImage *image) {
+            self.artworkImageView.image = image;
+        }];
     } else { // took a new photo
         UIImage *artworkImage = info[UIImagePickerControllerOriginalImage];
         [[PhotoLibraryInterface shared] localIdentifierForImage:artworkImage completion:^(NSString *identifier) {
             self.artwork.imageLocation = identifier;
         }];
+        self.artworkImageView.image = artworkImage;
     }
-#warning - THIS CODE IS RUBBISH
-    [[PhotoLibraryInterface shared] imageWithLocalIdentifier:self.artwork.imageLocation size:self.artworkImageView.bounds.size completion:^(UIImage *image) {
-        self.artworkImageView.image = image;
-    }];
+
     CLLocation *location = [[PhotoLibraryInterface shared] locationForImageWithLocalIdentifier:self.artwork.imageLocation];
     self.artwork.lattitude = [NSNumber numberWithDouble:location.coordinate.latitude];
     self.artwork.longitude = [NSNumber numberWithDouble:location.coordinate.longitude];
+    
+    [self dismissViewControllerAnimated:YES completion:NULL];
 }
 
 -(void)imagePickerControllerDidCancel:(UIImagePickerController *)picker

@@ -239,7 +239,6 @@
 
 - (IBAction)addArtist:(UIBarButtonItem *)sender
 {
-#warning THIS MIGHT CREATE A STRONG REFERECNE CYCLE
     UIAlertController *newArtistAlert = [UIAlertController OKCancelAlertWithMessage:@"Please type the artist's name" andHandler:^(UIAlertAction *action, UIAlertController *alertVC) {
         NSString *newArtistName = ((UITextField *)[alertVC.textFields firstObject]).text;
         self.selectedArtist = [Artist artistWithName:newArtistName inManagedObjectContext:self.context];

@@ -82,7 +82,7 @@ static NSString * const VIEW_ARTWORK_SEGUE = @"View Artwork";
 -(void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (editingStyle == UITableViewCellEditingStyleDelete) {
-        [self presentViewController:[UIAlertController YesNoAlertWithMessage:@"Are you sure you want to delete this photo?" andHandler:^(UIAlertAction *action, UIAlertController *alertVC) {
+        [self presentViewController:[UIAlertController YesNoAlertWithMessage:@"Are you sure you want to delete this artwork?" andHandler:^(UIAlertAction *action, UIAlertController *alertVC) {
             Artwork *artworkToDelete = [self.fetchedResultsController objectAtIndexPath:indexPath];
             [artworkToDelete deleteFromDatabase];
         }] animated:YES completion:NULL];
