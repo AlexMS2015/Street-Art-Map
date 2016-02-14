@@ -16,7 +16,7 @@
 #import "DoubleTapToZoomScrollViewDelegate.h"
 #import <CoreLocation/CoreLocation.h>
 
-@interface AddAndViewArtworkVC () <UINavigationControllerDelegate, UIImagePickerControllerDelegate, UIScrollViewDelegate>
+@interface AddAndViewArtworkVC () <UINavigationControllerDelegate, UIImagePickerControllerDelegate>
 
 @property (strong, nonatomic) Artwork *artwork;
 @property (strong, nonatomic) NSManagedObjectContext *context;
@@ -37,7 +37,7 @@ static NSString * const ADD_ARTWORK_UNWINDSEG = @"Add Artwork Unwind";
 static NSString * const SELECT_ARTIST_SEGUE = @"Select Artist";
 static NSString * const SELECT_ARTIST_UNWINDSEG = @"Select Artist Unwind";
 static const int MINIMUM_ZOOM_SCALE = 1;
-static const int MAXIMUM_ZOOM_SCALE = 3;
+static const int MAXIMUM_ZOOM_SCALE = 4;
 
 -(void)loadExistingArtwork:(Artwork *)artworkToview
 {
@@ -181,13 +181,6 @@ static const int MAXIMUM_ZOOM_SCALE = 3;
     }] animated:YES completion:NULL];
 }
 
-#pragma mark - UIScrollViewDelegate
-
--(UIView *)viewForZoomingInScrollView:(UIScrollView *)scrollView
-{
-    return self.artworkImageView;
-}
-
 #pragma mark - UIImagePickerControllerDelegate
 
 -(void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
@@ -205,6 +198,7 @@ static const int MAXIMUM_ZOOM_SCALE = 3;
         }];
         self.artworkImageView.image = artworkImage;
     }
+    self.artworkScrollView.zoomScale = MINIMUM_ZOOM_SCALE;
 
     CLLocation *location = [[PhotoLibraryInterface shared] locationForImageWithLocalIdentifier:self.artwork.imageLocation];
     self.artwork.lattitude = [NSNumber numberWithDouble:location.coordinate.latitude];

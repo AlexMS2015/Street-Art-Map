@@ -52,7 +52,18 @@
     if (self.scrollView.zoomScale > self.minZoomScale) {
         [self.scrollView setZoomScale:self.minZoomScale animated:YES];
     } else if (self.scrollView.zoomScale == self.minZoomScale) {
-        [self.scrollView setZoomScale:self.maxZoomScale animated:YES];
+        float xTap = [gestureRecognizer locationInView:self.viewToZoom].x;
+        float yTap = [gestureRecognizer locationInView:self.viewToZoom].y;
+
+        float viewingAreaWidth = self.scrollView.frame.size.width / self.maxZoomScale;
+        float viewingAreaHeight = self.scrollView.frame.size.height / self.maxZoomScale;
+
+        float offsetX = xTap - (0.5 * viewingAreaWidth);
+        float offsetY = yTap - (0.5 * viewingAreaHeight);
+        
+        CGRect viewingRect = CGRectMake(offsetX, offsetY, viewingAreaWidth, viewingAreaHeight);
+        
+        [self.scrollView zoomToRect:viewingRect animated:YES];
     }
 }
 
