@@ -8,20 +8,18 @@
 
 #import <Foundation/Foundation.h>
 #import <CoreData/CoreData.h>
-
 @class Artwork;
+
+NS_ASSUME_NONNULL_BEGIN
 
 @interface Artist : NSManagedObject
 
-@property (nonatomic, retain) NSString *name;
-@property (nonatomic, retain) NSSet *artworks;
-@end
-
-@interface Artist (CoreDataGeneratedAccessors)
-
-- (void)addArtworksObject:(Artwork *)value;
-- (void)removeArtworksObject:(Artwork *)value;
-- (void)addArtworks:(NSSet *)values;
-- (void)removeArtworks:(NSSet *)values;
++(Artist *)artistWithName:(NSString *)name inManagedObjectContext:(NSManagedObjectContext *)context;
+-(void)deleteFromDatabase;
+-(BOOL)isEqualToArtist:(Artist *)artist;
 
 @end
+
+NS_ASSUME_NONNULL_END
+
+#import "Artist+CoreDataProperties.h"

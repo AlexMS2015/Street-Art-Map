@@ -7,6 +7,7 @@
 //
 
 #import "Artwork+Annotation.h"
+#import "Location.h"
 
 @implementation Artwork (Annotation)
 
@@ -15,8 +16,8 @@
 -(CLLocationCoordinate2D)coordinate
 {
     CLLocationCoordinate2D coordinate;
-    coordinate.latitude = [self.lattitude doubleValue];
-    coordinate.longitude = [self.longitude doubleValue];
+    coordinate.latitude = self.location.lattitude;
+    coordinate.longitude = self.location.longitude;
     
     return coordinate;
 }

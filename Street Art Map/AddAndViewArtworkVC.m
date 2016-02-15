@@ -9,7 +9,8 @@
 #import "AddAndViewArtworkVC.h"
 #import "Artist.h"
 #import "Artwork.h"
-#import "Artwork+Create.h"
+#import "Location.h"
+#import "ImageFileLocation.h"
 #import "ArtistsCDTVC.h"
 #import "PhotoLibraryInterface.h"
 #import "UIAlertController+ConvinienceMethods.h"
@@ -61,8 +62,8 @@ static const int MAXIMUM_ZOOM_SCALE = 4;
         self.navigationItem.title = self.artwork.title;
     }
     
-    if (self.artwork.imageLocation) {
-        [[PhotoLibraryInterface shared] imageWithLocalIdentifier:self.artwork.imageLocation size:self.artworkImageView.bounds.size completion:^(UIImage *image) {
+    if ([self.artwork.imageFileLocations count] > 0) {
+        [[PhotoLibraryInterface shared] imageWithLocalIdentifier:[self.artwork defaultImageLocation] size:self.artworkImageView.bounds.size completion:^(UIImage *image) {
             self.artworkImageView.image = image;
         }];
         self.navigationItem.leftBarButtonItem = nil; // if there's an image we must be viewing an existing artwork. Hence, remove the 'cancel' button present when creating an artwork.
@@ -98,7 +99,7 @@ static const int MAXIMUM_ZOOM_SCALE = 4;
 -(BOOL)shouldPerformSegueWithIdentifier:(NSString *)identifier sender:(id)sender
 {
     if ([identifier isEqualToString:ADD_ARTWORK_UNWINDSEG]) {
-        if ([self.artwork.title length] == 0 || !self.artwork.imageLocation) {
+        if ([self.artwork.title length] == 0 || [self.artwork.imageFileLocations count] == 0) {
             [self presentViewController:[UIAlertController OKAlertWithMessage:@"Artwork title or image not set"] animated:YES completion:NULL];
             return NO;
         }
@@ -185,24 +186,29 @@ static const int MAXIMUM_ZOOM_SCALE = 4;
 
 -(void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
 {
-    
+    __block NSString *imageFileLocation;
     if (info[UIImagePickerControllerReferenceURL]) { // chose an existing photo
-        self.artwork.imageLocation = [[PhotoLibraryInterface shared] localIdentifierForALAssetURL:info[UIImagePickerControllerReferenceURL]];
-        [[PhotoLibraryInterface shared] imageWithLocalIdentifier:self.artwork.imageLocation size:self.artworkImageView.bounds.size completion:^(UIImage *image) {
+        imageFileLocation = [[PhotoLibraryInterface shared] localIdentifierForALAssetURL:info[UIImagePickerControllerReferenceURL]];
+        ImageFileLocation *fileLocation = [ImageFileLocation newImageLocationWithLocation:imageFileLocation inContext:self.context];
+        [self.artwork addImageFileLocationsObject:fileLocation];
+        
+        [[PhotoLibraryInterface shared] imageWithLocalIdentifier:imageFileLocation size:self.artworkImageView.bounds.size completion:^(UIImage *image) {
             self.artworkImageView.image = image;
         }];
     } else { // took a new photo
         UIImage *artworkImage = info[UIImagePickerControllerOriginalImage];
         [[PhotoLibraryInterface shared] localIdentifierForImage:artworkImage completion:^(NSString *identifier) {
-            self.artwork.imageLocation = identifier;
+            imageFileLocation = identifier;
+            ImageFileLocation *fileLocation = [ImageFileLocation newImageLocationWithLocation:imageFileLocation inContext:self.context];
+            [self.artwork addImageFileLocationsObject:fileLocation];
         }];
         self.artworkImageView.image = artworkImage;
     }
     self.artworkScrollView.zoomScale = MINIMUM_ZOOM_SCALE;
 
-    CLLocation *location = [[PhotoLibraryInterface shared] locationForImageWithLocalIdentifier:self.artwork.imageLocation];
-    self.artwork.lattitude = [NSNumber numberWithDouble:location.coordinate.latitude];
-    self.artwork.longitude = [NSNumber numberWithDouble:location.coordinate.longitude];
+    CLLocation *location = [[PhotoLibraryInterface shared] locationForImageWithLocalIdentifier:imageFileLocation];
+    self.artwork.location.lattitude = location.coordinate.latitude;
+    self.artwork.location.longitude = location.coordinate.longitude;
     
     [self dismissViewControllerAnimated:YES completion:NULL];
 }

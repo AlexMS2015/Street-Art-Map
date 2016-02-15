@@ -12,10 +12,4 @@
 
 @implementation Location
 
-@dynamic city;
-@dynamic country;
-@dynamic lattitude;
-@dynamic longitude;
-@dynamic artworks;
-
 @end

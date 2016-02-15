@@ -8,8 +8,6 @@
 
 #import "ArtistsCDTVC.h"
 #import "Artist.h"
-#import "Artist+Equality.h"
-#import "Artist+Create.h"
 #import "Artwork.h"
 #import "PhotoLibraryInterface.h"
 #import "ViewArtistTVC.h"
@@ -155,15 +153,15 @@
                 Artwork *artworkToDisplayImageFor = [artist.artworks allObjects][index];
                 
                 // is the image for this artwork already cached?
-                if (!self.cachedImages[artworkToDisplayImageFor.imageLocation]) {
+                if (!self.cachedImages[[artworkToDisplayImageFor defaultImageLocation]]) {
                     // fetch the photo and add it to the cache if not
-                    [[PhotoLibraryInterface shared] imageWithLocalIdentifier:artworkToDisplayImageFor.imageLocation size:cvc.bounds.size completion:^(UIImage *image) {
+                    [[PhotoLibraryInterface shared] imageWithLocalIdentifier:[artworkToDisplayImageFor defaultImageLocation] size:cvc.bounds.size completion:^(UIImage *image) {
                         artworkImage = image;
                         if (image)
-                            self.cachedImages[artworkToDisplayImageFor.imageLocation] = image;
+                            self.cachedImages[[artworkToDisplayImageFor defaultImageLocation]] = image;
                     }];
                 } else { // retrieve the image from cache
-                    artworkImage = self.cachedImages[artworkToDisplayImageFor.imageLocation];
+                    artworkImage = self.cachedImages[[artworkToDisplayImageFor defaultImageLocation]];
                 }
             } else {
                 artworkImage = nil;

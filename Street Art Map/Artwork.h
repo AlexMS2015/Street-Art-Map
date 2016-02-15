@@ -8,18 +8,19 @@
 
 #import <Foundation/Foundation.h>
 #import <CoreData/CoreData.h>
-
 @class Artist, Location;
+
+NS_ASSUME_NONNULL_BEGIN
 
 @interface Artwork : NSManagedObject
 
-@property (nonatomic, retain) NSString * imageLocation;
-@property (nonatomic, retain) NSDate * lastEditDate;
-@property (nonatomic, retain) NSNumber * lattitude;
-@property (nonatomic, retain) NSNumber * longitude;
-@property (nonatomic, retain) NSString * title;
-@property (nonatomic, retain) NSDate * imageUploadDate;
-@property (nonatomic, retain) Artist *artist;
-@property (nonatomic, retain) Location *location;
++(Artwork *)artworkWithTitle:(NSString *)title artist:(Artist *)artist inContext:(NSManagedObjectContext *)context;
+-(void)deleteFromDatabase;
+
+-(NSString *)defaultImageLocation;
 
 @end
+
+NS_ASSUME_NONNULL_END
+
+#import "Artwork+CoreDataProperties.h"

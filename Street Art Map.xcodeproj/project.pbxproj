@@ -13,14 +13,16 @@
 		FA315FBB1BAE59B300BE5F02 /* SelectArtistTVC.m in Sources */ = {isa = PBXBuildFile; fileRef = FA315FB91BAE59B300BE5F02 /* SelectArtistTVC.m */; };
 		FA315FBC1BAE59B300BE5F02 /* SelectArtistTVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = FA315FBA1BAE59B300BE5F02 /* SelectArtistTVC.xib */; };
 		FA315FC21BAE852400BE5F02 /* ArtworkImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = FA315FC11BAE852400BE5F02 /* ArtworkImageView.m */; };
-		FA315FC71BB7A83900BE5F02 /* Location+Create.m in Sources */ = {isa = PBXBuildFile; fileRef = FA315FC61BB7A83900BE5F02 /* Location+Create.m */; };
 		FA40492A1B75CAC80069144D /* Artwork.m in Sources */ = {isa = PBXBuildFile; fileRef = FA4049291B75CAC80069144D /* Artwork.m */; };
 		FA40492D1B75CAC90069144D /* Location.m in Sources */ = {isa = PBXBuildFile; fileRef = FA40492C1B75CAC90069144D /* Location.m */; };
 		FA4049301B75CAC90069144D /* Artist.m in Sources */ = {isa = PBXBuildFile; fileRef = FA40492F1B75CAC90069144D /* Artist.m */; };
-		FA4049491B7732E20069144D /* Artist+Equality.m in Sources */ = {isa = PBXBuildFile; fileRef = FA4049481B7732E20069144D /* Artist+Equality.m */; };
-		FA40494C1B7734630069144D /* Artist+Create.m in Sources */ = {isa = PBXBuildFile; fileRef = FA40494B1B7734630069144D /* Artist+Create.m */; };
 		FA4049671B7EBA6E0069144D /* ViewArtistTVC.m in Sources */ = {isa = PBXBuildFile; fileRef = FA4049651B7EBA6E0069144D /* ViewArtistTVC.m */; };
 		FA4049681B7EBA6E0069144D /* ViewArtistTVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = FA4049661B7EBA6E0069144D /* ViewArtistTVC.xib */; };
+		FA43A6941C70613D00015D5F /* ImageFileLocation.m in Sources */ = {isa = PBXBuildFile; fileRef = FA43A68E1C70613D00015D5F /* ImageFileLocation.m */; settings = {ASSET_TAGS = (); }; };
+		FA43A6DA1C7097BC00015D5F /* Location+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = FA43A6D31C7097BC00015D5F /* Location+CoreDataProperties.m */; settings = {ASSET_TAGS = (); }; };
+		FA43A6DB1C7097BC00015D5F /* ImageFileLocation+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = FA43A6D51C7097BC00015D5F /* ImageFileLocation+CoreDataProperties.m */; settings = {ASSET_TAGS = (); }; };
+		FA43A6DC1C7097BC00015D5F /* Artwork+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = FA43A6D71C7097BC00015D5F /* Artwork+CoreDataProperties.m */; settings = {ASSET_TAGS = (); }; };
+		FA43A6DD1C7097BC00015D5F /* Artist+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = FA43A6D91C7097BC00015D5F /* Artist+CoreDataProperties.m */; settings = {ASSET_TAGS = (); }; };
 		FA5339C41B650B0F006C0F52 /* PhotoLibraryInterface.m in Sources */ = {isa = PBXBuildFile; fileRef = FA5339C31B650B0F006C0F52 /* PhotoLibraryInterface.m */; };
 		FA5339D01B6655D1006C0F52 /* ArtworkTVC.m in Sources */ = {isa = PBXBuildFile; fileRef = FA5339CE1B6655D1006C0F52 /* ArtworkTVC.m */; };
 		FA5339D11B6655D1006C0F52 /* ArtworkTVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = FA5339CF1B6655D1006C0F52 /* ArtworkTVC.xib */; };
@@ -37,7 +39,6 @@
 		FAC2C7681B50DE5900DE31A5 /* RecentsCDTVC.m in Sources */ = {isa = PBXBuildFile; fileRef = FAC2C7671B50DE5900DE31A5 /* RecentsCDTVC.m */; };
 		FAC2C76B1B50E87700DE31A5 /* AddAndViewArtworkVC.m in Sources */ = {isa = PBXBuildFile; fileRef = FAC2C76A1B50E87700DE31A5 /* AddAndViewArtworkVC.m */; };
 		FAC2C76E1B51E44800DE31A5 /* ArtistsCDTVC.m in Sources */ = {isa = PBXBuildFile; fileRef = FAC2C76D1B51E44800DE31A5 /* ArtistsCDTVC.m */; };
-		FACDBBF61BA3BB5200744488 /* Artwork+Create.m in Sources */ = {isa = PBXBuildFile; fileRef = FACDBBF51BA3BB5200744488 /* Artwork+Create.m */; };
 		FAEB528D1B48D14700D9361E /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = FAEB528C1B48D14700D9361E /* main.m */; };
 		FAEB52901B48D14700D9361E /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = FAEB528F1B48D14700D9361E /* AppDelegate.m */; };
 		FAEB52961B48D14700D9361E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FAEB52941B48D14700D9361E /* Main.storyboard */; };
@@ -69,21 +70,25 @@
 		FA315FBA1BAE59B300BE5F02 /* SelectArtistTVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SelectArtistTVC.xib; sourceTree = "<group>"; };
 		FA315FC01BAE852400BE5F02 /* ArtworkImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ArtworkImageView.h; sourceTree = "<group>"; };
 		FA315FC11BAE852400BE5F02 /* ArtworkImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ArtworkImageView.m; sourceTree = "<group>"; };
-		FA315FC51BB7A83900BE5F02 /* Location+Create.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Location+Create.h"; sourceTree = "<group>"; };
-		FA315FC61BB7A83900BE5F02 /* Location+Create.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Location+Create.m"; sourceTree = "<group>"; };
 		FA4049281B75CAC80069144D /* Artwork.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Artwork.h; sourceTree = "<group>"; };
 		FA4049291B75CAC80069144D /* Artwork.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Artwork.m; sourceTree = "<group>"; };
 		FA40492B1B75CAC90069144D /* Location.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Location.h; sourceTree = "<group>"; };
 		FA40492C1B75CAC90069144D /* Location.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Location.m; sourceTree = "<group>"; };
 		FA40492E1B75CAC90069144D /* Artist.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Artist.h; sourceTree = "<group>"; };
 		FA40492F1B75CAC90069144D /* Artist.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Artist.m; sourceTree = "<group>"; };
-		FA4049471B7732E20069144D /* Artist+Equality.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Artist+Equality.h"; sourceTree = "<group>"; };
-		FA4049481B7732E20069144D /* Artist+Equality.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Artist+Equality.m"; sourceTree = "<group>"; };
-		FA40494A1B7734630069144D /* Artist+Create.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Artist+Create.h"; sourceTree = "<group>"; };
-		FA40494B1B7734630069144D /* Artist+Create.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Artist+Create.m"; sourceTree = "<group>"; };
 		FA4049641B7EBA6E0069144D /* ViewArtistTVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ViewArtistTVC.h; sourceTree = "<group>"; };
 		FA4049651B7EBA6E0069144D /* ViewArtistTVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ViewArtistTVC.m; sourceTree = "<group>"; };
 		FA4049661B7EBA6E0069144D /* ViewArtistTVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ViewArtistTVC.xib; sourceTree = "<group>"; };
+		FA43A68D1C70613D00015D5F /* ImageFileLocation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageFileLocation.h; sourceTree = "<group>"; };
+		FA43A68E1C70613D00015D5F /* ImageFileLocation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImageFileLocation.m; sourceTree = "<group>"; };
+		FA43A6D21C7097BC00015D5F /* Location+CoreDataProperties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Location+CoreDataProperties.h"; sourceTree = "<group>"; };
+		FA43A6D31C7097BC00015D5F /* Location+CoreDataProperties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Location+CoreDataProperties.m"; sourceTree = "<group>"; };
+		FA43A6D41C7097BC00015D5F /* ImageFileLocation+CoreDataProperties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ImageFileLocation+CoreDataProperties.h"; sourceTree = "<group>"; };
+		FA43A6D51C7097BC00015D5F /* ImageFileLocation+CoreDataProperties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "ImageFileLocation+CoreDataProperties.m"; sourceTree = "<group>"; };
+		FA43A6D61C7097BC00015D5F /* Artwork+CoreDataProperties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Artwork+CoreDataProperties.h"; sourceTree = "<group>"; };
+		FA43A6D71C7097BC00015D5F /* Artwork+CoreDataProperties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Artwork+CoreDataProperties.m"; sourceTree = "<group>"; };
+		FA43A6D81C7097BC00015D5F /* Artist+CoreDataProperties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Artist+CoreDataProperties.h"; sourceTree = "<group>"; };
+		FA43A6D91C7097BC00015D5F /* Artist+CoreDataProperties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Artist+CoreDataProperties.m"; sourceTree = "<group>"; };
 		FA5339C21B650B0F006C0F52 /* PhotoLibraryInterface.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PhotoLibraryInterface.h; sourceTree = "<group>"; };
 		FA5339C31B650B0F006C0F52 /* PhotoLibraryInterface.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PhotoLibraryInterface.m; sourceTree = "<group>"; };
 		FA5339CD1B6655D1006C0F52 /* ArtworkTVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ArtworkTVC.h; sourceTree = "<group>"; };
@@ -114,8 +119,6 @@
 		FAC2C76A1B50E87700DE31A5 /* AddAndViewArtworkVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddAndViewArtworkVC.m; sourceTree = "<group>"; };
 		FAC2C76C1B51E44800DE31A5 /* ArtistsCDTVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ArtistsCDTVC.h; sourceTree = "<group>"; };
 		FAC2C76D1B51E44800DE31A5 /* ArtistsCDTVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ArtistsCDTVC.m; sourceTree = "<group>"; };
-		FACDBBF41BA3BB5200744488 /* Artwork+Create.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Artwork+Create.h"; sourceTree = "<group>"; };
-		FACDBBF51BA3BB5200744488 /* Artwork+Create.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Artwork+Create.m"; sourceTree = "<group>"; };
 		FAEB52871B48D14700D9361E /* Street Art Map.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Street Art Map.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		FAEB528B1B48D14700D9361E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		FAEB528C1B48D14700D9361E /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -319,20 +322,22 @@
 			isa = PBXGroup;
 			children = (
 				FAEB52B21B48D1C500D9361E /* Model.xcdatamodeld */,
+				FA43A6D21C7097BC00015D5F /* Location+CoreDataProperties.h */,
+				FA43A6D31C7097BC00015D5F /* Location+CoreDataProperties.m */,
+				FA43A6D41C7097BC00015D5F /* ImageFileLocation+CoreDataProperties.h */,
+				FA43A6D51C7097BC00015D5F /* ImageFileLocation+CoreDataProperties.m */,
+				FA43A6D61C7097BC00015D5F /* Artwork+CoreDataProperties.h */,
+				FA43A6D71C7097BC00015D5F /* Artwork+CoreDataProperties.m */,
+				FA43A6D81C7097BC00015D5F /* Artist+CoreDataProperties.h */,
+				FA43A6D91C7097BC00015D5F /* Artist+CoreDataProperties.m */,
 				FA40492E1B75CAC90069144D /* Artist.h */,
 				FA40492F1B75CAC90069144D /* Artist.m */,
-				FA40494A1B7734630069144D /* Artist+Create.h */,
-				FA40494B1B7734630069144D /* Artist+Create.m */,
-				FA4049471B7732E20069144D /* Artist+Equality.h */,
-				FA4049481B7732E20069144D /* Artist+Equality.m */,
-				FA40492B1B75CAC90069144D /* Location.h */,
-				FA40492C1B75CAC90069144D /* Location.m */,
-				FA315FC51BB7A83900BE5F02 /* Location+Create.h */,
-				FA315FC61BB7A83900BE5F02 /* Location+Create.m */,
 				FA4049281B75CAC80069144D /* Artwork.h */,
 				FA4049291B75CAC80069144D /* Artwork.m */,
-				FACDBBF41BA3BB5200744488 /* Artwork+Create.h */,
-				FACDBBF51BA3BB5200744488 /* Artwork+Create.m */,
+				FA40492B1B75CAC90069144D /* Location.h */,
+				FA40492C1B75CAC90069144D /* Location.m */,
+				FA43A68D1C70613D00015D5F /* ImageFileLocation.h */,
+				FA43A68E1C70613D00015D5F /* ImageFileLocation.m */,
 				FA5339E11B6EE32E006C0F52 /* Artwork+Annotation.h */,
 				FA5339E21B6EE32E006C0F52 /* Artwork+Annotation.m */,
 			);
@@ -448,7 +453,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				FACDBBF61BA3BB5200744488 /* Artwork+Create.m in Sources */,
 				FAEB52901B48D14700D9361E /* AppDelegate.m in Sources */,
 				FAC2C7651B50B83200DE31A5 /* CoreDataTableViewController.m in Sources */,
 				FA4049301B75CAC90069144D /* Artist.m in Sources */,
@@ -460,22 +464,24 @@
 				FA0EB1131B649F110034FD18 /* ListOfArtworksCDTVC.m in Sources */,
 				FABBF6821C420A8C008DB672 /* CodableObject.m in Sources */,
 				FABBF6841C420A8C008DB672 /* GridOfObjects.m in Sources */,
-				FA4049491B7732E20069144D /* Artist+Equality.m in Sources */,
+				FA43A6DA1C7097BC00015D5F /* Location+CoreDataProperties.m in Sources */,
 				FA315FBB1BAE59B300BE5F02 /* SelectArtistTVC.m in Sources */,
 				FAEB528D1B48D14700D9361E /* main.m in Sources */,
 				FA40492A1B75CAC80069144D /* Artwork.m in Sources */,
 				FABBF6831C420A8C008DB672 /* Grid.m in Sources */,
+				FA43A6DD1C7097BC00015D5F /* Artist+CoreDataProperties.m in Sources */,
 				FA5339C41B650B0F006C0F52 /* PhotoLibraryInterface.m in Sources */,
 				FA5339D41B6DAA2F006C0F52 /* ArtworkMapVC.m in Sources */,
 				FAEB52B41B48D1C500D9361E /* Model.xcdatamodeld in Sources */,
-				FA315FC71BB7A83900BE5F02 /* Location+Create.m in Sources */,
+				FA43A6941C70613D00015D5F /* ImageFileLocation.m in Sources */,
+				FA43A6DC1C7097BC00015D5F /* Artwork+CoreDataProperties.m in Sources */,
 				FA315FC21BAE852400BE5F02 /* ArtworkImageView.m in Sources */,
 				FAC2C76B1B50E87700DE31A5 /* AddAndViewArtworkVC.m in Sources */,
 				FAC2C7681B50DE5900DE31A5 /* RecentsCDTVC.m in Sources */,
 				FA40492D1B75CAC90069144D /* Location.m in Sources */,
 				FA5339E31B6EE32E006C0F52 /* Artwork+Annotation.m in Sources */,
+				FA43A6DB1C7097BC00015D5F /* ImageFileLocation+CoreDataProperties.m in Sources */,
 				FA4049671B7EBA6E0069144D /* ViewArtistTVC.m in Sources */,
-				FA40494C1B7734630069144D /* Artist+Create.m in Sources */,
 				FABBF6861C420A8C008DB672 /* NoScrollGridVC.m in Sources */,
 				FA0FAA231C65DFD60023FC48 /* UIAlertController+ConvinienceMethods.m in Sources */,
 			);

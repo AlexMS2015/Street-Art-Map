@@ -9,22 +9,12 @@
 #import <Foundation/Foundation.h>
 #import <CoreData/CoreData.h>
 
-@class Artwork;
+NS_ASSUME_NONNULL_BEGIN
 
 @interface Location : NSManagedObject
 
-@property (nonatomic, retain) NSString * city;
-@property (nonatomic, retain) NSString * country;
-@property (nonatomic, retain) NSNumber * lattitude;
-@property (nonatomic, retain) NSNumber * longitude;
-@property (nonatomic, retain) NSSet *artworks;
 @end
 
-@interface Location (CoreDataGeneratedAccessors)
+NS_ASSUME_NONNULL_END
 
-- (void)addArtworksObject:(Artwork *)value;
-- (void)removeArtworksObject:(Artwork *)value;
-- (void)addArtworks:(NSSet *)values;
-- (void)removeArtworks:(NSSet *)values;
-
-@end
+#import "Location+CoreDataProperties.h"

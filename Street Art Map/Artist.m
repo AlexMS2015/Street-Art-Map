@@ -9,29 +9,35 @@
 #import "Artist.h"
 #import "Artwork.h"
 
-
 @implementation Artist
 
-@dynamic name;
-@dynamic artworks;
-
-/*-(BOOL)isEqual:(id)object
++(Artist *)artistWithName:(NSString *)name inManagedObjectContext:(NSManagedObjectContext *)context
 {
-    if (self == object) {
-        return YES;
+    NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"Artist"];
+    request.predicate = [NSPredicate predicateWithFormat:@"name = %@", name];
+    
+    NSArray *results = [context executeFetchRequest:request error:nil];
+    
+    Artist *artist;
+    if ([results count] > 0) {
+        artist = [results firstObject];
+    } else {
+        artist = [NSEntityDescription insertNewObjectForEntityForName:@"Artist"
+                                               inManagedObjectContext:context];
+        artist.name = name;
     }
     
-    if (object && [object isMemberOfClass:[self class]]) {
-        Artist *otherArtist = (Artist *)object;
-        return [self.name isEqualToString:otherArtist.name];
-    }
-    
-    return NO;
+    return artist;
 }
 
--(NSUInteger)hash
+-(void)deleteFromDatabase
 {
-    return [self.artworks hash] ^ [self.name hash];
-}*/
+    [self.managedObjectContext deleteObject:self];
+}
+
+-(BOOL)isEqualToArtist:(Artist *)artist
+{
+    return [self.name isEqualToString:artist.name] && [self.artworks isEqualToSet:artist.artworks];
+}
 
 @end

@@ -8,7 +8,6 @@
 
 #import "ListOfArtworksCDTVC.h"
 #import "Artwork.h"
-#import "Artwork+Create.h"
 #import "Artist.h"
 #import "AddAndViewArtworkVC.h"
 #import "ArtworkTVC.h"
@@ -105,7 +104,7 @@ static NSString * const VIEW_ARTWORK_SEGUE = @"View Artwork";
     if (cell.tag != 0) // cancel any existing requests on the cell (perhaps the cell is being re-used as the user has scrolled)
         [[PhotoLibraryInterface shared] cancelRequestWithID:(PHImageRequestID)cell.tag];
     
-    cell.tag = [[PhotoLibraryInterface shared] imageWithLocalIdentifier:artwork.imageLocation size:cell.artworkImageView.bounds.size completion:^(UIImage *image) {
+    cell.tag = [[PhotoLibraryInterface shared] imageWithLocalIdentifier:[artwork defaultImageLocation] size:cell.artworkImageView.bounds.size completion:^(UIImage *image) {
         cell.artworkImageView.image = image;
         cell.tag = 0;
     }];
