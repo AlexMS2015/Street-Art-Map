@@ -2,7 +2,7 @@
 //  ImageFileLocation+CoreDataProperties.m
 //  Street Art Map
 //
-//  Created by Alex Smith on 14/02/2016.
+//  Created by Alex Smith on 18/02/2016.
 //  Copyright © 2016 Alex Smith. All rights reserved.
 //
 //  Choose "Create NSManagedObject Subclass…" from the Core Data editor menu

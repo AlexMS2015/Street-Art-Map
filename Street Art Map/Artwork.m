@@ -9,6 +9,7 @@
 #import "Artwork.h"
 #import "Artist.h"
 #import "Location.h"
+#import "ImageFileLocation.h"
 
 @implementation Artwork
 

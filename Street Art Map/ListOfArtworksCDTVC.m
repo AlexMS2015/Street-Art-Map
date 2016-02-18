@@ -16,6 +16,10 @@
 
 @implementation ListOfArtworksCDTVC
 
+#pragma mark - Abstract Methods
+
+-(void)setupFetchedResultsController { };
+
 #pragma mark - Constants
 
 static NSString * const CELL_IDENTIFIER = @"ArtworkCell";

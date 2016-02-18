@@ -11,7 +11,7 @@
 #import "Artwork.h"
 #import "Location.h"
 #import "ImageFileLocation.h"
-#import "ArtistsCDTVC.h"
+#import "SelectArtistCDTVC.h"
 #import "PhotoLibraryInterface.h"
 #import "UIAlertController+ConvinienceMethods.h"
 #import "DoubleTapToZoomScrollViewDelegate.h"
@@ -113,10 +113,9 @@ static const int MAXIMUM_ZOOM_SCALE = 4;
         if ([segue.destinationViewController isMemberOfClass:[UINavigationController class]]) {
             UINavigationController *navController = (UINavigationController *)segue
             .destinationViewController;
-            if ([[navController.viewControllers firstObject] isMemberOfClass:[ArtistsCDTVC class]]) {
-                ArtistsCDTVC *selectArtistVC = (ArtistsCDTVC *)[navController.viewControllers firstObject];
+            if ([[navController.viewControllers firstObject] isMemberOfClass:[SelectArtistCDTVC class]]) {
+                SelectArtistCDTVC *selectArtistVC = (SelectArtistCDTVC *)[navController.viewControllers firstObject];
                 selectArtistVC.context = self.context;
-                selectArtistVC.screenMode = SelectionMode;
                 selectArtistVC.selectedArtist = self.artwork.artist;
             }
         }
@@ -168,8 +167,8 @@ static const int MAXIMUM_ZOOM_SCALE = 4;
 -(IBAction)done:(UIStoryboardSegue *)segue
 {
     if ([segue.identifier isEqualToString:SELECT_ARTIST_UNWINDSEG]) {
-        if ([segue.sourceViewController isMemberOfClass:[ArtistsCDTVC class]]) {
-            ArtistsCDTVC *artistSelection = (ArtistsCDTVC *)segue.sourceViewController;
+        if ([segue.sourceViewController isMemberOfClass:[SelectArtistCDTVC class]]) {
+            SelectArtistCDTVC *artistSelection = (SelectArtistCDTVC *)segue.sourceViewController;
             self.artwork.artist = artistSelection.selectedArtist;
         }
     }

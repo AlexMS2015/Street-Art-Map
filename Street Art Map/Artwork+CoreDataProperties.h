@@ -2,7 +2,7 @@
 //  Artwork+CoreDataProperties.h
 //  Street Art Map
 //
-//  Created by Alex Smith on 14/02/2016.
+//  Created by Alex Smith on 18/02/2016.
 //  Copyright © 2016 Alex Smith. All rights reserved.
 //
 //  Choose "Create NSManagedObject Subclass…" from the Core Data editor menu
@@ -10,15 +10,15 @@
 //
 
 #import "Artwork.h"
-#import "ImageFileLocation.h"
+@class ImageFileLocation;
 
 NS_ASSUME_NONNULL_BEGIN
 
 @interface Artwork (CoreDataProperties)
 
 @property (nullable, nonatomic, retain) NSString *title;
-@property (nonatomic) NSDate *uploadDate;
-@property (nonatomic) NSDate *lastEditDate;
+@property (nullable, nonatomic, retain) NSDate *uploadDate;
+@property (nullable, nonatomic, retain) NSDate *lastEditDate;
 @property (nonatomic) int16_t defaultImageIdx;
 @property (nullable, nonatomic, retain) Artist *artist;
 @property (nullable, nonatomic, retain) Location *location;

@@ -9,15 +9,11 @@
 #import "CoreDataTableViewController.h"
 @class Artist;
 
-typedef enum {
-    SelectionMode, ViewingMode
-} ArtistScreenMode;
+#pragma mark - Constants
+static NSString * const CELL_IDENTIFIER = @"ArtistTableViewCell";
 
 @interface ArtistsCDTVC : CoreDataTableViewController
 
-@property (nonatomic) ArtistScreenMode screenMode; // the default is 'ViewingMode'
-
-// if in selection mode, this property will be set to the artist the user selects. if set on loading then the selected artist will be highlighted grey
-@property (strong, nonatomic) Artist *selectedArtist;
+-(void)addedArtist:(Artist *)artist; // will be called when the user adds an artwork to give subclasses a chance to perform any actions with that new Artist object
 
 @end

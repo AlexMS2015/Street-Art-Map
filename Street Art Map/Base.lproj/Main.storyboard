@@ -181,7 +181,7 @@
         <!--Artists-->
         <scene sceneID="FhI-OC-lxr">
             <objects>
-                <tableViewController id="eDo-LD-hrY" customClass="ArtistsCDTVC" sceneMemberID="viewController">
+                <tableViewController id="eDo-LD-hrY" customClass="ViewArtistsCDTVC" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="ouS-z2-Xpz">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -330,7 +330,7 @@
         <!--Artists-->
         <scene sceneID="0hy-8a-UQ6">
             <objects>
-                <tableViewController id="20v-PQ-yIo" customClass="ArtistsCDTVC" sceneMemberID="viewController">
+                <tableViewController id="20v-PQ-yIo" customClass="SelectArtistCDTVC" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="zZS-S7-MUn">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -403,6 +403,6 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="utv-0Q-uFf"/>
+        <segue reference="w2N-b7-Qzf"/>
     </inferredMetricsTieBreakers>
 </document>
