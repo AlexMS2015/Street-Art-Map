@@ -23,6 +23,8 @@
 		FA43A6DB1C7097BC00015D5F /* ImageFileLocation+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = FA43A6D51C7097BC00015D5F /* ImageFileLocation+CoreDataProperties.m */; settings = {ASSET_TAGS = (); }; };
 		FA43A6DC1C7097BC00015D5F /* Artwork+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = FA43A6D71C7097BC00015D5F /* Artwork+CoreDataProperties.m */; settings = {ASSET_TAGS = (); }; };
 		FA43A6DD1C7097BC00015D5F /* Artist+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = FA43A6D91C7097BC00015D5F /* Artist+CoreDataProperties.m */; settings = {ASSET_TAGS = (); }; };
+		FA43A6E01C75C83400015D5F /* ViewArtistsCDTVC.m in Sources */ = {isa = PBXBuildFile; fileRef = FA43A6DF1C75C83400015D5F /* ViewArtistsCDTVC.m */; settings = {ASSET_TAGS = (); }; };
+		FA43A6E31C75C84E00015D5F /* SelectArtistCDTVC.m in Sources */ = {isa = PBXBuildFile; fileRef = FA43A6E21C75C84E00015D5F /* SelectArtistCDTVC.m */; settings = {ASSET_TAGS = (); }; };
 		FA5339C41B650B0F006C0F52 /* PhotoLibraryInterface.m in Sources */ = {isa = PBXBuildFile; fileRef = FA5339C31B650B0F006C0F52 /* PhotoLibraryInterface.m */; };
 		FA5339D01B6655D1006C0F52 /* ArtworkTVC.m in Sources */ = {isa = PBXBuildFile; fileRef = FA5339CE1B6655D1006C0F52 /* ArtworkTVC.m */; };
 		FA5339D11B6655D1006C0F52 /* ArtworkTVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = FA5339CF1B6655D1006C0F52 /* ArtworkTVC.xib */; };
@@ -89,6 +91,10 @@
 		FA43A6D71C7097BC00015D5F /* Artwork+CoreDataProperties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Artwork+CoreDataProperties.m"; sourceTree = "<group>"; };
 		FA43A6D81C7097BC00015D5F /* Artist+CoreDataProperties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Artist+CoreDataProperties.h"; sourceTree = "<group>"; };
 		FA43A6D91C7097BC00015D5F /* Artist+CoreDataProperties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Artist+CoreDataProperties.m"; sourceTree = "<group>"; };
+		FA43A6DE1C75C83400015D5F /* ViewArtistsCDTVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ViewArtistsCDTVC.h; sourceTree = "<group>"; };
+		FA43A6DF1C75C83400015D5F /* ViewArtistsCDTVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ViewArtistsCDTVC.m; sourceTree = "<group>"; };
+		FA43A6E11C75C84E00015D5F /* SelectArtistCDTVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SelectArtistCDTVC.h; sourceTree = "<group>"; };
+		FA43A6E21C75C84E00015D5F /* SelectArtistCDTVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SelectArtistCDTVC.m; sourceTree = "<group>"; };
 		FA5339C21B650B0F006C0F52 /* PhotoLibraryInterface.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PhotoLibraryInterface.h; sourceTree = "<group>"; };
 		FA5339C31B650B0F006C0F52 /* PhotoLibraryInterface.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PhotoLibraryInterface.m; sourceTree = "<group>"; };
 		FA5339CD1B6655D1006C0F52 /* ArtworkTVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ArtworkTVC.h; sourceTree = "<group>"; };
@@ -312,6 +318,10 @@
 				FA0FAA6E1C68BBC00023FC48 /* DoubleTapToZoomScrollViewDelegate.m */,
 				FAC2C76C1B51E44800DE31A5 /* ArtistsCDTVC.h */,
 				FAC2C76D1B51E44800DE31A5 /* ArtistsCDTVC.m */,
+				FA43A6DE1C75C83400015D5F /* ViewArtistsCDTVC.h */,
+				FA43A6DF1C75C83400015D5F /* ViewArtistsCDTVC.m */,
+				FA43A6E11C75C84E00015D5F /* SelectArtistCDTVC.h */,
+				FA43A6E21C75C84E00015D5F /* SelectArtistCDTVC.m */,
 				FA5339D21B6DAA2F006C0F52 /* ArtworkMapVC.h */,
 				FA5339D31B6DAA2F006C0F52 /* ArtworkMapVC.m */,
 			);
@@ -459,6 +469,7 @@
 				FABBF6871C420A8C008DB672 /* PositionStruct.m in Sources */,
 				FAC2C76E1B51E44800DE31A5 /* ArtistsCDTVC.m in Sources */,
 				FABBF6851C420A8C008DB672 /* GridVC.m in Sources */,
+				FA43A6E01C75C83400015D5F /* ViewArtistsCDTVC.m in Sources */,
 				FA0FAA6F1C68BBC00023FC48 /* DoubleTapToZoomScrollViewDelegate.m in Sources */,
 				FA5339D01B6655D1006C0F52 /* ArtworkTVC.m in Sources */,
 				FA0EB1131B649F110034FD18 /* ListOfArtworksCDTVC.m in Sources */,
@@ -470,6 +481,7 @@
 				FA40492A1B75CAC80069144D /* Artwork.m in Sources */,
 				FABBF6831C420A8C008DB672 /* Grid.m in Sources */,
 				FA43A6DD1C7097BC00015D5F /* Artist+CoreDataProperties.m in Sources */,
+				FA43A6E31C75C84E00015D5F /* SelectArtistCDTVC.m in Sources */,
 				FA5339C41B650B0F006C0F52 /* PhotoLibraryInterface.m in Sources */,
 				FA5339D41B6DAA2F006C0F52 /* ArtworkMapVC.m in Sources */,
 				FAEB52B41B48D1C500D9361E /* Model.xcdatamodeld in Sources */,

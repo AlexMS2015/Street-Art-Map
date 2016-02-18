@@ -24,6 +24,10 @@
 
 @implementation ArtistsCDTVC
 
+#pragma mark - Constants
+
+static NSString * const CELL_IDENTIFIER = @"ArtistTableViewCell";
+
 #pragma mark - Properties
 
 -(NSMutableArray *)artworkImageGridVCs
@@ -47,19 +51,19 @@
 -(void)setSelectedArtist:(Artist *)selectedArtist
 {
     _selectedArtist = selectedArtist;
-    if (!self.screenMode) {
-        self.screenMode = SelectionMode;
-    }
+    self.screenMode = SelectionMode;
     
-    NSIndexPath *pathOfSelectedArtist = [self.fetchedResultsController indexPathForObject:_selectedArtist];
+#warning - THIS CODE DOES NOT WORK
+    NSIndexPath *pathOfSelectedArtist = [self.fetchedResultsController indexPathForObject:self.selectedArtist];
     [self.tableView scrollToRowAtIndexPath:pathOfSelectedArtist atScrollPosition:UITableViewScrollPositionNone animated:NO];
     NSLog(@"path of selected artist %@ is %ld", _selectedArtist.name, (long)pathOfSelectedArtist.row);
 }
 
-#define CELL_IDENTIFIER @"ArtistTableViewCell"
 -(void)setScreenMode:(ArtistScreenMode)screenMode
 {
     _screenMode = screenMode;
+    
+    // load the correct type of cell depending on whether we are in selection or viewing mode
     UINib *nib;
     if (self.screenMode == ViewingMode) {
         nib = [UINib nibWithNibName:@"ViewArtistTVC" bundle:nil];
@@ -85,7 +89,7 @@
 
 -(void)viewWillAppear:(BOOL)animated
 {
-    [self.tableView reloadData];
+    [self.tableView reloadData]; // reload on appearing in case user has added new artworks
 }
 
 #pragma mark - Abstract Methods

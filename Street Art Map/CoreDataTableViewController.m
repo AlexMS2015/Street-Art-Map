@@ -56,6 +56,11 @@
 
 #pragma mark - UITableViewDataSource
 
+-(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return nil;
+}
+
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
     return [[self.fetchedResultsController sections] count];

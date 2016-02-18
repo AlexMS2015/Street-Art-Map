@@ -15,6 +15,7 @@
 #import "PhotoLibraryInterface.h"
 #import "UIAlertController+ConvinienceMethods.h"
 #import "DoubleTapToZoomScrollViewDelegate.h"
+#import "GridVC.h"
 #import <CoreLocation/CoreLocation.h>
 
 @interface AddAndViewArtworkVC () <UINavigationControllerDelegate, UIImagePickerControllerDelegate>
@@ -22,11 +23,14 @@
 @property (strong, nonatomic) Artwork *artwork;
 @property (strong, nonatomic) NSManagedObjectContext *context;
 @property (strong, nonatomic) DoubleTapToZoomScrollViewDelegate *svZoomDelegate;
+@property (strong, nonatomic) GridVC *scrollingImagesGridVC;
+@property (nonatomic) int indexOfCurrentlyDisplayedPhoto;
 
 // outlets
 @property (weak, nonatomic) IBOutlet UIImageView *artworkImageView;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *deleteBarButtonItem;
 @property (weak, nonatomic) IBOutlet UIScrollView *artworkScrollView;
+@property (weak, nonatomic) IBOutlet UICollectionView *imageCV;
 
 @end
 
@@ -52,6 +56,22 @@ static const int MAXIMUM_ZOOM_SCALE = 4;
     self.context = context;
 }
 
+#pragma mark - Properties
+
+-(void)setIndexOfCurrentlyDisplayedPhoto:(int)indexOfCurrentlyDisplayedPhoto
+{
+    _indexOfCurrentlyDisplayedPhoto = indexOfCurrentlyDisplayedPhoto;
+    
+    if (self.indexOfCurrentlyDisplayedPhoto >=0) {
+        ImageFileLocation *imageLocation = self.artwork.imageFileLocations[self.indexOfCurrentlyDisplayedPhoto];
+        NSString *imageLocationIdentifier = imageLocation.fileLocation;
+        [[PhotoLibraryInterface shared] imageWithLocalIdentifier:imageLocationIdentifier size:self.artworkImageView.bounds.size completion:^(UIImage *image) {
+            self.artworkImageView.image = image;
+        }];
+        [self.imageCV reloadData];
+    }
+}
+
 #pragma mark - View Life Cycle
 
 -(void)viewDidLoad
@@ -62,10 +82,9 @@ static const int MAXIMUM_ZOOM_SCALE = 4;
         self.navigationItem.title = self.artwork.title;
     }
     
+    self.indexOfCurrentlyDisplayedPhoto = -1;
     if ([self.artwork.imageFileLocations count] > 0) {
-        [[PhotoLibraryInterface shared] imageWithLocalIdentifier:[self.artwork defaultImageLocation] size:self.artworkImageView.bounds.size completion:^(UIImage *image) {
-            self.artworkImageView.image = image;
-        }];
+        self.indexOfCurrentlyDisplayedPhoto = 0;
         self.navigationItem.leftBarButtonItem = nil; // if there's an image we must be viewing an existing artwork. Hence, remove the 'cancel' button present when creating an artwork.
     } else {
         self.deleteBarButtonItem.tintColor = [UIColor clearColor];
@@ -73,15 +92,23 @@ static const int MAXIMUM_ZOOM_SCALE = 4;
     }
     
     self.svZoomDelegate = [[DoubleTapToZoomScrollViewDelegate alloc] initWithViewToZoom:self.artworkImageView inScrollView:self.artworkScrollView withMinZoomScale:MINIMUM_ZOOM_SCALE andMaxZoomScale:MAXIMUM_ZOOM_SCALE];
+    
+    self.scrollingImagesGridVC = [[GridVC alloc] initWithgridSize:(GridSize){1, 3} collectionView:self.imageCV andCellConfigureBlock:^(UICollectionViewCell *cell, Position position, int index) {
+        ImageFileLocation *imageLocation = self.artwork.imageFileLocations[index];
+        NSString *imageLocationIdentifier = imageLocation.fileLocation;
+        NSLog(@"hi");
+        [[PhotoLibraryInterface shared] imageWithLocalIdentifier:imageLocationIdentifier size:self.artworkImageView.bounds.size completion:^(UIImage *image) {
+            cell.backgroundView = [[UIImageView alloc] initWithImage:image];
+        }];
+    } andCellTapHandler:^(UICollectionViewCell *cell, Position position, int index) {
+        NSLog(@"tapped");
+    }];
 }
 
 #pragma mark - Segues
 
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
-    //if ([segue.identifier isEqualToString:ADD_ARTWORK_UNWINDSEG]) {
-    // NEED TO UPDATE THE ARTWORK'S GEOLOCATION HERE - Perhaps do this when setting the image?
-
     if ([segue.identifier isEqualToString:SELECT_ARTIST_SEGUE]) {
         if ([segue.destinationViewController isMemberOfClass:[UINavigationController class]]) {
             UINavigationController *navController = (UINavigationController *)segue
@@ -108,6 +135,20 @@ static const int MAXIMUM_ZOOM_SCALE = 4;
 }
 
 #pragma mark - Actions
+
+-(IBAction)lastPhoto:(UIBarButtonItem *)sender
+{
+    if (self.indexOfCurrentlyDisplayedPhoto > 0) {
+        self.indexOfCurrentlyDisplayedPhoto--;
+    }
+}
+
+-(IBAction)nextPhoto:(UIBarButtonItem *)sender
+{
+    if (self.indexOfCurrentlyDisplayedPhoto < [self.artwork.imageFileLocations count] - 1) {
+        self.indexOfCurrentlyDisplayedPhoto++;
+    }
+}
 
 - (IBAction)changeTitle:(UIBarButtonItem *)sender
 {
@@ -192,9 +233,10 @@ static const int MAXIMUM_ZOOM_SCALE = 4;
         ImageFileLocation *fileLocation = [ImageFileLocation newImageLocationWithLocation:imageFileLocation inContext:self.context];
         [self.artwork addImageFileLocationsObject:fileLocation];
         
-        [[PhotoLibraryInterface shared] imageWithLocalIdentifier:imageFileLocation size:self.artworkImageView.bounds.size completion:^(UIImage *image) {
+        self.indexOfCurrentlyDisplayedPhoto++;
+        /*[[PhotoLibraryInterface shared] imageWithLocalIdentifier:imageFileLocation size:self.artworkImageView.bounds.size completion:^(UIImage *image) {
             self.artworkImageView.image = image;
-        }];
+        }];*/
     } else { // took a new photo
         UIImage *artworkImage = info[UIImagePickerControllerOriginalImage];
         [[PhotoLibraryInterface shared] localIdentifierForImage:artworkImage completion:^(NSString *identifier) {
@@ -206,10 +248,12 @@ static const int MAXIMUM_ZOOM_SCALE = 4;
     }
     self.artworkScrollView.zoomScale = MINIMUM_ZOOM_SCALE;
 
-    CLLocation *location = [[PhotoLibraryInterface shared] locationForImageWithLocalIdentifier:imageFileLocation];
-    self.artwork.location.lattitude = location.coordinate.latitude;
-    self.artwork.location.longitude = location.coordinate.longitude;
-    
+    if (self.indexOfCurrentlyDisplayedPhoto == 0) {
+        CLLocation *location = [[PhotoLibraryInterface shared] locationForImageWithLocalIdentifier:imageFileLocation];
+        self.artwork.location.lattitude = location.coordinate.latitude;
+        self.artwork.location.longitude = location.coordinate.longitude;
+    }
+
     [self dismissViewControllerAnimated:YES completion:NULL];
 }
 
