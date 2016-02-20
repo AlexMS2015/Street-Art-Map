@@ -28,7 +28,10 @@
 #pragma mark - Segues
 
 // called on rewind from adding a photo or editing an existing photo
--(IBAction)done:(UIStoryboardSegue *)segue { [self.tableView reloadData]; }
+-(IBAction)done:(UIStoryboardSegue *)segue
+{
+    [self.tableView reloadData];
+}
 
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
@@ -37,7 +40,6 @@
             UINavigationController *nc = (UINavigationController *)segue.destinationViewController;
             if ([[nc.viewControllers firstObject] isMemberOfClass:[AddAndViewArtworkVC class]]) {
                 AddAndViewArtworkVC *artworkView = (AddAndViewArtworkVC *)[nc.viewControllers firstObject];
-                //artworkView.context = self.context;
                 if ([sender isMemberOfClass:[Artwork class]]) { // viewing an artwork
                     [artworkView loadExistingArtwork:(Artwork *)sender];
                 } else if ([sender isMemberOfClass:[Artist class]]) { // adding an artwork
@@ -61,10 +63,9 @@
     self.navigationItem.leftBarButtonItem = self.editButtonItem;
 }
 
-#warning - Is this neccessary given the rewind segue (probably because what if user adds photo from the 'Recent' screen for example)
 -(void)viewWillAppear:(BOOL)animated
 {
-    [self.tableView reloadData]; // reload on appearing in case user has added new artworks
+    [self.tableView reloadData]; // reload on appearing in case user has added new artworks (fetched results controller won't pickup this change due to the cells containing collection views
 }
 
 #pragma mark - Properties
@@ -99,10 +100,26 @@
 -(void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (editingStyle == UITableViewCellEditingStyleDelete) {
-        [self presentViewController:[UIAlertController YesNoAlertWithMessage:@"Are you sure you want to delete this artist (the attached photos will not be deleted)?" andHandler:^(UIAlertAction *action, UIAlertController *alertVC) {
-            Artist *artistToDelete = [self.fetchedResultsController objectAtIndexPath:indexPath];
+        Artist *artistToDelete = [self.fetchedResultsController objectAtIndexPath:indexPath];
+        
+        NSString *deleteArtistMessage = [NSString stringWithFormat:@"Are you sure you want to delete %@?", artistToDelete.name];
+        
+        [self presentViewController:[UIAlertController YesNoAlertWithMessage:deleteArtistMessage andHandler:^(UIAlertAction *action, UIAlertController *alertVC) {
+            
+            NSArray *artworksToDelete = [artistToDelete.artworks copy]; // need to hang onto this because the artist will be deleted before we can ask the user if they wish to delete the artworks!
             [artistToDelete deleteFromDatabase];
-            //[self.presentingViewController dismissViewControllerAnimated:YES completion:NULL];
+            
+            if ([artworksToDelete count] > 0) {
+                NSString *deleteArtworksMessage = [NSString stringWithFormat:@"Do you also want to delete %@'s artworks?", artistToDelete.name];
+                
+                [self presentViewController:[UIAlertController YesNoAlertWithMessage:deleteArtworksMessage andHandler:^(UIAlertAction *action, UIAlertController *alertVC) {
+                    
+                    for (Artwork *artwork in artworksToDelete) {
+                        [artwork deleteFromDatabase];
+                    }
+                    
+                }] animated:YES completion:NULL];
+            }
         }] animated:YES completion:NULL];
     }
 }
@@ -118,8 +135,6 @@
     int numArtworkCVCs = (int)[artist.artworks count] + 1;
     
     GridVC *artworkImagesCVC = [[GridVC alloc] initWithgridSize:(GridSize){1, numArtworkCVCs} collectionView:viewingCell.artworkImagesCV andCellConfigureBlock:^(UICollectionViewCell *cvc, Position position, int index) {
-        
-#warning - Make a separate 'imageCache' class?
         
         __block UIImage *artworkImage;
         if (index < [artist.artworks count]) {

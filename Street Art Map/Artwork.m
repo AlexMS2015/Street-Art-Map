@@ -24,10 +24,10 @@
     
     Artwork *artwork;
     if ([results count] > 0) {
-        NSLog(@"Found existing artwork with that title and artist");
+        //NSLog(@"Found existing artwork with that title and artist");
         artwork = [results firstObject];
     } else {
-        NSLog(@"Creating new artwork");
+        //NSLog(@"Creating new artwork");
         artwork = [NSEntityDescription insertNewObjectForEntityForName:@"Artwork"
                                                 inManagedObjectContext:context];
         artwork.title = title;

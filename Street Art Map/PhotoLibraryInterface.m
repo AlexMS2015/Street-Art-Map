@@ -12,7 +12,19 @@
 
 #pragma mark - Helper
 
--(PHAsset *)assetForIdentifer:(id)identifier
+-(PHFetchResult *)assetsForIdentifers:(NSArray *)identifiers
+{
+    PHFetchResult *result;
+    if ([[identifiers firstObject] isKindOfClass:[NSString class]]) {
+        result = [PHAsset fetchAssetsWithLocalIdentifiers:identifiers options:nil];
+    } else if ([[identifiers firstObject] isKindOfClass:[NSURL class]]) {
+        result = [PHAsset fetchAssetsWithALAssetURLs:identifiers options:nil];
+    }
+    
+    return result;
+}
+
+/*-(PHAsset *)assetForIdentifer:(id)identifier
 {
     PHFetchResult *result;
     if ([identifier isKindOfClass:[NSString class]]) {
@@ -21,7 +33,7 @@
         result = [PHAsset fetchAssetsWithALAssetURLs:@[identifier] options:nil];
     }
     return result ? [result firstObject] : nil;
-}
+}*/
 
 #pragma mark - Public Interface
 
@@ -38,12 +50,14 @@
 
 -(CLLocation *)locationForImageWithLocalIdentifier:(NSString *)identifier
 {
-    return [self assetForIdentifer:identifier].location;
+    PHAsset *asset = [[self assetsForIdentifers:@[identifier]] firstObject];
+    return asset.location;
 }
 
 -(NSString *)localIdentifierForALAssetURL:(NSURL *)url
 {
-    return [self assetForIdentifer:url].localIdentifier;
+    PHAsset *asset = [[self assetsForIdentifers:@[url]] firstObject];
+    return asset.localIdentifier;
 }
 
 -(void)cancelRequestWithID:(PHImageRequestID)requestID
@@ -51,13 +65,34 @@
     [[PHImageManager defaultManager] cancelImageRequest:requestID];
 }
 
--(PHImageRequestID)imageWithLocalIdentifier:(NSString *)identifier size:(CGSize)size completion:(void (^)(UIImage *))block
+-(void)cacheImagesForLocalIdentifiers:(NSArray *)localIdentifiers
 {
-    //PHImageRequestOptions *options - consider implementing this if performance is bad? run in instruments to determine this
+    PHFetchResult *assets = [self assetsForIdentifers:localIdentifiers];
+    NSMutableArray *assetsArray = [NSMutableArray array];
+
+    for (PHAsset *asset in assets) {
+        [assetsArray addObject:asset];
+    }
     
-#warning - Consider using a PHCachingImageManager here
+    PHCachingImageManager *manager = [[PHCachingImageManager alloc] init];
+    [manager startCachingImagesForAssets:assetsArray
+                              targetSize:PHImageManagerMaximumSize
+                             contentMode:PHImageContentModeDefault
+                                 options:nil];
+}
+
+-(PHImageRequestID)imageWithLocalIdentifier:(NSString *)identifier size:(CGSize)size completion:(void (^)(UIImage *))block cached:(BOOL)cached
+{
+    PHAsset *asset = [[self assetsForIdentifers:@[identifier]] firstObject];
     
-    PHImageRequestID requestID = [[PHImageManager defaultManager] requestImageForAsset:[self assetForIdentifer:identifier] targetSize:size contentMode:PHImageContentModeAspectFill options:nil resultHandler:^(UIImage *result, NSDictionary *info) {
+    PHImageManager *manager;
+    if (cached) {
+        manager = [[PHCachingImageManager alloc] init];
+    } else {
+        manager  = [PHImageManager defaultManager];
+    }
+    
+    PHImageRequestID requestID = [manager requestImageForAsset:asset targetSize:size contentMode:PHImageContentModeAspectFill options:nil resultHandler:^(UIImage *result, NSDictionary *info) {
         if (info[PHImageErrorKey]) {
             NSLog(@"Error fetching image from local identifier");
         } else {

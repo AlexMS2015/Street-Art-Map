@@ -20,7 +20,7 @@
 #pragma mark - Abstract Methods
 
 -(void)setupFetchedResultsController
-{
+{    
     NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"Artist"];
     NSSortDescriptor *nameSort = [NSSortDescriptor sortDescriptorWithKey:@"name" ascending:YES];
     request.sortDescriptors = @[nameSort];
@@ -34,8 +34,10 @@
 {
     UIAlertController *newArtistAlert = [UIAlertController OKCancelAlertWithMessage:@"Please type the artist's name" andHandler:^(UIAlertAction *action, UIAlertController *alertVC) {
         NSString *newArtistName = ((UITextField *)[alertVC.textFields firstObject]).text;
-        Artist *newArtist = [Artist artistWithName:newArtistName inManagedObjectContext:self.context];
-        [self addedArtist:newArtist];
+        if (newArtistName.length > 0) {
+            Artist *newArtist = [Artist artistWithName:newArtistName inManagedObjectContext:self.context];
+            [self addedArtist:newArtist];
+        }
     }];
     
     [newArtistAlert addTextFieldWithConfigurationHandler:^(UITextField *textField) {

@@ -8,6 +8,7 @@
 
 #import "AppDelegate.h"
 #import "DatabaseAvailability.h"
+#import "TestDataLoader.h"
 @import CoreData;
 
 @interface AppDelegate ()
@@ -29,6 +30,8 @@
     [[NSNotificationCenter defaultCenter] postNotificationName:DATABASE_AVAILABLE_NOTIFICATION
                                                         object:self
                                                       userInfo:userInfo];
+    
+    TestDataLoader *loader = [TestDataLoader loadTestDataInContext:self.databaseContext];
 }
 
 #pragma mark - Application Life Cycle

@@ -22,6 +22,7 @@
     if ([results count] > 0) {
         artist = [results firstObject];
     } else {
+        NSLog(@"adding artist in context %@", context);
         artist = [NSEntityDescription insertNewObjectForEntityForName:@"Artist"
                                                inManagedObjectContext:context];
         artist.name = name;

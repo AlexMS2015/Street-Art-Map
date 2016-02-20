@@ -153,8 +153,10 @@ static const int MAXIMUM_ZOOM_SCALE = 4;
 {
     UIAlertController *changeTitleAlert = [UIAlertController OKCancelAlertWithMessage:@"Please type a title for this street art" andHandler:^(UIAlertAction *action, UIAlertController *alertVC) {
         NSString *title = ((UITextField *)[alertVC.textFields firstObject]).text;
-        self.artwork.title = title;
-        self.navigationItem.title = self.artwork.title;
+        if (title.length > 0) {
+            self.artwork.title = title;
+            self.navigationItem.title = self.artwork.title;
+        }
     }];
     
     [changeTitleAlert addTextFieldWithConfigurationHandler:^(UITextField *textField) {

@@ -8,14 +8,16 @@
 
 #import <UIKit/UIKit.h>
 
+typedef void (^actionBlock)(UIAlertAction *action, UIAlertController *alertVC);
+
 @interface UIAlertController (ConvinienceMethods)
 
 +(UIAlertController *)OKAlertWithMessage:(NSString *)message;
 
 +(UIAlertController *)YesNoAlertWithMessage:(NSString *)message
-                                  andHandler:(void (^)(UIAlertAction *action, UIAlertController *alertVC))actionBlock;
+                                 andHandler:actionBlock;
 
 +(UIAlertController *)OKCancelAlertWithMessage:(NSString *)message
-                                  andHandler:(void (^)(UIAlertAction *action, UIAlertController *alertVC))actionBlock;
+                                    andHandler:actionBlock;
 
 @end

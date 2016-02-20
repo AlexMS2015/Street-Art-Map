@@ -17,14 +17,14 @@
     return alertVC;
 }
 
-+(UIAlertController *)YesNoAlertWithMessage:(NSString *)message andHandler:(void (^)(UIAlertAction *, UIAlertController *))actionBlock
++(UIAlertController *)YesNoAlertWithMessage:(NSString *)message andHandler:(id)actionBlock
 {
     UIAlertController *alertVC = [UIAlertController twoButtonAlertWithMessage:message andButtonTitles:@[@"Yes", @"No"] andHandler:actionBlock];
     
     return alertVC;
 }
 
-+(UIAlertController *)OKCancelAlertWithMessage:(NSString *)message andHandler:(void (^)(UIAlertAction *, UIAlertController *))actionBlock
++(UIAlertController *)OKCancelAlertWithMessage:(NSString *)message andHandler:(id)actionBlock
 {
     UIAlertController *alertVC = [UIAlertController twoButtonAlertWithMessage:message andButtonTitles:@[@"OK", @"Cancel"] andHandler:actionBlock];
     

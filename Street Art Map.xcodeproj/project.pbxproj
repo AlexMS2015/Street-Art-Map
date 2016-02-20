@@ -25,6 +25,7 @@
 		FA43A6DD1C7097BC00015D5F /* Artist+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = FA43A6D91C7097BC00015D5F /* Artist+CoreDataProperties.m */; settings = {ASSET_TAGS = (); }; };
 		FA43A6E01C75C83400015D5F /* ViewArtistsCDTVC.m in Sources */ = {isa = PBXBuildFile; fileRef = FA43A6DF1C75C83400015D5F /* ViewArtistsCDTVC.m */; settings = {ASSET_TAGS = (); }; };
 		FA43A6E31C75C84E00015D5F /* SelectArtistCDTVC.m in Sources */ = {isa = PBXBuildFile; fileRef = FA43A6E21C75C84E00015D5F /* SelectArtistCDTVC.m */; settings = {ASSET_TAGS = (); }; };
+		FA43A6E91C77F9A900015D5F /* TestDataLoader.m in Sources */ = {isa = PBXBuildFile; fileRef = FA43A6E81C77F9A900015D5F /* TestDataLoader.m */; settings = {ASSET_TAGS = (); }; };
 		FA5339C41B650B0F006C0F52 /* PhotoLibraryInterface.m in Sources */ = {isa = PBXBuildFile; fileRef = FA5339C31B650B0F006C0F52 /* PhotoLibraryInterface.m */; };
 		FA5339D01B6655D1006C0F52 /* ArtworkTVC.m in Sources */ = {isa = PBXBuildFile; fileRef = FA5339CE1B6655D1006C0F52 /* ArtworkTVC.m */; };
 		FA5339D11B6655D1006C0F52 /* ArtworkTVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = FA5339CF1B6655D1006C0F52 /* ArtworkTVC.xib */; };
@@ -95,6 +96,8 @@
 		FA43A6DF1C75C83400015D5F /* ViewArtistsCDTVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ViewArtistsCDTVC.m; sourceTree = "<group>"; };
 		FA43A6E11C75C84E00015D5F /* SelectArtistCDTVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SelectArtistCDTVC.h; sourceTree = "<group>"; };
 		FA43A6E21C75C84E00015D5F /* SelectArtistCDTVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SelectArtistCDTVC.m; sourceTree = "<group>"; };
+		FA43A6E71C77F9A900015D5F /* TestDataLoader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestDataLoader.h; sourceTree = "<group>"; };
+		FA43A6E81C77F9A900015D5F /* TestDataLoader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TestDataLoader.m; sourceTree = "<group>"; };
 		FA5339C21B650B0F006C0F52 /* PhotoLibraryInterface.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PhotoLibraryInterface.h; sourceTree = "<group>"; };
 		FA5339C31B650B0F006C0F52 /* PhotoLibraryInterface.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PhotoLibraryInterface.m; sourceTree = "<group>"; };
 		FA5339CD1B6655D1006C0F52 /* ArtworkTVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ArtworkTVC.h; sourceTree = "<group>"; };
@@ -180,6 +183,8 @@
 			children = (
 				FA5339C21B650B0F006C0F52 /* PhotoLibraryInterface.h */,
 				FA5339C31B650B0F006C0F52 /* PhotoLibraryInterface.m */,
+				FA43A6E71C77F9A900015D5F /* TestDataLoader.h */,
+				FA43A6E81C77F9A900015D5F /* TestDataLoader.m */,
 			);
 			name = "Helper Objects";
 			sourceTree = "<group>";
@@ -495,6 +500,7 @@
 				FA43A6DB1C7097BC00015D5F /* ImageFileLocation+CoreDataProperties.m in Sources */,
 				FA4049671B7EBA6E0069144D /* ViewArtistTVC.m in Sources */,
 				FABBF6861C420A8C008DB672 /* NoScrollGridVC.m in Sources */,
+				FA43A6E91C77F9A900015D5F /* TestDataLoader.m in Sources */,
 				FA0FAA231C65DFD60023FC48 /* UIAlertController+ConvinienceMethods.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
