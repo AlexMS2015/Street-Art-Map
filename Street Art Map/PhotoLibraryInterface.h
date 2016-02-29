@@ -17,10 +17,12 @@
 
 -(CLLocation *)locationForImageWithLocalIdentifier:(NSString *)identifier;
 
--(PHImageRequestID)imageWithLocalIdentifier:(NSString *)identifier size:(CGSize)size completion:(void (^)(UIImage *image))block;
+-(PHImageRequestID)imageWithLocalIdentifier:(NSString *)identifier size:(CGSize)size completion:(void (^)(UIImage *))block cached:(BOOL)cached;
 -(void)cancelRequestWithID:(PHImageRequestID)requestID;
 
 -(void)localIdentifierForImage:(UIImage *)image completion:(void (^)(NSString *identifier))block;
 -(NSString *)localIdentifierForALAssetURL:(NSURL *)url;
+
+-(void)cacheImagesForLocalIdentifiers:(NSArray *)localIdentifiers withSize:(CGSize)size;
 
 @end

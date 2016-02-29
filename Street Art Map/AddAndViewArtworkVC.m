@@ -15,7 +15,8 @@
 #import "PhotoLibraryInterface.h"
 #import "UIAlertController+ConvinienceMethods.h"
 #import "DoubleTapToZoomScrollViewDelegate.h"
-#import "GridVC.h"
+#import "CollectionViewDataSource.h"
+#import "UICollectionViewFlowLayout+GridLayout.h"
 #import <CoreLocation/CoreLocation.h>
 
 @interface AddAndViewArtworkVC () <UINavigationControllerDelegate, UIImagePickerControllerDelegate>
@@ -23,13 +24,13 @@
 @property (strong, nonatomic) Artwork *artwork;
 @property (strong, nonatomic) NSManagedObjectContext *context;
 @property (strong, nonatomic) DoubleTapToZoomScrollViewDelegate *svZoomDelegate;
-@property (strong, nonatomic) GridVC *scrollingImagesGridVC;
 @property (nonatomic) int indexOfCurrentlyDisplayedPhoto;
+@property (strong, nonatomic) CollectionViewDataSource *imageCVDataSource;
 
 // outlets
-@property (weak, nonatomic) IBOutlet UIImageView *artworkImageView;
+//@property (weak, nonatomic) IBOutlet UIImageView *artworkImageView;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *deleteBarButtonItem;
-@property (weak, nonatomic) IBOutlet UIScrollView *artworkScrollView;
+//@property (weak, nonatomic) IBOutlet UIScrollView *artworkScrollView;
 @property (weak, nonatomic) IBOutlet UICollectionView *imageCV;
 
 @end
@@ -41,6 +42,7 @@
 static NSString * const ADD_ARTWORK_UNWINDSEG = @"Add Artwork Unwind";
 static NSString * const SELECT_ARTIST_SEGUE = @"Select Artist";
 static NSString * const SELECT_ARTIST_UNWINDSEG = @"Select Artist Unwind";
+static NSString * const CVC_IDENTIFIER = @"CollectionViewCell";
 static const int MINIMUM_ZOOM_SCALE = 1;
 static const int MAXIMUM_ZOOM_SCALE = 4;
 
@@ -67,7 +69,7 @@ static const int MAXIMUM_ZOOM_SCALE = 4;
         NSString *imageLocationIdentifier = imageLocation.fileLocation;
         [[PhotoLibraryInterface shared] imageWithLocalIdentifier:imageLocationIdentifier size:self.artworkImageView.bounds.size completion:^(UIImage *image) {
             self.artworkImageView.image = image;
-        }];
+        } cached:NO];
         [self.imageCV reloadData];
     }
 }
@@ -93,16 +95,25 @@ static const int MAXIMUM_ZOOM_SCALE = 4;
     
     self.svZoomDelegate = [[DoubleTapToZoomScrollViewDelegate alloc] initWithViewToZoom:self.artworkImageView inScrollView:self.artworkScrollView withMinZoomScale:MINIMUM_ZOOM_SCALE andMaxZoomScale:MAXIMUM_ZOOM_SCALE];
     
-    self.scrollingImagesGridVC = [[GridVC alloc] initWithgridSize:(GridSize){1, 3} collectionView:self.imageCV andCellConfigureBlock:^(UICollectionViewCell *cell, Position position, int index) {
-        ImageFileLocation *imageLocation = self.artwork.imageFileLocations[index];
+    
+    [self.imageCV registerClass:[UICollectionViewCell class] forCellWithReuseIdentifier:CVC_IDENTIFIER];
+    
+    self.imageCVDataSource = [[CollectionViewDataSource alloc] initWithSections:1 itemsPerSection:3 cellIdentifier:CVC_IDENTIFIER cellConfigureBlock:^(NSInteger section, NSInteger item, UICollectionViewCell *cell) {
+        
+        NSLog(@"Loading mini image");
+        
+        ImageFileLocation *imageLocation = self.artwork.imageFileLocations[item];
         NSString *imageLocationIdentifier = imageLocation.fileLocation;
-        NSLog(@"hi");
+        
         [[PhotoLibraryInterface shared] imageWithLocalIdentifier:imageLocationIdentifier size:self.artworkImageView.bounds.size completion:^(UIImage *image) {
             cell.backgroundView = [[UIImageView alloc] initWithImage:image];
-        }];
-    } andCellTapHandler:^(UICollectionViewCell *cell, Position position, int index) {
-        NSLog(@"tapped");
+        } cached:NO];
+
     }];
+    self.imageCV.dataSource = self.imageCVDataSource;
+    
+    UICollectionViewFlowLayout *layout = (UICollectionViewFlowLayout *)self.imageCV.collectionViewLayout;
+    [layout layoutAsGrid];
 }
 
 #pragma mark - Segues

@@ -58,7 +58,7 @@
     Artwork *artwork = (Artwork *)annotation;
     [[PhotoLibraryInterface shared] imageWithLocalIdentifier:[artwork defaultImageLocation] size:iv.bounds.size completion:^(UIImage *image) {
         iv.image = image;
-    }];
+    } cached:NO];
     
     return annotationView;
 }

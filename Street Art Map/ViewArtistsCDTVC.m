@@ -11,19 +11,21 @@
 #import "Artwork.h"
 #import "PhotoLibraryInterface.h"
 #import "ViewArtistTVC.h"
-#import "GridVC.h"
 #import "ArtworkImageView.h"
 #import "AddAndViewArtworkVC.h"
+#import "CollectionViewDataSource.h"
+#import "UICollectionViewFlowLayout+GridLayout.h"
 #import "UIAlertController+ConvinienceMethods.h"
 
-@interface ViewArtistsCDTVC ()
+@interface ViewArtistsCDTVC () <UICollectionViewDelegate>
 
-@property (strong, nonatomic) NSMutableArray *artworkImageGridVCs;
-@property (strong, nonatomic) NSMutableDictionary *cachedImages;
+@property (strong, nonatomic) NSMutableArray *artworkImageDataSources;
 
 @end
 
 @implementation ViewArtistsCDTVC
+
+static NSString * const CVC_IDENTIFIER = @"CollectionViewCell";
 
 #pragma mark - Segues
 
@@ -61,6 +63,8 @@
     [self.tableView registerNib:nib forCellReuseIdentifier:CELL_IDENTIFIER];
     
     self.navigationItem.leftBarButtonItem = self.editButtonItem;
+    
+    self.tableView.allowsSelection = NO;
 }
 
 -(void)viewWillAppear:(BOOL)animated
@@ -70,22 +74,44 @@
 
 #pragma mark - Properties
 
--(NSMutableArray *)artworkImageGridVCs
+-(NSMutableArray *)artworkImageDataSources
 {
-    if (!_artworkImageGridVCs) {
-        _artworkImageGridVCs = [NSMutableArray array];
+    if (!_artworkImageDataSources) {
+        _artworkImageDataSources = [NSMutableArray array];
     }
     
-    return _artworkImageGridVCs;
+    return _artworkImageDataSources;
 }
 
--(NSMutableDictionary *)cachedImages
+-(void)setFetchedResultsController:(NSFetchedResultsController *)fetchedResultsController
 {
-    if (!_cachedImages) {
-        _cachedImages = [NSMutableDictionary dictionary];
+    [super setFetchedResultsController:fetchedResultsController];
+    NSArray *artists = [fetchedResultsController fetchedObjects];
+    
+    NSMutableArray *imageIdentifiers = [NSMutableArray array];
+    for (Artist *artist in artists) {
+        for (Artwork *artwork in artist.artworks) {
+            [imageIdentifiers addObject:[artwork defaultImageLocation]];
+        }
     }
     
-    return _cachedImages;
+    [[PhotoLibraryInterface shared] cacheImagesForLocalIdentifiers:imageIdentifiers withSize:CGSizeMake(100, 100)];
+}
+
+#pragma mark - UICollectionViewDelegate
+
+-(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
+{
+    NSInteger artistIndex = [self.artworkImageDataSources indexOfObject:collectionView.dataSource];
+    Artist *selectedArtist = [self.fetchedResultsController objectAtIndexPath:[NSIndexPath indexPathForItem:artistIndex inSection:0]];
+    
+    NSInteger artworkIndex = indexPath.item;
+    if (artworkIndex < [selectedArtist.artworks count]) { // user selected an existing artwork
+        Artwork *artworkToView = [selectedArtist.artworks allObjects][artworkIndex];
+        [self performSegueWithIdentifier:@"View Artwork" sender:artworkToView];
+    } else { // user selected the '+' button
+        [self performSegueWithIdentifier:@"Add Artwork" sender:selectedArtist];
+    }
 }
 
 #pragma mark - UITableViewDelegate
@@ -131,9 +157,45 @@
     Artist *artist = [self.fetchedResultsController objectAtIndexPath:indexPath];
 
     [viewingCell setTitle:artist.name andImageCount:(int)artist.artworks.count];
-    
+
     int numArtworkCVCs = (int)[artist.artworks count] + 1;
     
+    NSLog(@"refreshing %@", self.artworkImageDataSources);
+    
+    [viewingCell.artworkImagesCV registerClass:[UICollectionViewCell class] forCellWithReuseIdentifier:CVC_IDENTIFIER];
+    
+    CollectionViewDataSource *dataSource = [[CollectionViewDataSource alloc] initWithSections:1 itemsPerSection:numArtworkCVCs cellIdentifier:CVC_IDENTIFIER cellConfigureBlock:^(NSInteger section, NSInteger item, UICollectionViewCell *cell) {
+        
+        __block UIImage *artworkImage;
+        if (item < [artist.artworks count]) {
+            
+            Artwork *artworkToDisplayImageFor = [artist.artworks allObjects][item];
+            
+            [[PhotoLibraryInterface shared] imageWithLocalIdentifier:[artworkToDisplayImageFor defaultImageLocation] size:cell.bounds.size completion:^(UIImage *image) {
+                artworkImage = image;
+            } cached:YES];
+            
+        } else {
+            // DOES THIS EVER GET EXECUTED?
+            artworkImage = nil;
+        }
+        cell.backgroundView = [[ArtworkImageView alloc] initWithFrame:cell.frame
+                                                            andImage:artworkImage];
+    }];
+
+    if ([self.artworkImageDataSources count] > indexPath.item) {
+        self.artworkImageDataSources[indexPath.item] = dataSource;
+    } else {
+        [self.artworkImageDataSources addObject:dataSource];
+    }
+        
+    viewingCell.artworkImagesCV.dataSource = dataSource;
+    viewingCell.artworkImagesCV.delegate = self;
+    
+    UICollectionViewFlowLayout *layout = (UICollectionViewFlowLayout *)viewingCell.artworkImagesCV.collectionViewLayout;
+    [layout layoutAsGrid];
+    
+    /*
     GridVC *artworkImagesCVC = [[GridVC alloc] initWithgridSize:(GridSize){1, numArtworkCVCs} collectionView:viewingCell.artworkImagesCV andCellConfigureBlock:^(UICollectionViewCell *cvc, Position position, int index) {
         
         __block UIImage *artworkImage;
@@ -141,18 +203,13 @@
             
             Artwork *artworkToDisplayImageFor = [artist.artworks allObjects][index];
             
-            // is the image for this artwork already cached?
-            if (!self.cachedImages[[artworkToDisplayImageFor defaultImageLocation]]) {
-                // fetch the photo and add it to the cache if not
-                [[PhotoLibraryInterface shared] imageWithLocalIdentifier:[artworkToDisplayImageFor defaultImageLocation] size:cvc.bounds.size completion:^(UIImage *image) {
-                    artworkImage = image;
-                    if (image)
-                        self.cachedImages[[artworkToDisplayImageFor defaultImageLocation]] = image;
-                }];
-            } else { // retrieve the image from cache
-                artworkImage = self.cachedImages[[artworkToDisplayImageFor defaultImageLocation]];
-            }
+            [[PhotoLibraryInterface shared] imageWithLocalIdentifier:[artworkToDisplayImageFor defaultImageLocation] size:cvc.bounds.size completion:^(UIImage *image) {
+                artworkImage = image;
+                NSLog(@"setting image");
+            } cached:YES];
+          
         } else {
+            // DOES THIS EVER GET EXECUTED?
             artworkImage = nil;
         }
         cvc.backgroundView = [[ArtworkImageView alloc] initWithFrame:cvc.frame
@@ -170,6 +227,8 @@
         
     }];
     [self.artworkImageGridVCs addObject:artworkImagesCVC]; // need to hang on to the view controllers that are responsible for the collection view in each table view cell
+     */
+//}
     
     return viewingCell;
 }

@@ -24,17 +24,6 @@
     return result;
 }
 
-/*-(PHAsset *)assetForIdentifer:(id)identifier
-{
-    PHFetchResult *result;
-    if ([identifier isKindOfClass:[NSString class]]) {
-        result = [PHAsset fetchAssetsWithLocalIdentifiers:@[identifier] options:nil];
-    } else if ([identifier isKindOfClass:[NSURL class]]) {
-        result = [PHAsset fetchAssetsWithALAssetURLs:@[identifier] options:nil];
-    }
-    return result ? [result firstObject] : nil;
-}*/
-
 #pragma mark - Public Interface
 
 +(instancetype)shared
@@ -65,7 +54,7 @@
     [[PHImageManager defaultManager] cancelImageRequest:requestID];
 }
 
--(void)cacheImagesForLocalIdentifiers:(NSArray *)localIdentifiers
+-(void)cacheImagesForLocalIdentifiers:(NSArray *)localIdentifiers withSize:(CGSize)size
 {
     PHFetchResult *assets = [self assetsForIdentifers:localIdentifiers];
     NSMutableArray *assetsArray = [NSMutableArray array];
@@ -74,11 +63,16 @@
         [assetsArray addObject:asset];
     }
     
+    PHImageRequestOptions *options = [[PHImageRequestOptions alloc] init];
+    options.deliveryMode = PHImageRequestOptionsDeliveryModeOpportunistic;
+    options.resizeMode = PHImageRequestOptionsResizeModeFast;
+    options.synchronous = YES;
+    
     PHCachingImageManager *manager = [[PHCachingImageManager alloc] init];
     [manager startCachingImagesForAssets:assetsArray
-                              targetSize:PHImageManagerMaximumSize
+                              targetSize:size
                              contentMode:PHImageContentModeDefault
-                                 options:nil];
+                                 options:options];
 }
 
 -(PHImageRequestID)imageWithLocalIdentifier:(NSString *)identifier size:(CGSize)size completion:(void (^)(UIImage *))block cached:(BOOL)cached
@@ -92,7 +86,12 @@
         manager  = [PHImageManager defaultManager];
     }
     
-    PHImageRequestID requestID = [manager requestImageForAsset:asset targetSize:size contentMode:PHImageContentModeAspectFill options:nil resultHandler:^(UIImage *result, NSDictionary *info) {
+    PHImageRequestOptions *options = [[PHImageRequestOptions alloc] init];
+    options.deliveryMode = PHImageRequestOptionsDeliveryModeOpportunistic;
+    options.resizeMode = PHImageRequestOptionsResizeModeFast;
+    options.synchronous = YES;
+    
+    PHImageRequestID requestID = [manager requestImageForAsset:asset targetSize:size contentMode:PHImageContentModeAspectFill options:options resultHandler:^(UIImage *result, NSDictionary *info) {
         if (info[PHImageErrorKey]) {
             NSLog(@"Error fetching image from local identifier");
         } else {

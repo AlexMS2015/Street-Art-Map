@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		FA080AAC1C82AD5700FAD717 /* CollectionViewDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = FA080AA71C82AD5700FAD717 /* CollectionViewDataSource.m */; settings = {ASSET_TAGS = (); }; };
+		FA080AB11C82AD6200FAD717 /* UICollectionViewFlowLayout+GridLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = FA080AB01C82AD6200FAD717 /* UICollectionViewFlowLayout+GridLayout.m */; settings = {ASSET_TAGS = (); }; };
 		FA0EB1131B649F110034FD18 /* ListOfArtworksCDTVC.m in Sources */ = {isa = PBXBuildFile; fileRef = FA0EB1121B649F110034FD18 /* ListOfArtworksCDTVC.m */; };
 		FA0FAA231C65DFD60023FC48 /* UIAlertController+ConvinienceMethods.m in Sources */ = {isa = PBXBuildFile; fileRef = FA0FAA221C65DFD60023FC48 /* UIAlertController+ConvinienceMethods.m */; settings = {ASSET_TAGS = (); }; };
 		FA0FAA6F1C68BBC00023FC48 /* DoubleTapToZoomScrollViewDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = FA0FAA6E1C68BBC00023FC48 /* DoubleTapToZoomScrollViewDelegate.m */; settings = {ASSET_TAGS = (); }; };
@@ -32,12 +34,6 @@
 		FA5339D41B6DAA2F006C0F52 /* ArtworkMapVC.m in Sources */ = {isa = PBXBuildFile; fileRef = FA5339D31B6DAA2F006C0F52 /* ArtworkMapVC.m */; };
 		FA5339E31B6EE32E006C0F52 /* Artwork+Annotation.m in Sources */ = {isa = PBXBuildFile; fileRef = FA5339E21B6EE32E006C0F52 /* Artwork+Annotation.m */; };
 		FA5339E81B6EE9F7006C0F52 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FA5339E71B6EE9F7006C0F52 /* MapKit.framework */; };
-		FABBF6821C420A8C008DB672 /* CodableObject.m in Sources */ = {isa = PBXBuildFile; fileRef = FABBF6771C420A8C008DB672 /* CodableObject.m */; settings = {ASSET_TAGS = (); }; };
-		FABBF6831C420A8C008DB672 /* Grid.m in Sources */ = {isa = PBXBuildFile; fileRef = FABBF6791C420A8C008DB672 /* Grid.m */; settings = {ASSET_TAGS = (); }; };
-		FABBF6841C420A8C008DB672 /* GridOfObjects.m in Sources */ = {isa = PBXBuildFile; fileRef = FABBF67B1C420A8C008DB672 /* GridOfObjects.m */; settings = {ASSET_TAGS = (); }; };
-		FABBF6851C420A8C008DB672 /* GridVC.m in Sources */ = {isa = PBXBuildFile; fileRef = FABBF67D1C420A8C008DB672 /* GridVC.m */; settings = {ASSET_TAGS = (); }; };
-		FABBF6861C420A8C008DB672 /* NoScrollGridVC.m in Sources */ = {isa = PBXBuildFile; fileRef = FABBF67F1C420A8C008DB672 /* NoScrollGridVC.m */; settings = {ASSET_TAGS = (); }; };
-		FABBF6871C420A8C008DB672 /* PositionStruct.m in Sources */ = {isa = PBXBuildFile; fileRef = FABBF6811C420A8C008DB672 /* PositionStruct.m */; settings = {ASSET_TAGS = (); }; };
 		FAC2C7651B50B83200DE31A5 /* CoreDataTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FAC2C7641B50B83200DE31A5 /* CoreDataTableViewController.m */; };
 		FAC2C7681B50DE5900DE31A5 /* RecentsCDTVC.m in Sources */ = {isa = PBXBuildFile; fileRef = FAC2C7671B50DE5900DE31A5 /* RecentsCDTVC.m */; };
 		FAC2C76B1B50E87700DE31A5 /* AddAndViewArtworkVC.m in Sources */ = {isa = PBXBuildFile; fileRef = FAC2C76A1B50E87700DE31A5 /* AddAndViewArtworkVC.m */; };
@@ -62,6 +58,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		FA080AA61C82AD5700FAD717 /* CollectionViewDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CollectionViewDataSource.h; sourceTree = "<group>"; };
+		FA080AA71C82AD5700FAD717 /* CollectionViewDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CollectionViewDataSource.m; sourceTree = "<group>"; };
+		FA080AAF1C82AD6200FAD717 /* UICollectionViewFlowLayout+GridLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UICollectionViewFlowLayout+GridLayout.h"; sourceTree = "<group>"; };
+		FA080AB01C82AD6200FAD717 /* UICollectionViewFlowLayout+GridLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UICollectionViewFlowLayout+GridLayout.m"; sourceTree = "<group>"; };
 		FA0EB1111B649F110034FD18 /* ListOfArtworksCDTVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ListOfArtworksCDTVC.h; sourceTree = "<group>"; };
 		FA0EB1121B649F110034FD18 /* ListOfArtworksCDTVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ListOfArtworksCDTVC.m; sourceTree = "<group>"; };
 		FA0FAA211C65DFD60023FC48 /* UIAlertController+ConvinienceMethods.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIAlertController+ConvinienceMethods.h"; sourceTree = "<group>"; };
@@ -108,18 +108,6 @@
 		FA5339E11B6EE32E006C0F52 /* Artwork+Annotation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Artwork+Annotation.h"; sourceTree = "<group>"; };
 		FA5339E21B6EE32E006C0F52 /* Artwork+Annotation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Artwork+Annotation.m"; sourceTree = "<group>"; };
 		FA5339E71B6EE9F7006C0F52 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
-		FABBF6761C420A8C008DB672 /* CodableObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CodableObject.h; sourceTree = "<group>"; };
-		FABBF6771C420A8C008DB672 /* CodableObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CodableObject.m; sourceTree = "<group>"; };
-		FABBF6781C420A8C008DB672 /* Grid.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Grid.h; sourceTree = "<group>"; };
-		FABBF6791C420A8C008DB672 /* Grid.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Grid.m; sourceTree = "<group>"; };
-		FABBF67A1C420A8C008DB672 /* GridOfObjects.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GridOfObjects.h; sourceTree = "<group>"; };
-		FABBF67B1C420A8C008DB672 /* GridOfObjects.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GridOfObjects.m; sourceTree = "<group>"; };
-		FABBF67C1C420A8C008DB672 /* GridVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GridVC.h; sourceTree = "<group>"; };
-		FABBF67D1C420A8C008DB672 /* GridVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GridVC.m; sourceTree = "<group>"; };
-		FABBF67E1C420A8C008DB672 /* NoScrollGridVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NoScrollGridVC.h; sourceTree = "<group>"; };
-		FABBF67F1C420A8C008DB672 /* NoScrollGridVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NoScrollGridVC.m; sourceTree = "<group>"; };
-		FABBF6801C420A8C008DB672 /* PositionStruct.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PositionStruct.h; sourceTree = "<group>"; };
-		FABBF6811C420A8C008DB672 /* PositionStruct.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PositionStruct.m; sourceTree = "<group>"; };
 		FAC2C7631B50B83200DE31A5 /* CoreDataTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CoreDataTableViewController.h; sourceTree = "<group>"; };
 		FAC2C7641B50B83200DE31A5 /* CoreDataTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CoreDataTableViewController.m; sourceTree = "<group>"; };
 		FAC2C7661B50DE5900DE31A5 /* RecentsCDTVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RecentsCDTVC.h; sourceTree = "<group>"; };
@@ -189,46 +177,13 @@
 			name = "Helper Objects";
 			sourceTree = "<group>";
 		};
-		FABBF6751C420A79008DB672 /* GridInterface */ = {
-			isa = PBXGroup;
-			children = (
-				FABBF6881C420A98008DB672 /* Model */,
-				FABBF6891C420AA8008DB672 /* Controller */,
-			);
-			name = GridInterface;
-			sourceTree = "<group>";
-		};
-		FABBF6881C420A98008DB672 /* Model */ = {
-			isa = PBXGroup;
-			children = (
-				FABBF6761C420A8C008DB672 /* CodableObject.h */,
-				FABBF6771C420A8C008DB672 /* CodableObject.m */,
-				FABBF6781C420A8C008DB672 /* Grid.h */,
-				FABBF6791C420A8C008DB672 /* Grid.m */,
-				FABBF67A1C420A8C008DB672 /* GridOfObjects.h */,
-				FABBF67B1C420A8C008DB672 /* GridOfObjects.m */,
-				FABBF6801C420A8C008DB672 /* PositionStruct.h */,
-				FABBF6811C420A8C008DB672 /* PositionStruct.m */,
-			);
-			name = Model;
-			sourceTree = "<group>";
-		};
-		FABBF6891C420AA8008DB672 /* Controller */ = {
-			isa = PBXGroup;
-			children = (
-				FABBF67C1C420A8C008DB672 /* GridVC.h */,
-				FABBF67D1C420A8C008DB672 /* GridVC.m */,
-				FABBF67E1C420A8C008DB672 /* NoScrollGridVC.h */,
-				FABBF67F1C420A8C008DB672 /* NoScrollGridVC.m */,
-			);
-			name = Controller;
-			sourceTree = "<group>";
-		};
 		FACDBBED1BA30A2100744488 /* Categories */ = {
 			isa = PBXGroup;
 			children = (
 				FA0FAA211C65DFD60023FC48 /* UIAlertController+ConvinienceMethods.h */,
 				FA0FAA221C65DFD60023FC48 /* UIAlertController+ConvinienceMethods.m */,
+				FA080AAF1C82AD6200FAD717 /* UICollectionViewFlowLayout+GridLayout.h */,
+				FA080AB01C82AD6200FAD717 /* UICollectionViewFlowLayout+GridLayout.m */,
 			);
 			name = Categories;
 			sourceTree = "<group>";
@@ -255,7 +210,8 @@
 		FAEB52891B48D14700D9361E /* Street Art Map */ = {
 			isa = PBXGroup;
 			children = (
-				FABBF6751C420A79008DB672 /* GridInterface */,
+				FA080AA61C82AD5700FAD717 /* CollectionViewDataSource.h */,
+				FA080AA71C82AD5700FAD717 /* CollectionViewDataSource.m */,
 				FACDBBED1BA30A2100744488 /* Categories */,
 				FA0FAA201C657B460023FC48 /* Helper Objects */,
 				FAEB52B11B48D17F00D9361E /* Controller */,
@@ -471,20 +427,16 @@
 				FAEB52901B48D14700D9361E /* AppDelegate.m in Sources */,
 				FAC2C7651B50B83200DE31A5 /* CoreDataTableViewController.m in Sources */,
 				FA4049301B75CAC90069144D /* Artist.m in Sources */,
-				FABBF6871C420A8C008DB672 /* PositionStruct.m in Sources */,
 				FAC2C76E1B51E44800DE31A5 /* ArtistsCDTVC.m in Sources */,
-				FABBF6851C420A8C008DB672 /* GridVC.m in Sources */,
 				FA43A6E01C75C83400015D5F /* ViewArtistsCDTVC.m in Sources */,
 				FA0FAA6F1C68BBC00023FC48 /* DoubleTapToZoomScrollViewDelegate.m in Sources */,
 				FA5339D01B6655D1006C0F52 /* ArtworkTVC.m in Sources */,
 				FA0EB1131B649F110034FD18 /* ListOfArtworksCDTVC.m in Sources */,
-				FABBF6821C420A8C008DB672 /* CodableObject.m in Sources */,
-				FABBF6841C420A8C008DB672 /* GridOfObjects.m in Sources */,
 				FA43A6DA1C7097BC00015D5F /* Location+CoreDataProperties.m in Sources */,
 				FA315FBB1BAE59B300BE5F02 /* SelectArtistTVC.m in Sources */,
+				FA080AB11C82AD6200FAD717 /* UICollectionViewFlowLayout+GridLayout.m in Sources */,
 				FAEB528D1B48D14700D9361E /* main.m in Sources */,
 				FA40492A1B75CAC80069144D /* Artwork.m in Sources */,
-				FABBF6831C420A8C008DB672 /* Grid.m in Sources */,
 				FA43A6DD1C7097BC00015D5F /* Artist+CoreDataProperties.m in Sources */,
 				FA43A6E31C75C84E00015D5F /* SelectArtistCDTVC.m in Sources */,
 				FA5339C41B650B0F006C0F52 /* PhotoLibraryInterface.m in Sources */,
@@ -499,8 +451,8 @@
 				FA5339E31B6EE32E006C0F52 /* Artwork+Annotation.m in Sources */,
 				FA43A6DB1C7097BC00015D5F /* ImageFileLocation+CoreDataProperties.m in Sources */,
 				FA4049671B7EBA6E0069144D /* ViewArtistTVC.m in Sources */,
-				FABBF6861C420A8C008DB672 /* NoScrollGridVC.m in Sources */,
 				FA43A6E91C77F9A900015D5F /* TestDataLoader.m in Sources */,
+				FA080AAC1C82AD5700FAD717 /* CollectionViewDataSource.m in Sources */,
 				FA0FAA231C65DFD60023FC48 /* UIAlertController+ConvinienceMethods.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

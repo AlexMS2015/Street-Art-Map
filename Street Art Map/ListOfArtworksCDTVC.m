@@ -111,7 +111,7 @@ static NSString * const VIEW_ARTWORK_SEGUE = @"View Artwork";
     cell.tag = [[PhotoLibraryInterface shared] imageWithLocalIdentifier:[artwork defaultImageLocation] size:cell.artworkImageView.bounds.size completion:^(UIImage *image) {
         cell.artworkImageView.image = image;
         cell.tag = 0;
-    }];
+    } cached:NO];
     
     return cell;
 }

@@ -11,7 +11,6 @@
 @interface ViewArtistTVC ()
 
 @property (weak, nonatomic) IBOutlet UILabel *titleLabel;
-@property (weak, nonatomic) IBOutlet UILabel *photosCountLabel;
 
 @end
 
@@ -20,7 +19,6 @@
 -(void)setTitle:(NSString *)title andImageCount:(int)count
 {
     self.titleLabel.text = title;
-    self.photosCountLabel.text = [NSString stringWithFormat:@"%d photos", count];
 }
 
 +(CGFloat)cellHeight

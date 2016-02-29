@@ -13,5 +13,4 @@
 // subclasses will need to implement this method themselves
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath;
 
-
 @end

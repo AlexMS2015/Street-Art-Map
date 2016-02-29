@@ -13,6 +13,7 @@
 -(instancetype)initWithFrame:(CGRect)frame andImage:(UIImage *)image
 {
     if (self = [super initWithFrame:frame]) {
+        self.contentMode = UIViewContentModeScaleAspectFill;
         self.layer.borderColor = [UIColor whiteColor].CGColor;
         self.layer.borderWidth = 0.5;
         self.clipsToBounds = YES;
