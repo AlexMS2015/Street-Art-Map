@@ -10,12 +10,16 @@
 
 @implementation ArtworkImageView
 
--(instancetype)initWithFrame:(CGRect)frame andImage:(UIImage *)image
+-(instancetype)initWithFrame:(CGRect)frame andImage:(UIImage *)image andContentMode:(UIViewContentMode)contentMode bordered :(BOOL)bordered
 {
     if (self = [super initWithFrame:frame]) {
-        self.contentMode = UIViewContentModeScaleAspectFill;
-        self.layer.borderColor = [UIColor whiteColor].CGColor;
-        self.layer.borderWidth = 0.5;
+        self.contentMode = contentMode;
+        
+        if (bordered) {
+            self.layer.borderColor = [UIColor whiteColor].CGColor;
+            self.layer.borderWidth = 0.5;
+        }
+
         self.clipsToBounds = YES;
         if (!image) {
             UILabel *label = [[UILabel alloc] initWithFrame:self.bounds];

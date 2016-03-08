@@ -5,7 +5,8 @@
 @implementation CoreDataTableViewController
 
 // enable this to provide support for undoing changes
--(BOOL)canBecomeFirstResponder {
+-(BOOL)canBecomeFirstResponder
+{
     return YES;
 }
 

@@ -159,9 +159,7 @@ static NSString * const CVC_IDENTIFIER = @"CollectionViewCell";
     [viewingCell setTitle:artist.name andImageCount:(int)artist.artworks.count];
 
     int numArtworkCVCs = (int)[artist.artworks count] + 1;
-    
-    NSLog(@"refreshing %@", self.artworkImageDataSources);
-    
+        
     [viewingCell.artworkImagesCV registerClass:[UICollectionViewCell class] forCellWithReuseIdentifier:CVC_IDENTIFIER];
     
     CollectionViewDataSource *dataSource = [[CollectionViewDataSource alloc] initWithSections:1 itemsPerSection:numArtworkCVCs cellIdentifier:CVC_IDENTIFIER cellConfigureBlock:^(NSInteger section, NSInteger item, UICollectionViewCell *cell) {
@@ -179,8 +177,7 @@ static NSString * const CVC_IDENTIFIER = @"CollectionViewCell";
             // DOES THIS EVER GET EXECUTED?
             artworkImage = nil;
         }
-        cell.backgroundView = [[ArtworkImageView alloc] initWithFrame:cell.frame
-                                                            andImage:artworkImage];
+        cell.backgroundView = [[ArtworkImageView alloc] initWithFrame:cell.frame andImage:artworkImage andContentMode:UIViewContentModeScaleAspectFill bordered:YES];
     }];
 
     if ([self.artworkImageDataSources count] > indexPath.item) {
@@ -194,42 +191,7 @@ static NSString * const CVC_IDENTIFIER = @"CollectionViewCell";
     
     UICollectionViewFlowLayout *layout = (UICollectionViewFlowLayout *)viewingCell.artworkImagesCV.collectionViewLayout;
     [layout layoutAsGrid];
-    
-    /*
-    GridVC *artworkImagesCVC = [[GridVC alloc] initWithgridSize:(GridSize){1, numArtworkCVCs} collectionView:viewingCell.artworkImagesCV andCellConfigureBlock:^(UICollectionViewCell *cvc, Position position, int index) {
-        
-        __block UIImage *artworkImage;
-        if (index < [artist.artworks count]) {
-            
-            Artwork *artworkToDisplayImageFor = [artist.artworks allObjects][index];
-            
-            [[PhotoLibraryInterface shared] imageWithLocalIdentifier:[artworkToDisplayImageFor defaultImageLocation] size:cvc.bounds.size completion:^(UIImage *image) {
-                artworkImage = image;
-                NSLog(@"setting image");
-            } cached:YES];
-          
-        } else {
-            // DOES THIS EVER GET EXECUTED?
-            artworkImage = nil;
-        }
-        cvc.backgroundView = [[ArtworkImageView alloc] initWithFrame:cvc.frame
-                                                            andImage:artworkImage];
-        
-    } andCellTapHandler:^(UICollectionViewCell *cell, Position position, int index) {
-        Artwork *artworkToView;
-        
-        if (index < [artist.artworks count]) { // user selected an existing artwork
-            artworkToView = [artist.artworks allObjects][index];
-            [self performSegueWithIdentifier:@"View Artwork" sender:artworkToView];
-        } else { // user selected the '+' button
-            [self performSegueWithIdentifier:@"Add Artwork" sender:artist];
-        }
-        
-    }];
-    [self.artworkImageGridVCs addObject:artworkImagesCVC]; // need to hang on to the view controllers that are responsible for the collection view in each table view cell
-     */
-//}
-    
+
     return viewingCell;
 }
 

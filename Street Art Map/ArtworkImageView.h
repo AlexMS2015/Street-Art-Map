@@ -10,6 +10,6 @@
 
 @interface ArtworkImageView : UIImageView
 
--(instancetype)initWithFrame:(CGRect)frame andImage:(UIImage *)image;
+-(instancetype)initWithFrame:(CGRect)frame andImage:(UIImage *)image andContentMode:(UIViewContentMode)contentMode bordered :(BOOL)bordered;
 
 @end

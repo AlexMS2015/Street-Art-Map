@@ -10,8 +10,8 @@
 
 @interface DoubleTapToZoomScrollViewDelegate ()
 
-@property (strong, nonatomic) UIView *viewToZoom;
-@property (strong, nonatomic) UIScrollView *scrollView;
+@property (weak, nonatomic) UIView *viewToZoom;
+@property (weak, nonatomic) UIScrollView *scrollView;
 @property (nonatomic) float minZoomScale;
 @property (nonatomic) float maxZoomScale;
 
@@ -26,6 +26,10 @@
         self.minZoomScale = minZoomScale;
         self.maxZoomScale = maxZoomScale;
         self.scrollView = scrollView;
+        
+        UITapGestureRecognizer *doubleTapRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(doubleTap:)];
+        doubleTapRecognizer.numberOfTapsRequired = 2;
+        [self.viewToZoom addGestureRecognizer:doubleTapRecognizer];
     }
     
     return self;
@@ -49,6 +53,8 @@
 
 -(void)doubleTap:(UIGestureRecognizer *)gestureRecognizer
 {
+    NSLog(@"double tapped");
+    
     if (self.scrollView.zoomScale > self.minZoomScale) {
         [self.scrollView setZoomScale:self.minZoomScale animated:YES];
     } else if (self.scrollView.zoomScale == self.minZoomScale) {

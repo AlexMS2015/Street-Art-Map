@@ -21,7 +21,7 @@
     if (!shared) {
         shared = [[self alloc] init];
         
-        NSArray *testArtistNames = @[@"Lister", @"Banksy", @"Alex", @"John"];
+        NSArray *testArtistNames = @[@"Lister", @"Banksy", @"Alex", @"Stacey"];
         NSArray *imageNames = @[@"streetArtImage1", @"streetArtImage2", @"streetArtImage3", @"streetArtImage4"];
         
         for (NSString *artistName in testArtistNames) {
