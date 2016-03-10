@@ -21,22 +21,34 @@
     if (!shared) {
         shared = [[self alloc] init];
         
+        NSMutableArray *testImageNames = [NSMutableArray array];
         NSArray *testArtistNames = @[@"Lister", @"Banksy", @"Alex", @"Stacey"];
-        NSArray *imageNames = @[@"streetArtImage1", @"streetArtImage2", @"streetArtImage3", @"streetArtImage4"];
+        NSMutableDictionary *testData = [NSMutableDictionary dictionary];
         
-        for (NSString *artistName in testArtistNames) {
+        for (int imageNum = 1; imageNum <= 16; imageNum++) {
+            [testImageNames addObject:[NSString stringWithFormat:@"streetArtImage%d",imageNum]];
+        }
+        
+        int numArtworksPerArtist = (int)[testImageNames count] / [testArtistNames count];
+        for (int i = 0; i < [testArtistNames count]; i++) {
+            NSString *artistName = testArtistNames[i];
+            NSRange range = NSMakeRange(i * numArtworksPerArtist, numArtworksPerArtist);
+            testData[artistName] = [testImageNames subarrayWithRange:range];
+        }
+        
+        for (NSString *artistName in testData.allKeys) {
             Artist *newArtist = [Artist artistWithName:artistName inManagedObjectContext:context];
-            NSUInteger index = [testArtistNames indexOfObject:artistName];
-            NSString *imageNameAndTitle = imageNames[index];
             
-            Artwork *newArtwork = [Artwork artworkWithTitle:imageNameAndTitle artist:newArtist inContext:context];
-            UIImage *artworkImage = [UIImage imageNamed:imageNameAndTitle];
-            
-            [[PhotoLibraryInterface shared] localIdentifierForImage:artworkImage completion:^(NSString *identifier) {
-                NSString *imageFileLocation = identifier;
-                ImageFileLocation *fileLocation = [ImageFileLocation newImageLocationWithLocation:imageFileLocation inContext:context];
-                [newArtwork addImageFileLocationsObject:fileLocation];
-            }];
+            for (NSString *imageName in testData[artistName]) {
+                Artwork *newArtwork = [Artwork artworkWithTitle:imageName artist:newArtist inContext:context];
+                UIImage *artworkImage = [UIImage imageNamed:imageName];
+                
+                [[PhotoLibraryInterface shared] localIdentifierForImage:artworkImage completion:^(NSString *identifier) {
+                    NSString *imageFileLocation = identifier;
+                    ImageFileLocation *fileLocation = [ImageFileLocation newImageLocationWithLocation:imageFileLocation inContext:context];
+                    [newArtwork addImageFileLocationsObject:fileLocation];
+                }];
+            }
         }
     }
     

@@ -8,13 +8,43 @@
 
 #import "SelectArtistCDTVC.h"
 #import "Artist.h"
-#import "SelectArtistTVC.h"
-
-@interface SelectArtistCDTVC ()
-
-@end
+#import "Artwork.h"
+#import "UIAlertController+ConvinienceMethods.h"
 
 @implementation SelectArtistCDTVC
+
+static NSString * const SELECT_ARTIST_CELL = @"Select Artist Cell";
+
+#pragma mark - Abstract Methods
+
+-(void)setupFetchedResultsController
+{
+    NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"Artist"];
+    NSSortDescriptor *nameSort = [NSSortDescriptor sortDescriptorWithKey:@"name" ascending:YES];
+    request.sortDescriptors = @[nameSort];
+    
+    self.fetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:request managedObjectContext:self.context sectionNameKeyPath:nil cacheName:nil];
+}
+
+#pragma mark - Actions
+
+- (IBAction)addArtist:(UIBarButtonItem *)sender
+{
+    UIAlertController *newArtistAlert = [UIAlertController OKCancelAlertWithMessage:@"Please type the artist's name" andHandler:^(UIAlertAction *action, UIAlertController *alertVC) {
+        NSString *newArtistName = ((UITextField *)[alertVC.textFields firstObject]).text;
+        if (newArtistName.length > 0) {
+            Artist *newArtist = [Artist artistWithName:newArtistName inManagedObjectContext:self.context];
+            self.selectedArtist = newArtist;
+            [self performSegueWithIdentifier:@"Select Artist Unwind" sender:nil];
+        }
+    }];
+    
+    [newArtistAlert addTextFieldWithConfigurationHandler:^(UITextField *textField) {
+        textField.autocapitalizationType = UITextAutocapitalizationTypeWords;
+    }];
+    
+    [self presentViewController:newArtistAlert animated:YES completion:NULL];
+}
 
 #pragma mark - Segues
 
@@ -30,55 +60,33 @@
 }
 
 #pragma mark - View Life Cycle
-    
--(void)viewDidLoad
-{
-    [super viewDidLoad];
-    
-    UINib *nib = [UINib nibWithNibName:@"SelectArtistTVC" bundle:nil];
-    self.navigationItem.title = @"Select Artist";
-    [self.tableView registerNib:nib forCellReuseIdentifier:CELL_IDENTIFIER];
-    
-    UIBarButtonItem *cancelButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel target:self action:@selector(cancel:)];
-    self.navigationItem.leftBarButtonItem = cancelButton;
-}
 
--(void)setSelectedArtist:(Artist *)selectedArtist
+/*-(void)setSelectedArtist:(Artist *)selectedArtist
 {
     _selectedArtist = selectedArtist;
     
-#warning - THIS CODE DOES NOT WORK
     NSIndexPath *pathOfSelectedArtist = [self.fetchedResultsController indexPathForObject:self.selectedArtist];
     [self.tableView scrollToRowAtIndexPath:pathOfSelectedArtist atScrollPosition:UITableViewScrollPositionNone animated:NO];
     NSLog(@"path of selected artist %@ is %ld", self.selectedArtist.name, (long)pathOfSelectedArtist.row);
-}
+}*/
 
 #pragma mark - UITableViewDelegate
 
--(BOOL)tableView:(UITableView *)tableView shouldHighlightRowAtIndexPath:(NSIndexPath *)indexPath
+/*-(BOOL)tableView:(UITableView *)tableView shouldHighlightRowAtIndexPath:(NSIndexPath *)indexPath
 {
     return YES;
-}
-
--(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    return [SelectArtistTVC cellHeight];
-}
-
--(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    [self performSegueWithIdentifier: @"Select Artist Unwind" sender:[self.tableView cellForRowAtIndexPath:indexPath]];
-}
+}*/
 
 #pragma mark - UITableViewDataSource
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    SelectArtistTVC *selectionCell  = [self.tableView dequeueReusableCellWithIdentifier:CELL_IDENTIFIER];
+    UITableViewCell *cell  = [self.tableView dequeueReusableCellWithIdentifier:SELECT_ARTIST_CELL];
     Artist *artist = [self.fetchedResultsController objectAtIndexPath:indexPath];
     
-    selectionCell.titleLabel.text = artist.name;
-    selectionCell.selected = [self.selectedArtist isEqualToArtist:artist];
+    UILabel *artistNameLabel = (UILabel *)[cell viewWithTag:1];
+    artistNameLabel.text = artist.name;
+    //selectionCell.selected = [self.selectedArtist isEqualToArtist:artist];
     /*if ([self.selectedArtist isEqualToArtist:artist]) {
      NSLog(@"highlight: %@", artist.name);
      selectionCell.selected = YES;
@@ -87,7 +95,7 @@
      selectionCell.selected = NO;
      }*/
     
-    return selectionCell;
+    return cell;
 }
 
 #pragma mark - Actions
@@ -95,12 +103,6 @@
 - (IBAction)cancel:(UIBarButtonItem *)sender
 {
     [self.presentingViewController dismissViewControllerAnimated:YES completion:NULL];
-}
-
--(void)addedArtist:(Artist *)artist
-{
-    self.selectedArtist = artist;
-    [self performSegueWithIdentifier:@"Select Artist Unwind" sender:nil];
 }
 
 @end

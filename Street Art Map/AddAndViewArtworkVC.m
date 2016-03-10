@@ -15,15 +15,15 @@
 #import "PhotoLibraryInterface.h"
 #import "UIAlertController+ConvinienceMethods.h"
 #import "DoubleTapToZoomScrollViewDelegate.h"
-#import "CollectionViewDataSource.h"
+#import "AddImageCollectionViewCell.h"
+#import "ImageZoomCollectionViewCell.h"
 #import <CoreLocation/CoreLocation.h>
 
-@interface AddAndViewArtworkVC () <UINavigationControllerDelegate, UIImagePickerControllerDelegate>
+@interface AddAndViewArtworkVC () <UINavigationControllerDelegate, UIImagePickerControllerDelegate, UICollectionViewDataSource>
 
 @property (strong, nonatomic) Artwork *artwork;
 @property (strong, nonatomic) NSManagedObjectContext *context;
 @property (strong, nonatomic) NSMutableArray *svZoomDelegates;
-@property (strong, nonatomic) CollectionViewDataSource *imageCVDataSource;
 
 // outlets
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *deleteBarButtonItem;
@@ -38,7 +38,10 @@
 static NSString * const ADD_ARTWORK_UNWINDSEG = @"Add Artwork Unwind";
 static NSString * const SELECT_ARTIST_SEGUE = @"Select Artist";
 static NSString * const SELECT_ARTIST_UNWINDSEG = @"Select Artist Unwind";
-static NSString * const CVC_IDENTIFIER = @"CollectionViewCell";
+
+static NSString * const ADD_IMAGE_CELL = @"Add Image Cell";
+static NSString * const IMAGE_ZOOM_CELL = @"Image Zoom Cell";
+
 static const int MINIMUM_ZOOM_SCALE = 1;
 static const int MAXIMUM_ZOOM_SCALE = 4;
 
@@ -65,6 +68,34 @@ static const int MAXIMUM_ZOOM_SCALE = 4;
     return _svZoomDelegates;
 }
 
+#pragma mark - UICollectionViewDataSource
+
+-(NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
+{
+    return [self.artwork.imageFileLocations count] + 1;
+}
+
+-(UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
+{
+    if (indexPath.item < [self.artwork.imageFileLocations count]) {
+        ImageZoomCollectionViewCell *cell = (ImageZoomCollectionViewCell *)[self.imageCollectionView dequeueReusableCellWithReuseIdentifier:IMAGE_ZOOM_CELL forIndexPath:indexPath];
+        DoubleTapToZoomScrollViewDelegate *delegate = [[DoubleTapToZoomScrollViewDelegate alloc] initWithViewToZoom:cell.imageView inScrollView:cell.scrollView withMinZoomScale:MINIMUM_ZOOM_SCALE andMaxZoomScale:MAXIMUM_ZOOM_SCALE];
+        [self.svZoomDelegates addObject:delegate];
+    
+        ImageFileLocation *imageLocation = self.artwork.imageFileLocations[indexPath.item];
+        NSString *imageLocationIdentifier = imageLocation.fileLocation;
+        
+        [[PhotoLibraryInterface shared] imageWithLocalIdentifier:imageLocationIdentifier size:cell.bounds.size completion:^(UIImage *image) {
+            cell.imageView.image = image;
+        } cached:NO];
+        
+        return cell;
+    } else {
+        AddImageCollectionViewCell *cell = (AddImageCollectionViewCell *)[self.imageCollectionView dequeueReusableCellWithReuseIdentifier:ADD_IMAGE_CELL forIndexPath:indexPath];
+        return cell;
+    }
+}
+
 #pragma mark - View Life Cycle
 
 -(void)viewDidLoad
@@ -76,49 +107,11 @@ static const int MAXIMUM_ZOOM_SCALE = 4;
     }
     
     if ([self.artwork.imageFileLocations count] > 0) {
-        //self.indexOfCurrentlyDisplayedPhoto = 0;
         self.navigationItem.leftBarButtonItem = nil; // if there's an image we must be viewing an existing artwork. Hence, remove the 'cancel' button present when creating an artwork.
     } else {
         self.deleteBarButtonItem.tintColor = [UIColor clearColor];
         self.deleteBarButtonItem.enabled = NO;
     }
-    
-    [self.imageCollectionView registerClass:[UICollectionViewCell class] forCellWithReuseIdentifier:CVC_IDENTIFIER];
-    self.imageCVDataSource = [[CollectionViewDataSource alloc] initWithSections:1 itemsPerSection:[self.artwork.imageFileLocations count] + 1 cellIdentifier:CVC_IDENTIFIER cellConfigureBlock:^(NSInteger section, NSInteger item, UICollectionViewCell *cell) {
-        
-        for (UIView *view in cell.contentView.subviews) [view removeFromSuperview];
-        
-        if (item <= [self.artwork.imageFileLocations count] - 1 && [self.artwork.imageFileLocations count] > 0) {
-    
-            UIImageView *artworkImageView = [[UIImageView alloc] initWithFrame:cell.bounds];
-            artworkImageView.contentMode = UIViewContentModeScaleAspectFit;
-            
-            UIScrollView *scrollView = [[UIScrollView alloc] initWithFrame:cell.bounds];
-            [scrollView addSubview:artworkImageView];
-            [cell.contentView addSubview:scrollView];
-            
-            DoubleTapToZoomScrollViewDelegate *delegate = [[DoubleTapToZoomScrollViewDelegate alloc] initWithViewToZoom:artworkImageView inScrollView:scrollView withMinZoomScale:MINIMUM_ZOOM_SCALE andMaxZoomScale:MAXIMUM_ZOOM_SCALE];
-            [self.svZoomDelegates addObject:delegate];
-        
-            ImageFileLocation *imageLocation = self.artwork.imageFileLocations[item];
-            NSString *imageLocationIdentifier = imageLocation.fileLocation;
-        
-            [[PhotoLibraryInterface shared] imageWithLocalIdentifier:imageLocationIdentifier size:cell.bounds.size completion:^(UIImage *image) {
-                artworkImageView.image = image;
-            } cached:NO];
-        } else {
-            UILabel *label = [[UILabel alloc] initWithFrame:cell.bounds];
-            label.font = [UIFont systemFontOfSize:40];
-            label.textColor = [UIColor whiteColor];
-            label.textAlignment = NSTextAlignmentCenter;
-            label.text = @"Tap to add photo";
-            [cell.contentView addSubview:label];
-            
-            cell.layer.borderWidth = 2.0;
-            cell.layer.borderColor = [UIColor whiteColor].CGColor;
-        }
-    }];
-    self.imageCollectionView.dataSource = self.imageCVDataSource;
     
     UICollectionViewFlowLayout *layout = (UICollectionViewFlowLayout *)self.imageCollectionView.collectionViewLayout;
     layout.itemSize = CGSizeMake(self.imageCollectionView.bounds.size.width, self.imageCollectionView.bounds.size.height);
@@ -153,20 +146,6 @@ static const int MAXIMUM_ZOOM_SCALE = 4;
 }
 
 #pragma mark - Actions
-
-/*-(IBAction)lastPhoto:(UIBarButtonItem *)sender
-{
-    if (self.indexOfCurrentlyDisplayedPhoto > 0) {
-        self.indexOfCurrentlyDisplayedPhoto--;
-    }
-}
-
--(IBAction)nextPhoto:(UIBarButtonItem *)sender
-{
-    if (self.indexOfCurrentlyDisplayedPhoto < [self.artwork.imageFileLocations count] - 1) {
-        self.indexOfCurrentlyDisplayedPhoto++;
-    }
-}*/
 
 - (IBAction)changeTitle:(UIBarButtonItem *)sender
 {
@@ -252,11 +231,6 @@ static const int MAXIMUM_ZOOM_SCALE = 4;
         imageFileLocation = [[PhotoLibraryInterface shared] localIdentifierForALAssetURL:info[UIImagePickerControllerReferenceURL]];
         ImageFileLocation *fileLocation = [ImageFileLocation newImageLocationWithLocation:imageFileLocation inContext:self.context];
         [self.artwork addImageFileLocationsObject:fileLocation];
-        
-        //self.indexOfCurrentlyDisplayedPhoto++;
-        /*[[PhotoLibraryInterface shared] imageWithLocalIdentifier:imageFileLocation size:self.artworkImageView.bounds.size completion:^(UIImage *image) {
-            self.artworkImageView.image = image;
-        }];*/
     } else { // took a new photo
         UIImage *artworkImage = info[UIImagePickerControllerOriginalImage];
         [[PhotoLibraryInterface shared] localIdentifierForImage:artworkImage completion:^(NSString *identifier) {
@@ -264,15 +238,16 @@ static const int MAXIMUM_ZOOM_SCALE = 4;
             ImageFileLocation *fileLocation = [ImageFileLocation newImageLocationWithLocation:imageFileLocation inContext:self.context];
             [self.artwork addImageFileLocationsObject:fileLocation];
         }];
-        //self.artworkImageView.image = artworkImage;
     }
-    //self.artworkScrollView.zoomScale = MINIMUM_ZOOM_SCALE;
-
-    /*if (self.indexOfCurrentlyDisplayedPhoto == 0) {
+    
+    NSUInteger currPhotoIdx = [self.artwork.imageFileLocations count] - 1;
+    [self.imageCollectionView insertItemsAtIndexPaths:@[[NSIndexPath indexPathForItem:currPhotoIdx inSection:0]]];
+    
+    if (currPhotoIdx == 0) {
         CLLocation *location = [[PhotoLibraryInterface shared] locationForImageWithLocalIdentifier:imageFileLocation];
         self.artwork.location.lattitude = location.coordinate.latitude;
         self.artwork.location.longitude = location.coordinate.longitude;
-    }*/
+    }
 
     [self dismissViewControllerAnimated:YES completion:NULL];
 }

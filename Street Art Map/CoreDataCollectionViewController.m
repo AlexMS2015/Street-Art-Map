@@ -8,14 +8,15 @@
 
 #import "CoreDataCollectionViewController.h"
 #import "DatabaseAvailability.h"
-#import "Artwork.h"
-#import "Artist.h"
-#import "ArtworkCollectionViewCell.h"
-#import "PhotoLibraryInterface.h"
+
+@interface CoreDataCollectionViewController ()
+
+@property (strong, nonatomic) NSMutableArray *itemChanges;
+@property (strong, nonatomic) NSMutableArray *sectionChanges;
+
+@end
 
 @implementation CoreDataCollectionViewController
-
-static NSString * const CELL_IDENTIFIER = @"Artwork Cell";
 
 #pragma mark - View Life Cycle
 
@@ -29,26 +30,44 @@ static NSString * const CELL_IDENTIFIER = @"Artwork Cell";
                                                   }];
 }
 
--(void)viewWillAppear:(BOOL)animated
+-(void)viewDidLoad
 {
-    [super viewWillAppear:animated];
-    [self.fetchedResultsController performFetch:NULL];
-    [self.collectionView reloadData];
+    [super viewDidLoad];
+    
+    UICollectionViewFlowLayout *layout = (UICollectionViewFlowLayout *)self.collectionView.collectionViewLayout;
+    NSInteger widthAndHeight = self.collectionView.bounds.size.width / 5;
+    layout.itemSize = CGSizeMake(widthAndHeight, widthAndHeight);
 }
 
 #pragma mark - Properties
 
+-(NSMutableArray *)sectionChanges
+{
+    if (!_sectionChanges) {
+        _sectionChanges = [NSMutableArray array];
+    }
+    
+    return _sectionChanges;
+}
+
+-(NSMutableArray *)itemChanges
+{
+    if (!_itemChanges) {
+        _itemChanges = [NSMutableArray array];
+    }
+    
+    return _itemChanges;
+}
+
 -(void)setContext:(NSManagedObjectContext *)context
 {
     _context = context;
+    [self setupFetchedResultsController];
+}
+
+-(void)setupFetchedResultsController
+{
     
-    NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"Artwork"];
-    
-    NSSortDescriptor *artistNameSortDesc = [NSSortDescriptor sortDescriptorWithKey:@"artist.name"
-                                                                         ascending:YES];
-    request.sortDescriptors = @[artistNameSortDesc];
-    
-    self.fetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:request managedObjectContext:self.context sectionNameKeyPath:@"artist.name" cacheName:nil];
 }
 
 -(void)setFetchedResultsController:(NSFetchedResultsController *)fetchedResultsController
@@ -78,21 +97,7 @@ static NSString * const CELL_IDENTIFIER = @"Artwork Cell";
     return [[self.fetchedResultsController sections] count];
 }
 
--(UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
-{
-    ArtworkCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:CELL_IDENTIFIER forIndexPath:indexPath];
-    Artwork *artwork = [self.fetchedResultsController objectAtIndexPath:indexPath];
-        
-    if (cell.tag != 0) // cancel any existing requests on the cell (perhaps the cell is being re-used as the user has scrolled)
-        [[PhotoLibraryInterface shared] cancelRequestWithID:(PHImageRequestID)cell.tag];
-    
-    cell.tag = [[PhotoLibraryInterface shared] imageWithLocalIdentifier:[artwork defaultImageLocation] size:cell.imageView.bounds.size completion:^(UIImage *image) {
-        cell.imageView.image = image;
-        cell.tag = 0;
-    } cached:NO];
-    
-    return cell;
-}
+
 
 -(UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath
 {
@@ -106,6 +111,101 @@ static NSString * const CELL_IDENTIFIER = @"Artwork Cell";
     }
     
     return reusableView;
+}
+
+#pragma mark - NSFetchedResultsControllerDelegate
+
+-(void)controller:(NSFetchedResultsController *)controller didChangeSection:(id<NSFetchedResultsSectionInfo>)sectionInfo atIndex:(NSUInteger)sectionIndex forChangeType:(NSFetchedResultsChangeType)type
+{
+    NSMutableDictionary *change = [NSMutableDictionary dictionary];
+
+    switch (type) {
+        case NSFetchedResultsChangeInsert:
+            change[@(type)] = @(sectionIndex);
+            break;
+        case NSFetchedResultsChangeDelete:
+            change[@(type)] = @(sectionIndex);
+            break;
+        default:
+            break;
+    }
+    
+    [self.sectionChanges addObject:change];
+}
+
+-(void)controller:(NSFetchedResultsController *)controller didChangeObject:(id)anObject atIndexPath:(NSIndexPath *)indexPath forChangeType:(NSFetchedResultsChangeType)type newIndexPath:(NSIndexPath *)newIndexPath
+{
+    NSMutableDictionary *change = [NSMutableDictionary dictionary];
+    
+    switch (type) {
+        case NSFetchedResultsChangeInsert:
+            change[@(type)] = newIndexPath;
+            break;
+        case NSFetchedResultsChangeDelete:
+            change[@(type)] = indexPath;
+            break;
+        case NSFetchedResultsChangeMove:
+            change[@(type)] = @[indexPath, newIndexPath];
+            break;
+        case NSFetchedResultsChangeUpdate:
+            change[@(type)] = indexPath;
+            break;
+        default:
+            break;
+    }
+    
+    [self.itemChanges addObject:change];
+}
+
+-(void)controllerDidChangeContent:(NSFetchedResultsController *)controller
+{
+    [self.collectionView performBatchUpdates:^{
+        
+        for (NSDictionary *dict in self.sectionChanges) {
+            
+            [dict enumerateKeysAndObjectsUsingBlock:^(id  _Nonnull key, id  _Nonnull obj, BOOL * _Nonnull stop) {
+                
+                NSFetchedResultsChangeType type = [key unsignedIntegerValue];
+                
+                switch (type) {
+                    case NSFetchedResultsChangeInsert:
+                        [self.collectionView insertSections:[NSIndexSet indexSetWithIndex:[obj unsignedIntegerValue]]];
+                    case NSFetchedResultsChangeDelete:
+                        [self.collectionView deleteSections:[NSIndexSet indexSetWithIndex:[obj unsignedIntegerValue]]];
+                        break;
+                    default:
+                        break;
+                }
+            }];
+        }
+     
+        for (NSDictionary *dict in self.itemChanges) {
+            
+            [dict enumerateKeysAndObjectsUsingBlock:^(id  _Nonnull key, id  _Nonnull obj, BOOL * _Nonnull stop) {
+                
+                NSFetchedResultsChangeType type = [key unsignedIntegerValue];
+                switch (type) {
+                    case NSFetchedResultsChangeInsert:
+                        [self.collectionView insertItemsAtIndexPaths:@[obj]];
+                        break;
+                    case NSFetchedResultsChangeDelete:
+                        [self.collectionView deleteItemsAtIndexPaths:@[obj]];
+                        break;
+                    case NSFetchedResultsChangeUpdate:
+                        [self.collectionView reloadItemsAtIndexPaths:@[obj]];
+                        break;
+                    case NSFetchedResultsChangeMove:
+                        [self.collectionView moveItemAtIndexPath:obj[0] toIndexPath:obj[1]];
+                        break;
+                    default:
+                        break;
+                }
+            }];
+        }
+    } completion:NULL];
+    
+    [self.itemChanges removeAllObjects];
+    [self.sectionChanges removeAllObjects];
 }
 
 @end

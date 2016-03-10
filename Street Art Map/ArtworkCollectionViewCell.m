@@ -10,4 +10,11 @@
 
 @implementation ArtworkCollectionViewCell
 
+-(void)setImageView:(UIImageView *)imageView
+{
+    _imageView = imageView;
+    _imageView.layer.borderWidth = 0.3;
+    _imageView.layer.borderColor = [UIColor whiteColor].CGColor;
+}
+
 @end
