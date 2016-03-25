@@ -53,19 +53,16 @@ static NSString * const CELL_IDENTIFIER = @"Artwork Cell";
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
     if ([segue.identifier isEqualToString:@"View Artwork"] || [segue.identifier isEqualToString:@"Add Artwork"]) {
-        if ([segue.destinationViewController isKindOfClass:[UINavigationController class]]) {
-            UINavigationController *nc = (UINavigationController *)segue.destinationViewController;
-            if ([[nc.viewControllers firstObject] isMemberOfClass:[AddAndViewArtworkVC class]]) {
-                AddAndViewArtworkVC *artworkView = (AddAndViewArtworkVC *)[nc.viewControllers firstObject];
-                NSLog(@"%@", NSStringFromClass([sender class]));
-                if ([sender isKindOfClass:[UICollectionViewCell class]]) { // viewing an artwork
-                    NSIndexPath *path = [self.collectionView indexPathForCell:sender];
-                    Artwork *artworkToView = [self.fetchedResultsController objectAtIndexPath:path];
-                    [artworkView loadExistingArtwork:artworkToView];
-                } else { // adding an artwork
-                    [artworkView newArtworkWithTitle:nil andArtist:nil inContext:self.context];
-                }
-            }
+        
+        UINavigationController *nc = (UINavigationController *)segue.destinationViewController;
+        AddAndViewArtworkVC *artworkView = (AddAndViewArtworkVC *)nc.viewControllers[0];
+
+        if ([sender isKindOfClass:[UICollectionViewCell class]]) { // viewing an artwork
+            NSIndexPath *path = [self.collectionView indexPathForCell:sender];
+            Artwork *artworkToView = [self.fetchedResultsController objectAtIndexPath:path];
+            [artworkView loadExistingArtwork:artworkToView];
+        } else { // adding an artwork
+            [artworkView newArtworkWithTitle:nil andArtist:nil inContext:self.context];
         }
     }
 }

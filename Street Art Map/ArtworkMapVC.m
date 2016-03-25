@@ -8,9 +8,10 @@
 
 #import "ArtworkMapVC.h"
 #import "DatabaseAvailability.h"
-#import "Artwork+Annotation.h"
+#import "Artwork.h"
 #import "AddAndViewArtworkVC.h"
 #import "PhotoLibraryInterface.h"
+#import "ImageAnnotationView.h"
 #import <CoreData/CoreData.h>
 #import <MapKit/MapKit.h>
 
@@ -24,40 +25,41 @@
 
 @implementation ArtworkMapVC
 
+#pragma mark - Constants
+
+static NSString * const ANNOTATION_VIEW_IDENTIFIER = @"Annotation View";
+static NSString * const VIEW_ARTWORK_SEGUE = @"View Artwork";
+static int WIDTH_AND_HEIGHT = 85;
+
 #pragma mark - MKMapViewDelegate
+
+-(void)mapView:(MKMapView *)mapView regionWillChangeAnimated:(BOOL)animated
+{
+    NSLog(@"altitude changed %f", self.mapView.camera.altitude);
+}
 
 -(void)mapView:(MKMapView *)mapView didSelectAnnotationView:(MKAnnotationView *)view
 {
-    if ([view.annotation isMemberOfClass:[Artwork class]])
-        [self performSegueWithIdentifier:@"View Photo" sender:view];
+    if ([view.annotation isMemberOfClass:[Artwork class]]) {
+        [self performSegueWithIdentifier:VIEW_ARTWORK_SEGUE sender:view];
+    }
 }
 
-#define ANNOTATION_VIEW_REUSE @"AnnotationView"
-#define WIDTH_AND_HEIGHT 85
--(MKAnnotationView *)mapView:(MKMapView *)mapView
-           viewForAnnotation:(id<MKAnnotation>)annotation
+-(MKAnnotationView *)mapView:(MKMapView *)mapView viewForAnnotation:(id<MKAnnotation>)annotation
 {
-    MKAnnotationView *annotationView = [self.mapView dequeueReusableAnnotationViewWithIdentifier:ANNOTATION_VIEW_REUSE];
+    ImageAnnotationView *annotationView = (ImageAnnotationView *)[self.mapView dequeueReusableAnnotationViewWithIdentifier:ANNOTATION_VIEW_IDENTIFIER];
     
-    UIImageView *iv;
     if (!annotationView) {
-         annotationView = [[MKAnnotationView alloc] initWithAnnotation:annotation
-                                                            reuseIdentifier:ANNOTATION_VIEW_REUSE];
-        
-         annotationView.frame = CGRectMake(0, 0, WIDTH_AND_HEIGHT, WIDTH_AND_HEIGHT);
-         
-         iv = [[UIImageView alloc] initWithFrame:annotationView.frame];
-         iv.layer.borderColor = [UIColor whiteColor].CGColor;
-         iv.layer.borderWidth = 2;
-         [annotationView addSubview:iv];
+        annotationView = [[ImageAnnotationView alloc] initWithAnnotation:annotation
+                                                            reuseIdentifier:ANNOTATION_VIEW_IDENTIFIER];
+        annotationView.frame = CGRectMake(0, 0, WIDTH_AND_HEIGHT, WIDTH_AND_HEIGHT);
     } else {
          annotationView.annotation = annotation;
-         iv = (UIImageView *)[annotationView.subviews firstObject];
     }
 
     Artwork *artwork = (Artwork *)annotation;
-    [[PhotoLibraryInterface shared] imageWithLocalIdentifier:[artwork defaultImageLocation] size:iv.bounds.size completion:^(UIImage *image) {
-        iv.image = image;
+    [[PhotoLibraryInterface shared] imageWithLocalIdentifier:[artwork defaultImageLocation] size:annotationView.bounds.size completion:^(UIImage *image) {
+        annotationView.image = image;
     } cached:NO];
     
     return annotationView;
@@ -70,24 +72,12 @@
 
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
-    if ([segue.identifier isEqualToString:@"View Photo"]) {
+    if ([segue.identifier isEqualToString:VIEW_ARTWORK_SEGUE]) {
+        UINavigationController *nc = (UINavigationController *)segue.destinationViewController;
+        AddAndViewArtworkVC *addAndViewArtworkVC = (AddAndViewArtworkVC *)nc.viewControllers[0];
         
-        if ([segue.destinationViewController isMemberOfClass:[UINavigationController class]]) {
-            UINavigationController *navController = (UINavigationController *)segue.destinationViewController;
-            
-            if ([[navController.viewControllers firstObject] isMemberOfClass:[AddAndViewArtworkVC class]]) {
-                AddAndViewArtworkVC *addAndViewArtworkVC = (AddAndViewArtworkVC *)[navController.viewControllers firstObject];
-                //addAndViewArtworkVC.context = self.context;
-                
-                if ([sender isKindOfClass:[MKAnnotationView class]]) {
-                    MKAnnotationView *annotationView = (MKAnnotationView *)sender;
-                    if ([annotationView.annotation isMemberOfClass:[Artwork class]]) {
-                        Artwork *artworkForAnnotationView = (Artwork *)annotationView.annotation;
-                        [addAndViewArtworkVC loadExistingArtwork:artworkForAnnotationView];
-                    }
-                }
-            }
-        }
+        MKAnnotationView *annotationView = (MKAnnotationView *)sender;
+        [addAndViewArtworkVC loadExistingArtwork:(Artwork *)annotationView.annotation];
     }
 }
 

@@ -20,4 +20,9 @@ static NSString * const ENTITY_NAME = @"ImageFileLocation";
     return imageFileLocation;
 }
 
+-(void)deleteFromDatabase
+{
+    [self.managedObjectContext deleteObject:self];
+}
+
 @end

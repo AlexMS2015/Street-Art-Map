@@ -59,41 +59,15 @@ static NSString * const SELECT_ARTIST_CELL = @"Select Artist Cell";
     }
 }
 
-#pragma mark - View Life Cycle
-
-/*-(void)setSelectedArtist:(Artist *)selectedArtist
-{
-    _selectedArtist = selectedArtist;
-    
-    NSIndexPath *pathOfSelectedArtist = [self.fetchedResultsController indexPathForObject:self.selectedArtist];
-    [self.tableView scrollToRowAtIndexPath:pathOfSelectedArtist atScrollPosition:UITableViewScrollPositionNone animated:NO];
-    NSLog(@"path of selected artist %@ is %ld", self.selectedArtist.name, (long)pathOfSelectedArtist.row);
-}*/
-
-#pragma mark - UITableViewDelegate
-
-/*-(BOOL)tableView:(UITableView *)tableView shouldHighlightRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    return YES;
-}*/
-
 #pragma mark - UITableViewDataSource
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    UITableViewCell *cell  = [self.tableView dequeueReusableCellWithIdentifier:SELECT_ARTIST_CELL];
     Artist *artist = [self.fetchedResultsController objectAtIndexPath:indexPath];
-    
+
+    UITableViewCell *cell  = [self.tableView dequeueReusableCellWithIdentifier:SELECT_ARTIST_CELL];
     UILabel *artistNameLabel = (UILabel *)[cell viewWithTag:1];
     artistNameLabel.text = artist.name;
-    //selectionCell.selected = [self.selectedArtist isEqualToArtist:artist];
-    /*if ([self.selectedArtist isEqualToArtist:artist]) {
-     NSLog(@"highlight: %@", artist.name);
-     selectionCell.selected = YES;
-     } else {
-     NSLog(@"UN-highlight: %@", artist.name);
-     selectionCell.selected = NO;
-     }*/
     
     return cell;
 }

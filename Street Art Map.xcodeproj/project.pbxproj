@@ -10,12 +10,9 @@
 		FA0EB1131B649F110034FD18 /* ListOfArtworksCDTVC.m in Sources */ = {isa = PBXBuildFile; fileRef = FA0EB1121B649F110034FD18 /* ListOfArtworksCDTVC.m */; };
 		FA0FAA231C65DFD60023FC48 /* UIAlertController+ConvinienceMethods.m in Sources */ = {isa = PBXBuildFile; fileRef = FA0FAA221C65DFD60023FC48 /* UIAlertController+ConvinienceMethods.m */; settings = {ASSET_TAGS = (); }; };
 		FA0FAA6F1C68BBC00023FC48 /* DoubleTapToZoomScrollViewDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = FA0FAA6E1C68BBC00023FC48 /* DoubleTapToZoomScrollViewDelegate.m */; settings = {ASSET_TAGS = (); }; };
-		FA315FC21BAE852400BE5F02 /* ArtworkImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = FA315FC11BAE852400BE5F02 /* ArtworkImageView.m */; };
 		FA40492A1B75CAC80069144D /* Artwork.m in Sources */ = {isa = PBXBuildFile; fileRef = FA4049291B75CAC80069144D /* Artwork.m */; };
-		FA40492D1B75CAC90069144D /* Location.m in Sources */ = {isa = PBXBuildFile; fileRef = FA40492C1B75CAC90069144D /* Location.m */; };
 		FA4049301B75CAC90069144D /* Artist.m in Sources */ = {isa = PBXBuildFile; fileRef = FA40492F1B75CAC90069144D /* Artist.m */; };
 		FA43A6941C70613D00015D5F /* ImageFileLocation.m in Sources */ = {isa = PBXBuildFile; fileRef = FA43A68E1C70613D00015D5F /* ImageFileLocation.m */; settings = {ASSET_TAGS = (); }; };
-		FA43A6DA1C7097BC00015D5F /* Location+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = FA43A6D31C7097BC00015D5F /* Location+CoreDataProperties.m */; settings = {ASSET_TAGS = (); }; };
 		FA43A6DB1C7097BC00015D5F /* ImageFileLocation+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = FA43A6D51C7097BC00015D5F /* ImageFileLocation+CoreDataProperties.m */; settings = {ASSET_TAGS = (); }; };
 		FA43A6DC1C7097BC00015D5F /* Artwork+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = FA43A6D71C7097BC00015D5F /* Artwork+CoreDataProperties.m */; settings = {ASSET_TAGS = (); }; };
 		FA43A6DD1C7097BC00015D5F /* Artist+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = FA43A6D91C7097BC00015D5F /* Artist+CoreDataProperties.m */; settings = {ASSET_TAGS = (); }; };
@@ -25,17 +22,16 @@
 		FA5339D01B6655D1006C0F52 /* ArtworkTVC.m in Sources */ = {isa = PBXBuildFile; fileRef = FA5339CE1B6655D1006C0F52 /* ArtworkTVC.m */; };
 		FA5339D11B6655D1006C0F52 /* ArtworkTVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = FA5339CF1B6655D1006C0F52 /* ArtworkTVC.xib */; };
 		FA5339D41B6DAA2F006C0F52 /* ArtworkMapVC.m in Sources */ = {isa = PBXBuildFile; fileRef = FA5339D31B6DAA2F006C0F52 /* ArtworkMapVC.m */; };
-		FA5339E31B6EE32E006C0F52 /* Artwork+Annotation.m in Sources */ = {isa = PBXBuildFile; fileRef = FA5339E21B6EE32E006C0F52 /* Artwork+Annotation.m */; };
 		FA5339E81B6EE9F7006C0F52 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FA5339E71B6EE9F7006C0F52 /* MapKit.framework */; };
 		FAB678631C8D85A900FFBFA1 /* CoreDataCollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FAB678621C8D85A900FFBFA1 /* CoreDataCollectionViewController.m */; settings = {ASSET_TAGS = (); }; };
 		FAB678671C8D88A500FFBFA1 /* ArtworkCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = FAB678661C8D88A500FFBFA1 /* ArtworkCollectionViewCell.m */; settings = {ASSET_TAGS = (); }; };
 		FAB6786B1C902BB900FFBFA1 /* ArtistsCDCVC.m in Sources */ = {isa = PBXBuildFile; fileRef = FAB6786A1C902BB900FFBFA1 /* ArtistsCDCVC.m */; settings = {ASSET_TAGS = (); }; };
-		FAB6786E1C9037E700FFBFA1 /* CollectionViewDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = FAB6786D1C9037E700FFBFA1 /* CollectionViewDataSource.m */; settings = {ASSET_TAGS = (); }; };
 		FAB8A2B41C917331000229C7 /* ImageZoomCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = FAB8A2B31C917331000229C7 /* ImageZoomCollectionViewCell.m */; settings = {ASSET_TAGS = (); }; };
 		FAB8A2BA1C917746000229C7 /* AddImageCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = FAB8A2B91C917746000229C7 /* AddImageCollectionViewCell.m */; settings = {ASSET_TAGS = (); }; };
 		FAC2C7651B50B83200DE31A5 /* CoreDataTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FAC2C7641B50B83200DE31A5 /* CoreDataTableViewController.m */; };
 		FAC2C7681B50DE5900DE31A5 /* RecentsCDTVC.m in Sources */ = {isa = PBXBuildFile; fileRef = FAC2C7671B50DE5900DE31A5 /* RecentsCDTVC.m */; };
 		FAC2C76B1B50E87700DE31A5 /* AddAndViewArtworkVC.m in Sources */ = {isa = PBXBuildFile; fileRef = FAC2C76A1B50E87700DE31A5 /* AddAndViewArtworkVC.m */; };
+		FAD056131CA4A8020024693B /* ImageAnnotationView.m in Sources */ = {isa = PBXBuildFile; fileRef = FAD056121CA4A8020024693B /* ImageAnnotationView.m */; settings = {ASSET_TAGS = (); }; };
 		FAEB528D1B48D14700D9361E /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = FAEB528C1B48D14700D9361E /* main.m */; };
 		FAEB52901B48D14700D9361E /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = FAEB528F1B48D14700D9361E /* AppDelegate.m */; };
 		FAEB52961B48D14700D9361E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FAEB52941B48D14700D9361E /* Main.storyboard */; };
@@ -62,18 +58,12 @@
 		FA0FAA221C65DFD60023FC48 /* UIAlertController+ConvinienceMethods.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIAlertController+ConvinienceMethods.m"; sourceTree = "<group>"; };
 		FA0FAA6D1C68BBC00023FC48 /* DoubleTapToZoomScrollViewDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DoubleTapToZoomScrollViewDelegate.h; sourceTree = "<group>"; };
 		FA0FAA6E1C68BBC00023FC48 /* DoubleTapToZoomScrollViewDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DoubleTapToZoomScrollViewDelegate.m; sourceTree = "<group>"; };
-		FA315FC01BAE852400BE5F02 /* ArtworkImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ArtworkImageView.h; sourceTree = "<group>"; };
-		FA315FC11BAE852400BE5F02 /* ArtworkImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ArtworkImageView.m; sourceTree = "<group>"; };
 		FA4049281B75CAC80069144D /* Artwork.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Artwork.h; sourceTree = "<group>"; };
 		FA4049291B75CAC80069144D /* Artwork.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Artwork.m; sourceTree = "<group>"; };
-		FA40492B1B75CAC90069144D /* Location.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Location.h; sourceTree = "<group>"; };
-		FA40492C1B75CAC90069144D /* Location.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Location.m; sourceTree = "<group>"; };
 		FA40492E1B75CAC90069144D /* Artist.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Artist.h; sourceTree = "<group>"; };
 		FA40492F1B75CAC90069144D /* Artist.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Artist.m; sourceTree = "<group>"; };
 		FA43A68D1C70613D00015D5F /* ImageFileLocation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageFileLocation.h; sourceTree = "<group>"; };
 		FA43A68E1C70613D00015D5F /* ImageFileLocation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImageFileLocation.m; sourceTree = "<group>"; };
-		FA43A6D21C7097BC00015D5F /* Location+CoreDataProperties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Location+CoreDataProperties.h"; sourceTree = "<group>"; };
-		FA43A6D31C7097BC00015D5F /* Location+CoreDataProperties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Location+CoreDataProperties.m"; sourceTree = "<group>"; };
 		FA43A6D41C7097BC00015D5F /* ImageFileLocation+CoreDataProperties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ImageFileLocation+CoreDataProperties.h"; sourceTree = "<group>"; };
 		FA43A6D51C7097BC00015D5F /* ImageFileLocation+CoreDataProperties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "ImageFileLocation+CoreDataProperties.m"; sourceTree = "<group>"; };
 		FA43A6D61C7097BC00015D5F /* Artwork+CoreDataProperties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Artwork+CoreDataProperties.h"; sourceTree = "<group>"; };
@@ -91,8 +81,6 @@
 		FA5339CF1B6655D1006C0F52 /* ArtworkTVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ArtworkTVC.xib; sourceTree = "<group>"; };
 		FA5339D21B6DAA2F006C0F52 /* ArtworkMapVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ArtworkMapVC.h; sourceTree = "<group>"; };
 		FA5339D31B6DAA2F006C0F52 /* ArtworkMapVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ArtworkMapVC.m; sourceTree = "<group>"; };
-		FA5339E11B6EE32E006C0F52 /* Artwork+Annotation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Artwork+Annotation.h"; sourceTree = "<group>"; };
-		FA5339E21B6EE32E006C0F52 /* Artwork+Annotation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Artwork+Annotation.m"; sourceTree = "<group>"; };
 		FA5339E71B6EE9F7006C0F52 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		FAB678611C8D85A900FFBFA1 /* CoreDataCollectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CoreDataCollectionViewController.h; sourceTree = "<group>"; };
 		FAB678621C8D85A900FFBFA1 /* CoreDataCollectionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CoreDataCollectionViewController.m; sourceTree = "<group>"; };
@@ -100,8 +88,6 @@
 		FAB678661C8D88A500FFBFA1 /* ArtworkCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ArtworkCollectionViewCell.m; sourceTree = "<group>"; };
 		FAB678691C902BB900FFBFA1 /* ArtistsCDCVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ArtistsCDCVC.h; sourceTree = "<group>"; };
 		FAB6786A1C902BB900FFBFA1 /* ArtistsCDCVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ArtistsCDCVC.m; sourceTree = "<group>"; };
-		FAB6786C1C9037E700FFBFA1 /* CollectionViewDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CollectionViewDataSource.h; sourceTree = "<group>"; };
-		FAB6786D1C9037E700FFBFA1 /* CollectionViewDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CollectionViewDataSource.m; sourceTree = "<group>"; };
 		FAB8A2B21C917331000229C7 /* ImageZoomCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageZoomCollectionViewCell.h; sourceTree = "<group>"; };
 		FAB8A2B31C917331000229C7 /* ImageZoomCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImageZoomCollectionViewCell.m; sourceTree = "<group>"; };
 		FAB8A2B81C917746000229C7 /* AddImageCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddImageCollectionViewCell.h; sourceTree = "<group>"; };
@@ -112,6 +98,8 @@
 		FAC2C7671B50DE5900DE31A5 /* RecentsCDTVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RecentsCDTVC.m; sourceTree = "<group>"; };
 		FAC2C7691B50E87700DE31A5 /* AddAndViewArtworkVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddAndViewArtworkVC.h; sourceTree = "<group>"; };
 		FAC2C76A1B50E87700DE31A5 /* AddAndViewArtworkVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddAndViewArtworkVC.m; sourceTree = "<group>"; };
+		FAD056111CA4A8020024693B /* ImageAnnotationView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageAnnotationView.h; sourceTree = "<group>"; };
+		FAD056121CA4A8020024693B /* ImageAnnotationView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImageAnnotationView.m; sourceTree = "<group>"; };
 		FAEB52871B48D14700D9361E /* Street Art Map.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Street Art Map.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		FAEB528B1B48D14700D9361E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		FAEB528C1B48D14700D9361E /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -146,14 +134,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		FA0FAA1F1C6564EC0023FC48 /* Custom Table View Cells */ = {
+		FA0FAA1F1C6564EC0023FC48 /* Table View Cells */ = {
 			isa = PBXGroup;
 			children = (
 				FA5339CD1B6655D1006C0F52 /* ArtworkTVC.h */,
 				FA5339CE1B6655D1006C0F52 /* ArtworkTVC.m */,
 				FA5339CF1B6655D1006C0F52 /* ArtworkTVC.xib */,
 			);
-			name = "Custom Table View Cells";
+			name = "Table View Cells";
 			sourceTree = "<group>";
 		};
 		FA0FAA201C657B460023FC48 /* Helper Objects */ = {
@@ -163,8 +151,23 @@
 				FA5339C31B650B0F006C0F52 /* PhotoLibraryInterface.m */,
 				FA43A6E71C77F9A900015D5F /* TestDataLoader.h */,
 				FA43A6E81C77F9A900015D5F /* TestDataLoader.m */,
+				FA0FAA6D1C68BBC00023FC48 /* DoubleTapToZoomScrollViewDelegate.h */,
+				FA0FAA6E1C68BBC00023FC48 /* DoubleTapToZoomScrollViewDelegate.m */,
 			);
 			name = "Helper Objects";
+			sourceTree = "<group>";
+		};
+		FAB8A2BB1C919008000229C7 /* Collection View Cells */ = {
+			isa = PBXGroup;
+			children = (
+				FAB678651C8D88A500FFBFA1 /* ArtworkCollectionViewCell.h */,
+				FAB678661C8D88A500FFBFA1 /* ArtworkCollectionViewCell.m */,
+				FAB8A2B21C917331000229C7 /* ImageZoomCollectionViewCell.h */,
+				FAB8A2B31C917331000229C7 /* ImageZoomCollectionViewCell.m */,
+				FAB8A2B81C917746000229C7 /* AddImageCollectionViewCell.h */,
+				FAB8A2B91C917746000229C7 /* AddImageCollectionViewCell.m */,
+			);
+			name = "Collection View Cells";
 			sourceTree = "<group>";
 		};
 		FACDBBED1BA30A2100744488 /* Categories */ = {
@@ -198,8 +201,6 @@
 		FAEB52891B48D14700D9361E /* Street Art Map */ = {
 			isa = PBXGroup;
 			children = (
-				FAB6786C1C9037E700FFBFA1 /* CollectionViewDataSource.h */,
-				FAB6786D1C9037E700FFBFA1 /* CollectionViewDataSource.m */,
 				FACDBBED1BA30A2100744488 /* Categories */,
 				FA0FAA201C657B460023FC48 /* Helper Objects */,
 				FAEB52B11B48D17F00D9361E /* Controller */,
@@ -242,15 +243,10 @@
 			children = (
 				FAEB52991B48D14700D9361E /* LaunchScreen.xib */,
 				FAEB52941B48D14700D9361E /* Main.storyboard */,
-				FAB678651C8D88A500FFBFA1 /* ArtworkCollectionViewCell.h */,
-				FAB678661C8D88A500FFBFA1 /* ArtworkCollectionViewCell.m */,
-				FAB8A2B21C917331000229C7 /* ImageZoomCollectionViewCell.h */,
-				FAB8A2B31C917331000229C7 /* ImageZoomCollectionViewCell.m */,
-				FAB8A2B81C917746000229C7 /* AddImageCollectionViewCell.h */,
-				FAB8A2B91C917746000229C7 /* AddImageCollectionViewCell.m */,
-				FA315FC01BAE852400BE5F02 /* ArtworkImageView.h */,
-				FA315FC11BAE852400BE5F02 /* ArtworkImageView.m */,
-				FA0FAA1F1C6564EC0023FC48 /* Custom Table View Cells */,
+				FAD056111CA4A8020024693B /* ImageAnnotationView.h */,
+				FAD056121CA4A8020024693B /* ImageAnnotationView.m */,
+				FAB8A2BB1C919008000229C7 /* Collection View Cells */,
+				FA0FAA1F1C6564EC0023FC48 /* Table View Cells */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -261,20 +257,18 @@
 				FAEB52B91B4AAB1A00D9361E /* DatabaseAvailability.h */,
 				FAEB528E1B48D14700D9361E /* AppDelegate.h */,
 				FAEB528F1B48D14700D9361E /* AppDelegate.m */,
-				FAC2C7631B50B83200DE31A5 /* CoreDataTableViewController.h */,
-				FAC2C7641B50B83200DE31A5 /* CoreDataTableViewController.m */,
 				FAB678611C8D85A900FFBFA1 /* CoreDataCollectionViewController.h */,
 				FAB678621C8D85A900FFBFA1 /* CoreDataCollectionViewController.m */,
 				FAB678691C902BB900FFBFA1 /* ArtistsCDCVC.h */,
 				FAB6786A1C902BB900FFBFA1 /* ArtistsCDCVC.m */,
+				FAC2C7631B50B83200DE31A5 /* CoreDataTableViewController.h */,
+				FAC2C7641B50B83200DE31A5 /* CoreDataTableViewController.m */,
 				FA0EB1111B649F110034FD18 /* ListOfArtworksCDTVC.h */,
 				FA0EB1121B649F110034FD18 /* ListOfArtworksCDTVC.m */,
 				FAC2C7661B50DE5900DE31A5 /* RecentsCDTVC.h */,
 				FAC2C7671B50DE5900DE31A5 /* RecentsCDTVC.m */,
 				FAC2C7691B50E87700DE31A5 /* AddAndViewArtworkVC.h */,
 				FAC2C76A1B50E87700DE31A5 /* AddAndViewArtworkVC.m */,
-				FA0FAA6D1C68BBC00023FC48 /* DoubleTapToZoomScrollViewDelegate.h */,
-				FA0FAA6E1C68BBC00023FC48 /* DoubleTapToZoomScrollViewDelegate.m */,
 				FA43A6E11C75C84E00015D5F /* SelectArtistCDTVC.h */,
 				FA43A6E21C75C84E00015D5F /* SelectArtistCDTVC.m */,
 				FA5339D21B6DAA2F006C0F52 /* ArtworkMapVC.h */,
@@ -287,8 +281,6 @@
 			isa = PBXGroup;
 			children = (
 				FAEB52B21B48D1C500D9361E /* Model.xcdatamodeld */,
-				FA43A6D21C7097BC00015D5F /* Location+CoreDataProperties.h */,
-				FA43A6D31C7097BC00015D5F /* Location+CoreDataProperties.m */,
 				FA43A6D41C7097BC00015D5F /* ImageFileLocation+CoreDataProperties.h */,
 				FA43A6D51C7097BC00015D5F /* ImageFileLocation+CoreDataProperties.m */,
 				FA43A6D61C7097BC00015D5F /* Artwork+CoreDataProperties.h */,
@@ -299,12 +291,8 @@
 				FA40492F1B75CAC90069144D /* Artist.m */,
 				FA4049281B75CAC80069144D /* Artwork.h */,
 				FA4049291B75CAC80069144D /* Artwork.m */,
-				FA40492B1B75CAC90069144D /* Location.h */,
-				FA40492C1B75CAC90069144D /* Location.m */,
 				FA43A68D1C70613D00015D5F /* ImageFileLocation.h */,
 				FA43A68E1C70613D00015D5F /* ImageFileLocation.m */,
-				FA5339E11B6EE32E006C0F52 /* Artwork+Annotation.h */,
-				FA5339E21B6EE32E006C0F52 /* Artwork+Annotation.m */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -419,12 +407,12 @@
 				FAEB52901B48D14700D9361E /* AppDelegate.m in Sources */,
 				FAC2C7651B50B83200DE31A5 /* CoreDataTableViewController.m in Sources */,
 				FA4049301B75CAC90069144D /* Artist.m in Sources */,
+				FAD056131CA4A8020024693B /* ImageAnnotationView.m in Sources */,
 				FA0FAA6F1C68BBC00023FC48 /* DoubleTapToZoomScrollViewDelegate.m in Sources */,
 				FA5339D01B6655D1006C0F52 /* ArtworkTVC.m in Sources */,
 				FAB678671C8D88A500FFBFA1 /* ArtworkCollectionViewCell.m in Sources */,
 				FAB6786B1C902BB900FFBFA1 /* ArtistsCDCVC.m in Sources */,
 				FA0EB1131B649F110034FD18 /* ListOfArtworksCDTVC.m in Sources */,
-				FA43A6DA1C7097BC00015D5F /* Location+CoreDataProperties.m in Sources */,
 				FAEB528D1B48D14700D9361E /* main.m in Sources */,
 				FA40492A1B75CAC80069144D /* Artwork.m in Sources */,
 				FA43A6DD1C7097BC00015D5F /* Artist+CoreDataProperties.m in Sources */,
@@ -437,12 +425,8 @@
 				FAB8A2BA1C917746000229C7 /* AddImageCollectionViewCell.m in Sources */,
 				FA43A6941C70613D00015D5F /* ImageFileLocation.m in Sources */,
 				FA43A6DC1C7097BC00015D5F /* Artwork+CoreDataProperties.m in Sources */,
-				FA315FC21BAE852400BE5F02 /* ArtworkImageView.m in Sources */,
 				FAC2C76B1B50E87700DE31A5 /* AddAndViewArtworkVC.m in Sources */,
 				FAC2C7681B50DE5900DE31A5 /* RecentsCDTVC.m in Sources */,
-				FA40492D1B75CAC90069144D /* Location.m in Sources */,
-				FA5339E31B6EE32E006C0F52 /* Artwork+Annotation.m in Sources */,
-				FAB6786E1C9037E700FFBFA1 /* CollectionViewDataSource.m in Sources */,
 				FA43A6DB1C7097BC00015D5F /* ImageFileLocation+CoreDataProperties.m in Sources */,
 				FA43A6E91C77F9A900015D5F /* TestDataLoader.m in Sources */,
 				FA0FAA231C65DFD60023FC48 /* UIAlertController+ConvinienceMethods.m in Sources */,

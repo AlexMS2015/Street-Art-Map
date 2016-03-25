@@ -7,9 +7,8 @@
 //
 
 #import "AddAndViewArtworkVC.h"
-#import "Artist.h"
-#import "Artwork.h"
-#import "Location.h"
+#import "Artist+CoreDataProperties.h"
+#import "Artwork+CoreDataProperties.h"
 #import "ImageFileLocation.h"
 #import "SelectArtistCDTVC.h"
 #import "PhotoLibraryInterface.h"
@@ -19,14 +18,13 @@
 #import "ImageZoomCollectionViewCell.h"
 #import <CoreLocation/CoreLocation.h>
 
-@interface AddAndViewArtworkVC () <UINavigationControllerDelegate, UIImagePickerControllerDelegate, UICollectionViewDataSource>
+@interface AddAndViewArtworkVC () <UINavigationControllerDelegate, UIImagePickerControllerDelegate, UICollectionViewDataSource, UICollectionViewDelegate>
 
 @property (strong, nonatomic) Artwork *artwork;
 @property (strong, nonatomic) NSManagedObjectContext *context;
 @property (strong, nonatomic) NSMutableArray *svZoomDelegates;
 
 // outlets
-@property (weak, nonatomic) IBOutlet UIBarButtonItem *deleteBarButtonItem;
 @property (weak, nonatomic) IBOutlet UICollectionView *imageCollectionView;
 
 @end
@@ -68,15 +66,36 @@ static const int MAXIMUM_ZOOM_SCALE = 4;
     return _svZoomDelegates;
 }
 
+#pragma mark - UICollectionViewDelegate
+
+-(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
+{
+    if (indexPath.item >= [self.artwork.imageFileLocations count]) {
+        UIAlertController *addPhotoAlert = [UIAlertController alertControllerWithTitle:nil message:nil preferredStyle:UIAlertControllerStyleActionSheet];
+        
+        [addPhotoAlert addAction:[UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:NULL]];
+        [addPhotoAlert addAction:[UIAlertAction actionWithTitle:@"Take photo" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+            [self selectImageWithSourceType:UIImagePickerControllerSourceTypeCamera];
+        }]];
+        [addPhotoAlert addAction:[UIAlertAction actionWithTitle:@"Choose photo" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+            [self selectImageWithSourceType:UIImagePickerControllerSourceTypePhotoLibrary];
+        }]];
+
+        [self presentViewController:addPhotoAlert animated:YES completion:NULL];
+    }
+}
+
 #pragma mark - UICollectionViewDataSource
 
 -(NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
+    NSLog(@"Items in CV: %ld", [self.artwork.imageFileLocations count] + 1);
     return [self.artwork.imageFileLocations count] + 1;
 }
 
 -(UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
+    NSLog(@"%ld", [self.artwork.imageFileLocations count]);
     if (indexPath.item < [self.artwork.imageFileLocations count]) {
         ImageZoomCollectionViewCell *cell = (ImageZoomCollectionViewCell *)[self.imageCollectionView dequeueReusableCellWithReuseIdentifier:IMAGE_ZOOM_CELL forIndexPath:indexPath];
         DoubleTapToZoomScrollViewDelegate *delegate = [[DoubleTapToZoomScrollViewDelegate alloc] initWithViewToZoom:cell.imageView inScrollView:cell.scrollView withMinZoomScale:MINIMUM_ZOOM_SCALE andMaxZoomScale:MAXIMUM_ZOOM_SCALE];
@@ -90,6 +109,7 @@ static const int MAXIMUM_ZOOM_SCALE = 4;
         } cached:NO];
         
         return cell;
+        
     } else {
         AddImageCollectionViewCell *cell = (AddImageCollectionViewCell *)[self.imageCollectionView dequeueReusableCellWithReuseIdentifier:ADD_IMAGE_CELL forIndexPath:indexPath];
         return cell;
@@ -108,9 +128,6 @@ static const int MAXIMUM_ZOOM_SCALE = 4;
     
     if ([self.artwork.imageFileLocations count] > 0) {
         self.navigationItem.leftBarButtonItem = nil; // if there's an image we must be viewing an existing artwork. Hence, remove the 'cancel' button present when creating an artwork.
-    } else {
-        self.deleteBarButtonItem.tintColor = [UIColor clearColor];
-        self.deleteBarButtonItem.enabled = NO;
     }
     
     UICollectionViewFlowLayout *layout = (UICollectionViewFlowLayout *)self.imageCollectionView.collectionViewLayout;
@@ -122,27 +139,34 @@ static const int MAXIMUM_ZOOM_SCALE = 4;
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
     if ([segue.identifier isEqualToString:SELECT_ARTIST_SEGUE]) {
-        if ([segue.destinationViewController isMemberOfClass:[UINavigationController class]]) {
-            UINavigationController *navController = (UINavigationController *)segue
-            .destinationViewController;
-            if ([[navController.viewControllers firstObject] isMemberOfClass:[SelectArtistCDTVC class]]) {
-                SelectArtistCDTVC *selectArtistVC = (SelectArtistCDTVC *)[navController.viewControllers firstObject];
-                selectArtistVC.context = self.context;
-                selectArtistVC.selectedArtist = self.artwork.artist;
-            }
-        }
+        UINavigationController *navController = (UINavigationController *)segue
+        .destinationViewController;
+        SelectArtistCDTVC *selectArtistVC = (SelectArtistCDTVC *)navController.viewControllers[0];
+        selectArtistVC.context = self.context;
+        selectArtistVC.selectedArtist = self.artwork.artist;
     }
 }
 
 -(BOOL)shouldPerformSegueWithIdentifier:(NSString *)identifier sender:(id)sender
 {
-    if ([identifier isEqualToString:ADD_ARTWORK_UNWINDSEG]) {
+    if ([identifier isEqualToString:ADD_ARTWORK_UNWINDSEG]) { // unwinding self
         if ([self.artwork.title length] == 0 || [self.artwork.imageFileLocations count] == 0) {
             [self presentViewController:[UIAlertController OKAlertWithMessage:@"Artwork title or image not set"] animated:YES completion:NULL];
             return NO;
         }
+        if (!self.artwork.artist) {
+            self.artwork.artist = [Artist artistWithName:@"No Artist" inManagedObjectContext:self.context];
+        }
     }
     return YES;
+}
+
+-(void)done:(UIStoryboardSegue *)segue
+{
+    if ([segue.identifier isEqualToString:SELECT_ARTIST_UNWINDSEG]) {
+        SelectArtistCDTVC *artistSelection = (SelectArtistCDTVC *)segue.sourceViewController;
+        self.artwork.artist = artistSelection.selectedArtist;
+    }
 }
 
 #pragma mark - Actions
@@ -164,62 +188,32 @@ static const int MAXIMUM_ZOOM_SCALE = 4;
     [self presentViewController:changeTitleAlert animated:YES completion:NULL];
 }
 
--(IBAction)done:(UIStoryboardSegue *)segue
-{
-    if ([segue.identifier isEqualToString:SELECT_ARTIST_UNWINDSEG]) {
-        if ([segue.sourceViewController isMemberOfClass:[SelectArtistCDTVC class]]) {
-            SelectArtistCDTVC *artistSelection = (SelectArtistCDTVC *)segue.sourceViewController;
-            self.artwork.artist = artistSelection.selectedArtist;
-        }
-    }
-}
-
 -(void)selectImageWithSourceType:(UIImagePickerControllerSourceType)sourceType
 {
     if ([UIImagePickerController isSourceTypeAvailable:sourceType]) {
         UIImagePickerController *imagePicker = [[UIImagePickerController alloc] init];
         imagePicker.sourceType = sourceType;
         imagePicker.delegate = self;
-        //imagePicker.allowsEditing = YES;
         [self presentViewController:imagePicker animated:YES completion:NULL];
     } else {
         [self presentViewController:[UIAlertController OKAlertWithMessage:@"Sorry, that option is not available on your device"] animated:YES completion:NULL];
     }
 }
 
-- (IBAction)addPhotoToArtwork:(UIBarButtonItem *)sender
-{
-    UIAlertController *addPhotoAlert = [UIAlertController alertControllerWithTitle:nil message:nil preferredStyle:UIAlertControllerStyleActionSheet];
-    
-    [addPhotoAlert addAction:[UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:NULL]];
-    
-    [addPhotoAlert addAction:[UIAlertAction actionWithTitle:@"Take photo" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
-        [self selectImageWithSourceType:UIImagePickerControllerSourceTypeCamera];
-    }]];
-    
-    [addPhotoAlert addAction:[UIAlertAction actionWithTitle:@"Choose photo" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
-        [self selectImageWithSourceType:UIImagePickerControllerSourceTypePhotoLibrary];
-    }]];
-    
-    [self presentViewController:addPhotoAlert animated:YES completion:NULL];
-}
-
--(void)deleteAndExit
+- (IBAction)cancel:(UIBarButtonItem *)sender
 {
     [self.artwork deleteFromDatabase];
     [self.presentingViewController dismissViewControllerAnimated:YES completion:NULL];
 }
 
-- (IBAction)cancel:(UIBarButtonItem *)sender
+- (IBAction)deleteCurrentPhoto:(UIBarButtonItem *)sender
 {
-    [self deleteAndExit];
-}
-
-- (IBAction)deleteCurrentArtwork:(UIBarButtonItem *)sender
-{
-    [self presentViewController:[UIAlertController YesNoAlertWithMessage:@"Are you sure you want to delete this artwork?" andHandler:^(UIAlertAction *action, UIAlertController *alertVC) {
-        [self deleteAndExit];
-    }] animated:YES completion:NULL];
+    NSIndexPath *currentlyDisplayedItemPath = self.imageCollectionView.indexPathsForVisibleItems[0];
+    if ([self.artwork.imageFileLocations count] > currentlyDisplayedItemPath.item) {
+        [self.artwork.imageFileLocations[currentlyDisplayedItemPath.item] deleteFromDatabase];
+        [self.context save:nil];
+        [self.imageCollectionView deleteItemsAtIndexPaths:@[currentlyDisplayedItemPath]];
+    }
 }
 
 #pragma mark - UIImagePickerControllerDelegate
@@ -230,7 +224,7 @@ static const int MAXIMUM_ZOOM_SCALE = 4;
     if (info[UIImagePickerControllerReferenceURL]) { // chose an existing photo
         imageFileLocation = [[PhotoLibraryInterface shared] localIdentifierForALAssetURL:info[UIImagePickerControllerReferenceURL]];
         ImageFileLocation *fileLocation = [ImageFileLocation newImageLocationWithLocation:imageFileLocation inContext:self.context];
-        [self.artwork addImageFileLocationsObject:fileLocation];
+        fileLocation.artwork = self.artwork;
     } else { // took a new photo
         UIImage *artworkImage = info[UIImagePickerControllerOriginalImage];
         [[PhotoLibraryInterface shared] localIdentifierForImage:artworkImage completion:^(NSString *identifier) {
@@ -245,8 +239,8 @@ static const int MAXIMUM_ZOOM_SCALE = 4;
     
     if (currPhotoIdx == 0) {
         CLLocation *location = [[PhotoLibraryInterface shared] locationForImageWithLocalIdentifier:imageFileLocation];
-        self.artwork.location.lattitude = location.coordinate.latitude;
-        self.artwork.location.longitude = location.coordinate.longitude;
+        self.artwork.lattitude = location.coordinate.latitude;
+        self.artwork.longitude = location.coordinate.longitude;
     }
 
     [self dismissViewControllerAnimated:YES completion:NULL];

@@ -53,8 +53,6 @@
 
 -(void)doubleTap:(UIGestureRecognizer *)gestureRecognizer
 {
-    NSLog(@"double tapped");
-    
     if (self.scrollView.zoomScale > self.minZoomScale) {
         [self.scrollView setZoomScale:self.minZoomScale animated:YES];
     } else if (self.scrollView.zoomScale == self.minZoomScale) {

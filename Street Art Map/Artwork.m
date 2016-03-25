@@ -8,7 +8,6 @@
 
 #import "Artwork.h"
 #import "Artist.h"
-#import "Location.h"
 #import "ImageFileLocation.h"
 
 @implementation Artwork
@@ -32,6 +31,7 @@
                                                 inManagedObjectContext:context];
         artwork.title = title;
         artwork.artist = artist;
+        artwork.uploadDate = [NSDate dateWithTimeIntervalSinceNow:0];
         artwork.defaultImageIdx = 0;
         artwork.imageFileLocations = [[NSOrderedSet alloc] init];
     }
@@ -54,40 +54,13 @@
     }
 }
 
-/*-(void)setTitle:(NSString *)title
+-(CLLocationCoordinate2D)coordinate
 {
-    title = title;
-    self.lastEditDate = [NSDate date];
-}*/
-
-/*-(void)setTitle:(NSString *)title
- {
- [self setPrimitiveValue:title forKey:@"Title"];
- self.lastEditDate = [NSDate date];
- }
- 
- -(void)setArtist:(Artist *)artist
- {
- [self setPrimitiveValue:artist forKey:@"Artist"];
- self.lastEditDate = [NSDate date];
- }
- 
- -(void)setImageLocation:(NSString *)imageLocation
- {
- [self setPrimitiveValue:imageLocation forKey:@"ImageLocation"];
- self.lastEditDate = [NSDate date];
- }
- 
- -(void)setLattitude:(NSNumber *)lattitude
- {
- [self setPrimitiveValue:lattitude forKey:@"Lattitude"];
- self.lastEditDate = [NSDate date];
- }
- 
- -(void)setLongitude:(NSNumber *)longitude
- {
- [self setPrimitiveValue:longitude forKey:@"Longitude"];
- self.lastEditDate = [NSDate date];
- }*/
+    CLLocationCoordinate2D coordinate;
+    coordinate.latitude = self.lattitude;
+    coordinate.longitude = self.longitude;
+    
+    return coordinate;
+}
 
 @end

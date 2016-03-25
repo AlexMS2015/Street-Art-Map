@@ -87,6 +87,11 @@
 
 #pragma mark - UICollectionViewDataSource
 
+-(UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
+{
+    return nil;
+}
+
 -(NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
     id <NSFetchedResultsSectionInfo> sectionInfo = [[self.fetchedResultsController sections] objectAtIndex:section];
@@ -96,8 +101,6 @@
 {
     return [[self.fetchedResultsController sections] count];
 }
-
-
 
 -(UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath
 {
@@ -159,7 +162,7 @@
 
 -(void)controllerDidChangeContent:(NSFetchedResultsController *)controller
 {
-    [self.collectionView performBatchUpdates:^{
+    /*[self.collectionView performBatchUpdates:^{
         
         for (NSDictionary *dict in self.sectionChanges) {
             
@@ -195,8 +198,10 @@
                         [self.collectionView reloadItemsAtIndexPaths:@[obj]];
                         break;
                     case NSFetchedResultsChangeMove:
+                    {
                         [self.collectionView moveItemAtIndexPath:obj[0] toIndexPath:obj[1]];
                         break;
+                    }
                     default:
                         break;
                 }
@@ -205,7 +210,8 @@
     } completion:NULL];
     
     [self.itemChanges removeAllObjects];
-    [self.sectionChanges removeAllObjects];
+    [self.sectionChanges removeAllObjects];*/
+    [self.collectionView reloadData];
 }
 
 @end

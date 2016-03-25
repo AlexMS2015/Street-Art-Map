@@ -16,7 +16,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 +(Artist *)artistWithName:(NSString *)name inManagedObjectContext:(NSManagedObjectContext *)context;
 -(void)deleteFromDatabase;
--(BOOL)isEqualToArtist:(Artist *)artist;
 
 @end
 

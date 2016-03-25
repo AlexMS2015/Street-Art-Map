@@ -8,16 +8,19 @@
 
 #import <Foundation/Foundation.h>
 #import <CoreData/CoreData.h>
+#import <MapKit/MapKit.h>
 @class Artist, Location;
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface Artwork : NSManagedObject
+@interface Artwork : NSManagedObject <MKAnnotation>
 
 +(Artwork *)artworkWithTitle:(NSString *)title artist:(Artist *)artist inContext:(NSManagedObjectContext *)context;
 -(void)deleteFromDatabase;
 
 -(NSString *)defaultImageLocation;
+
+-(CLLocationCoordinate2D)coordinate;
 
 @end
 

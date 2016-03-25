@@ -21,7 +21,7 @@
     NSFetchRequest *recentsRequest = [NSFetchRequest fetchRequestWithEntityName:@"Artwork"];
     
     // first sort recently added artworks by date and then title
-    NSSortDescriptor *dateSort = [NSSortDescriptor sortDescriptorWithKey:@"lastEditDate"
+    NSSortDescriptor *dateSort = [NSSortDescriptor sortDescriptorWithKey:@"uploadDate"
                                                                ascending:NO];
     NSSortDescriptor *titleSort = [NSSortDescriptor sortDescriptorWithKey:@"title"
                                                             ascending:YES

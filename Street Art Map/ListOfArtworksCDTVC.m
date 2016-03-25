@@ -47,21 +47,17 @@ static NSString * const VIEW_ARTWORK_SEGUE = @"View Artwork";
 {
     if ([segue.identifier isEqualToString:ADD_ARTWORK_SEGUE] || [segue.identifier isEqualToString:VIEW_ARTWORK_SEGUE]) {
         
-        if ([segue.destinationViewController isMemberOfClass:[UINavigationController class]]) {
-            UINavigationController *navController = (UINavigationController *)segue.destinationViewController;
-            if ([[navController.viewControllers firstObject] isMemberOfClass:[AddAndViewArtworkVC class]]) {
-                AddAndViewArtworkVC *addAndViewArtworkVC = (AddAndViewArtworkVC *)[navController.viewControllers firstObject];
-                
-                if ([segue.identifier isEqualToString:VIEW_ARTWORK_SEGUE]) {
-                    if ([sender isKindOfClass:[UITableViewCell class]]) {
-                        UITableViewCell *selectedArtwork = (UITableViewCell *)sender;
-                        NSIndexPath *pathOfSelectedArtwork = [self.tableView indexPathForCell:selectedArtwork];
-                        [addAndViewArtworkVC loadExistingArtwork:[self.fetchedResultsController objectAtIndexPath:pathOfSelectedArtwork]];
-                    }
-                } else {
-                    [addAndViewArtworkVC newArtworkWithTitle:nil andArtist:nil inContext:self.context];
-                }
+        UINavigationController *navController = (UINavigationController *)segue.destinationViewController;
+        AddAndViewArtworkVC *addAndViewArtworkVC = (AddAndViewArtworkVC *)navController.viewControllers[0];
+
+        if ([segue.identifier isEqualToString:VIEW_ARTWORK_SEGUE]) {
+            if ([sender isKindOfClass:[UITableViewCell class]]) {
+                UITableViewCell *selectedArtwork = (UITableViewCell *)sender;
+                NSIndexPath *pathOfSelectedArtwork = [self.tableView indexPathForCell:selectedArtwork];
+                [addAndViewArtworkVC loadExistingArtwork:[self.fetchedResultsController objectAtIndexPath:pathOfSelectedArtwork]];
             }
+        } else {
+            [addAndViewArtworkVC newArtworkWithTitle:nil andArtist:nil inContext:self.context];
         }
     }
 }
@@ -100,10 +96,7 @@ static NSString * const VIEW_ARTWORK_SEGUE = @"View Artwork";
     cell.titleLabel.text = artwork.title;
     cell.artistLabel.text = artwork.artist.name;
     cell.artworkImageView.image = nil;
-    
-    NSDateFormatter *lastEditDateFormatter = [[NSDateFormatter alloc] init];
-    lastEditDateFormatter.dateStyle = NSDateFormatterMediumStyle;
-    cell.lastEditDateLabel.text = [lastEditDateFormatter stringFromDate:artwork.lastEditDate];
+    cell.dateForDateLabel = artwork.uploadDate;
     
     if (cell.tag != 0) // cancel any existing requests on the cell (perhaps the cell is being re-used as the user has scrolled)
         [[PhotoLibraryInterface shared] cancelRequestWithID:(PHImageRequestID)cell.tag];

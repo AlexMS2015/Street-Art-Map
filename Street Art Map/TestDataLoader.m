@@ -33,6 +33,7 @@
         for (int i = 0; i < [testArtistNames count]; i++) {
             NSString *artistName = testArtistNames[i];
             NSRange range = NSMakeRange(i * numArtworksPerArtist, numArtworksPerArtist);
+            //NSRange range = NSMakeRange(0, 16);
             testData[artistName] = [testImageNames subarrayWithRange:range];
         }
         
@@ -41,13 +42,18 @@
             
             for (NSString *imageName in testData[artistName]) {
                 Artwork *newArtwork = [Artwork artworkWithTitle:imageName artist:newArtist inContext:context];
-                UIImage *artworkImage = [UIImage imageNamed:imageName];
                 
+                UIImage *artworkImage = [UIImage imageNamed:imageName];
                 [[PhotoLibraryInterface shared] localIdentifierForImage:artworkImage completion:^(NSString *identifier) {
                     NSString *imageFileLocation = identifier;
                     ImageFileLocation *fileLocation = [ImageFileLocation newImageLocationWithLocation:imageFileLocation inContext:context];
-                    [newArtwork addImageFileLocationsObject:fileLocation];
+                    fileLocation.artwork = newArtwork;
+                    //[newArtwork addImageFileLocationsObject:fileLocation];
                 }];
+                
+                newArtwork.lattitude = (16 + arc4random() % (42-16));
+                newArtwork.lattitude *= -1;
+                newArtwork.longitude = 115 + arc4random() % (151-115);
             }
         }
     }

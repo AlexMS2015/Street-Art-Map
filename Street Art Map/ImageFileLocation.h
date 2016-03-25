@@ -14,6 +14,7 @@ NS_ASSUME_NONNULL_BEGIN
 @interface ImageFileLocation : NSManagedObject
 
 +(ImageFileLocation *)newImageLocationWithLocation:(NSString *)location inContext:(NSManagedObjectContext *)context;
+-(void)deleteFromDatabase;
 
 @end
 

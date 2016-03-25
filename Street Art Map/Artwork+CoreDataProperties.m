@@ -2,7 +2,7 @@
 //  Artwork+CoreDataProperties.m
 //  Street Art Map
 //
-//  Created by Alex Smith on 18/02/2016.
+//  Created by Alex Smith on 25/03/2016.
 //  Copyright © 2016 Alex Smith. All rights reserved.
 //
 //  Choose "Create NSManagedObject Subclass…" from the Core Data editor menu
@@ -13,12 +13,12 @@
 
 @implementation Artwork (CoreDataProperties)
 
+@dynamic defaultImageIdx;
 @dynamic title;
 @dynamic uploadDate;
-@dynamic lastEditDate;
-@dynamic defaultImageIdx;
+@dynamic lattitude;
+@dynamic longitude;
 @dynamic artist;
-@dynamic location;
 @dynamic imageFileLocations;
 
 @end
