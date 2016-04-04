@@ -103,7 +103,7 @@ static const int MAXIMUM_ZOOM_SCALE = 4;
     
         ImageFileLocation *imageLocation = self.artwork.imageFileLocations[indexPath.item];
         NSString *imageLocationIdentifier = imageLocation.fileLocation;
-        
+
         [[PhotoLibraryInterface shared] imageWithLocalIdentifier:imageLocationIdentifier size:cell.bounds.size completion:^(UIImage *image) {
             cell.imageView.image = image;
         } cached:NO];
