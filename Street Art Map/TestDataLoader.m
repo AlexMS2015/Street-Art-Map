@@ -22,7 +22,7 @@
         shared = [[self alloc] init];
         
         NSMutableArray *testImageNames = [NSMutableArray array];
-        NSArray *testArtistNames = @[@"Lister", @"Banksy", @"Alex", @"Stacey"];
+        NSArray *testArtistNames = @[@"Artist1", @"Artist2", @"Artist3", @"Artist4"];
         NSMutableDictionary *testData = [NSMutableDictionary dictionary];
         
         for (int imageNum = 1; imageNum <= 16; imageNum++) {
