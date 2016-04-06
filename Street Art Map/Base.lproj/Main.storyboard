@@ -5,22 +5,6 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8154"/>
     </dependencies>
     <scenes>
-        <!--Navigation Controller-->
-        <scene sceneID="aSe-aD-Sex">
-            <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="aMc-P1-jxb" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <navigationController id="m7T-tg-AJV" sceneMemberID="viewController">
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="PpF-ZP-Bb6">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                    </navigationBar>
-                    <connections>
-                        <segue destination="JSh-F8-HVY" kind="relationship" relationship="rootViewController" id="Xhh-2e-4RO"/>
-                    </connections>
-                </navigationController>
-            </objects>
-            <point key="canvasLocation" x="137" y="-572"/>
-        </scene>
         <!--Street Art Map-->
         <scene sceneID="5ib-C6-exE">
             <objects>
@@ -75,8 +59,6 @@
         <!--Add Artwork-->
         <scene sceneID="INf-Ot-SeB">
             <objects>
-                <exit id="iaj-Rm-lM8" userLabel="Exit" sceneMemberID="exit"/>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="Dup-gT-6yb" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <viewController id="U4G-UC-dUa" customClass="AddAndViewArtworkVC" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="hpf-ag-cTR"/>
@@ -213,6 +195,8 @@
                         <outlet property="view" destination="55l-Ki-aXf" id="hhj-0w-ZR5"/>
                     </connections>
                 </viewController>
+                <exit id="iaj-Rm-lM8" userLabel="Exit" sceneMemberID="exit"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Dup-gT-6yb" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1877.5" y="714.5"/>
         </scene>
@@ -372,7 +356,6 @@
         <!--Navigation Controller-->
         <scene sceneID="izd-jM-toS">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="u4J-Tp-gNl" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" toolbarHidden="NO" id="wD5-RQ-0zd" sceneMemberID="viewController">
                     <toolbarItems/>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
@@ -391,6 +374,7 @@
                         <segue destination="U4G-UC-dUa" kind="relationship" relationship="rootViewController" id="Bf8-JM-Fo0"/>
                     </connections>
                 </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="u4J-Tp-gNl" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1273" y="715"/>
         </scene>
@@ -474,7 +458,6 @@
         <!--Artists-->
         <scene sceneID="3sU-og-nhp">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="WjQ-Sp-rTH" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="u5u-Ru-eKj" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Artists" id="kgW-DY-Tj6"/>
                     <toolbarItems/>
@@ -487,12 +470,12 @@
                         <segue destination="20v-PQ-yIo" kind="relationship" relationship="rootViewController" id="iFa-td-1UN"/>
                     </connections>
                 </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="WjQ-Sp-rTH" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2596.5" y="714.5"/>
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
         <segue reference="5gL-eG-eAC"/>
-        <segue reference="iXZ-6g-FOr"/>
     </inferredMetricsTieBreakers>
 </document>
